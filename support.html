@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Support: Tempo</title>
+<meta name="description" content="Get help with Tempo — setup, integrations, beta access, billing, privacy, and troubleshooting. Browse common questions or contact our team." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="legal.css" />
+<style>
+/* Support page */
+.support-hero{text-align:center;max-width:660px;margin:0 auto}
+.support-hero .legal-title{margin-bottom:14px}
+.support-lead{
+  font-size:1.0625rem;
+  color:var(--ink-dim);
+  line-height:1.6;
+  margin:0 auto 28px;
+  max-width:34rem;
+}
+.support-cta-row{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+.btn-primary{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:13px 24px;border-radius:10px;
+  background:var(--ink);color:#fff;
+  font-weight:600;font-size:14px;letter-spacing:-.01em;
+  transition:transform .2s ease, box-shadow .2s ease;
+}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 8px 22px rgba(0,0,0,.14)}
+.btn-secondary{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:13px 24px;border-radius:10px;
+  border:1px solid var(--line-strong);background:var(--bg-elevated);color:var(--ink);
+  font-weight:600;font-size:14px;letter-spacing:-.01em;
+  transition:border-color .2s ease, color .2s ease;
+}
+.btn-secondary:hover{border-color:var(--accent);color:var(--accent)}
+.btn-primary svg,.btn-secondary svg{width:16px;height:16px}
+
+.support-section{margin-top:clamp(48px,7vw,76px)}
+.support-section-head{text-align:center;margin-bottom:30px}
+.support-section-head h2{
+  font-size:clamp(1.4rem,3vw,1.875rem);
+  font-weight:700;letter-spacing:var(--tracking-tight);
+  margin-bottom:8px;
+}
+.support-section-head p{color:var(--ink-dim);font-size:15px}
+
+.support-grid{display:grid;grid-template-columns:1fr;gap:16px}
+@media(min-width:600px){.support-grid{grid-template-columns:1fr 1fr}}
+@media(min-width:900px){.support-grid{grid-template-columns:1fr 1fr 1fr}}
+.support-card{
+  display:block;
+  padding:24px;
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:var(--bg-elevated);
+  transition:border-color .25s ease, box-shadow .3s ease, transform .25s ease;
+}
+.support-card:hover{
+  border-color:rgba(65,101,229,.3);
+  box-shadow:0 14px 32px rgba(65,101,229,.08);
+  transform:translateY(-2px);
+}
+.support-card .icon{
+  width:42px;height:42px;border-radius:11px;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--accent-muted);color:var(--accent);
+  margin-bottom:16px;
+}
+.support-card .icon svg{width:21px;height:21px}
+.support-card h3{
+  font-size:15px;font-weight:700;color:var(--ink);
+  margin-bottom:6px;letter-spacing:-.01em;
+  display:flex;align-items:center;gap:6px;
+}
+.support-card h3 .arrow{color:var(--ink-dim);transition:transform .2s ease}
+.support-card:hover h3 .arrow{transform:translateX(3px);color:var(--accent)}
+.support-card p{font-size:13.5px;color:var(--ink-dim);line-height:1.55}
+
+/* FAQ accordion */
+.faq-group{scroll-margin-top:90px}
+.faq-group h3{
+  font-size:12px;font-weight:700;text-transform:uppercase;
+  letter-spacing:.12em;color:var(--ink-dim);
+  margin:32px 0 12px;
+}
+.faq-group:first-of-type h3{margin-top:0}
+.faq-item{
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:var(--bg-elevated);
+  margin-bottom:10px;
+  overflow:hidden;
+  transition:border-color .25s ease, box-shadow .3s ease;
+}
+.faq-item[open]{
+  border-color:rgba(65,101,229,.25);
+  box-shadow:0 8px 24px rgba(65,101,229,.06);
+}
+.faq-item summary{
+  list-style:none;cursor:pointer;
+  padding:16px 18px;min-height:54px;
+  font-size:15px;font-weight:600;color:var(--ink);
+  letter-spacing:-.01em;
+  display:flex;justify-content:space-between;align-items:center;gap:12px;
+  -webkit-tap-highlight-color:transparent;
+}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::after{content:"+";font-size:18px;font-weight:400;color:var(--ink-dim);flex-shrink:0}
+.faq-item[open] summary::after{content:"\2212"}
+.faq-body{padding:0 18px 16px}
+.faq-body p{font-size:14px;color:var(--ink-soft);line-height:1.65;margin-bottom:8px}
+.faq-body p:last-child{margin-bottom:0}
+.faq-body ol,.faq-body ul{margin:6px 0 10px;padding-left:20px}
+.faq-body li{font-size:14px;color:var(--ink-soft);line-height:1.6;margin-bottom:6px}
+.faq-body li:last-child{margin-bottom:0}
+.faq-body a{color:var(--accent);text-decoration:underline;text-underline-offset:2px}
+.faq-wrap{max-width:var(--doc-max);margin:0 auto}
+@keyframes faq-open{
+  from{opacity:0;transform:translateY(-6px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.faq-item[open] .faq-body{animation:faq-open .28s cubic-bezier(.22,1,.36,1) both}
+@media(prefers-reduced-motion:reduce){
+  .faq-item[open] .faq-body{animation:none}
+}
+
+/* Contact panel */
+.support-contact{
+  margin-top:clamp(48px,7vw,76px);
+  border:1px solid rgba(65,101,229,.22);
+  border-radius:18px;
+  background:linear-gradient(180deg, rgba(65,101,229,.06) 0%, var(--bg-elevated) 55%);
+  padding:clamp(30px,5vw,48px);
+  text-align:center;
+}
+.support-contact h2{
+  font-size:clamp(1.4rem,3vw,1.875rem);
+  font-weight:700;letter-spacing:var(--tracking-tight);
+  margin-bottom:10px;
+}
+.support-contact > p{
+  color:var(--ink-dim);font-size:15px;line-height:1.6;
+  max-width:34rem;margin:0 auto 22px;
+}
+.support-meta{
+  display:flex;flex-wrap:wrap;justify-content:center;
+  gap:18px 40px;margin-top:30px;padding-top:26px;
+  border-top:1px solid var(--line);
+}
+.support-meta .item{min-width:140px}
+.support-meta strong{display:block;color:var(--ink);font-weight:600;font-size:14px;margin-bottom:3px}
+.support-meta span{font-size:13px;color:var(--ink-dim)}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a href="index.html" class="logo">
+    <svg class="logo-icon" width="34" height="34" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <rect x="0" y="0" width="16" height="16" rx="3.5" fill="var(--ink)"/>
+      <rect x="20" y="0" width="16" height="16" rx="3.5" fill="#4165e5"/>
+      <rect x="0" y="20" width="16" height="16" rx="3.5" fill="#b0c4f5"/>
+      <path d="M28 20C28 24.4 31.6 28 36 28C31.6 28 28 31.6 28 36C28 31.6 24.4 28 20 28C24.4 28 28 24.4 28 20Z" fill="#4165e5"/>
+    </svg>
+    Tempo
+  </a>
+  <div class="nav-links">
+    <a href="index.html#how">How it works</a>
+    <a href="index.html#integrations">Integrations</a>
+    <a href="index.html#preview">The app</a>
+    <a href="index.html#pricing">Pricing</a>
+    <a href="index.html#faq">FAQ</a>
+  </div>
+  <a href="index.html#waitlist" class="nav-cta">Join the Beta</a>
+</nav>
+
+<main class="legal-main">
+  <div class="legal-wrap">
+
+    <!-- Hero -->
+    <section class="support-hero">
+      <p class="section-label">Support</p>
+      <h1 class="legal-title">How can we help?</h1>
+      <p class="support-lead">Find answers to common questions about setting up Tempo, connecting your tools, the beta, billing, and your data. Can't find what you need? Our team is one email away.</p>
+      <div class="support-cta-row">
+        <a class="btn-primary" href="mailto:tempo.calendar.ai@gmail.com?subject=Tempo%20Support">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16v16H4z" opacity="0"/><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+          Email support
+        </a>
+        <a class="btn-secondary" href="#faq">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+          Browse FAQs
+        </a>
+      </div>
+    </section>
+
+    <!-- Browse by topic -->
+    <section class="support-section" aria-label="Help topics">
+      <div class="support-section-head">
+        <h2>Browse by topic</h2>
+        <p>Jump straight to the answers you're looking for.</p>
+      </div>
+      <div class="support-grid">
+        <a class="support-card" href="#getting-started">
+          <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12h2"/><path d="M4 12a8 8 0 0 1 8-8c4 0 6 2 7 5-3 .5-5 2-5 5 0 1.5.5 3 1 4-4 1-8-1-9-4"/><path d="M11 13a2 2 0 1 0 4 0 2 2 0 0 0-4 0z"/></svg></span>
+          <h3>Getting started <span class="arrow" aria-hidden="true">&rarr;</span></h3>
+          <p>Set up Tempo, connect your calendar, and take your first steps.</p>
+        </a>
+        <a class="support-card" href="#integrations">
+          <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 17H7A5 5 0 0 1 7 7h2"/><path d="M15 7h2a5 5 0 0 1 0 10h-2"/><line x1="8" y1="12" x2="16" y2="12"/></svg></span>
+          <h3>Integrations <span class="arrow" aria-hidden="true">&rarr;</span></h3>
+          <p>Connect Gmail, Google Calendar, Notion, and Outlook.</p>
+        </a>
+        <a class="support-card" href="#beta">
+          <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg></span>
+          <h3>Beta &amp; access <span class="arrow" aria-hidden="true">&rarr;</span></h3>
+          <p>Joining the beta, getting access, and reporting feedback.</p>
+        </a>
+        <a class="support-card" href="#billing">
+          <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></span>
+          <h3>Billing &amp; founding <span class="arrow" aria-hidden="true">&rarr;</span></h3>
+          <p>Subscriptions, founding membership, and cancellations.</p>
+        </a>
+        <a class="support-card" href="#privacy-data">
+          <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+          <h3>Privacy &amp; data <span class="arrow" aria-hidden="true">&rarr;</span></h3>
+          <p>How your data is handled, secured, and how to delete it.</p>
+        </a>
+        <a class="support-card" href="#troubleshooting">
+          <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18v3h3l6.3-6.3a4 4 0 0 0 5.4-5.4l-2.3 2.3-2-2 2.3-2.3z"/></svg></span>
+          <h3>Troubleshooting <span class="arrow" aria-hidden="true">&rarr;</span></h3>
+          <p>Fix sync, sign-in, and assistant suggestion issues.</p>
+        </a>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="support-section" id="faq" aria-label="Frequently asked questions">
+      <div class="support-section-head">
+        <h2>Frequently asked questions</h2>
+        <p>The quick answers to what people ask us most.</p>
+      </div>
+
+      <div class="faq-wrap">
+        <div class="faq-group" id="getting-started">
+          <h3>Getting started</h3>
+          <details class="faq-item">
+            <summary>How do I get started with Tempo?</summary>
+            <div class="faq-body">
+              <p>Once you have access, open Tempo and follow the one-time setup to connect the tools you use. Tempo syncs your calendar and connected apps in the background, then starts surfacing planning suggestions, briefings, and drafts. Everything is a suggestion until you approve it.</p>
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary>Which platforms is Tempo available on?</summary>
+            <div class="faq-body">
+              <p>Right now Tempo is a native iPhone app in private beta. When we publicly release, Tempo will also be available on desktop and Android. Release and App Store timing will be announced as we get closer.</p>
+            </div>
+          </details>
+        </div>
+
+        <div class="faq-group" id="integrations">
+          <h3>Integrations</h3>
+          <details class="faq-item">
+            <summary>How do I connect Gmail, Google Calendar, Notion, or Outlook?</summary>
+            <div class="faq-body">
+              <p>You connect your tools from the <strong>Updates</strong> page in Tempo. Open Updates, choose the service you'd like to connect, and sign in securely with that provider to grant Tempo the permissions it needs.</p>
+              <p>Gmail, Google Calendar, and Outlook are ready to use as soon as they're connected. Notion takes one extra step, which is covered below.</p>
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary>How do I set up the Notion integration?</summary>
+            <div class="faq-body">
+              <p>Notion takes a couple of extra steps so you decide exactly which pages Tempo can access:</p>
+              <ol>
+                <li>Go to the <strong>Updates</strong> page and connect Notion.</li>
+                <li>Open <strong>Settings</strong> and choose which Notion pages Tempo is allowed to use.</li>
+                <li>Click <strong>Save</strong>.</li>
+              </ol>
+              <p>Once you've saved your selection, the Notion integration is ready to use.</p>
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary>Does Tempo send emails or change my calendar without asking?</summary>
+            <div class="faq-body">
+              <p>No. Tempo prepares drafts and proposed calendar changes for you to review. Nothing is sent and nothing moves on your calendar until you approve it.</p>
+            </div>
+          </details>
+        </div>
+
+        <div class="faq-group" id="beta">
+          <h3>Beta &amp; access</h3>
+          <details class="faq-item">
+            <summary>How do I join the beta and get access?</summary>
+            <div class="faq-body">
+              <p>Join the waitlist on our <a href="index.html#waitlist">home page</a>. Most invites go out by email within 48 hours. If you don't see it, please check your spam or promotions folder. Prefer to get in right away? You can also <a href="index.html#pricing">become a founding member</a>.</p>
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary>How do I report a bug or suggest a feature?</summary>
+            <div class="faq-body">
+              <p>We'd love to hear it. Email <a href="mailto:tempo.calendar.ai@gmail.com?subject=Tempo%20feedback">tempo.calendar.ai@gmail.com</a> with a short description. For bugs, including your device, operating system, and the steps that led to the issue helps us fix things faster.</p>
+            </div>
+          </details>
+        </div>
+
+        <div class="faq-group" id="billing">
+          <h3>Billing &amp; founding</h3>
+          <details class="faq-item">
+            <summary>How much does Tempo cost?</summary>
+            <div class="faq-body">
+              <p>Tempo is $6.99 AUD per month for everyone. You can also become a founding member for a one-time $7.99 AUD payment, which includes a two-week beta trial, your first month free after that, and then an exclusive $4.99 AUD per month rate locked in for good.</p>
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary>What does becoming a Founding Member include?</summary>
+            <div class="faq-body">
+              <p>Founding members get instant access to the private beta with no waitlist, founding pricing locked in for good, a direct line to the founders, a say in the roadmap, and founding member recognition in the app. You can become one from the <a href="index.html#pricing">pricing section</a>.</p>
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary>How do I cancel my subscription?</summary>
+            <div class="faq-body">
+              <p>You can cancel anytime. All billing is handled securely through Stripe, so there is no App Store subscription to manage. To cancel or change your plan, email <a href="mailto:tempo.calendar.ai@gmail.com?subject=Tempo%20billing">tempo.calendar.ai@gmail.com</a> and we'll take care of it right away.</p>
+            </div>
+          </details>
+        </div>
+
+        <div class="faq-group" id="privacy-data">
+          <h3>Privacy &amp; data</h3>
+          <details class="faq-item">
+            <summary>How is my data used and protected?</summary>
+            <div class="faq-body">
+              <p>We use your data to run the assistant features you enable, and we don't sell your personal information. Data is encrypted in transit and at rest, with access controls and regular security reviews. Full details are in our <a href="privacy.html">Privacy Policy</a>.</p>
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary>How do I delete my account and data?</summary>
+            <div class="faq-body">
+              <p>Email <a href="mailto:tempo.calendar.ai@gmail.com?subject=Delete%20my%20account">tempo.calendar.ai@gmail.com</a> from your account address and we'll process the deletion. We delete or anonymise your data within 30 days, except where the law requires us to keep certain records.</p>
+            </div>
+          </details>
+        </div>
+
+        <div class="faq-group" id="troubleshooting">
+          <h3>Troubleshooting</h3>
+          <details class="faq-item">
+            <summary>My calendar or email isn't syncing. What should I do?</summary>
+            <div class="faq-body">
+              <p>First, open the <strong>Updates</strong> page and confirm the integration is still connected. Reconnecting the service there usually resolves sync issues. For Notion, also check that your allowed pages are still selected in <strong>Settings</strong>. If it persists, email us with the affected service and roughly when it last worked, and we'll investigate.</p>
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary>I can't sign in or access the app.</summary>
+            <div class="faq-body">
+              <p>Make sure you're using the email address your invite was sent to, and that you've accepted the TestFlight invitation. If you're still stuck, email <a href="mailto:tempo.calendar.ai@gmail.com?subject=Cannot%20access%20Tempo">tempo.calendar.ai@gmail.com</a> and we'll get you in.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="support-contact" aria-label="Contact support">
+      <h2>Still need a hand?</h2>
+      <p>Our team is small, responsive, and genuinely happy to help. Send us a message and we'll get back to you, usually within one business day.</p>
+      <a class="btn-primary" href="mailto:tempo.calendar.ai@gmail.com?subject=Tempo%20Support">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+        tempo.calendar.ai@gmail.com
+      </a>
+      <div class="support-meta">
+        <div class="item">
+          <strong>Response time</strong>
+          <span>Usually within 1 business day</span>
+        </div>
+        <div class="item">
+          <strong>Hours</strong>
+          <span>Mon&ndash;Fri, Brisbane (AEST)</span>
+        </div>
+        <div class="item">
+          <strong>Helpful to include</strong>
+          <span>Your device, OS, and what happened</span>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  <div class="foot">
+    <div>
+      <div class="foot-brand">
+        <svg width="26" height="26" viewBox="0 0 36 36" fill="none" aria-hidden="true">
+          <rect x="0" y="0" width="16" height="16" rx="3.5" fill="var(--ink)"/>
+          <rect x="20" y="0" width="16" height="16" rx="3.5" fill="#4165e5"/>
+          <rect x="0" y="20" width="16" height="16" rx="3.5" fill="#b0c4f5"/>
+          <path d="M28 20C28 24.4 31.6 28 36 28C31.6 28 28 31.6 28 36C28 31.6 24.4 28 20 28C24.4 28 28 24.4 28 20Z" fill="#4165e5"/>
+        </svg>
+        Tempo
+      </div>
+      <p class="foot-tag">An AI executive assistant with a calendar interface. Desktop and mobile software, built in Brisbane.</p>
+    </div>
+    <div class="foot-links">
+      <a href="index.html">Home</a>
+      <a href="support.html">Support</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+      <a href="mailto:tempo.calendar.ai@gmail.com">Contact</a>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>© 2026 Tempo AU</span>
+    <span>Made in Brisbane</span>
+  </div>
+</footer>
+
+<script>
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 8);
+}, { passive: true });
+</script>
+</body>
+</html>

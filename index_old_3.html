@@ -1,0 +1,5002 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Tempo: The AI study assistant for UQ students.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&family=JetBrains+Mono:wght@300;400;500&family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --bg:#0a0b10;
+  --bg-2:#0d0f17;
+  --ink:#f2f2f5;
+  --ink-dim:#8b8b9f;
+  --ink-soft:#b8bacb;
+  --line:#1a1e2e;
+  --line-soft:#13162a;
+  --accent:#4165e5;       /* logo bright blue  */
+  --accent-2:#f7c948;     /* signal yellow     */
+  --accent-3:#7c9ef8;     /* soft blue         */
+  --accent-4:#b0c4f5;     /* logo periwinkle   */
+  --accent-5:#5d7ff5;     /* mid blue glow     */
+  --serif:"Newsreader", "Times New Roman", serif;
+  --sans:"Geist", system-ui, -apple-system, sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, monospace;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-weight:400;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+  line-height:1.5;
+  cursor:default;
+}
+
+/* ─────────  Grain overlay  ───────── */
+body::before{
+  content:"";
+  position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+  opacity:.04;
+  pointer-events:none;
+  z-index:9999;
+  mix-blend-mode:overlay;
+}
+
+::selection{background:var(--accent);color:#0a0a0b}
+
+/* ─────────  Custom Cursor  ───────── */
+.cursor{
+  position:fixed;width:12px;height:12px;border-radius:50%;
+  background:var(--accent);
+  pointer-events:none;z-index:10000;
+  transform:translate(-50%,-50%);
+  transition:width .25s ease,height .25s ease,background .25s ease;
+  mix-blend-mode:difference;
+  display:none;
+}
+@media(hover:hover){.cursor{display:block}}
+.cursor.active{width:60px;height:60px;background:var(--accent-2)}
+
+/* ─────────  NAV  ───────── */
+nav{
+  position:fixed;top:0;left:0;right:0;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:20px 40px;z-index:100;
+  backdrop-filter:blur(20px);
+  background:rgba(9,11,20,.7);
+  border-bottom:1px solid transparent;
+  transition:border-color .3s ease;
+}
+nav.scrolled{border-bottom-color:var(--line)}
+.logo{
+  font-family:var(--sans);
+  font-size:22px;font-weight:700;
+  letter-spacing:-.04em;
+  display:flex;align-items:center;gap:10px;
+  color:var(--ink);
+  text-decoration:none;
+}
+.logo-icon{
+  display:block;
+  flex-shrink:0;
+}
+.nav-links{display:flex;gap:32px;font-size:13px;color:var(--ink-dim);font-family:var(--mono)}
+.nav-links a{color:inherit;text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--ink)}
+.nav-cta{
+  font-family:var(--sans);font-size:13px;font-weight:500;
+  background:var(--ink);color:var(--bg);
+  padding:10px 18px;border-radius:100px;
+  text-decoration:none;
+  transition:transform .2s, background .2s, color .2s, box-shadow .2s;
+  letter-spacing:-.005em;
+}
+.nav-cta:hover{
+  transform:translateY(-1px);
+  background:var(--accent);
+  color:#fff;
+  box-shadow:0 8px 20px -6px rgba(65,101,229,.5);
+}
+@media(max-width:760px){
+  .nav-links{display:none}
+  nav{padding:16px 20px}
+}
+
+/* ─────────  HERO  ───────── */
+.hero{
+  min-height:100vh;
+  position:relative;
+  display:flex;flex-direction:column;
+  justify-content:center;align-items:center;
+  padding:120px 24px 100px;
+  overflow:hidden;
+}
+/* faint grid bg */
+.hero::before{
+  content:"";position:absolute;inset:0;
+  background-image:
+    linear-gradient(var(--line-soft) 1px,transparent 1px),
+    linear-gradient(90deg,var(--line-soft) 1px,transparent 1px);
+  background-size:80px 80px;
+  mask-image:radial-gradient(ellipse at center,#000 30%,transparent 70%);
+  -webkit-mask-image:radial-gradient(ellipse at center,#000 30%,transparent 70%);
+  opacity:.5;
+  pointer-events:none;
+}
+/* ambient orb */
+.hero::after{
+  content:"";position:absolute;
+  width:800px;height:800px;
+  left:50%;top:50%;
+  transform:translate(-50%,-50%);
+  background:radial-gradient(circle,rgba(65,101,229,.18) 0%,transparent 60%);
+  pointer-events:none;
+  filter:blur(60px);
+  z-index:0;
+}
+
+.eyebrow{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:var(--mono);font-size:11px;
+  text-transform:uppercase;letter-spacing:.18em;
+  color:var(--ink-dim);
+  padding:8px 16px;
+  border:1px solid var(--line);
+  border-radius:100px;
+  background:rgba(20,20,22,.6);
+  backdrop-filter:blur(10px);
+  position:relative;z-index:2;
+  margin-bottom:32px;
+  opacity:0;animation:reveal .8s ease forwards;
+}
+.eyebrow .dot{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--accent-4);
+  box-shadow:0 0 10px var(--accent-4);
+  animation:blink 2s ease-in-out infinite;
+}
+@keyframes blink{50%{opacity:.3}}
+
+h1.hero-title{
+  font-family:var(--serif);
+  font-size:clamp(56px,10.5vw,180px);
+  font-weight:400;
+  line-height:.94;
+  letter-spacing:-.038em;
+  text-align:center;
+  max-width:1200px;
+  position:relative;z-index:2;
+  font-variation-settings:"opsz" 72;
+}
+h1.hero-title .line{
+  display:block;
+}
+h1.hero-title .word{
+  display:inline-block;
+  opacity:0;
+  transform:translateY(40px);
+  animation:revealUp 1s cubic-bezier(.2,.8,.2,1) forwards;
+}
+h1.hero-title .word:nth-child(1){animation-delay:.05s}
+h1.hero-title .word:nth-child(2){animation-delay:.15s}
+h1.hero-title .word:nth-child(3){animation-delay:.25s}
+h1.hero-title .word:nth-child(4){animation-delay:.35s}
+h1.hero-title .word:nth-child(5){animation-delay:.45s}
+h1.hero-title em{
+  font-style:italic;
+  font-weight:400;
+  background:linear-gradient(135deg,var(--accent-3) 0%,var(--accent) 60%,var(--accent-5) 100%);
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+  letter-spacing:-.025em;
+  padding-right:.04em;
+  position:relative;
+}
+h1.hero-title em::after{
+  content:"";
+  position:absolute;
+  left:6%;right:6%;bottom:.08em;height:.04em;
+  background:linear-gradient(90deg,transparent,var(--accent),transparent);
+  opacity:.35;
+  filter:blur(2px);
+}
+@keyframes revealUp{to{opacity:1;transform:translateY(0)}}
+@keyframes reveal{to{opacity:1}}
+
+.hero-sub{
+  margin-top:36px;font-size:19px;color:var(--ink-soft);
+  text-align:center;max-width:560px;
+  position:relative;z-index:2;
+  opacity:0;animation:reveal 1s ease .8s forwards;
+  line-height:1.55;
+  font-weight:300;
+  letter-spacing:-.005em;
+}
+.hero-sub strong{
+  color:var(--ink);font-weight:500;
+}
+
+.hero-cta-row{
+  margin-top:40px;display:flex;gap:14px;align-items:center;
+  flex-wrap:wrap;justify-content:center;
+  position:relative;z-index:2;
+  opacity:0;animation:reveal 1s ease 1s forwards;
+}
+
+#waitlist{scroll-margin-top:88px}
+.waitlist-form{
+  margin-top:44px;
+  position:relative;z-index:2;
+  display:flex;align-items:center;gap:8px;
+  width:100%;max-width:520px;
+  padding:6px;
+  border-radius:100px;
+  background:rgba(20,22,34,.65);
+  border:1px solid rgba(255,255,255,.12);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.04) inset,
+    0 30px 60px -20px rgba(0,0,0,.5),
+    0 0 80px -20px rgba(65,101,229,.25);
+  opacity:0;animation:reveal 1s ease 1s forwards;
+  transition:border-color .25s ease, box-shadow .25s ease;
+}
+.waitlist-form:focus-within{
+  border-color:rgba(124,158,248,.55);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.06) inset,
+    0 30px 60px -20px rgba(0,0,0,.5),
+    0 0 0 1px rgba(65,101,229,.25),
+    0 0 80px -20px rgba(65,101,229,.45);
+}
+.waitlist-input-wrap{
+  flex:1;display:flex;align-items:center;gap:12px;
+  padding:4px 8px 4px 16px;min-width:0;
+  border-radius:100px;
+  border:1px solid rgba(255,255,255,.14);
+  background:rgba(6,8,14,.5);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+  transition:border-color .22s ease, box-shadow .22s ease, background .22s ease;
+}
+.waitlist-form:focus-within .waitlist-input-wrap{
+  border-color:rgba(124,158,248,.5);
+  background:rgba(8,10,18,.62);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.07),
+    0 0 0 1px rgba(65,101,229,.12);
+}
+.waitlist-icon{
+  width:16px;height:16px;color:var(--ink-dim);flex-shrink:0;
+}
+.waitlist-input{
+  flex:1;min-width:0;
+  background:transparent;border:none;outline:none;
+  font-family:var(--sans);font-size:15px;
+  color:var(--ink);
+  padding:14px 0;
+  letter-spacing:-.005em;
+}
+.waitlist-input::placeholder{color:var(--ink-dim);font-weight:300}
+.waitlist-input:focus::placeholder{opacity:.5}
+.waitlist-submit{
+  margin:0;padding:13px 22px;
+  flex-shrink:0;
+}
+.waitlist-form.submitted .waitlist-submit{
+  background:#1f8c5b;color:#fff;
+}
+.waitlist-form.submitted .btn-label::after{content:" ✓"}
+
+.waitlist-meta{
+  margin-top:18px;
+  position:relative;z-index:2;
+  font-family:var(--mono);font-size:11px;
+  color:var(--ink-dim);
+  text-transform:uppercase;letter-spacing:.12em;
+  opacity:0;animation:reveal 1s ease 1.15s forwards;
+  display:flex;align-items:center;gap:14px;
+  flex-wrap:wrap;justify-content:center;
+}
+.waitlist-success{display:none;color:var(--accent-3);text-transform:none;letter-spacing:-.01em;font-family:var(--sans);font-size:14px;font-weight:400}
+.waitlist-form.submitted ~ .waitlist-meta .waitlist-success{display:inline}
+
+.watch-link{
+  margin-top:24px;
+  position:relative;z-index:2;
+  opacity:0;animation:reveal 1s ease 1.3s forwards;
+}
+
+@media(max-width:560px){
+  .waitlist-form{flex-direction:column;border-radius:18px;padding:8px;gap:6px}
+  .waitlist-input-wrap{padding:6px 8px 6px 16px;width:100%}
+  .waitlist-submit{width:100%;justify-content:center}
+}
+.btn-primary{
+  background:var(--ink);color:var(--bg);
+  padding:16px 30px;border-radius:100px;
+  font-weight:500;font-size:15px;
+  text-decoration:none;
+  display:inline-flex;align-items:center;gap:10px;
+  transition:transform .25s cubic-bezier(.2,.8,.2,1), box-shadow .25s ease, background .25s ease, color .25s ease;
+  border:none;cursor:pointer;
+  position:relative;overflow:hidden;
+  letter-spacing:-.005em;
+}
+.btn-primary:hover{
+  background:var(--accent);
+  color:#fff;
+  transform:translateY(-2px);
+  box-shadow:0 14px 30px -10px rgba(65,101,229,.6),0 0 0 1px rgba(255,255,255,.05) inset;
+}
+.btn-primary svg{width:14px;height:14px;transition:transform .25s ease}
+.btn-primary:hover svg{transform:translateX(4px)}
+.btn-secondary{
+  color:var(--ink-dim);font-size:14px;
+  font-family:var(--mono);
+  padding:16px 8px;
+  text-decoration:none;
+  display:inline-flex;align-items:center;gap:8px;
+  transition:color .2s;
+}
+.btn-secondary:hover{color:var(--ink)}
+.btn-secondary .play{
+  width:24px;height:24px;border-radius:50%;
+  border:1px solid var(--line);
+  display:grid;place-items:center;
+  transition:border-color .2s,background .2s;
+}
+.btn-secondary:hover .play{border-color:var(--accent);background:var(--accent);color:var(--bg)}
+
+/* ─── Hero floating calendar mock ─── */
+.hero-mock{
+  margin-top:90px;width:100%;max-width:1100px;
+  position:relative;z-index:2;
+  opacity:0;animation:reveal 1.2s ease 1.2s forwards;
+}
+.mock-frame{
+  position:relative;
+  border:1px solid var(--line);
+  border-radius:16px;
+  background:linear-gradient(180deg,#0e0e10 0%, #0a0a0b 100%);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.02) inset,
+    0 60px 120px -30px rgba(65,101,229,.2),
+    0 30px 60px -15px rgba(0,0,0,.6);
+  overflow:hidden;
+}
+.mock-tabs{
+  display:flex;align-items:center;gap:6px;
+  padding:12px 16px;
+  border-bottom:1px solid var(--line);
+  background:#0d0d0f;
+}
+.mock-tabs .tlights{display:flex;gap:6px;margin-right:14px}
+.mock-tabs .tlights span{width:11px;height:11px;border-radius:50%;background:#222}
+.mock-tabs .tlights span:first-child{background:#ff5f57}
+.mock-tabs .tlights span:nth-child(2){background:#febc2e}
+.mock-tabs .tlights span:nth-child(3){background:#28c840}
+.mock-search{
+  flex:1;font-family:var(--mono);font-size:11px;
+  color:var(--ink-dim);text-align:center;
+}
+
+.mock-body{
+  display:grid;
+  grid-template-columns:230px 1fr;
+  min-height:420px;
+}
+.mock-side{
+  border-right:1px solid var(--line);
+  padding:20px 14px;
+  display:flex;flex-direction:column;gap:6px;
+  background:#0c0c0e;
+}
+.mock-side h4{
+  font-family:var(--mono);font-size:10px;
+  text-transform:uppercase;letter-spacing:.15em;
+  color:var(--ink-dim);font-weight:400;
+  margin:14px 6px 6px;
+}
+.mock-side h4:first-child{margin-top:0}
+.mock-task{
+  display:flex;align-items:center;gap:10px;
+  padding:8px 10px;border-radius:8px;
+  font-size:13px;
+  cursor:pointer;
+  transition:background .15s;
+}
+.mock-task:hover{background:#16161a}
+.mock-task .dot-c{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.mock-task .meta{margin-left:auto;font-family:var(--mono);font-size:10px;color:var(--ink-dim)}
+.mock-task.dragging{
+  background:#16161a;
+  border:1px dashed var(--accent);
+}
+
+.mock-cal{
+  position:relative;
+  display:grid;
+  grid-template-columns:50px repeat(5,1fr);
+  font-size:11px;
+}
+.mock-cal-head{
+  display:contents;
+}
+.mock-cal-head > div{
+  padding:14px 10px;font-family:var(--mono);
+  border-bottom:1px solid var(--line);
+  color:var(--ink-dim);
+  text-transform:uppercase;letter-spacing:.1em;
+  font-size:10px;
+}
+.mock-cal-head > div .day{color:var(--ink);font-size:14px;font-family:var(--sans);font-weight:500;display:block;margin-top:2px}
+.mock-cal-head > div.today .day{color:var(--accent)}
+.hour-col{
+  display:flex;flex-direction:column;
+  border-right:1px solid var(--line);
+}
+.hour-col .h{
+  height:40px;padding:4px 8px;
+  font-family:var(--mono);font-size:9px;
+  color:var(--ink-dim);
+  text-align:right;
+  border-bottom:1px solid var(--line-soft);
+}
+.day-col{
+  position:relative;
+  border-right:1px solid var(--line);
+  display:flex;flex-direction:column;
+}
+.day-col:last-child{border-right:none}
+.day-col .slot{
+  height:40px;
+  border-bottom:1px solid var(--line-soft);
+}
+.event{
+  position:absolute;left:6px;right:6px;
+  border-radius:6px;
+  padding:6px 8px;
+  font-size:11px;
+  background:rgba(91,140,255,.12);
+  border-left:2px solid var(--accent-3);
+  color:#cdd6e8;
+  overflow:hidden;
+  cursor:pointer;
+  transition:transform .2s, box-shadow .2s;
+}
+.event:hover{transform:scale(1.02);box-shadow:0 6px 18px rgba(0,0,0,.3)}
+.event .ev-title{font-weight:500;color:#fff;font-size:11px;line-height:1.2;display:block;margin-bottom:2px}
+.event .ev-time{font-family:var(--mono);font-size:9px;opacity:.7}
+.event.lime{background:rgba(176,196,245,.1);border-left-color:var(--accent-4);color:#c8d8f8}
+.event.amber{background:rgba(247,201,72,.12);border-left-color:var(--accent-2);color:#f0dfa8}
+.event.coral{background:rgba(65,101,229,.14);border-left-color:var(--accent);color:#ccd6f6}
+.event.coral .ev-title{color:#fff}
+
+/* AI ghost suggestion */
+.event.ghost{
+  background:repeating-linear-gradient(45deg,rgba(65,101,229,.1) 0 4px,transparent 4px 8px);
+  border:1px dashed var(--accent);
+  border-left:2px dashed var(--accent);
+  animation:ghostPulse 2.5s ease-in-out infinite;
+}
+@keyframes ghostPulse{50%{opacity:.6}}
+.event.ghost .ev-title{color:var(--accent)}
+
+/* AI prompt chip floating over hero mock */
+.ai-chip{
+  position:absolute;
+  bottom:-26px;left:50%;transform:translateX(-50%);
+  background:#141417;
+  border:1px solid var(--line);
+  padding:14px 22px 14px 18px;
+  border-radius:100px;
+  display:flex;align-items:center;gap:14px;
+  font-size:13px;
+  box-shadow:0 20px 40px -10px rgba(0,0,0,.5);
+  white-space:nowrap;
+}
+.ai-chip .ai-dot{
+  width:8px;height:8px;border-radius:50%;
+  background:linear-gradient(45deg,var(--accent),var(--accent-2));
+  box-shadow:0 0 10px var(--accent);
+  animation:blink 1.5s ease-in-out infinite;
+}
+.ai-chip .ai-text{color:var(--ink-dim)}
+.ai-chip .ai-text strong{color:var(--ink);font-weight:500}
+.ai-chip kbd{
+  font-family:var(--mono);font-size:10px;
+  background:#0a0a0b;border:1px solid var(--line);
+  padding:3px 6px;border-radius:4px;
+  color:var(--ink-dim);
+}
+
+/* logos strip */
+.logos{
+  margin-top:120px;
+  text-align:center;
+  position:relative;z-index:2;
+}
+.logos-label{
+  font-family:var(--mono);font-size:11px;
+  text-transform:uppercase;letter-spacing:.2em;
+  color:var(--ink-dim);
+  margin-bottom:24px;
+}
+.logos-row{
+  display:flex;gap:48px;justify-content:center;
+  flex-wrap:wrap;
+  font-family:var(--serif);font-size:24px;
+  font-style:italic;font-weight:400;
+  color:var(--ink-dim);
+  opacity:.7;
+  letter-spacing:-.01em;
+}
+.logos-row span{transition:color .2s}
+.logos-row span:hover{color:var(--ink)}
+
+/* ─────────  SECTION TEMPLATE  ───────── */
+section{
+  position:relative;
+  padding:120px 24px;
+}
+.container{max-width:1200px;margin:0 auto}
+
+.section-eyebrow{
+  font-family:var(--mono);font-size:11px;
+  text-transform:uppercase;letter-spacing:.2em;
+  color:var(--accent);
+  margin-bottom:24px;
+  display:flex;align-items:center;gap:10px;
+}
+.section-eyebrow::before{
+  content:"";width:24px;height:1px;background:var(--accent);
+}
+
+.section-title{
+  font-family:var(--serif);
+  font-size:clamp(40px,5.8vw,84px);
+  font-weight:400;
+  line-height:1;
+  letter-spacing:-.025em;
+  max-width:900px;
+  font-variation-settings:"opsz" 60;
+}
+.section-title em{
+  font-style:italic;
+  font-weight:500;
+  background:linear-gradient(135deg,var(--accent-3),var(--accent));
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+/* --- Sticky scroll: functions visualization (Akiflow-inspired) --- */
+.functions{
+  background:var(--bg);
+  position:relative;
+  border-top:1px solid var(--line);
+}
+
+.func-intro{
+  text-align:center;
+  max-width:800px;margin:0 auto 80px;
+}
+.func-intro p{
+  margin-top:24px;color:var(--ink-dim);font-size:18px;
+  line-height:1.55;
+}
+
+/* The sticky scroll piece */
+.func-scroll{
+  position:relative;
+  /* determines how long the scroll story plays */
+}
+.func-sticky{
+  position:sticky;top:0;
+  height:100vh;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  align-items:center;
+  gap:80px;
+  padding:0 24px;
+  max-width:1300px;margin:0 auto;
+}
+.func-text{
+  position:relative;
+}
+.func-step{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;justify-content:center;
+  opacity:0;transform:translateY(20px);
+  transition:opacity .6s ease, transform .6s ease;
+  pointer-events:none;
+}
+.func-step.active{opacity:1;transform:translateY(0);pointer-events:auto}
+.func-step .num{
+  font-family:var(--mono);font-size:11px;
+  color:var(--accent);letter-spacing:.2em;
+  margin-bottom:20px;
+}
+.func-step h3{
+  font-family:var(--serif);font-size:clamp(40px,5vw,72px);
+  font-weight:400;line-height:1;
+  letter-spacing:-.025em;
+  margin-bottom:24px;
+  font-variation-settings:"opsz" 60;
+}
+.func-step h3 em{
+  font-style:italic;
+  font-weight:500;
+  background:linear-gradient(135deg,var(--accent-3),var(--accent));
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.func-step p{
+  color:var(--ink-dim);font-size:17px;line-height:1.6;
+  max-width:460px;
+}
+.func-step .feat-list{
+  margin-top:28px;display:flex;flex-direction:column;gap:10px;
+}
+.func-step .feat-list li{
+  list-style:none;font-size:14px;
+  display:flex;align-items:center;gap:12px;
+  color:var(--ink-dim);
+  font-family:var(--mono);
+}
+.func-step .feat-list li::before{
+  content:"";width:14px;height:1px;background:var(--ink-dim);
+}
+
+.func-wait-rail{
+  position:fixed;
+  left:0;right:0;bottom:0;
+  z-index:45;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:12px 20px;
+  padding:12px 24px;
+  padding-bottom:max(12px, env(safe-area-inset-bottom));
+  background:linear-gradient(180deg, transparent, rgba(10,11,16,.94) 35%);
+  backdrop-filter:blur(16px) saturate(1.2);
+  -webkit-backdrop-filter:blur(16px) saturate(1.2);
+  border-top:1px solid rgba(255,255,255,.06);
+  font-size:13px;
+  line-height:1.45;
+  color:var(--ink-soft);
+  opacity:0;
+  transform:translateY(110%);
+  transition:opacity .4s ease, transform .45s cubic-bezier(.2,.8,.2,1);
+  pointer-events:none;
+}
+.func-wait-rail.show{
+  opacity:1;
+  transform:translateY(0);
+  pointer-events:auto;
+}
+.func-wait-rail[hidden]{display:none!important}
+.func-wait-rail .func-wait-msg{
+  margin:0;
+  max-width:min(520px, 90vw);
+  text-align:center;
+  letter-spacing:-.01em;
+}
+.func-wait-cta{
+  flex-shrink:0;
+  font-family:var(--sans);
+  font-size:12px;font-weight:600;
+  padding:9px 18px;
+  border-radius:100px;
+  background:var(--accent);
+  color:#fff;
+  text-decoration:none;
+  letter-spacing:-.01em;
+  border:1px solid transparent;
+  transition:transform .2s, box-shadow .2s, background .2s;
+  white-space:nowrap;
+}
+.func-wait-cta:hover{
+  transform:translateY(-1px);
+  box-shadow:0 10px 26px -8px rgba(65,101,229,.5);
+  color:#fff;
+  background:var(--accent-5);
+}
+
+.func-vis{
+  position:relative;
+  aspect-ratio:1/1;
+  max-width:540px;
+  width:100%;justify-self:center;
+  border:1px solid var(--line);
+  border-radius:24px;
+  background:radial-gradient(ellipse at top,rgba(65,101,229,.1),transparent 50%),
+             linear-gradient(180deg,#0e0e10,#0a0a0b);
+  overflow:hidden;
+  box-shadow:0 30px 60px -20px rgba(0,0,0,.5);
+}
+.vis-stage{
+  position:absolute;inset:0;
+  opacity:0;transform:scale(.96);
+  transition:opacity .7s cubic-bezier(.2,.8,.2,1), transform .7s cubic-bezier(.2,.8,.2,1);
+}
+.vis-stage.active{opacity:1;transform:scale(1)}
+
+/* Stage 1: Inbox capture */
+.stage-1{padding:32px;display:flex;flex-direction:column;gap:14px;justify-content:center}
+.inbox-item{
+  display:flex;align-items:center;gap:14px;
+  padding:16px;border:1px solid var(--line);
+  border-radius:12px;
+  background:#111114;
+  font-size:13px;
+  opacity:0;transform:translateX(-30px);
+  animation:slideIn .6s ease forwards;
+}
+.stage-1.active .inbox-item:nth-child(1){animation-delay:.1s}
+.stage-1.active .inbox-item:nth-child(2){animation-delay:.25s}
+.stage-1.active .inbox-item:nth-child(3){animation-delay:.4s}
+.stage-1.active .inbox-item:nth-child(4){animation-delay:.55s}
+@keyframes slideIn{to{opacity:1;transform:translateX(0)}}
+.inbox-item .src{
+  width:28px;height:28px;border-radius:6px;
+  display:grid;place-items:center;
+  font-family:var(--mono);font-weight:500;
+  font-size:11px;flex-shrink:0;
+}
+.inbox-item.gmail .src{background:#ea4335;color:#fff}
+.inbox-item.slack .src{background:#4a154b;color:#fff}
+.inbox-item.linear .src{background:#5e6ad2;color:#fff}
+.inbox-item.notion .src{background:#fff;color:#000}
+.inbox-item .title{flex:1;font-weight:500}
+.inbox-item .arrow{
+  font-family:var(--mono);color:var(--ink-dim);
+  opacity:0;transition:opacity .3s, transform .3s;
+  transform:translateX(-4px);
+}
+.stage-1.active .inbox-item .arrow{
+  opacity:1;transform:translateX(0);
+  transition-delay:.8s;
+}
+.inbox-item .tag{
+  font-family:var(--mono);font-size:10px;
+  padding:3px 8px;border-radius:100px;
+  background:rgba(176,196,245,.1);color:var(--accent-4);
+  border:1px solid rgba(176,196,245,.2);
+}
+
+/* Stage 2: Auto time-blocking */
+.stage-2{padding:24px;display:flex;flex-direction:column}
+.tb-head{
+  display:flex;justify-content:space-between;
+  font-family:var(--mono);font-size:10px;
+  color:var(--ink-dim);text-transform:uppercase;
+  letter-spacing:.15em;margin-bottom:14px;
+  padding:0 4px;
+}
+.tb-grid{
+  flex:1;
+  display:grid;
+  grid-template-rows:repeat(8,1fr);
+  gap:6px;position:relative;
+}
+.tb-slot{
+  border:1px dashed var(--line);
+  border-radius:6px;
+  position:relative;
+  font-family:var(--mono);font-size:9px;
+  color:var(--ink-dim);
+  padding:4px 8px;
+}
+.tb-block{
+  position:absolute;left:0;right:0;
+  border-radius:8px;padding:8px 12px;
+  font-size:12px;font-weight:500;
+  display:flex;align-items:center;gap:8px;
+  opacity:0;transform:scaleY(.4);transform-origin:top;
+  transition:opacity .5s ease, transform .5s cubic-bezier(.2,.8,.2,1);
+  border:1px solid;
+}
+.stage-2.active .tb-block{opacity:1;transform:scaleY(1)}
+.stage-2.active .tb-block:nth-of-type(1){transition-delay:.2s}
+.stage-2.active .tb-block:nth-of-type(2){transition-delay:.45s}
+.stage-2.active .tb-block:nth-of-type(3){transition-delay:.7s}
+.stage-2.active .tb-block:nth-of-type(4){transition-delay:.95s}
+.tb-block.deep{
+  background:rgba(65,101,229,.14);
+  border-color:rgba(65,101,229,.3);
+  color:#ccd6f6;
+}
+.tb-block.meet{
+  background:rgba(91,140,255,.14);
+  border-color:rgba(91,140,255,.3);
+  color:#cdd6e8;
+}
+.tb-block.admin{
+  background:rgba(247,201,72,.12);
+  border-color:rgba(247,201,72,.3);
+  color:#f0dfa8;
+}
+.tb-block.break{
+  background:rgba(176,196,245,.1);
+  border-color:rgba(176,196,245,.25);
+  color:#c8d8f8;
+}
+.tb-block .lbl{font-family:var(--mono);font-size:9px;opacity:.7;margin-left:auto}
+
+/* Stage 3: Conflict resolution */
+.stage-3{padding:32px;display:flex;flex-direction:column;justify-content:center;gap:20px}
+.conflict-card{
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:#111114;
+  padding:18px;
+  display:flex;flex-direction:column;gap:14px;
+}
+.conflict-head{
+  display:flex;align-items:center;gap:10px;
+  font-size:12px;color:var(--ink-dim);
+  font-family:var(--mono);
+}
+.conflict-head .alert{
+  width:18px;height:18px;border-radius:50%;
+  background:var(--accent);display:grid;place-items:center;
+  color:var(--bg);font-weight:700;font-size:11px;
+}
+.conflict-events{display:flex;flex-direction:column;gap:8px}
+.conflict-events .event{
+  position:relative;
+  left:0;right:0;width:100%;
+  padding:10px 12px;
+}
+.conflict-action{
+  display:flex;gap:8px;
+  opacity:0;transform:translateY(8px);
+  transition:opacity .5s ease, transform .5s ease;
+  transition-delay:.6s;
+}
+.stage-3.active .conflict-action{opacity:1;transform:translateY(0)}
+.conflict-action button{
+  flex:1;padding:10px;
+  font-family:var(--sans);font-size:12px;font-weight:500;
+  border-radius:8px;border:1px solid var(--line);
+  background:transparent;color:var(--ink);
+  cursor:pointer;transition:all .2s;
+}
+.conflict-action button.primary{
+  background:var(--accent);color:var(--bg);border-color:var(--accent);
+}
+.conflict-action button:hover{transform:translateY(-1px)}
+
+/* Stage 4: Tempo AI chat demo */
+.stage-4{
+  padding:20px 24px;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-start;
+  align-items:stretch;
+  min-height:0;
+}
+.agent-demo{
+  border:1px solid var(--line);
+  border-radius:16px;
+  background:linear-gradient(165deg,rgba(18,20,32,.97) 0%,rgba(10,11,16,.99) 100%);
+  overflow:hidden;
+  flex:1;
+  min-height:0;
+  display:flex;
+  flex-direction:column;
+  width:100%;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.03) inset,
+    0 24px 56px -24px rgba(0,0,0,.55);
+}
+.agent-demo-head{
+  display:flex;align-items:center;gap:10px;
+  padding:11px 14px;
+  border-bottom:1px solid var(--line);
+  font-family:var(--sans);
+  font-size:12px;font-weight:600;
+  letter-spacing:-.02em;
+  color:var(--ink);
+  flex-shrink:0;
+}
+.agent-demo-head span:not(.agent-live){color:var(--ink-soft);font-weight:500}
+.agent-dot{
+  width:8px;height:8px;border-radius:50%;
+  background:linear-gradient(135deg,var(--accent-4),var(--accent));
+  box-shadow:0 0 12px rgba(65,101,229,.45);
+  flex-shrink:0;
+}
+.agent-live{
+  margin-left:auto;
+  font-family:var(--mono);font-size:9px;font-weight:500;
+  text-transform:uppercase;letter-spacing:.12em;
+  color:#5fdc9c;
+  display:inline-flex;align-items:center;gap:6px;
+}
+.agent-live::before{
+  content:"";width:6px;height:6px;border-radius:50%;
+  background:#5fdc9c;
+  box-shadow:0 0 8px #5fdc9c;
+  animation:blink 1.5s ease-in-out infinite;
+}
+.agent-thread{
+  padding:14px 14px 18px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  flex:1;
+  min-height:0;
+  overflow-y:auto;
+  overflow-x:hidden;
+  scroll-behavior:smooth;
+  overscroll-behavior:contain;
+  -webkit-overflow-scrolling:touch;
+}
+.agent-thread::-webkit-scrollbar{width:5px}
+.agent-thread::-webkit-scrollbar-thumb{
+  background:rgba(255,255,255,.12);
+  border-radius:999px;
+}
+.agent-thread::-webkit-scrollbar-track{background:transparent}
+.agent-msg-user{
+  align-self:flex-end;
+  max-width:94%;
+  border-radius:14px 14px 4px 14px;
+  padding:11px 14px;
+  background:rgba(65,101,229,.14);
+  border:1px solid rgba(65,101,229,.28);
+  opacity:0;
+  transform:translateY(12px);
+  transition:opacity .45s cubic-bezier(.2,.8,.2,1), transform .45s cubic-bezier(.2,.8,.2,1);
+}
+.stage-4.active .agent-thread>.agent-msg-user:nth-child(1){
+  opacity:1;
+  transform:translateY(0);
+  transition-delay:.12s;
+}
+.stage-4.active .agent-thread>.agent-msg-user:nth-child(3){
+  opacity:1;
+  transform:translateY(0);
+  transition-delay:2.35s;
+}
+.agent-msg-user .agent-label{
+  display:block;
+  font-family:var(--mono);font-size:9px;
+  text-transform:uppercase;letter-spacing:.1em;
+  color:var(--accent-3);
+  margin-bottom:5px;
+}
+.agent-msg-user p{
+  margin:0;
+  font-size:12.5px;line-height:1.4;
+  color:var(--ink);
+  letter-spacing:-.01em;
+}
+.agent-msg-tempo{
+  border-radius:14px 14px 14px 4px;
+  padding:11px 14px 12px;
+  background:rgba(255,255,255,.035);
+  border:1px solid var(--line-soft);
+  position:relative;
+}
+.agent-msg-tempo .agent-label{
+  display:block;
+  font-family:var(--mono);font-size:9px;
+  text-transform:uppercase;letter-spacing:.1em;
+  color:var(--ink-dim);
+  margin-bottom:8px;
+}
+.agent-typing{
+  display:flex;align-items:center;gap:5px;
+  min-height:22px;
+  opacity:1;
+  transition:opacity .3s ease, min-height .3s ease, height .3s ease, margin .3s ease;
+}
+.agent-typing span{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--accent-3);
+  animation:agentTypingDot .9s ease-in-out infinite;
+}
+.agent-typing span:nth-child(2){animation-delay:.15s}
+.agent-typing span:nth-child(3){animation-delay:.3s}
+@keyframes agentTypingDot{
+  0%,100%{opacity:.35;transform:translateY(1px)}
+  50%{opacity:1;transform:translateY(-1px)}
+}
+/* Second Tempo reply: show typing only after the second “You” bubble is in */
+@keyframes agentTempo2TypingTrack{
+  0%,57.9%{
+    opacity:0;
+    min-height:0;
+    max-height:0;
+    margin-bottom:0;
+  }
+  58%,72.9%{
+    opacity:1;
+    min-height:22px;
+    max-height:100px;
+  }
+  73%,100%{
+    opacity:0;
+    min-height:0;
+    max-height:0;
+    margin-bottom:0;
+  }
+}
+.agent-body{
+  opacity:0;
+  transform:translateY(6px);
+  max-height:0;
+  overflow:hidden;
+  transition:
+    opacity .4s ease,
+    transform .4s cubic-bezier(.2,.8,.2,1),
+    max-height .5s ease;
+}
+.stage-4:not(.active) .agent-typing span{animation-play-state:paused}
+.stage-4.active .agent-msg-tempo:nth-child(2) .agent-typing{
+  opacity:0;
+  min-height:0;
+  height:0;
+  margin-bottom:0!important;
+  overflow:hidden;
+  pointer-events:none;
+  gap:0;
+  transition-delay:.75s;
+}
+.stage-4.active .agent-msg-tempo:nth-child(2) .agent-typing span{
+  animation:none;
+  opacity:0;
+  transition:opacity .2s ease;
+  transition-delay:.75s;
+}
+.stage-4.active .agent-msg-tempo:nth-child(2) .agent-body{
+  opacity:1;
+  transform:translateY(0);
+  max-height:320px;
+  transition-delay:.95s;
+}
+.stage-4:not(.active) .agent-msg-tempo:nth-child(4) .agent-typing{
+  animation:none;
+}
+.stage-4.active .agent-msg-tempo:nth-child(4) .agent-typing{
+  overflow:hidden;
+  pointer-events:none;
+  animation:agentTempo2TypingTrack 5s linear forwards;
+}
+.stage-4.active .agent-msg-tempo:nth-child(4) .agent-typing span:nth-child(1){
+  animation:agentTypingDot .9s ease-in-out infinite;
+  animation-delay:2.9s;
+}
+.stage-4.active .agent-msg-tempo:nth-child(4) .agent-typing span:nth-child(2){
+  animation:agentTypingDot .9s ease-in-out infinite;
+  animation-delay:3.05s;
+}
+.stage-4.active .agent-msg-tempo:nth-child(4) .agent-typing span:nth-child(3){
+  animation:agentTypingDot .9s ease-in-out infinite;
+  animation-delay:3.2s;
+}
+.stage-4.active .agent-msg-tempo:nth-child(4) .agent-body{
+  opacity:1;
+  transform:translateY(0);
+  max-height:340px;
+  transition-delay:3.85s;
+}
+.agent-body p{
+  margin:0 0 9px;
+  font-size:12.5px;line-height:1.45;
+  color:var(--ink-soft);
+}
+.agent-body p.agent-lead{color:var(--ink);font-weight:500}
+.agent-body ul{
+  margin:0 0 10px;padding-left:18px;
+  font-size:12px;line-height:1.4;
+  color:var(--ink-soft);
+}
+.agent-body li{margin-bottom:5px}
+.agent-body strong{color:var(--ink);font-weight:600}
+.agent-body .agent-follow{
+  margin-bottom:0!important;
+  font-size:11.5px!important;
+  color:var(--accent-3)!important;
+}
+
+@media(max-width:900px){
+  .func-sticky{
+    grid-template-columns:1fr;
+    gap:40px;
+    padding:80px 20px;
+    height:auto;position:relative;
+  }
+  .func-text{min-height:240px}
+  .func-step{position:relative;display:none}
+  .func-step.active{display:flex}
+  .func-vis{aspect-ratio:1/1;max-width:420px}
+}
+
+/* ─────────  HORIZONTAL FEATURES ───────── */
+.features{
+  background:var(--bg);
+  border-top:1px solid var(--line);
+  padding:140px 0;
+}
+.features .head{
+  padding:0 24px;max-width:1200px;margin:0 auto 60px;
+  display:flex;align-items:end;justify-content:space-between;
+  gap:40px;flex-wrap:wrap;
+}
+.features .head p{
+  color:var(--ink-dim);max-width:380px;font-size:16px;line-height:1.6;
+}
+.feat-grid{
+  display:grid;
+  grid-template-columns:repeat(12,1fr);
+  gap:20px;
+  padding:0 24px;max-width:1200px;margin:0 auto;
+}
+.feat-card{
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:32px;
+  background:linear-gradient(180deg,#0e0e10,#0a0a0b);
+  position:relative;overflow:hidden;
+  transition:transform .4s ease, border-color .4s ease;
+  min-height:340px;
+  display:flex;flex-direction:column;
+}
+.feat-card:hover{
+  transform:translateY(-4px);
+  border-color:#2a2a2e;
+}
+.feat-card .lbl{
+  font-family:var(--mono);font-size:10px;
+  text-transform:uppercase;letter-spacing:.2em;
+  color:var(--accent);margin-bottom:16px;
+}
+.feat-card h3{
+  font-family:var(--serif);font-size:32px;
+  font-weight:400;line-height:1.05;
+  letter-spacing:-.02em;margin-bottom:12px;
+  font-variation-settings:"opsz" 36;
+}
+.feat-card h3 em{
+  font-style:italic;
+  font-weight:500;
+  background:linear-gradient(135deg,var(--accent-3),var(--accent));
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.feat-card p{
+  color:var(--ink-dim);font-size:14px;line-height:1.55;
+}
+.feat-card .visual{
+  margin-top:auto;padding-top:24px;
+  position:relative;flex:1;display:flex;align-items:end;
+}
+
+.feat-card.span-7{grid-column:span 7}
+.feat-card.span-5{grid-column:span 5}
+.feat-card.span-6{grid-column:span 6}
+.feat-card.span-4{grid-column:span 4}
+.feat-card.span-8{grid-column:span 8}
+@media(max-width:900px){
+  .feat-card{grid-column:span 12 !important}
+}
+
+/* feature visuals */
+.fv-search{
+  width:100%;
+  border:1px solid var(--line);border-radius:10px;
+  background:#0a0a0b;padding:14px;
+  font-family:var(--mono);font-size:12px;
+  display:flex;align-items:center;gap:10px;
+}
+.fv-search .k{
+  background:#16161a;border:1px solid var(--line);
+  padding:2px 6px;border-radius:4px;font-size:10px;
+  margin-left:auto;
+}
+.fv-search .caret{
+  width:1.5px;height:14px;background:var(--accent);
+  animation:blink 1s ease-in-out infinite;
+}
+.fv-typing{color:var(--ink)}
+
+.fv-blocks{
+  width:100%;display:flex;flex-direction:column;gap:6px;
+}
+.fv-blocks .row{
+  height:14px;border-radius:4px;
+  background:linear-gradient(90deg,var(--line) 0%,var(--line) var(--w,40%),transparent var(--w,40%));
+}
+.fv-blocks .row.active{
+  background:linear-gradient(90deg,var(--accent) 0%,var(--accent) var(--w),var(--line) var(--w));
+}
+
+.fv-clock{
+  width:140px;height:140px;border-radius:50%;
+  border:1px solid var(--line);
+  position:relative;
+  margin:0 auto;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(65,101,229,.06) 0%, transparent 55%),
+    radial-gradient(circle at 50% 50%, #0e1018 0%, #0a0b10 100%);
+  box-shadow:0 0 0 1px rgba(255,255,255,.03) inset;
+}
+/* 12 hour marks + slightly stronger marks at 12,3,6,9 */
+.fv-clock-ticks{
+  position:absolute;
+  inset:7px;
+  border-radius:50%;
+  z-index:1;
+  pointer-events:none;
+  background:
+    repeating-conic-gradient(
+      from -90deg,
+      rgba(139,139,159,.35) 0deg 1.25deg,
+      transparent 1.25deg 30deg
+    );
+  mask:radial-gradient(circle closest-side,transparent 62%,#000 63%,#000 100%);
+  -webkit-mask:radial-gradient(circle closest-side,transparent 62%,#000 63%,#000 100%);
+}
+.fv-clock-ticks::after{
+  content:"";
+  position:absolute;inset:0;
+  border-radius:50%;
+  background:repeating-conic-gradient(
+    from -90deg,
+    transparent 0deg 88deg,
+    rgba(242,242,245,.22) 88deg 92deg
+  );
+  mask:radial-gradient(circle closest-side,transparent 58%,#000 59%,#000 72%,transparent 73%);
+  -webkit-mask:radial-gradient(circle closest-side,transparent 58%,#000 59%,#000 72%,transparent 73%);
+}
+.fv-clock-hand{
+  position:absolute;
+  left:50%;
+  bottom:50%;
+  transform-origin:bottom center;
+  border-radius:2px;
+  pointer-events:none;
+}
+.fv-clock-hand-hour{
+  width:4px;
+  height:28%;
+  margin-left:-2px;
+  z-index:2;
+  background:linear-gradient(180deg,var(--ink-soft),rgba(184,186,203,.75));
+  box-shadow:0 0 6px rgba(0,0,0,.35);
+  animation:fvClockHour 96s linear infinite;
+}
+.fv-clock-hand-minute{
+  width:2px;
+  height:40%;
+  margin-left:-1px;
+  z-index:3;
+  background:linear-gradient(180deg,var(--accent-3),var(--accent));
+  box-shadow:0 0 10px rgba(65,101,229,.45);
+  animation:fvClockMin 8s linear infinite;
+}
+@media (prefers-reduced-motion:reduce){
+  .fv-clock-hand-hour,.fv-clock-hand-minute{animation:none}
+  .fv-clock-hand-hour{transform:rotate(25deg)}
+  .fv-clock-hand-minute{transform:rotate(118deg)}
+}
+@keyframes fvClockMin{
+  from{transform:rotate(0deg)}
+  to{transform:rotate(360deg)}
+}
+@keyframes fvClockHour{
+  from{transform:rotate(0deg)}
+  to{transform:rotate(360deg)}
+}
+.fv-clock .center{
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  width:10px;height:10px;
+  border-radius:50%;
+  z-index:4;
+  background:radial-gradient(circle at 35% 30%,var(--accent-4),var(--accent));
+  box-shadow:
+    0 0 0 2px rgba(10,11,16,.9),
+    0 0 14px rgba(65,101,229,.55);
+}
+
+.fv-integrations{
+  display:flex;flex-wrap:wrap;gap:10px;
+}
+.fv-integrations .pill{
+  font-family:var(--mono);font-size:11px;
+  padding:6px 12px;border-radius:100px;
+  border:1px solid var(--line);
+  background:#0c0c0e;
+  color:var(--ink-dim);
+}
+
+.feat-beta{
+  display:inline-block;
+  vertical-align:middle;
+  margin-left:12px;
+  font-family:var(--sans);
+  font-size:11px;font-weight:600;
+  font-style:normal;
+  letter-spacing:.04em;
+  -webkit-text-fill-color:initial;
+  background:linear-gradient(180deg,rgba(65,101,229,.25),rgba(40,35,70,.9));
+  color:var(--accent-3);
+  padding:5px 11px;
+  border-radius:8px;
+  border:1px solid rgba(65,101,229,.35);
+  position:relative;top:-3px;
+}
+
+.fv-focus{
+  width:100%;
+  max-width:300px;
+  margin:0 auto;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:14px;
+}
+.fv-focus-ring{
+  width:138px;height:138px;
+  border-radius:50%;
+  background:conic-gradient(from -90deg, var(--accent) 0deg, var(--accent-3) 230deg, rgba(255,255,255,.07) 230deg 360deg);
+  display:grid;place-items:center;
+  box-shadow:0 0 40px -10px rgba(65,101,229,.45);
+}
+.fv-focus-inner{
+  width:118px;height:118px;
+  border-radius:50%;
+  background:linear-gradient(180deg,#0e0e12,#0a0a0b);
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  gap:4px;
+  border:1px solid var(--line-soft);
+  box-shadow:inset 0 0 24px rgba(65,101,229,.06);
+}
+.fv-focus-time{
+  font-family:var(--mono);
+  font-size:28px;font-weight:500;
+  letter-spacing:-.04em;
+  line-height:1;
+  color:var(--ink);
+  font-variant-numeric:tabular-nums;
+}
+.fv-focus-cap{
+  font-family:var(--mono);
+  font-size:9px;
+  text-transform:uppercase;
+  letter-spacing:.14em;
+  color:var(--ink-dim);
+}
+.fv-focus-task{
+  font-family:var(--mono);font-size:11px;
+  color:var(--accent-3);
+  text-align:center;
+  max-width:260px;
+  line-height:1.4;
+}
+.fv-focus-bar{
+  width:100%;max-width:240px;
+  height:4px;border-radius:4px;
+  background:var(--line);
+  overflow:hidden;
+}
+.fv-focus-bar > span{
+  display:block;height:100%;
+  width:62%;
+  border-radius:4px;
+  background:linear-gradient(90deg,var(--accent-3),var(--accent));
+}
+
+.fv-workflow{
+  width:100%;
+  display:flex;
+  justify-content:center;
+  padding:4px 0 0;
+}
+.fv-workflow-phone{
+  width:min(100%,268px);
+  border-radius:30px;
+  padding:11px 11px 15px;
+  background:linear-gradient(150deg,#343a55,#141722);
+  box-shadow:
+    0 36px 70px -28px rgba(0,0,0,.6),
+    0 0 0 1px rgba(255,255,255,.07) inset;
+}
+.fv-workflow-screen{
+  border-radius:22px;
+  background:linear-gradient(180deg,#221a3e,#100c1c);
+  padding:20px 14px 14px;
+  min-height:210px;
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+  border:1px solid rgba(255,255,255,.07);
+}
+.fv-workflow-sun{
+  width:34px;height:34px;margin:0 auto;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(255,220,150,.4) 0%,transparent 70%);
+  display:grid;place-items:center;
+  font-size:16px;line-height:1;
+  filter:drop-shadow(0 0 8px rgba(255,200,100,.35));
+}
+.fv-workflow-bubble{
+  position:relative;
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:16px 16px 16px 5px;
+  padding:12px 12px 20px;
+  font-size:12.5px;line-height:1.45;
+  color:var(--ink-soft);
+}
+.fv-workflow-bubble strong{color:var(--ink);font-weight:600}
+.fv-workflow-time{
+  position:absolute;right:11px;bottom:7px;
+  font-family:var(--mono);font-size:9px;
+  color:var(--ink-dim);
+}
+.fv-workflow-input{
+  display:flex;align-items:center;gap:10px;
+  margin-top:auto;
+  padding:11px 14px;
+  border-radius:100px;
+  background:rgba(0,0,0,.4);
+  border:1px solid rgba(65,101,229,.3);
+  font-family:var(--mono);font-size:11px;
+  color:var(--accent-3);
+}
+.fv-workflow-plus{
+  width:24px;height:24px;flex-shrink:0;
+  border-radius:50%;
+  border:1px solid rgba(255,255,255,.12);
+  display:grid;place-items:center;
+  font-size:15px;line-height:1;
+  color:var(--ink-soft);
+}
+.fv-workflow-mic{
+  margin-left:auto;
+  opacity:.55;
+  color:var(--ink-dim);
+  display:flex;
+}
+.fv-workflow-mic svg{display:block}
+
+/* ─────────  WORKFLOW SHOWCASE (carousel)  ───────── */
+.flow-showcase{
+  padding:140px 20px 160px;
+  border-top:1px solid var(--line);
+  position:relative;
+  overflow:hidden;
+  text-align:center;
+}
+.flow-showcase::before{
+  content:"";position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 90% 55% at 50% -10%, rgba(65,101,229,.16), transparent 55%),
+    radial-gradient(ellipse 50% 40% at 90% 100%, rgba(124,158,248,.08), transparent 50%);
+  pointer-events:none;
+}
+.flow-inner{max-width:1240px;margin:0 auto;position:relative;z-index:1;}
+.flow-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--mono);font-size:11px;
+  text-transform:uppercase;letter-spacing:.14em;
+  color:var(--accent-3);
+  padding:8px 16px;border-radius:100px;
+  border:1px solid rgba(65,101,229,.35);
+  background:rgba(65,101,229,.08);
+  margin-bottom:22px;
+}
+.flow-badge-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--accent);
+  box-shadow:0 0 10px rgba(65,101,229,.6);
+}
+.flow-heading{
+  font-family:var(--serif);font-weight:400;
+  font-size:clamp(32px,4.5vw,56px);
+  letter-spacing:-.03em;line-height:1.08;
+  max-width:720px;margin:0 auto 16px;
+  font-variation-settings:"opsz" 60;
+}
+.flow-heading em{
+  font-style:italic;font-weight:500;
+  background:linear-gradient(135deg,var(--accent-3),var(--accent));
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.flow-sub{
+  color:var(--ink-dim);
+  font-size:17px;line-height:1.55;
+  max-width:540px;margin:0 auto;
+}
+.flow-carousel{
+  margin-top:44px;
+  display:grid;
+  grid-template-columns:52px minmax(0,1fr) 52px;
+  gap:12px;
+  align-items:stretch;
+  max-width:1240px;
+  margin-left:auto;margin-right:auto;
+  padding-inline:clamp(4px,1.5vw,20px);
+}
+.flow-viewport{
+  min-width:0;
+  overflow:hidden;
+  margin:0;
+  padding:8px clamp(10px,2.5vw,28px) 10px;
+}
+.flow-track{
+  display:flex;
+  gap:18px;
+  overflow-x:auto;
+  scroll-snap-type:x mandatory;
+  scroll-padding-inline:clamp(12px,2.5vw,36px);
+  padding:12px clamp(12px,2.5vw,36px) 22px;
+  scrollbar-width:thin;
+  scrollbar-color:var(--line) transparent;
+}
+.flow-track::-webkit-scrollbar{height:5px}
+.flow-track::-webkit-scrollbar-thumb{background:var(--line);border-radius:4px}
+.flow-nav{
+  align-self:center;
+  width:52px;height:52px;
+  border-radius:50%;
+  border:1px solid var(--line);
+  background:rgba(12,14,24,.92);
+  color:var(--ink);
+  cursor:pointer;
+  display:grid;place-items:center;
+  font-family:var(--sans);
+  font-size:26px;
+  line-height:1;
+  font-weight:300;
+  transition:background .2s,border-color .2s,color .2s,transform .2s;
+  flex-shrink:0;
+}
+.flow-nav:hover{
+  background:var(--accent);
+  border-color:var(--accent);
+  color:#fff;
+  transform:scale(1.05);
+}
+.flow-nav:focus-visible{
+  outline:2px solid var(--accent-3);
+  outline-offset:3px;
+}
+.flow-card{
+  flex:0 0 min(300px, calc(100vw - 140px));
+  scroll-snap-align:center;
+  position:relative;
+  border-radius:22px;
+  padding:1px;
+  background:linear-gradient(140deg, rgba(65,101,229,.55), rgba(160,140,255,.22), rgba(65,101,229,.12));
+  box-shadow:0 28px 56px -24px rgba(0,0,0,.6);
+  min-height:300px;
+  text-align:left;
+  display:flex;flex-direction:column;
+}
+.flow-card-inner{
+  border-radius:21px;
+  flex:1;
+  display:block;
+  position:relative;
+  min-height:300px;
+  padding:0;
+  overflow:hidden;
+  perspective:1200px;
+  background:linear-gradient(168deg, rgba(20,22,38,.97) 0%, rgba(10,11,16,.99) 100%);
+  border:1px solid rgba(255,255,255,.05);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.06);
+}
+.flow-card.tint-blue .flow-card-inner{
+  background:linear-gradient(168deg, rgba(22,28,52,.98) 0%, rgba(10,12,22,.99) 100%);
+}
+.flow-card.tint-soft .flow-card-inner{
+  background:linear-gradient(168deg, rgba(32,38,62,.92) 0%, rgba(14,16,28,.98) 100%);
+}
+.flow-card.tint-mist .flow-card-inner{
+  background:linear-gradient(168deg, rgba(240,242,255,.07) 0%, rgba(18,22,42,.94) 100%);
+}
+.flow-card-flip{
+  width:100%;
+  min-height:300px;
+  position:relative;
+  transform-style:preserve-3d;
+  transition:transform .7s cubic-bezier(.2,.8,.2,1);
+}
+@media (hover:hover){
+  .flow-card:hover .flow-card-flip{transform:rotateY(180deg)}
+}
+@media (prefers-reduced-motion:reduce){
+  .flow-card-flip{
+    transition-duration:.01ms;
+    transform:none!important;
+  }
+  .flow-card-front{display:none!important}
+  .flow-card-back{
+    transform:none!important;
+    position:relative!important;
+    backface-visibility:visible!important;
+    -webkit-backface-visibility:visible!important;
+  }
+}
+@media not (hover:hover){
+  .flow-card-flip{transform:none!important}
+  .flow-card-front{display:none!important}
+  .flow-card-back{
+    transform:none!important;
+    position:relative!important;
+    backface-visibility:visible!important;
+    -webkit-backface-visibility:visible!important;
+  }
+}
+.flow-card-face{
+  position:absolute;
+  inset:0;
+  padding:20px 18px 16px;
+  display:flex;
+  flex-direction:column;
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
+  border-radius:20px;
+}
+.flow-card-front{
+  justify-content:center;
+  align-items:stretch;
+}
+.flow-card-front .flow-card-kicker{
+  margin-bottom:0;
+  text-align:center;
+  font-size:clamp(11px,2.8vw,13px);
+  letter-spacing:.16em;
+  line-height:1.45;
+}
+.flow-card-front-hint{
+  margin-top:14px;
+  text-align:center;
+  font-size:12px;
+  color:var(--ink-dim);
+  letter-spacing:.01em;
+}
+@media not (hover:hover){
+  .flow-card-front-hint{display:none}
+}
+.flow-card-back{
+  transform:rotateY(180deg);
+  overflow:auto;
+  -webkit-overflow-scrolling:touch;
+}
+.flow-card-kicker{
+  font-family:var(--mono);font-size:10px;
+  text-transform:uppercase;letter-spacing:.12em;
+  color:var(--accent-3);
+  margin-bottom:10px;
+}
+.flow-card h3{
+  font-family:var(--sans);
+  font-size:15px;font-weight:600;
+  letter-spacing:-.02em;
+  color:var(--ink);
+  margin-bottom:10px;
+  line-height:1.3;
+}
+.flow-card-p{
+  font-size:13px;line-height:1.5;
+  color:var(--ink-soft);
+}
+.flow-card-list{
+  margin:10px 0 0;
+  padding-left:18px;
+  font-size:12.5px;line-height:1.45;
+  color:var(--ink-soft);
+}
+.flow-card-list li{margin-bottom:6px}
+.flow-card-footer{
+  margin-top:auto;
+  padding-top:14px;
+  border-top:1px solid var(--line-soft);
+  font-family:var(--mono);
+  font-size:10px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--ink-dim);
+}
+.flow-pill-chat{
+  margin-top:12px;
+  padding:10px 12px;
+  border-radius:10px;
+  border:1px solid rgba(65,101,229,.28);
+  background:rgba(65,101,229,.08);
+  font-family:var(--mono);
+  font-size:11px;
+  color:var(--accent-3);
+}
+.flow-draft{
+  margin-top:8px;
+  padding:12px;
+  border-radius:12px;
+  border:1px solid var(--line);
+  background:rgba(0,0,0,.25);
+  font-size:12px;line-height:1.45;
+  color:var(--ink-soft);
+}
+.flow-notify{
+  margin-bottom:12px;
+  padding:11px 12px;
+  border-radius:12px;
+  background:rgba(65,101,229,.14);
+  border:1px solid rgba(65,101,229,.22);
+  font-size:12px;line-height:1.4;
+  color:var(--ink);
+}
+.flow-spark{
+  height:44px;margin:8px 0 14px;
+  border-radius:10px;
+  background:linear-gradient(180deg, transparent, rgba(65,101,229,.12));
+  position:relative;
+  overflow:hidden;
+}
+.flow-spark::after{
+  content:"";
+  position:absolute;left:10px;right:10px;bottom:12px;height:2px;
+  border-radius:2px;
+  background:linear-gradient(90deg, transparent, var(--accent), var(--accent-3));
+  opacity:.85;
+}
+.flow-metric-row{
+  display:flex;align-items:baseline;flex-wrap:wrap;gap:10px;
+  margin-bottom:6px;
+}
+.flow-metric-big{
+  font-family:var(--serif);
+  font-size:clamp(36px,8vw,48px);
+  font-style:italic;font-weight:500;
+  letter-spacing:-.03em;line-height:1;
+  font-variation-settings:"opsz" 60;
+}
+.flow-metric-big em{
+  font-style:italic;
+  background:linear-gradient(135deg,var(--accent-3),var(--accent));
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.flow-metric-cap{
+  font-family:var(--mono);
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.1em;
+  color:#5fdc9c;
+  font-weight:500;
+}
+.flow-cta-wrap{margin-top:36px;}
+.flow-cta{
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:14px 28px;border-radius:12px;
+  background:var(--ink);color:var(--bg);
+  font-family:var(--sans);font-size:15px;font-weight:600;
+  text-decoration:none;
+  letter-spacing:-.01em;
+  transition:transform .2s,background .2s,box-shadow .2s,color .2s;
+}
+.flow-cta:hover{
+  transform:translateY(-2px);
+  background:var(--accent);
+  color:#fff;
+  box-shadow:0 14px 36px -10px rgba(65,101,229,.5);
+}
+.flow-cta-note{
+  margin-top:12px;
+  font-size:13px;
+  color:var(--ink-dim);
+}
+@media(max-width:760px){
+  .flow-carousel{
+    grid-template-columns:44px minmax(0,1fr) 44px;
+    gap:8px;
+    padding-inline:clamp(2px,1vw,12px);
+  }
+  .flow-viewport{padding-inline:clamp(6px,2vw,16px)}
+  .flow-nav{width:44px;height:44px;font-size:22px}
+  .flow-card{flex-basis:min(280px, calc(100vw - 116px))}
+}
+@media(max-width:520px){
+  .flow-showcase{padding:100px 16px 120px}
+}
+
+/* ─────────  TESTIMONIALS  ───────── */
+.testimonials{
+  border-top:1px solid var(--line);
+  padding:120px 24px;
+  background:#0c0c0e;
+}
+.test-grid{
+  max-width:1200px;margin:0 auto;
+  columns:3 280px;
+  column-gap:20px;
+}
+.test{
+  break-inside:avoid;margin-bottom:20px;
+  border:1px solid var(--line);
+  border-radius:14px;padding:24px;
+  background:#0a0a0b;
+  display:flex;flex-direction:column;gap:16px;
+}
+.test p{font-size:15px;line-height:1.55;color:#dcdce0}
+.test p em{font-style:italic;color:var(--accent-3);font-family:var(--serif);font-size:19px;font-weight:500}
+.test .who{
+  display:flex;align-items:center;gap:12px;
+  margin-top:auto;padding-top:16px;
+  border-top:1px solid var(--line);
+}
+.test .av{
+  width:36px;height:36px;border-radius:50%;
+  background:linear-gradient(135deg,var(--accent-4),var(--accent));
+  display:grid;place-items:center;
+  font-family:var(--serif);font-style:italic;font-weight:400;
+  color:#fff;font-size:18px;
+}
+.test .meta{display:flex;flex-direction:column}
+.test .meta strong{font-size:13px;font-weight:500}
+.test .meta span{font-size:11px;color:var(--ink-dim);font-family:var(--mono)}
+
+/* ─────────  PRICING / CTA  ───────── */
+.cta{
+  padding:160px 24px;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+  border-top:1px solid var(--line);
+}
+.cta::before{
+  content:"";position:absolute;
+  width:600px;height:600px;border-radius:50%;
+  background:radial-gradient(circle,rgba(65,101,229,.2),transparent 60%);
+  filter:blur(40px);
+  left:50%;top:50%;transform:translate(-50%,-50%);
+  pointer-events:none;
+}
+.cta-inner{position:relative;z-index:2;max-width:800px;margin:0 auto}
+.cta h2{
+  font-family:var(--serif);
+  font-size:clamp(56px,9vw,128px);
+  font-weight:400;line-height:.92;
+  letter-spacing:-.035em;
+  font-variation-settings:"opsz" 72;
+}
+.cta h2 em{
+  font-style:italic;
+  font-weight:500;
+  background:linear-gradient(135deg,var(--accent-3),var(--accent));
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.cta p{
+  margin-top:24px;color:var(--ink-dim);font-size:18px;
+}
+.cta-row{
+  margin-top:40px;display:flex;justify-content:center;gap:14px;
+  flex-wrap:wrap;
+}
+.cta-waitlist-form{
+  display:flex;flex-wrap:wrap;align-items:stretch;justify-content:center;
+  gap:12px;width:100%;max-width:640px;margin:0 auto;
+}
+.cta-wait-email{
+  flex:1 1 220px;min-width:200px;max-width:360px;
+  padding:14px 20px;border-radius:100px;
+  border:1px solid var(--line);
+  background:rgba(0,0,0,.28);
+  color:var(--ink);
+  font-family:var(--sans);font-size:15px;
+  outline:none;
+  transition:border-color .2s, box-shadow .2s;
+}
+.cta-wait-email:focus{
+  border-color:rgba(65,101,229,.45);
+  box-shadow:0 0 0 3px rgba(65,101,229,.12);
+}
+.cta-wait-email::placeholder{color:var(--ink-dim);font-weight:300}
+.cta-waitlist-form .btn-primary{flex-shrink:0}
+.cta-waitlist-form.submitted .cta-wait-email,
+.cta-waitlist-form.submitted .honeypot-cta{display:none!important}
+.cta-waitlist-form.submitted .cta-wait-submit{
+  pointer-events:none;
+  background:var(--accent);
+  color:#fff;
+}
+.cta-waitlist-form.submitted .cta-btn-label::after{content:" ✓"}
+
+/* ─────────  FOOTER  ───────── */
+footer{
+  border-top:1px solid var(--line);
+  padding:60px 24px 30px;
+  background:var(--bg-2);
+}
+.foot{
+  max-width:1200px;margin:0 auto;
+  display:grid;grid-template-columns:2fr 1fr 1fr 1fr;
+  gap:40px;
+}
+@media(max-width:760px){.foot{grid-template-columns:1fr 1fr}}
+.foot h4{
+  font-family:var(--mono);font-size:10px;
+  text-transform:uppercase;letter-spacing:.2em;
+  color:var(--ink-dim);margin-bottom:16px;font-weight:400;
+}
+.foot a{
+  display:block;font-size:14px;color:var(--ink-dim);
+  text-decoration:none;margin-bottom:10px;
+  transition:color .2s;
+}
+.foot a:hover{color:var(--ink)}
+.foot .brand{
+  display:flex;align-items:center;gap:10px;
+  font-family:var(--sans);font-size:22px;
+  font-weight:700;
+  letter-spacing:-.04em;margin-bottom:16px;
+}
+.foot .brand-sub{font-size:14px;color:var(--ink-dim);max-width:280px;line-height:1.5}
+.bottombar{
+  max-width:1200px;margin:60px auto 0;
+  padding-top:24px;border-top:1px solid var(--line);
+  display:flex;justify-content:space-between;
+  font-family:var(--mono);font-size:11px;color:var(--ink-dim);
+  flex-wrap:wrap;gap:14px;
+}
+
+/* ─────────  reveal-on-scroll utility  ───────── */
+.reveal{
+  opacity:0;transform:translateY(40px);
+  transition:opacity .9s cubic-bezier(.2,.8,.2,1),transform .9s cubic-bezier(.2,.8,.2,1);
+}
+.reveal.in{opacity:1;transform:translateY(0)}
+.reveal.delay-1{transition-delay:.1s}
+.reveal.delay-2{transition-delay:.2s}
+.reveal.delay-3{transition-delay:.3s}
+
+/* ─────────  Marquee  ───────── */
+.marquee{
+  border-block:1px solid var(--line);
+  padding:30px 0;overflow:hidden;
+  position:relative;
+  background:var(--bg-2);
+}
+.marquee-track{
+  display:flex;gap:60px;
+  animation:scroll 35s linear infinite;
+  white-space:nowrap;width:max-content;
+}
+@keyframes scroll{to{transform:translateX(-50%)}}
+.marquee-item{
+  font-family:var(--serif);
+  font-size:42px;font-weight:500;font-style:italic;
+  letter-spacing:-.015em;
+  display:inline-flex;align-items:center;gap:60px;
+  color:var(--ink-dim);
+  font-variation-settings:"opsz" 36;
+}
+.marquee-item .star{
+  color:var(--accent);font-style:normal;
+  font-family:var(--sans);
+  display:inline-block;
+  animation:spin 8s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ─────────  TEMPO APP SHOWCASE  ───────── */
+.app-showcase{
+  position:relative;
+  padding:140px 24px 120px;
+  border-top:1px solid var(--line);
+  overflow:hidden;
+}
+.app-showcase::before{
+  content:"";position:absolute;
+  width:1100px;height:1100px;
+  left:50%;top:0;
+  transform:translate(-50%,-30%);
+  background:radial-gradient(circle,rgba(65,101,229,.13) 0%,transparent 60%);
+  pointer-events:none;
+  filter:blur(80px);
+}
+.app-showcase-head{
+  max-width:880px;margin:0 auto 60px;
+  text-align:center;position:relative;z-index:2;
+}
+.app-showcase-head .section-eyebrow{justify-content:center}
+.app-showcase-head h2{margin:0 auto}
+.app-showcase-head p{
+  color:var(--ink-soft);margin-top:24px;
+  font-size:18px;line-height:1.55;max-width:620px;
+  margin-left:auto;margin-right:auto;
+}
+.app-try-hint{
+  display:inline-flex;align-items:center;gap:8px;
+  margin-top:18px;
+  padding:6px 14px;border-radius:100px;
+  background:rgba(65,101,229,.1);
+  border:1px solid rgba(65,101,229,.22);
+  font-family:var(--mono);font-size:11px;
+  color:var(--accent-3);
+  text-transform:uppercase;letter-spacing:.12em;
+}
+.app-try-hint .pulse{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--accent-3);box-shadow:0 0 8px var(--accent-3);
+  animation:blink 1.5s ease-in-out infinite;
+}
+
+.app-window{
+  max-width:1320px;margin:0 auto;
+  position:relative;z-index:2;
+  border:1px solid var(--line);
+  border-radius:18px;
+  background:linear-gradient(180deg,#0e1018 0%, #0a0b10 100%);
+  overflow:hidden;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.025) inset,
+    0 80px 160px -40px rgba(65,101,229,.3),
+    0 40px 80px -20px rgba(0,0,0,.7);
+  transition:transform .35s cubic-bezier(.2,.8,.2,1);
+  will-change:transform;
+}
+.app-topbar{
+  display:flex;align-items:center;gap:16px;
+  padding:14px 18px;
+  border-bottom:1px solid var(--line);
+  background:rgba(8,9,15,.7);
+}
+.app-topbar .tlights{display:flex;gap:7px}
+.app-topbar .tlights span{
+  width:11px;height:11px;border-radius:50%;background:#222;
+}
+.app-topbar .tlights span:nth-child(1){background:#ff5f57}
+.app-topbar .tlights span:nth-child(2){background:#febc2e}
+.app-topbar .tlights span:nth-child(3){background:#28c840}
+.app-topbar .urlbar{
+  flex:1;
+  font-family:var(--mono);font-size:11px;
+  color:var(--ink-dim);
+  text-align:center;
+  padding:5px 14px;
+  background:#0d0f17;
+  border:1px solid var(--line);
+  border-radius:6px;
+  max-width:420px;
+  margin:0 auto;
+}
+.app-topbar .urlbar .lock{color:var(--accent-3);margin-right:6px}
+
+.app-body{
+  display:grid;
+  grid-template-columns:240px 1fr;
+  min-height:520px;
+}
+
+/* Sidebar */
+.app-sidebar{
+  border-right:1px solid var(--line);
+  background:#0a0b12;
+  padding:22px 16px 16px;
+  display:flex;flex-direction:column;gap:4px;
+  overflow:hidden;
+  position:relative;
+}
+.app-sidebar-brand{
+  display:flex;align-items:flex-start;gap:12px;
+  padding:0 8px 18px;
+  margin-bottom:6px;
+  border-bottom:1px solid var(--line-soft);
+}
+.app-sidebar-brand .logo-mark{flex-shrink:0;margin-top:2px}
+.app-sidebar-brand .name-block{display:flex;flex-direction:column;line-height:1.05}
+.app-sidebar-brand .name{
+  font-family:var(--sans);
+  font-size:22px;font-weight:700;
+  letter-spacing:-.03em;
+  color:var(--ink);
+}
+.app-sidebar-brand .tag{
+  font-size:11px;color:var(--ink-dim);margin-top:3px;
+  letter-spacing:-.005em;
+}
+.app-sidebar-brand .tag em{
+  font-family:var(--serif);
+  font-style:italic;font-weight:500;font-size:13px;
+  background:linear-gradient(135deg,var(--accent-3),var(--accent));
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+  letter-spacing:-.01em;
+}
+
+.sidebar-collapse{
+  position:absolute;
+  top:18px;right:-10px;
+  width:20px;height:20px;border-radius:50%;
+  background:#11131e;
+  border:1px solid var(--line);
+  display:grid;place-items:center;
+  color:var(--ink-dim);
+  font-size:10px;cursor:pointer;
+  z-index:3;
+  transition:background .15s,color .15s;
+}
+.sidebar-collapse:hover{background:rgba(65,101,229,.15);color:var(--accent-3)}
+
+.sidebar-divider{
+  height:1px;background:var(--line-soft);
+  margin:10px 8px;
+}
+
+.sidebar-link{
+  display:flex;align-items:center;gap:12px;
+  padding:10px 12px;border-radius:9px;
+  font-size:13.5px;color:var(--ink-soft);
+  cursor:pointer;
+  transition:background .15s, color .15s;
+  position:relative;
+  letter-spacing:-.005em;
+}
+.sidebar-link:hover{background:#11131e;color:var(--ink)}
+.sidebar-link.active{
+  background:linear-gradient(135deg,var(--accent),var(--accent-5));
+  color:#fff;
+  box-shadow:0 6px 16px -4px rgba(65,101,229,.5);
+}
+.sidebar-link svg{width:16px;height:16px;flex-shrink:0}
+.sidebar-link .badge{
+  margin-left:auto;
+  background:#ff4d4f;color:#fff;
+  font-family:var(--mono);font-size:9px;
+  width:18px;height:18px;border-radius:50%;
+  display:grid;place-items:center;
+  font-weight:600;
+}
+.sidebar-link.active .badge{background:#fff;color:var(--accent)}
+
+.sidebar-spacer{flex:1;min-height:8px}
+
+/* Calendar pane */
+.app-cal{
+  display:flex;flex-direction:column;
+  background:#0a0b10;
+  overflow:hidden;
+  position:relative;
+  min-height:0;
+}
+.app-cal-head{
+  padding:14px 22px 12px;
+  border-bottom:1px solid var(--line);
+  display:flex;flex-direction:column;gap:14px;
+}
+.app-cal-toolbar{
+  display:flex;align-items:center;gap:10px;
+  flex-wrap:wrap;
+}
+.app-cal-search{
+  flex:1;display:flex;align-items:center;gap:10px;
+  padding:10px 16px;
+  background:#0d0f17;
+  border:1px solid var(--line);
+  border-radius:100px;
+  color:var(--ink-dim);font-size:13px;
+  min-width:200px;
+}
+.app-cal-search svg{width:14px;height:14px}
+.app-cal-pill{
+  font-family:var(--mono);font-size:10px;
+  padding:7px 14px;border-radius:100px;
+  border:1px solid var(--line);
+  color:var(--ink-soft);
+  display:inline-flex;align-items:center;gap:6px;
+  text-transform:uppercase;letter-spacing:.1em;
+}
+.app-cal-pill.synced{
+  border-color:rgba(70,200,140,.3);
+  color:#5fdc9c;
+  background:rgba(70,200,140,.06);
+}
+.app-cal-pill.synced .pulse{
+  width:6px;height:6px;border-radius:50%;
+  background:#5fdc9c;box-shadow:0 0 8px #5fdc9c;
+  animation:blink 1.6s ease-in-out infinite;
+}
+.app-cal-icon-btn{
+  width:34px;height:34px;border-radius:50%;
+  background:#0d0f17;
+  border:1px solid var(--line);
+  display:grid;place-items:center;
+  color:var(--ink-soft);
+  cursor:pointer;transition:all .2s;
+}
+.app-cal-icon-btn:hover{background:rgba(65,101,229,.1);border-color:rgba(65,101,229,.3);color:var(--accent-3)}
+.app-cal-icon-btn svg{width:15px;height:15px}
+.app-cal-avatar{
+  width:34px;height:34px;border-radius:50%;
+  background:linear-gradient(135deg,var(--accent-4),var(--accent));
+  display:grid;place-items:center;
+  font-size:13px;color:#fff;font-weight:600;
+  border:2px solid var(--bg);
+  box-shadow:0 2px 8px rgba(65,101,229,.3);
+  cursor:pointer;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23b0c4f5'/%3E%3Cstop offset='1' stop-color='%234165e5'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='36' height='36' fill='url(%23g)'/%3E%3Ccircle cx='18' cy='14' r='6' fill='%23fff' opacity='.95'/%3E%3Cpath d='M6 32c2-7 8-10 12-10s10 3 12 10z' fill='%23fff' opacity='.95'/%3E%3C/svg%3E");
+  background-size:cover;
+  background-position:center;
+}
+
+.app-cal-titlebar{
+  display:flex;align-items:flex-start;justify-content:space-between;gap:18px;
+  flex-wrap:wrap;
+}
+.app-cal-titlebar h3{
+  font-family:var(--serif);font-size:38px;
+  font-weight:500;letter-spacing:-.02em;
+  color:var(--ink);line-height:1;
+  font-variation-settings:"opsz" 36;
+}
+.app-cal-titlebar p{
+  font-size:13.5px;color:var(--ink-dim);
+  margin-top:8px;letter-spacing:-.005em;
+}
+.app-cal-controls{
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  margin-top:6px;
+}
+.app-cal-nav{
+  display:flex;align-items:center;gap:10px;
+  font-size:13px;color:var(--ink);
+  background:#0d0f17;
+  border:1px solid var(--line);
+  border-radius:8px;
+  padding:6px 12px;
+}
+.app-cal-nav button{
+  background:none;border:none;color:var(--ink-soft);
+  cursor:pointer;padding:2px 4px;font-size:14px;
+  transition:color .15s;
+}
+.app-cal-nav button:hover{color:var(--ink)}
+.today-btn{
+  padding:7px 14px;border-radius:8px;
+  background:#0d0f17;
+  border:1px solid var(--line);
+  color:var(--ink-soft);font-size:12.5px;
+  cursor:pointer;
+  font-family:var(--sans);font-weight:500;
+}
+.today-btn:hover{color:var(--ink);border-color:#252a40}
+.app-cal-view-toggle{
+  display:flex;background:#0d0f17;
+  border:1px solid var(--line);
+  border-radius:8px;padding:3px;
+  font-size:12px;
+}
+.app-cal-view-toggle button{
+  background:none;border:none;
+  padding:5px 14px;border-radius:5px;
+  color:var(--ink-dim);cursor:pointer;
+  font-family:var(--sans);font-size:12px;font-weight:500;
+  transition:all .15s;
+}
+.app-cal-view-toggle button.active{
+  background:rgba(65,101,229,.18);color:var(--ink);
+  box-shadow:inset 0 0 0 1px rgba(65,101,229,.3);
+}
+.app-cal-action-btn{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:7px 14px;border-radius:8px;
+  background:#0d0f17;
+  border:1px solid var(--line);
+  font-size:12.5px;color:var(--ink);
+  cursor:pointer;
+  font-family:var(--sans);font-weight:500;
+  transition:all .15s;
+}
+.app-cal-action-btn:hover{background:#13162a;border-color:#252a40}
+.app-cal-action-btn svg{width:13px;height:13px}
+
+.add-event-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:11px 22px;border-radius:100px;
+  background:#0d0f17;
+  border:1px solid var(--line);
+  font-family:var(--sans);font-size:13.5px;font-weight:500;
+  color:var(--ink);cursor:pointer;
+  transition:all .2s;
+}
+.add-event-btn:hover{
+  background:rgba(65,101,229,.12);
+  border-color:rgba(65,101,229,.35);
+  color:var(--ink);
+}
+.add-event-btn svg{width:14px;height:14px;color:var(--accent-3)}
+.import-cal-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:11px 18px 11px 14px;border-radius:100px;
+  background:#0d0f17;
+  border:1px solid var(--line);
+  font-family:var(--sans);font-size:13.5px;font-weight:500;
+  color:var(--ink);cursor:pointer;
+  transition:all .2s;
+}
+.import-cal-btn:hover{background:#13162a;border-color:#252a40}
+.import-cal-btn svg{width:14px;height:14px}
+.import-cal-btn .gmail-i{
+  width:18px;height:18px;border-radius:4px;
+  background:linear-gradient(135deg,#ea4335,#fbbc04);
+  display:inline-grid;place-items:center;
+  color:#fff;font-size:10px;font-weight:700;
+}
+
+.action-row{
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+}
+
+/* Smart Reorder banner */
+.smart-reorder{
+  margin:12px 22px 0;
+  display:flex;align-items:center;gap:14px;
+  padding:14px 18px 14px 14px;
+  border-radius:14px;
+  background:linear-gradient(135deg,rgba(65,101,229,.1) 0%,rgba(124,158,248,.05) 100%);
+  border:1px solid rgba(65,101,229,.2);
+  position:relative;
+  overflow:hidden;
+}
+.smart-reorder::before{
+  content:"";position:absolute;
+  inset:0;
+  background:linear-gradient(90deg,transparent,rgba(65,101,229,.08),transparent);
+  animation:shimmer 4s ease-in-out infinite;
+  pointer-events:none;
+}
+@keyframes shimmer{
+  0%,100%{transform:translateX(-100%)}
+  50%{transform:translateX(100%)}
+}
+.smart-reorder-icon{
+  width:46px;height:46px;border-radius:12px;
+  background:linear-gradient(135deg,var(--accent),var(--accent-3));
+  display:grid;place-items:center;
+  flex-shrink:0;color:#fff;
+  box-shadow:0 6px 14px -4px rgba(65,101,229,.6);
+  position:relative;z-index:2;
+}
+.smart-reorder-icon svg{width:22px;height:22px}
+.smart-reorder-text{flex:1;position:relative;z-index:2;min-width:0}
+.smart-reorder-text strong{
+  display:block;font-size:16px;color:var(--ink);
+  font-weight:600;margin-bottom:3px;letter-spacing:-.01em;
+}
+.smart-reorder-text span{
+  display:block;font-size:13px;color:var(--ink-dim);
+}
+.smart-reorder-btn{
+  padding:10px 22px;border-radius:100px;
+  background:var(--accent);color:#fff;
+  border:none;font-family:var(--sans);
+  font-size:13.5px;font-weight:500;cursor:pointer;
+  position:relative;z-index:2;flex-shrink:0;
+  transition:transform .2s, box-shadow .2s;
+}
+.smart-reorder-btn:hover{
+  transform:translateY(-1px);
+  box-shadow:0 6px 14px -4px rgba(65,101,229,.6);
+}
+
+/* Calendar grid */
+/* Horizontal scroll on small screens keeps all 7 days usable */
+.app-cal-scroll{
+  flex:1;
+  min-height:0;
+  overflow-x:auto;
+  overflow-y:hidden;
+  -webkit-overflow-scrolling:touch;
+  overscroll-behavior-x:contain;
+  margin-top:10px;
+  padding-bottom:6px;
+  scrollbar-color:rgba(124,158,248,.35) transparent;
+}
+.app-cal-scroll::-webkit-scrollbar{height:8px}
+.app-cal-scroll::-webkit-scrollbar-thumb{
+  background:rgba(124,158,248,.3);
+  border-radius:100px;
+}
+.app-cal-body{
+  --cal-slot:48px;
+  display:grid;
+  grid-template-columns:50px repeat(7,minmax(78px,1fr));
+  width:100%;
+  min-width:640px;
+  flex:1;
+  font-size:10.5px;
+  position:relative;
+  padding-bottom:16px;
+}
+.app-cal-dayhead{
+  padding:10px 6px 10px;
+  border-bottom:1px solid var(--line);
+  font-family:var(--mono);font-size:9px;
+  color:var(--ink-dim);
+  text-transform:uppercase;letter-spacing:.14em;
+  text-align:center;
+  position:relative;
+}
+.app-cal-dayhead .num{
+  display:inline-block;
+  font-family:var(--sans);
+  font-size:17px;font-weight:500;
+  color:var(--ink);
+  margin-top:3px;
+  letter-spacing:-.02em;
+  width:28px;height:28px;line-height:28px;
+}
+.app-cal-dayhead.today .num{
+  color:var(--accent-3);
+  position:relative;
+}
+.app-cal-dayhead.today .num::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border:1.5px solid var(--accent);
+  border-radius:50%;
+  box-shadow:0 0 12px rgba(65,101,229,.4);
+}
+/* Assessment due: red ring on date + hover/focus tooltip */
+.app-cal-dayhead.due-day .num{
+  color:#ffc9c9;
+  position:relative;
+  z-index:1;
+}
+.app-cal-dayhead.due-day .num::before{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  border:2px solid #ff4d4f;
+  border-radius:50%;
+  box-shadow:0 0 14px rgba(255,77,79,.45);
+  z-index:-1;
+}
+.app-cal-dayhead.due-day .due-tooltip{
+  position:absolute;
+  left:50%;
+  top:calc(100% + 8px);
+  transform:translateX(-50%) translateY(-4px);
+  width:max-content;
+  max-width:min(260px,calc(100vw - 48px));
+  padding:8px 11px;
+  border-radius:10px;
+  background:rgba(18,12,16,.96);
+  border:1px solid rgba(255,77,79,.35);
+  color:#f2f2f5;
+  font-family:var(--sans);
+  font-size:11px;
+  font-weight:500;
+  line-height:1.35;
+  letter-spacing:-.01em;
+  text-align:center;
+  box-shadow:0 12px 28px -8px rgba(0,0,0,.55);
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  transition:opacity .18s ease,transform .18s ease,visibility .18s;
+  z-index:30;
+}
+.app-cal-dayhead.due-day:hover .due-tooltip,
+.app-cal-dayhead.due-day:focus-within .due-tooltip{
+  opacity:1;
+  visibility:visible;
+  transform:translateX(-50%) translateY(0);
+}
+.app-cal-dayhead .week-label{
+  position:absolute;
+  bottom:-22px;left:50%;transform:translateX(-50%);
+  font-family:var(--mono);font-size:9px;
+  color:var(--accent-3);
+  letter-spacing:.1em;
+  white-space:nowrap;
+}
+.app-cal-time{
+  border-right:1px solid var(--line);
+  border-bottom:1px solid var(--line-soft);
+  height:var(--cal-slot,48px);
+  min-height:var(--cal-slot,48px);
+  padding:4px 8px;
+  font-family:var(--sans);font-size:10px;
+  color:var(--ink-dim);
+  text-align:right;
+  font-weight:500;
+}
+.app-cal-cell{
+  border-right:1px solid var(--line);
+  border-bottom:1px solid var(--line-soft);
+  height:var(--cal-slot,48px);
+  min-height:var(--cal-slot,48px);
+  position:relative;
+  transition:background .15s;
+  cursor:cell;
+}
+.app-cal-cell:last-child{border-right:none}
+.app-cal-cell:hover{background:rgba(65,101,229,.06)}
+.app-cal-cell.add-hint::after{
+  content:"+";
+  position:absolute;
+  inset:0;
+  display:grid;place-items:center;
+  color:var(--accent-3);
+  font-size:18px;font-weight:300;
+  opacity:0;
+  transition:opacity .15s;
+  pointer-events:none;
+}
+.app-cal-cell:hover.add-hint::after{opacity:.5}
+.app-cal-cell.add-hint:has(.app-cal-event)::after{display:none}
+
+/* Drag-target highlight */
+.app-cal-cell.drag-over{
+  background:rgba(65,101,229,.18) !important;
+  box-shadow:inset 0 0 0 2px rgba(65,101,229,.45);
+}
+
+.app-cal-event{
+  position:absolute;
+  left:4px;right:4px;
+  border-radius:7px;
+  padding:6px 8px;
+  font-size:10.5px;line-height:1.25;
+  background:rgba(65,101,229,.14);
+  border:1px solid rgba(65,101,229,.28);
+  border-left:3px solid var(--accent);
+  color:var(--ink);
+  cursor:grab;
+  overflow:hidden;
+  transition:transform .2s, box-shadow .2s;
+  z-index:4;
+  user-select:none;
+}
+.app-cal-event.compact{
+  padding:6px 8px;
+  border-radius:7px;
+}
+.app-cal-event.compact .ev-meta{display:none}
+.app-cal-event.compact .ev-time{font-size:9.5px;margin-top:3px;opacity:.85}
+.app-cal-event.tall .ev-title{
+  display:-webkit-box;
+  -webkit-line-clamp:2;
+  -webkit-box-orient:vertical;
+  white-space:normal;
+  line-height:1.25;
+}
+.app-cal-event:hover{
+  transform:translateY(-1px);
+  box-shadow:0 8px 18px -6px rgba(0,0,0,.5);
+  z-index:3;
+}
+.app-cal-event:active,.app-cal-event.dragging{
+  cursor:grabbing;
+  opacity:.7;
+  transform:scale(1.02);
+  box-shadow:0 14px 30px -8px rgba(0,0,0,.7);
+  z-index:10;
+}
+.app-cal-event .ev-title{
+  display:flex;align-items:center;gap:4px;
+  font-weight:500;font-size:10.5px;
+  color:#fff;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  letter-spacing:-.005em;
+}
+.app-cal-event .ev-title .lock-i{
+  font-size:9px;opacity:.85;flex-shrink:0;
+}
+.app-cal-event .ev-meta{
+  display:flex;align-items:center;gap:4px;
+  font-size:10.5px;
+  color:var(--ink-soft);opacity:.9;
+  margin-top:4px;
+}
+.app-cal-event .ev-meta svg{width:10px;height:10px;flex-shrink:0}
+.app-cal-event .ev-time{
+  font-family:var(--mono);font-size:10px;
+  color:var(--ink-soft);opacity:.75;
+  margin-top:4px;
+  letter-spacing:-.02em;
+}
+
+.app-cal-event.uni{
+  background:rgba(65,101,229,.14);
+  border-color:rgba(65,101,229,.28);
+  border-left-color:var(--accent);
+}
+.app-cal-event.health{
+  background:rgba(70,200,140,.13);
+  border-color:rgba(70,200,140,.25);
+  border-left-color:#5fdc9c;
+}
+.app-cal-event.health .ev-title{color:#a4ecca}
+.app-cal-event.work{
+  background:rgba(247,201,72,.11);
+  border-color:rgba(247,201,72,.24);
+  border-left-color:var(--accent-2);
+}
+.app-cal-event.work .ev-title{color:#f6e0a3}
+.app-cal-event.personal{
+  background:rgba(201,143,247,.13);
+  border-color:rgba(201,143,247,.25);
+  border-left-color:#c98ff7;
+}
+.app-cal-event.personal .ev-title{color:#dfbcf9}
+.app-cal-event.study{
+  background:rgba(124,158,248,.13);
+  border-color:rgba(124,158,248,.25);
+  border-left-color:var(--accent-3);
+  background-image:repeating-linear-gradient(45deg,transparent 0 6px,rgba(124,158,248,.06) 6px 12px);
+}
+.app-cal-event.due-assess{
+  background:rgba(255,77,79,.12);
+  border-color:rgba(255,77,79,.32);
+  border-left-color:#ff4d4f;
+}
+.app-cal-event.due-assess .ev-title{color:#ffc9c9}
+.app-cal-event.due-assess .ev-meta,.app-cal-event.due-assess .ev-time{color:#ffb3b3}
+
+/* User-added event with pulse */
+.app-cal-event.just-added{
+  animation:justAddedPulse 1.6s ease-out;
+}
+@keyframes justAddedPulse{
+  0%{box-shadow:0 0 0 0 rgba(65,101,229,.6),0 0 0 4px rgba(65,101,229,.2)}
+  100%{box-shadow:0 0 0 12px rgba(65,101,229,0),0 0 0 24px rgba(65,101,229,0)}
+}
+
+/* Now line */
+.now-line-row{
+  position:absolute;
+  left:0;right:0;
+  height:0;
+  z-index:1;
+  pointer-events:none;
+}
+.now-line-row::before{
+  content:"";
+  position:absolute;left:0;right:0;top:0;
+  height:1.5px;
+  background:linear-gradient(90deg,var(--accent),transparent 90%);
+}
+.now-line-row::after{
+  content:"";
+  position:absolute;left:0;top:0;transform:translate(-50%,-50%);
+  width:10px;height:10px;border-radius:50%;
+  background:var(--accent);
+  box-shadow:0 0 12px var(--accent);
+}
+
+/* Floating Ask Tempo button */
+.ask-tempo{
+  position:absolute;
+  right:24px;bottom:24px;
+  display:inline-flex;align-items:center;gap:10px;
+  padding:11px 20px 11px 14px;
+  border-radius:100px;
+  background:rgba(15,17,28,.85);
+  border:1px solid rgba(65,101,229,.25);
+  color:var(--ink);
+  font-size:13.5px;font-weight:500;
+  backdrop-filter:blur(20px);
+  cursor:pointer;
+  z-index:20;
+  box-shadow:
+    0 16px 36px -12px rgba(0,0,0,.7),
+    0 0 0 1px rgba(255,255,255,.04) inset,
+    0 0 40px -10px rgba(65,101,229,.4);
+  transition:transform .25s ease, box-shadow .25s ease;
+}
+.ask-tempo:hover{
+  transform:translateY(-2px);
+  box-shadow:
+    0 20px 40px -12px rgba(0,0,0,.8),
+    0 0 0 1px rgba(255,255,255,.05) inset,
+    0 0 50px -8px rgba(65,101,229,.55);
+}
+.ask-tempo .orb{
+  width:24px;height:24px;border-radius:50%;
+  background:
+    radial-gradient(circle at 30% 30%,#fff 0%,transparent 18%),
+    conic-gradient(from 220deg,#7c9ef8,#4165e5,#c98ff7,#5fdc9c,#7c9ef8);
+  position:relative;flex-shrink:0;
+  animation:spinOrb 8s linear infinite;
+  box-shadow:0 0 12px rgba(124,158,248,.5);
+}
+@keyframes spinOrb{to{transform:rotate(360deg)}}
+
+/* ─── Ask Tempo chat panel ─── */
+.ask-panel{
+  position:absolute;
+  right:24px;bottom:80px;
+  width:380px;max-width:calc(100% - 48px);
+  max-height:520px;
+  background:rgba(13,15,23,.96);
+  backdrop-filter:blur(24px);
+  border:1px solid rgba(65,101,229,.22);
+  border-radius:18px;
+  box-shadow:
+    0 30px 80px -20px rgba(0,0,0,.8),
+    0 0 0 1px rgba(255,255,255,.03) inset,
+    0 0 80px -20px rgba(65,101,229,.4);
+  display:flex;flex-direction:column;
+  z-index:25;
+  opacity:0;transform:translateY(12px) scale(.97);
+  pointer-events:none;
+  transition:opacity .25s ease,transform .3s cubic-bezier(.2,.8,.2,1);
+}
+.ask-panel.open{
+  opacity:1;transform:translateY(0) scale(1);
+  pointer-events:auto;
+}
+.ask-panel-head{
+  display:flex;align-items:center;gap:12px;
+  padding:16px 18px;
+  border-bottom:1px solid var(--line);
+}
+.ask-panel-head .orb{
+  width:26px;height:26px;border-radius:50%;
+  background:
+    radial-gradient(circle at 30% 30%,#fff 0%,transparent 18%),
+    conic-gradient(from 220deg,#7c9ef8,#4165e5,#c98ff7,#5fdc9c,#7c9ef8);
+  animation:spinOrb 8s linear infinite;
+  flex-shrink:0;
+}
+.ask-panel-head .who{flex:1}
+.ask-panel-head .who strong{
+  display:block;font-size:14px;color:var(--ink);
+  letter-spacing:-.01em;
+}
+.ask-panel-head .who span{
+  display:block;font-size:11px;color:var(--ink-dim);
+  font-family:var(--mono);
+  margin-top:2px;
+}
+.ask-panel-head .close{
+  width:26px;height:26px;border-radius:7px;
+  background:transparent;border:none;
+  color:var(--ink-dim);cursor:pointer;
+  display:grid;place-items:center;
+  transition:background .15s,color .15s;
+}
+.ask-panel-head .close:hover{background:#16182a;color:var(--ink)}
+
+.ask-panel-body{
+  flex:1;overflow-y:auto;
+  padding:16px 18px;
+  display:flex;flex-direction:column;gap:14px;
+  scrollbar-width:thin;
+  scrollbar-color:#252a40 transparent;
+}
+.ask-panel-body::-webkit-scrollbar{width:5px}
+.ask-panel-body::-webkit-scrollbar-thumb{background:#252a40;border-radius:5px}
+
+.ask-msg{
+  font-size:13.5px;line-height:1.55;
+  letter-spacing:-.005em;
+  max-width:85%;
+  animation:msgSlide .35s cubic-bezier(.2,.8,.2,1);
+}
+@keyframes msgSlide{
+  from{opacity:0;transform:translateY(8px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.ask-msg.user{
+  align-self:flex-end;
+  background:linear-gradient(135deg,var(--accent),var(--accent-5));
+  color:#fff;
+  padding:10px 14px;border-radius:16px 16px 4px 16px;
+  box-shadow:0 6px 14px -4px rgba(65,101,229,.4);
+}
+.ask-msg.bot{
+  align-self:flex-start;
+  background:#16182a;
+  border:1px solid var(--line);
+  color:var(--ink-soft);
+  padding:12px 14px;border-radius:4px 16px 16px 16px;
+  max-width:92%;
+}
+.ask-msg.bot strong{color:var(--ink);font-weight:600}
+.ask-msg.bot em{
+  font-family:var(--serif);font-style:italic;font-weight:500;
+  background:linear-gradient(135deg,var(--accent-3),var(--accent));
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+  font-size:14.5px;
+}
+.ask-msg.bot .bot-list{
+  display:flex;flex-direction:column;gap:6px;
+  margin-top:8px;
+}
+.ask-msg.bot .bot-list li{
+  list-style:none;
+  display:flex;align-items:center;gap:8px;
+  padding:6px 10px;
+  background:#0d0f17;
+  border:1px solid var(--line-soft);
+  border-radius:8px;
+  font-size:12.5px;color:var(--ink);
+}
+.ask-msg.bot .bot-list li .ldot{
+  width:6px;height:6px;border-radius:50%;flex-shrink:0;
+}
+.ask-msg.bot .bot-list li .ltime{
+  margin-left:auto;font-family:var(--mono);font-size:10px;
+  color:var(--ink-dim);
+}
+
+/* Typing indicator */
+.ask-msg.typing{
+  background:#16182a;
+  border:1px solid var(--line);
+  padding:14px 16px;border-radius:4px 16px 16px 16px;
+  display:inline-flex;gap:5px;
+  width:max-content;
+}
+.ask-msg.typing span{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--ink-dim);
+  animation:typingDot 1.3s ease-in-out infinite;
+}
+.ask-msg.typing span:nth-child(2){animation-delay:.18s}
+.ask-msg.typing span:nth-child(3){animation-delay:.36s}
+@keyframes typingDot{
+  0%,60%,100%{opacity:.3;transform:translateY(0)}
+  30%{opacity:1;transform:translateY(-3px)}
+}
+
+.ask-prompts{
+  padding:10px 18px 12px;
+  border-top:1px solid var(--line);
+  display:flex;flex-wrap:wrap;gap:6px;
+}
+.ask-prompts .label{
+  width:100%;font-family:var(--mono);font-size:9px;
+  color:var(--ink-dim);text-transform:uppercase;
+  letter-spacing:.14em;margin-bottom:4px;
+}
+.ask-prompt{
+  font-family:var(--sans);
+  font-size:12px;
+  padding:7px 12px;border-radius:100px;
+  border:1px solid var(--line);
+  background:#0d0f17;
+  color:var(--ink-soft);
+  cursor:pointer;
+  transition:all .15s;
+}
+.ask-prompt:hover{
+  background:rgba(65,101,229,.1);
+  border-color:rgba(65,101,229,.3);
+  color:var(--ink);
+}
+.ask-prompt:disabled{opacity:.4;cursor:not-allowed}
+
+.ask-input-row{
+  padding:10px 14px 14px;
+  border-top:1px solid var(--line);
+  display:flex;align-items:center;gap:8px;
+}
+.ask-input-row input{
+  flex:1;background:#0d0f17;
+  border:1px solid var(--line);
+  border-radius:100px;
+  padding:9px 14px;
+  font-family:var(--sans);font-size:13px;
+  color:var(--ink);outline:none;
+}
+.ask-input-row input::placeholder{color:var(--ink-dim);font-weight:300}
+.ask-input-row input:focus{border-color:rgba(65,101,229,.4)}
+.ask-input-row button{
+  width:34px;height:34px;border-radius:50%;
+  background:var(--accent);color:#fff;
+  border:none;cursor:pointer;
+  display:grid;place-items:center;
+  transition:transform .15s, box-shadow .15s;
+}
+.ask-input-row button:hover{
+  transform:scale(1.05);
+  box-shadow:0 4px 12px -2px rgba(65,101,229,.6);
+}
+.ask-input-row button svg{width:14px;height:14px}
+
+/* Caption row under app */
+.app-caption{
+  margin:42px auto 0;
+  max-width:1320px;
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:32px;
+  position:relative;z-index:2;
+}
+.app-caption-item{
+  display:flex;flex-direction:column;gap:8px;
+}
+.app-caption-item .ico{
+  width:34px;height:34px;border-radius:9px;
+  background:rgba(65,101,229,.1);
+  border:1px solid rgba(65,101,229,.2);
+  display:grid;place-items:center;
+  color:var(--accent-3);
+}
+.app-caption-item .ico svg{width:16px;height:16px}
+.app-caption-item h4{
+  font-family:var(--sans);
+  font-size:14.5px;font-weight:600;
+  color:var(--ink);
+  letter-spacing:-.01em;
+}
+.app-caption-item p{
+  font-size:13px;color:var(--ink-dim);
+  line-height:1.55;
+}
+
+/* Add-event modal */
+.add-modal-backdrop{
+  position:absolute;inset:0;
+  background:rgba(5,6,12,.7);
+  backdrop-filter:blur(6px);
+  display:flex;align-items:center;justify-content:center;
+  z-index:30;
+  opacity:0;pointer-events:none;
+  transition:opacity .25s ease;
+}
+.add-modal-backdrop.open{opacity:1;pointer-events:auto}
+.add-modal{
+  width:380px;max-width:calc(100% - 32px);
+  background:#0e1018;
+  border:1px solid rgba(65,101,229,.25);
+  border-radius:16px;
+  padding:22px;
+  box-shadow:0 30px 80px -20px rgba(0,0,0,.8);
+  transform:scale(.95);
+  transition:transform .25s cubic-bezier(.2,.8,.2,1);
+}
+.add-modal-backdrop.open .add-modal{transform:scale(1)}
+.add-modal h4{
+  font-family:var(--serif);font-size:22px;
+  font-weight:500;letter-spacing:-.015em;
+  color:var(--ink);margin-bottom:4px;
+  font-variation-settings:"opsz" 24;
+}
+.add-modal .sub{
+  font-size:12.5px;color:var(--ink-dim);
+  margin-bottom:16px;font-family:var(--mono);
+}
+.add-modal label{
+  display:block;
+  font-size:11px;color:var(--ink-dim);
+  font-family:var(--mono);text-transform:uppercase;
+  letter-spacing:.1em;
+  margin-bottom:6px;margin-top:12px;
+}
+.add-modal input,.add-modal select{
+  width:100%;
+  padding:10px 12px;
+  background:#0a0b10;
+  border:1px solid var(--line);
+  border-radius:8px;
+  font-family:var(--sans);font-size:13px;
+  color:var(--ink);outline:none;
+  transition:border-color .15s;
+}
+.add-modal input:focus,.add-modal select:focus{
+  border-color:rgba(65,101,229,.4);
+}
+.add-modal-actions{
+  display:flex;gap:10px;margin-top:20px;
+}
+.add-modal-actions button{
+  flex:1;padding:10px;
+  font-family:var(--sans);font-size:13px;font-weight:500;
+  border-radius:8px;cursor:pointer;
+  transition:all .15s;
+}
+.add-modal-cancel{
+  background:transparent;
+  border:1px solid var(--line);
+  color:var(--ink-soft);
+}
+.add-modal-cancel:hover{background:#11131e}
+.add-modal-save{
+  background:var(--accent);
+  border:1px solid var(--accent);
+  color:#fff;
+}
+.add-modal-save:hover{box-shadow:0 6px 14px -4px rgba(65,101,229,.6);transform:translateY(-1px)}
+
+@media(max-width:1080px){
+  .app-body{grid-template-columns:200px 1fr}
+}
+@media(max-width:900px){
+  .app-caption{grid-template-columns:1fr 1fr;gap:24px}
+  .app-body{grid-template-columns:1fr;min-height:auto}
+  .app-sidebar{border-right:none;border-bottom:1px solid var(--line);max-height:none}
+  .app-cal-head{padding:14px 16px 12px}
+  .app-cal-toolbar{gap:8px}
+  .app-cal-search{min-width:0;flex:1 1 160px;font-size:12px;padding:8px 12px}
+  .app-cal-titlebar{padding-right:0}
+  .action-row{gap:8px}
+  .add-event-btn,.import-cal-btn{padding:9px 14px;font-size:12.5px}
+  .smart-reorder{margin:14px 16px 0;padding:14px 16px;gap:12px}
+  .app-cal-body{min-width:600px;font-size:10px}
+  .app-cal-time{padding:4px 8px;font-size:10px}
+  .app-cal-event{padding:6px 8px;font-size:10.5px}
+  .app-cal-event .ev-title{font-size:10.5px}
+  .ask-panel{
+    right:12px;left:12px;width:auto;
+  }
+}
+@media(max-width:600px){
+  .app-showcase{padding:100px 16px 80px}
+  .app-showcase-head p{font-size:16px;margin-top:18px}
+  .app-window{border-radius:14px;margin:0 -4px}
+  .app-caption{grid-template-columns:1fr}
+  .app-cal-titlebar h3{font-size:24px}
+  .app-cal-titlebar p{font-size:12.5px}
+  .app-cal-controls{gap:8px}
+  .app-cal-nav{font-size:12px;padding:5px 10px}
+  .smart-reorder{flex-direction:column;align-items:stretch;text-align:center}
+  .smart-reorder-btn{align-self:center;width:100%;max-width:280px}
+  .ask-tempo{right:12px;bottom:12px;padding:10px 14px}
+  .ask-tempo span:not(.orb){display:none}
+  .ask-tempo{padding:11px}
+  .hero{padding:100px 16px 80px}
+}
+
+/* ─────────  LIGHT MODE  ───────── */
+@media (prefers-color-scheme: light) {
+  :root{
+    --bg:#f7f9fc;
+    --bg-2:#edf0f8;
+    --ink:#14172b;
+    --ink-dim:#5c6490;
+    --line:#dce2f0;
+    --line-soft:#e8ecf7;
+  }
+
+  /* Grain: multiply so it adds texture without darkening */
+  body::before{mix-blend-mode:multiply;opacity:.025}
+
+  /* Nav */
+  nav{background:rgba(247,249,252,.88)}
+
+  .func-wait-rail{
+    background:linear-gradient(180deg, transparent, rgba(247,249,252,.95) 40%);
+    border-top-color:rgba(26,30,46,.1);
+    color:#5c6490;
+  }
+  .func-wait-rail .func-wait-msg{color:#5c6490}
+
+  /* Eyebrow pill */
+  .eyebrow{background:rgba(255,255,255,.75);border-color:var(--line)}
+
+  /* Hero ambient orb: softer on white */
+  .hero::after{background:radial-gradient(circle,rgba(65,101,229,.1) 0%,transparent 60%)}
+
+  /* Button hover: blue accent with white text in light mode */
+  .btn-primary:hover,.nav-cta:hover{color:#fff}
+
+  /* Mock calendar frame */
+  .mock-frame{
+    background:linear-gradient(180deg,#ffffff 0%,#f2f5fb 100%);
+    box-shadow:
+      0 0 0 1px rgba(65,101,229,.08) inset,
+      0 60px 120px -30px rgba(65,101,229,.12),
+      0 30px 60px -15px rgba(0,0,0,.07);
+  }
+  .mock-tabs{background:#edf0f8}
+  .mock-side{background:#f2f5fb;border-color:var(--line)}
+  .mock-task:hover{background:#e4e9f5}
+  .mock-task.dragging{background:#e4e9f5}
+
+  /* Calendar events */
+  .event{background:rgba(65,101,229,.07);color:#3a4580}
+  .event .ev-title{color:var(--ink)}
+  .event.coral{background:rgba(65,101,229,.11);color:#2a3480}
+  .event.coral .ev-title{color:var(--ink)}
+  .event.amber{background:rgba(200,158,10,.1);border-left-color:#c89e0a;color:#6a530a}
+  .event.amber .ev-title{color:var(--ink)}
+  .event.lime{background:rgba(65,101,229,.06);color:#3d5090}
+  .event.lime .ev-title{color:var(--ink)}
+  .event.ghost{
+    background:repeating-linear-gradient(45deg,rgba(65,101,229,.07) 0 4px,transparent 4px 8px);
+    border-color:var(--accent);
+  }
+  .event.ghost .ev-title{color:var(--accent)}
+
+  /* AI chip */
+  .ai-chip{background:#ffffff;border-color:var(--line);box-shadow:0 20px 40px -10px rgba(0,0,0,.09)}
+  .ai-chip kbd{background:#edf0f8;border-color:var(--line)}
+
+  /* Marquee */
+  .marquee{background:var(--bg-2);border-color:var(--line)}
+  .marquee-item{color:var(--ink-dim)}
+  .marquee-item .star{color:var(--accent)}
+
+  /* Function visualization */
+  .func-vis{
+    background:radial-gradient(ellipse at top,rgba(65,101,229,.07),transparent 50%),
+               linear-gradient(180deg,#ffffff,#f2f5fb);
+    border-color:var(--line);
+    box-shadow:0 30px 60px -20px rgba(0,0,0,.08);
+  }
+  .inbox-item{background:#ffffff;border-color:var(--line)}
+  .inbox-item .title{color:var(--ink)}
+
+  /* Time-block stage */
+  .tb-slot{border-color:var(--line);color:var(--ink-dim)}
+  .tb-block.deep{background:rgba(65,101,229,.1);border-color:rgba(65,101,229,.25);color:#2a3480}
+  .tb-block.meet{background:rgba(65,101,229,.06);border-color:rgba(65,101,229,.15);color:#3d5090}
+  .tb-block.admin{background:rgba(200,158,10,.09);border-color:rgba(200,158,10,.22);color:#6a530a}
+  .tb-block.break{background:rgba(65,101,229,.04);border-color:rgba(176,196,245,.3);color:#4a60a0}
+
+  /* Conflict stage */
+  .conflict-card{background:#ffffff;border-color:var(--line)}
+  .conflict-head{color:var(--ink-dim)}
+  .conflict-action button{background:transparent;color:var(--ink);border-color:var(--line)}
+  .conflict-action button.primary{background:var(--accent);color:#ffffff;border-color:var(--accent)}
+
+  /* Focus/AI stage */
+  .agent-demo{
+    background:linear-gradient(165deg,#ffffff 0%,#f4f7fc 100%);
+    box-shadow:0 24px 56px -24px rgba(0,0,0,.12);
+  }
+  .agent-demo-head{border-color:var(--line);color:var(--ink)}
+  .agent-msg-user{background:rgba(65,101,229,.08);border-color:rgba(65,101,229,.2)}
+  .agent-msg-user p{color:var(--ink)}
+  .agent-msg-tempo{background:rgba(247,249,252,.9);border-color:var(--line)}
+  .agent-body p{color:#3a3f60}
+  .agent-body .agent-lead{color:var(--ink)}
+  .agent-body li{color:#4a5070}
+  .agent-body strong{color:var(--ink)}
+
+  /* Feature cards */
+  .feat-card{background:linear-gradient(180deg,#ffffff,#f4f7fc);border-color:var(--line)}
+  .feat-card:hover{border-color:#b8c5e8}
+  .feat-card .lbl{color:var(--accent)}
+  .feat-card h3 em{color:var(--accent)}
+
+  /* Feature card visuals */
+  .fv-search{background:#f2f5fb;border-color:var(--line)}
+  .fv-search .k{background:#edf0f8;border-color:var(--line)}
+  .fv-typing{color:var(--ink)}
+  .fv-blocks .row{
+    background:linear-gradient(90deg,var(--line) 0%,var(--line) var(--w,40%),transparent var(--w,40%));
+  }
+  .fv-blocks .row.active{
+    background:linear-gradient(90deg,var(--accent) 0%,var(--accent) var(--w),var(--line) var(--w));
+  }
+  .fv-clock{
+    border-color:var(--line);
+    background:
+      radial-gradient(circle at 50% 50%,rgba(65,101,229,.05) 0%,transparent 55%),
+      radial-gradient(circle at 50% 50%,#ffffff 0%,#f4f7fc 100%);
+    box-shadow:0 0 0 1px rgba(255,255,255,.8) inset;
+  }
+  .fv-clock-ticks{
+    background:repeating-conic-gradient(
+      from -90deg,
+      rgba(92,100,144,.4) 0deg 1.25deg,
+      transparent 1.25deg 30deg
+    );
+  }
+  .fv-clock-ticks::after{
+    background:repeating-conic-gradient(
+      from -90deg,
+      transparent 0deg 88deg,
+      rgba(20,23,43,.2) 88deg 92deg
+    );
+  }
+  .fv-clock-hand-hour{
+    background:linear-gradient(180deg,#5c6490,rgba(92,100,144,.85));
+  }
+  .fv-clock .center{
+    box-shadow:
+      0 0 0 2px rgba(255,255,255,.95),
+      0 0 14px rgba(65,101,229,.35);
+  }
+  .fv-integrations .pill{background:#edf0f8;border-color:var(--line);color:var(--ink-dim)}
+
+  .feat-beta{
+    background:linear-gradient(180deg,#ece8ff,#ddd5ff);
+    color:#4a3d9e;
+    border-color:rgba(65,101,229,.25);
+  }
+  .fv-focus-inner{
+    background:linear-gradient(180deg,#ffffff,#f0f3fb);
+    border-color:var(--line);
+    box-shadow:inset 0 0 20px rgba(65,101,229,.08);
+  }
+  .fv-focus-time{color:var(--ink)}
+  .fv-focus-ring{
+    box-shadow:0 0 36px -8px rgba(65,101,229,.35);
+  }
+  .fv-workflow-phone{
+    background:linear-gradient(150deg,#e4e7f4,#cfd5ea);
+    box-shadow:0 28px 56px -20px rgba(65,101,229,.25),0 0 0 1px rgba(26,30,46,.08) inset;
+  }
+  .fv-workflow-screen{
+    background:linear-gradient(180deg,#f6f7fc,#e8ebf8);
+    border-color:rgba(26,30,46,.1);
+  }
+  .fv-workflow-bubble{
+    background:#ffffff;
+    border-color:var(--line);
+    color:#3a3f60;
+  }
+  .fv-workflow-bubble strong{color:var(--ink)}
+  .fv-workflow-input{
+    background:#ffffff;
+    border-color:rgba(65,101,229,.2);
+    color:var(--accent);
+  }
+  .fv-workflow-plus{border-color:var(--line);color:var(--ink-dim)}
+
+  /* Workflow showcase */
+  .flow-showcase::before{
+    background:
+      radial-gradient(ellipse 90% 55% at 50% -10%, rgba(65,101,229,.1), transparent 55%),
+      radial-gradient(ellipse 50% 40% at 90% 100%, rgba(124,158,248,.06), transparent 50%);
+  }
+  .flow-sub{color:#5c6070}
+  .flow-nav{background:#ffffff;border-color:var(--line);color:var(--ink)}
+  .flow-nav:hover{background:var(--accent);border-color:var(--accent);color:#fff}
+  .flow-card-inner{
+    background:linear-gradient(168deg, #ffffff 0%, #f0f3fb 100%);
+    border-color:rgba(26,30,46,.12);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.9);
+  }
+  .flow-card.tint-blue .flow-card-inner{background:linear-gradient(168deg, #f4f6fd 0%, #e8ecf8 100%)}
+  .flow-card.tint-soft .flow-card-inner{background:linear-gradient(168deg, #fafbff 0%, #eceff8 100%)}
+  .flow-card.tint-mist .flow-card-inner{background:linear-gradient(168deg, #ffffff 0%, #eef1fa 100%)}
+  .flow-card h3{color:var(--ink)}
+  .flow-card-p,.flow-card-list{color:#4a5070}
+  .flow-draft{background:#f4f6fc;border-color:var(--line);color:#3a3f60}
+  .flow-notify{background:rgba(65,101,229,.08);border-color:rgba(65,101,229,.2);color:var(--ink)}
+  .flow-cta{background:var(--ink);color:#fff}
+  .flow-cta:hover{background:var(--accent);color:#fff}
+
+  /* Testimonials */
+  .testimonials{background:#edf0f8}
+  .test{background:#ffffff;border-color:var(--line)}
+  .test p{color:#3a3f60}
+  .test p em{color:var(--accent)}
+  .test .who{border-color:var(--line)}
+  .test .meta strong{color:var(--ink)}
+  .test .meta span{color:var(--ink-dim)}
+
+  /* CTA */
+  .cta::before{background:radial-gradient(circle,rgba(65,101,229,.1),transparent 60%)}
+
+  /* App showcase (light) */
+  .app-window{
+    background:linear-gradient(180deg,#ffffff 0%,#f4f7fc 100%);
+    box-shadow:
+      0 0 0 1px rgba(65,101,229,.06) inset,
+      0 80px 160px -40px rgba(65,101,229,.18),
+      0 40px 80px -20px rgba(0,0,0,.1);
+  }
+  .app-topbar{background:#edf0f8}
+  .app-topbar .urlbar{background:#ffffff;border-color:var(--line)}
+  .app-sidebar{background:#f4f7fc;border-color:var(--line)}
+  .app-sidebar-brand{border-color:var(--line)}
+  .sidebar-collapse{background:#fff;border-color:var(--line)}
+  .sidebar-divider{background:var(--line)}
+  .sidebar-link:hover{background:#e4e9f5;color:var(--ink)}
+  .app-cal{background:#ffffff}
+  .app-cal-head{border-color:var(--line)}
+  .app-cal-search{background:#f4f7fc;border-color:var(--line)}
+  .app-cal-pill{background:#f4f7fc;border-color:var(--line)}
+  .app-cal-icon-btn{background:#f4f7fc;border-color:var(--line)}
+  .app-cal-nav{background:#f4f7fc;border-color:var(--line)}
+  .today-btn{background:#f4f7fc;border-color:var(--line)}
+  .app-cal-view-toggle{background:#f4f7fc;border-color:var(--line)}
+  .app-cal-action-btn{background:#f4f7fc;border-color:var(--line)}
+  .app-cal-action-btn:hover{background:#e8edf6;border-color:#c8d2e6}
+  .add-event-btn,.import-cal-btn{background:#f4f7fc;border-color:var(--line)}
+  .smart-reorder{
+    background:linear-gradient(135deg,rgba(65,101,229,.06) 0%,rgba(124,158,248,.03) 100%);
+    border-color:rgba(65,101,229,.18);
+  }
+  .app-cal-body{background:#ffffff}
+  .app-cal-dayhead.due-day .num{color:#b8181f}
+  .app-cal-dayhead.due-day .due-tooltip{
+    background:rgba(255,255,255,.98);
+    border-color:rgba(255,77,79,.35);
+    color:#1a1520;
+    box-shadow:0 12px 28px -8px rgba(0,0,0,.12);
+  }
+  .app-cal-time,.app-cal-cell{border-color:var(--line)}
+  .app-cal-event{
+    background:rgba(65,101,229,.08);
+    border-color:rgba(65,101,229,.2);
+  }
+  .app-cal-event .ev-title{color:#1d2a5e}
+  .app-cal-event .ev-meta,.app-cal-event .ev-time{color:#3a4580;opacity:.85}
+  .app-cal-event.health{background:rgba(46,160,109,.08);border-color:rgba(46,160,109,.2)}
+  .app-cal-event.health .ev-title{color:#1f6a4a}
+  .app-cal-event.work{background:rgba(200,158,10,.08);border-color:rgba(200,158,10,.22)}
+  .app-cal-event.work .ev-title{color:#6a530a}
+  .app-cal-event.personal{background:rgba(160,80,200,.08);border-color:rgba(160,80,200,.22)}
+  .app-cal-event.personal .ev-title{color:#6a3098}
+  .app-cal-event.study{
+    background-image:repeating-linear-gradient(45deg,transparent 0 6px,rgba(65,101,229,.04) 6px 12px);
+  }
+  .app-cal-event.due-assess{
+    background:rgba(255,77,79,.1);
+    border-color:rgba(255,77,79,.28);
+  }
+  .app-cal-event.due-assess .ev-title{color:#9a1e24}
+  .app-cal-event.due-assess .ev-meta,.app-cal-event.due-assess .ev-time{color:#6a1520}
+  .ask-tempo{
+    background:rgba(255,255,255,.85);
+    border-color:rgba(65,101,229,.2);
+    color:var(--ink);
+  }
+  .ask-panel{
+    background:rgba(255,255,255,.96);
+    border-color:rgba(65,101,229,.18);
+  }
+  .ask-msg.bot{background:#f4f7fc;border-color:var(--line);color:#3a3f60}
+  .ask-msg.bot .bot-list li{background:#fff;border-color:var(--line)}
+  .ask-prompt{background:#f4f7fc;border-color:var(--line);color:var(--ink-soft)}
+  .ask-input-row input{background:#f4f7fc;border-color:var(--line)}
+  .add-modal{background:#fff}
+  .add-modal input,.add-modal select{background:#f4f7fc;border-color:var(--line)}
+  .add-modal-cancel{border-color:var(--line)}
+  .add-modal-cancel:hover{background:#edf0f8}
+  .app-caption-item .ico{background:rgba(65,101,229,.07);border-color:rgba(65,101,229,.18)}
+
+  /* Waitlist form (light) */
+  .waitlist-form{
+    background:rgba(255,255,255,.85);
+    border-color:var(--line);
+    box-shadow:
+      0 0 0 1px rgba(255,255,255,.7) inset,
+      0 30px 60px -20px rgba(65,101,229,.15),
+      0 0 80px -20px rgba(65,101,229,.15);
+  }
+  .waitlist-form:focus-within{
+    border-color:rgba(65,101,229,.4);
+    box-shadow:
+      0 0 0 1px rgba(255,255,255,.7) inset,
+      0 30px 60px -20px rgba(65,101,229,.18),
+      0 0 80px -20px rgba(65,101,229,.3);
+  }
+  .waitlist-input-wrap{
+    border-color:rgba(30,35,55,.22);
+    background:rgba(255,255,255,.55);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.85);
+  }
+  .waitlist-form:focus-within .waitlist-input-wrap{
+    border-color:rgba(65,101,229,.42);
+    background:rgba(255,255,255,.72);
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.95),
+      0 0 0 1px rgba(65,101,229,.1);
+  }
+  .cta-wait-email{
+    background:rgba(255,255,255,.92);
+    border-color:var(--line);
+    color:var(--ink);
+  }
+  .cta-wait-email:focus{
+    border-color:rgba(65,101,229,.4);
+    box-shadow:0 0 0 3px rgba(65,101,229,.1);
+  }
+  /* Footer */
+  footer{background:var(--bg-2)}
+  .foot a:hover{color:var(--ink)}
+  .bottombar{border-color:var(--line)}
+}
+
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="logo">
+    <svg class="logo-icon" width="34" height="34" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="0" y="0" width="16" height="16" rx="3.5" style="fill:var(--ink)"/>
+      <rect x="20" y="0" width="16" height="16" rx="3.5" fill="#4165e5"/>
+      <rect x="0" y="20" width="16" height="16" rx="3.5" fill="#b0c4f5"/>
+      <path d="M28 20C28 24.4 31.6 28 36 28C31.6 28 28 31.6 28 36C28 31.6 24.4 28 20 28C24.4 28 28 24.4 28 20Z" fill="#4165e5"/>
+    </svg>
+    Tempo
+  </a>
+  <div class="nav-links">
+    <a href="#app">The app</a>
+    <a href="#how">How it works</a>
+    <a href="#features">Features</a>
+    <a href="#pricing">Waitlist</a>
+  </div>
+  <a href="#waitlist" class="nav-cta">Join waitlist →</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="waitlist">
+  <div class="eyebrow">
+    <span class="dot"></span>
+    Now in private beta · Built for UQ · v0.4
+  </div>
+  <h1 class="hero-title">
+    <span class="line">
+      <span class="word">Your</span>
+      <span class="word">semester,</span>
+      <span class="word">sorted</span>
+    </span>
+    <span class="line">
+      <span class="word"><em>before</em></span>
+      <span class="word">it&nbsp;starts.</span>
+    </span>
+  </h1>
+  <p class="hero-sub">
+    Paste your UQ timetable link. Tempo finds your courses, loads <strong>every assessment deadline</strong>, and tells you exactly what to study, automatically.
+  </p>
+
+  <form
+    class="waitlist-form"
+    id="waitlistHeroForm"
+    name="waitlist-hero"
+    method="POST"
+    data-netlify="true"
+    netlify-honeypot="bot-field"
+    novalidate
+  >
+    <input type="hidden" name="form-name" value="waitlist-hero" />
+    <p class="honeypot-wrap" hidden>
+      <label>Leave blank if you are human: <input name="bot-field" autocomplete="off" tabindex="-1" /></label>
+    </p>
+    <div class="waitlist-input-wrap">
+      <svg class="waitlist-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 8l9 6 9-6M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+      <input type="email" name="email" class="waitlist-input" id="waitlistEmail" placeholder="Enter your email" autocomplete="email" required />
+    </div>
+    <button type="submit" class="btn-primary waitlist-submit">
+      <span class="btn-label">Join the waitlist</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+    </button>
+  </form>
+  <div class="waitlist-meta">
+    <span class="waitlist-success" id="waitlistSuccess">✓ You're on the list. We'll email when your spot opens.</span>
+  </div>
+
+  <a href="#how" class="btn-secondary watch-link">
+    <span class="play"><svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><path d="M0 0v8l8-4z"/></svg></span>
+    Watch how it works
+  </a>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee">
+  <div class="marquee-track">
+    <span class="marquee-item">Assessment tracking <span class="star">✻</span> ICS timetable import <span class="star">✻</span> 1,261 UQ courses <span class="star">✻</span> Study block creator <span class="star">✻</span> AI study assistant <span class="star">✻</span> Urgency badges <span class="star">✻</span> Hurdle requirements <span class="star">✻</span> Teaching week view <span class="star">✻</span></span>
+    <span class="marquee-item">Assessment tracking <span class="star">✻</span> ICS timetable import <span class="star">✻</span> 1,261 UQ courses <span class="star">✻</span> Study block creator <span class="star">✻</span> AI study assistant <span class="star">✻</span> Urgency badges <span class="star">✻</span> Hurdle requirements <span class="star">✻</span> Teaching week view <span class="star">✻</span></span>
+  </div>
+</div>
+
+<!-- APP SHOWCASE -->
+<section class="app-showcase" id="app">
+  <div class="app-showcase-head">
+    <div class="section-eyebrow reveal" style="justify-content:center">A peek inside</div>
+    <h2 class="section-title reveal delay-1">Your week, <em>protected</em>.</h2>
+    <p class="reveal delay-2">A calendar built for how students actually study: drag tasks onto your week, ask Tempo what's coming up, and let Smart Reorder protect your focus time. Try it below.</p>
+    <div class="app-try-hint reveal delay-3"><span class="pulse"></span>This is interactive · click an empty slot to add an event</div>
+  </div>
+
+  <div class="app-window reveal delay-2" id="appWindow">
+    <div class="app-topbar">
+      <div class="tlights"><span></span><span></span><span></span></div>
+      <div class="urlbar"><span class="lock">🔒</span>beta.tempocalendar.com</div>
+    </div>
+
+    <div class="app-body">
+      <!-- Sidebar -->
+      <aside class="app-sidebar">
+        <div class="app-sidebar-brand">
+          <svg class="logo-mark" width="38" height="38" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0" y="0" width="16" height="16" rx="3.5" fill="#f2f2f5"/>
+            <rect x="20" y="0" width="16" height="16" rx="3.5" fill="#4165e5"/>
+            <rect x="0" y="20" width="16" height="16" rx="3.5" fill="#b0c4f5"/>
+            <path d="M28 20C28 24.4 31.6 28 36 28C31.6 28 28 31.6 28 36C28 31.6 24.4 28 20 28C24.4 28 28 24.4 28 20Z" fill="#4165e5"/>
+          </svg>
+          <div class="name-block">
+            <span class="name">Tempo</span>
+            <span class="tag">Find your <em>rhythm</em></span>
+          </div>
+        </div>
+        <button class="sidebar-collapse" aria-label="Collapse sidebar">‹</button>
+
+        <div class="sidebar-link active">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          Calendar
+          <span class="badge">7</span>
+        </div>
+        <div class="sidebar-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          Focus
+        </div>
+        <div class="sidebar-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 17l6-6 4 4 8-8"/><path d="M17 7h4v4"/></svg>
+          Insights
+        </div>
+        <div class="sidebar-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+          Daily briefing
+        </div>
+        <div class="sidebar-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5a6 3 0 0012 0v-5"/></svg>
+          Assessments
+        </div>
+        <div class="sidebar-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+          Course Lookup
+        </div>
+
+        <div class="sidebar-spacer"></div>
+
+        <div class="sidebar-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M6 14h12"/></svg>
+          Shortcuts
+        </div>
+        <div class="sidebar-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 11-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 110-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 114 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 110 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+          Settings
+        </div>
+        <div class="sidebar-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3M12 17h.01"/></svg>
+          Support &amp; feedback
+        </div>
+      </aside>
+
+      <!-- Calendar pane -->
+      <div class="app-cal">
+        <div class="app-cal-head">
+          <!-- Top toolbar with profile in top right -->
+          <div class="app-cal-toolbar">
+            <div class="app-cal-search">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+              Search events (coming soon)…
+            </div>
+            <div class="app-cal-pill synced"><span class="pulse"></span>Synced now</div>
+            <button class="app-cal-icon-btn" aria-label="Theme">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+            </button>
+            <button class="app-cal-icon-btn" aria-label="Add">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+            </button>
+            <button class="app-cal-icon-btn" aria-label="Notifications">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0"/></svg>
+            </button>
+            <div class="app-cal-avatar" aria-label="Profile"></div>
+          </div>
+
+          <!-- Title block + controls + actions -->
+          <div class="app-cal-titlebar">
+            <div>
+              <h3>Weekly Flow</h3>
+              <p>Plan your schedule, protect focus time, and keep your week on track.</p>
+            </div>
+            <div class="app-cal-controls">
+              <div class="app-cal-nav">
+                <button>‹</button>
+                <span>April 2026 · Week 9</span>
+                <button>›</button>
+              </div>
+              <button class="today-btn">Today</button>
+              <div class="app-cal-view-toggle">
+                <button>Day</button>
+                <button class="active">Week</button>
+                <button>Month</button>
+              </div>
+              <button class="app-cal-action-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 4L12 14.01l-3-3"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+                Week 9
+              </button>
+              <button class="app-cal-action-btn">More options</button>
+            </div>
+          </div>
+
+          <div class="action-row">
+            <button class="add-event-btn" id="addEventBtn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+              Add event
+            </button>
+            <button class="import-cal-btn">
+              <span class="gmail-i">G</span>
+              Import calendar
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Smart Reorder banner -->
+        <div class="smart-reorder">
+          <div class="smart-reorder-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 8h-7M21 16h-7M3 8l3 3 3-3M3 16l3-3 3 3"/></svg>
+          </div>
+          <div class="smart-reorder-text">
+            <strong>Smart Reorder analysed your week</strong>
+            <span>1 optimisation ready · based on your focus patterns</span>
+          </div>
+          <button class="smart-reorder-btn">Open</button>
+        </div>
+
+        <!-- Calendar grid (scroll horizontally on narrow screens) -->
+        <div class="app-cal-scroll">
+        <div class="app-cal-body" id="calBody">
+          <div></div>
+          <div class="app-cal-dayhead"><span>MON</span><br><span class="num">27</span></div>
+          <div class="app-cal-dayhead"><span>TUE</span><br><span class="num">28</span></div>
+          <div class="app-cal-dayhead"><span>WED</span><br><span class="num">29</span></div>
+          <div class="app-cal-dayhead today"><span>THU</span><br><span class="num">30</span><span class="week-label">Teaching week 9</span></div>
+          <div class="app-cal-dayhead"><span>FRI</span><br><span class="num">1</span></div>
+          <div class="app-cal-dayhead due-day" tabindex="0">
+            <span>SAT</span><br><span class="num">2</span>
+            <span class="due-tooltip" role="tooltip">DECO2300 design portfolio · due Sat 2 May 2026, 11:59 PM</span>
+          </div>
+          <div class="app-cal-dayhead"><span>SUN</span><br><span class="num">3</span></div>
+
+          <!-- Hours rows: 9am, 10am, 11am, 12pm, 1pm, 2pm, 3pm, 4pm, 5pm, 6pm -->
+          <!-- 9am -->
+          <div class="app-cal-time" style="padding-top:8px">9am</div>
+          <div class="app-cal-cell add-hint" data-day="0" data-hour="9">
+            <div class="app-cal-event health compact" draggable="true" data-evid="e7" style="top:4px;height:33px">
+              <span class="ev-title">Morning run</span>
+              <span class="ev-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 4L3 14M3 4l10 10M21 20l-4-4M17 16l4 4"/></svg>Health</span>
+              <span class="ev-time">9:10 to 9:52 AM</span>
+            </div>
+          </div>
+          <div class="app-cal-cell add-hint" data-day="1" data-hour="9"></div>
+          <div class="app-cal-cell add-hint" data-day="2" data-hour="9">
+            <div class="app-cal-event work compact" draggable="true" data-evid="e20" style="top:6px;height:30px">
+              <span class="ev-title">Lab handover</span>
+              <span class="ev-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>Work</span>
+              <span class="ev-time">9:15 to 9:40 AM</span>
+            </div>
+          </div>
+          <div class="app-cal-cell add-hint" data-day="3" data-hour="9"></div>
+          <div class="app-cal-cell add-hint" data-day="4" data-hour="9"></div>
+          <div class="app-cal-cell add-hint" data-day="5" data-hour="9">
+            <div class="app-cal-event due-assess compact" draggable="true" data-evid="e12" style="top:4px;height:36px">
+              <span class="ev-title">DECO2300 portfolio due</span>
+              <span class="ev-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Assessment</span>
+              <span class="ev-time">Due 11:59 PM</span>
+            </div>
+          </div>
+          <div class="app-cal-cell add-hint" data-day="6" data-hour="9"></div>
+
+          <!-- 10am -->
+          <div class="app-cal-time">10am</div>
+          <div class="app-cal-cell add-hint" data-day="0" data-hour="10">
+            <div class="app-cal-event uni" draggable="true" data-evid="e1" style="top:0;height:96px">
+              <span class="ev-title">CIVL2530 Geomechanics <span class="lock-i">🔒</span></span>
+              <span class="ev-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/></svg>Uni</span>
+              <span class="ev-time">10:00 AM to 12:00 PM</span>
+            </div>
+          </div>
+          <div class="app-cal-cell add-hint" data-day="1" data-hour="10"></div>
+          <div class="app-cal-cell add-hint" data-day="2" data-hour="10">
+            <div class="app-cal-event work" draggable="true" data-evid="e11" style="top:9px;height:63px">
+              <span class="ev-title">Retail shift</span>
+              <span class="ev-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>Work</span>
+              <span class="ev-time">10:20 AM to 11:45 AM</span>
+            </div>
+          </div>
+          <div class="app-cal-cell add-hint" data-day="3" data-hour="10">
+            <div class="app-cal-event uni" draggable="true" data-evid="e2" style="top:14px;height:83px">
+              <span class="ev-title">PHYS1171 Lab <span class="lock-i">🔒</span></span>
+              <span class="ev-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/></svg>Uni</span>
+              <span class="ev-time">10:30 AM to 12:00 PM</span>
+            </div>
+          </div>
+          <div class="app-cal-cell add-hint" data-day="4" data-hour="10"></div>
+          <div class="app-cal-cell add-hint" data-day="5" data-hour="10"></div>
+          <div class="app-cal-cell add-hint" data-day="6" data-hour="10">
+            <div class="app-cal-event health" draggable="true" data-evid="e21" style="top:11px;height:54px">
+              <span class="ev-title">River loop run</span>
+              <span class="ev-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 4L3 14M3 4l10 10M21 20l-4-4M17 16l4 4"/></svg>Health</span>
+              <span class="ev-time">10:18 AM to 11:25 AM</span>
+            </div>
+          </div>
+
+          <!-- 11am -->
+          <div class="app-cal-time">11am</div>
+          <div class="app-cal-cell add-hint" data-day="0" data-hour="11"></div>
+          <div class="app-cal-cell add-hint" data-day="1" data-hour="11"></div>
+          <div class="app-cal-cell add-hint" data-day="2" data-hour="11"></div>
+          <div class="app-cal-cell add-hint" data-day="3" data-hour="11"></div>
+          <div class="app-cal-cell add-hint" data-day="4" data-hour="11">
+            <div class="app-cal-event uni" draggable="true" data-evid="e3" style="top:0;height:144px">
+              <span class="ev-title">DECO2300 Lecture <span class="lock-i">🔒</span></span>
+              <span class="ev-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/></svg>Uni</span>
+              <span class="ev-time">11:00 AM to 2:00 PM</span>
+            </div>
+          </div>
+          <div class="app-cal-cell add-hint" data-day="5" data-hour="11"></div>
+          <div class="app-cal-cell add-hint" data-day="6" data-hour="11"></div>
+
+          <!-- 12pm -->
+          <div class="app-cal-time">12pm</div>
+          <div class="app-cal-cell add-hint" data-day="0" data-hour="12"></div>
+          <div class="app-cal-cell add-hint" data-day="1" data-hour="12"></div>
+          <div class="app-cal-cell add-hint" data-day="2" data-hour="12">
+            <div class="app-cal-event uni" draggable="true" data-evid="e4" style="top:0;height:96px">
+              <span class="ev-title">STAT1301 Tutorial</span>
+              <span class="ev-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/></svg>Uni</span>
+              <span class="ev-time">12:00 PM to 2:00 PM</span>
+            </div>
+          </div>
+          <div class="app-cal-cell add-hint" data-day="3" data-hour="12"></div>
+          <div class="app-cal-cell add-hint" data-day="4" data-hour="12"></div>
+          <div class="app-cal-cell add-hint" data-day="5" data-hour="12"></div>
+          <div class="app-cal-cell add-hint" data-day="6" data-hour="12"></div>
+
+          <!-- 1pm -->
+          <div class="app-cal-time">1pm</div>
+          <div class="app-cal-cell add-hint" data-day="0" data-hour="13"></div>
+          <div class="app-cal-cell add-hint" data-day="1" data-hour="13">
+            <div class="app-cal-event work tall" draggable="true" data-evid="e9" style="top:8px;height:177px">
+              <span class="ev-title">Campus IT desk</span>
+              <span class="ev-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>Work</span>
+              <span class="ev-time">1:05 PM to 4:45 PM</span>
+            </div>
+          </div>
+          <div class="app-cal-cell add-hint" data-day="2" data-hour="13"></div>
+          <div class="app-cal-cell add-hint" data-day="3" data-hour="13"></div>
+          <div class="app-cal-cell add-hint" data-day="4" data-hour="13"></div>
+          <div class="app-cal-cell add-hint" data-day="5" data-hour="13"></div>
+          <div class="app-cal-cell add-hint" data-day="6" data-hour="13"></div>
+
+          <!-- 2pm -->
+          <div class="app-cal-time">2pm</div>
+          <div class="app-cal-cell add-hint" data-day="0" data-hour="14">
+            <div class="app-cal-event study" draggable="true" data-evid="e5" style="top:0;height:96px">
+              <span class="ev-title">Study · STAT1301 Asst</span>
+              <span class="ev-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Study</span>
+              <span class="ev-time">2:00 PM to 4:00 PM</span>
+            </div>
+          </div>
+          <div class="app-cal-cell add-hint" data-day="1" data-hour="14"></div>
+          <div class="app-cal-cell add-hint" data-day="2" data-hour="14"></div>
+          <div class="app-cal-cell add-hint" data-day="3" data-hour="14">
+            <div class="app-cal-event uni" draggable="true" data-evid="e6" style="top:0;height:96px">
+              <span class="ev-title">DECO2300 Workshop</span>
+              <span class="ev-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/></svg>Uni</span>
+              <span class="ev-time">2:00 PM to 4:00 PM</span>
+            </div>
+          </div>
+          <div class="app-cal-cell add-hint" data-day="4" data-hour="14"></div>
+          <div class="app-cal-cell add-hint" data-day="5" data-hour="14"></div>
+          <div class="app-cal-cell add-hint" data-day="6" data-hour="14"></div>
+
+          <!-- 3pm -->
+          <div class="app-cal-time">3pm</div>
+          <div class="app-cal-cell add-hint" data-day="0" data-hour="15"></div>
+          <div class="app-cal-cell add-hint" data-day="1" data-hour="15"></div>
+          <div class="app-cal-cell add-hint" data-day="2" data-hour="15">
+            <div class="app-cal-event health" draggable="true" data-evid="e22" style="top:14px;height:62px">
+              <span class="ev-title">Gym · legs</span>
+              <span class="ev-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>Health</span>
+              <span class="ev-time">3:17 PM to 4:36 PM</span>
+            </div>
+          </div>
+          <div class="app-cal-cell add-hint" data-day="3" data-hour="15"></div>
+          <div class="app-cal-cell add-hint" data-day="4" data-hour="15"></div>
+          <div class="app-cal-cell add-hint" data-day="5" data-hour="15"></div>
+          <div class="app-cal-cell add-hint" data-day="6" data-hour="15"></div>
+
+          <!-- 4pm: now line on today (Thu) -->
+          <div class="app-cal-time">4pm</div>
+          <div class="app-cal-cell add-hint" data-day="0" data-hour="16"></div>
+          <div class="app-cal-cell add-hint" data-day="1" data-hour="16"></div>
+          <div class="app-cal-cell add-hint" data-day="2" data-hour="16"></div>
+          <div class="app-cal-cell add-hint" data-day="3" data-hour="16">
+            <div class="now-line-row" style="top:29px"></div>
+            <div class="app-cal-event uni" draggable="true" data-evid="e8" style="top:0;height:96px">
+              <span class="ev-title">CHEM1100 Lecture <span class="lock-i">🔒</span></span>
+              <span class="ev-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/></svg>Uni</span>
+              <span class="ev-time">4:00 PM to 6:00 PM</span>
+            </div>
+          </div>
+          <div class="app-cal-cell add-hint" data-day="4" data-hour="16"></div>
+          <div class="app-cal-cell add-hint" data-day="5" data-hour="16"></div>
+          <div class="app-cal-cell add-hint" data-day="6" data-hour="16"></div>
+
+          <!-- 5pm -->
+          <div class="app-cal-time">5pm</div>
+          <div class="app-cal-cell add-hint" data-day="0" data-hour="17"></div>
+          <div class="app-cal-cell add-hint" data-day="1" data-hour="17">
+            <div class="app-cal-event health" draggable="true" data-evid="e10" style="top:17px;height:36px">
+              <span class="ev-title">Track intervals</span>
+              <span class="ev-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 4L3 14M3 4l10 10M21 20l-4-4M17 16l4 4"/></svg>Health</span>
+              <span class="ev-time">5:22 PM to 6:05 PM</span>
+            </div>
+          </div>
+          <div class="app-cal-cell add-hint" data-day="2" data-hour="17"></div>
+          <div class="app-cal-cell add-hint" data-day="3" data-hour="17"></div>
+          <div class="app-cal-cell add-hint" data-day="4" data-hour="17">
+            <div class="app-cal-event work" draggable="true" data-evid="e23" style="top:6px;height:99px">
+              <span class="ev-title">Barista close</span>
+              <span class="ev-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>Work</span>
+              <span class="ev-time">5:08 PM to 8:55 PM</span>
+            </div>
+          </div>
+          <div class="app-cal-cell add-hint" data-day="5" data-hour="17"></div>
+          <div class="app-cal-cell add-hint" data-day="6" data-hour="17"></div>
+
+          <!-- 6pm -->
+          <div class="app-cal-time">6pm</div>
+          <div class="app-cal-cell add-hint" data-day="0" data-hour="18"></div>
+          <div class="app-cal-cell add-hint" data-day="1" data-hour="18"></div>
+          <div class="app-cal-cell add-hint" data-day="2" data-hour="18"></div>
+          <div class="app-cal-cell add-hint" data-day="3" data-hour="18"></div>
+          <div class="app-cal-cell add-hint" data-day="4" data-hour="18"></div>
+          <div class="app-cal-cell add-hint" data-day="5" data-hour="18"></div>
+          <div class="app-cal-cell add-hint" data-day="6" data-hour="18"></div>
+        </div>
+        </div>
+
+        <!-- Add event modal -->
+        <div class="add-modal-backdrop" id="addModal">
+          <div class="add-modal">
+            <h4>Add event</h4>
+            <div class="sub" id="addModalSlot">Click a slot on the calendar first.</div>
+            <label>Title</label>
+            <input type="text" id="addEventTitle" placeholder="e.g. Study · MATH1051 Quiz" autocomplete="off" />
+            <label>Category</label>
+            <select id="addEventCategory">
+              <option value="study">Study</option>
+              <option value="uni">Uni</option>
+              <option value="work">Work</option>
+              <option value="health">Health</option>
+              <option value="personal">Personal</option>
+            </select>
+            <label>Duration</label>
+            <select id="addEventDuration">
+              <option value="1">1 hour</option>
+              <option value="2" selected>2 hours</option>
+              <option value="3">3 hours</option>
+            </select>
+            <div class="add-modal-actions">
+              <button class="add-modal-cancel" id="addModalCancel">Cancel</button>
+              <button class="add-modal-save" id="addModalSave">Add to calendar</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Floating Ask Tempo button + chat -->
+        <button class="ask-tempo" id="askTempoBtn">
+          <span class="orb"></span>
+          <span>Ask Tempo</span>
+        </button>
+
+        <div class="ask-panel" id="askPanel">
+          <div class="ask-panel-head">
+            <span class="orb"></span>
+            <div class="who">
+              <strong>Tempo AI</strong>
+              <span>knows your timetable</span>
+            </div>
+            <button class="close" id="askClose" aria-label="Close">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+            </button>
+          </div>
+          <div class="ask-panel-body" id="askBody">
+            <div class="ask-msg bot">
+              Hey 👋 I've got the context of your <em>full timetable</em>, every assessment, weight, and hurdle. Try a question below, or type your own.
+            </div>
+          </div>
+          <div class="ask-prompts" id="askPrompts">
+            <span class="label">Try one</span>
+            <button class="ask-prompt" data-q="day">What does my day look like?</button>
+            <button class="ask-prompt" data-q="week">What's due this week?</button>
+            <button class="ask-prompt" data-q="study">When should I study for CHEM1100?</button>
+            <button class="ask-prompt" data-q="conflict">Any deadline conflicts?</button>
+            <button class="ask-prompt" data-q="free">When am I free on Friday?</button>
+          </div>
+          <div class="ask-input-row">
+            <input type="text" id="askInput" placeholder="Ask anything about your week…" />
+            <button id="askSend" aria-label="Send">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4z"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Caption row -->
+  <div class="app-caption">
+    <div class="app-caption-item reveal">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 8h-7M21 16h-7M3 8l3 3 3-3M3 16l3-3 3 3"/></svg></div>
+      <h4>Smart Reorder</h4>
+      <p>Tempo notices when your focus blocks are scattered and suggests a reorder based on your real productivity patterns.</p>
+    </div>
+    <div class="app-caption-item reveal delay-1">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div>
+      <h4>Drag-to-schedule</h4>
+      <p>Drag any event to a new slot, or click an empty cell to add a study block. Categories, durations, and focus tags carry across.</p>
+    </div>
+    <div class="app-caption-item reveal delay-2">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg></div>
+      <h4>Ask Tempo, anywhere</h4>
+      <p>An AI assistant that already knows your timetable, deadlines, hurdles and weights. One tap, real answers about your week.</p>
+    </div>
+    <div class="app-caption-item reveal delay-3">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12h18M3 6h18M3 18h18"/></svg></div>
+      <h4>One calendar, every category</h4>
+      <p>Uni, Work, Study, Health, Personal, Meetings, Focus habits: colour-coded, filterable, and never in conflict.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FUNCTIONS / Sticky scroll -->
+<section class="functions" id="how">
+  <div class="container">
+    <div class="func-intro reveal">
+      <div class="section-eyebrow" style="justify-content:center">How Tempo works</div>
+      <h2 class="section-title" style="margin:0 auto;text-align:center">
+        Four steps from timetable to <em>study plan</em>.
+      </h2>
+      <p>Most students open their course profile too late. Tempo runs a sequence (import, discover, track, ask) that turns your semester into a plan before week one ends.</p>
+    </div>
+  </div>
+
+  <div class="func-scroll" id="funcScroll" style="height:220vh">
+    <div class="func-sticky">
+      <!-- LEFT TEXT -->
+      <div class="func-text">
+
+        <div class="func-step active" data-step="0">
+          <div class="num">01 / Import</div>
+          <h3>Your timetable. <em>All your courses.</em></h3>
+          <p>Paste your UQ ICS timetable URL from the student portal. Tempo detects every enrolled course, every contact hour, and sets up your calendar in seconds. Zero manual entry.</p>
+          <ul class="feat-list">
+            <li>Works with UQ's student portal ICS URL</li>
+            <li>Auto-detects course codes and names</li>
+            <li>Updates automatically each semester</li>
+          </ul>
+        </div>
+
+        <div class="func-step" data-step="1">
+          <div class="num">02 / Discover</div>
+          <h3>Every assignment. <em>Already there.</em></h3>
+          <p>Tempo cross-references 1,261 UQ courses and pulls every assessment (name, weight, due date, category, and hurdle requirements) before you've opened a single course profile.</p>
+          <ul class="feat-list">
+            <li>1,261 UQ courses pre-loaded</li>
+            <li>Weights and due dates auto-detected</li>
+            <li>Hurdle requirements flagged</li>
+          </ul>
+        </div>
+
+        <div class="func-step" data-step="2">
+          <div class="num">03 / Track</div>
+          <h3>The whole semester, <em>at a glance.</em></h3>
+          <p>A dedicated timeline tab shows every assessment with urgency badges, teaching week numbers, and category filters. Create a study block for any task in one tap so nothing sneaks up.</p>
+          <ul class="feat-list">
+            <li>Urgency badges: overdue, this week, upcoming</li>
+            <li>Filter by course, type, or teaching week</li>
+            <li>One-tap study block creation</li>
+          </ul>
+        </div>
+
+        <div class="func-step" data-step="3">
+          <div class="num">04 / Ask</div>
+          <h3>Meet Tempo: <em>your AI agent.</em></h3>
+          <p>Open the chat and talk to Tempo like a teammate: it already sees your timetable, enrolled courses, weights, deadlines, and hurdles. Ask in plain English. Every reply is grounded in <em>your</em> real week, not generic study tips from the web.</p>
+          <ul class="feat-list">
+            <li>"Tempo, what's due for my courses this week?"</li>
+            <li>"Tempo, help me plan MECH2300 around my actual classes."</li>
+            <li>"Tempo, find time for my BIOL report before the deadline."</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- RIGHT VIS -->
+      <div class="func-vis">
+
+        <div class="vis-stage stage-1 active" data-stage="0">
+          <div class="inbox-item gmail">
+            <span class="src">M</span>
+            <span class="title">MECH2300 · Mechanics of Solids</span>
+            <span class="arrow">→</span>
+            <span class="tag">detected</span>
+          </div>
+          <div class="inbox-item slack">
+            <span class="src">B</span>
+            <span class="title">BIOL1020 · Biological Systems</span>
+            <span class="arrow">→</span>
+            <span class="tag">detected</span>
+          </div>
+          <div class="inbox-item linear">
+            <span class="src">M</span>
+            <span class="title">MATH1051 · Calculus & Lin. Algebra</span>
+            <span class="arrow">→</span>
+            <span class="tag">detected</span>
+          </div>
+          <div class="inbox-item notion">
+            <span class="src">L</span>
+            <span class="title">LAWS3001 · Contract Law</span>
+            <span class="arrow">→</span>
+            <span class="tag">detected</span>
+          </div>
+        </div>
+
+        <div class="vis-stage stage-2" data-stage="1">
+          <div class="tb-head">
+            <span>MECH2300 · Sem 1</span>
+            <span>4 assessments · 100%</span>
+          </div>
+          <div class="tb-grid">
+            <div class="tb-slot">Wk 5</div>
+            <div class="tb-slot">Wk 6</div>
+            <div class="tb-slot">Wk 7</div>
+            <div class="tb-slot">Wk 8</div>
+            <div class="tb-slot">Wk 9</div>
+            <div class="tb-slot">Wk 10</div>
+            <div class="tb-slot">Wk 11</div>
+            <div class="tb-slot">Wk 13</div>
+            <div class="tb-block admin" style="top:0;height:12.5%">Quiz 1 (online)<span class="lbl">10%</span></div>
+            <div class="tb-block meet" style="top:12.5%;height:12.5%">Assignment 1<span class="lbl">15%</span></div>
+            <div class="tb-block deep" style="top:37.5%;height:25%">Report (written)<span class="lbl">35%</span></div>
+            <div class="tb-block deep" style="top:75%;height:25%">Final exam ★ hurdle<span class="lbl">40%</span></div>
+          </div>
+        </div>
+
+        <div class="vis-stage stage-3" data-stage="2">
+          <div class="conflict-card">
+            <div class="conflict-head">
+              <span class="alert">!</span>
+              Deadline clash · Week 10
+            </div>
+            <div class="conflict-events">
+              <div class="event coral" style="position:relative;left:0;right:0;border-radius:6px">
+                <span class="ev-title">MECH2300 Report due</span>
+                <span class="ev-time">Fri Week 10 · 35% · 2000 words</span>
+              </div>
+              <div class="event ghost" style="position:relative;left:0;right:0;border-radius:6px">
+                <span class="ev-title">⚠ BIOL1020 Quiz due</span>
+                <span class="ev-time">Thu Week 10 · 20% · online</span>
+              </div>
+            </div>
+            <div class="conflict-action">
+              <button>View timeline</button>
+              <button>Reschedule block</button>
+              <button class="primary">Plan study blocks</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="vis-stage stage-4" data-stage="3">
+          <div class="agent-demo">
+            <div class="agent-demo-head">
+              <span class="agent-dot" aria-hidden="true"></span>
+              <span>Tempo</span>
+              <span class="agent-live">Live</span>
+            </div>
+            <div class="agent-thread">
+              <div class="agent-msg-user">
+                <span class="agent-label">You</span>
+                <p>What does my day look like?</p>
+              </div>
+              <div class="agent-msg-tempo">
+                <span class="agent-label">Tempo</span>
+                <div class="agent-typing" aria-hidden="true"><span></span><span></span><span></span></div>
+                <div class="agent-body">
+                  <p class="agent-lead">Here&rsquo;s your day on the calendar:</p>
+                  <ul>
+                    <li><strong>Morning:</strong> MECH2300 lecture <strong>9:00 to 11:00</strong></li>
+                    <li><strong>Midday:</strong> BIOL1020 lab <strong>12:00 to 15:00</strong></li>
+                    <li><strong>After that:</strong> open until evening (good for errands or lighter study)</li>
+                  </ul>
+                  <p class="agent-follow">Say if you want this tightened around deadlines or travel time.</p>
+                </div>
+              </div>
+              <div class="agent-msg-user">
+                <span class="agent-label">You</span>
+                <p>Can I fit a run in today?</p>
+              </div>
+              <div class="agent-msg-tempo">
+                <span class="agent-label">Tempo</span>
+                <div class="agent-typing" aria-hidden="true"><span></span><span></span><span></span></div>
+                <div class="agent-body">
+                  <p class="agent-lead"><strong>Yes.</strong> After your lab you&rsquo;ve got a clear window before evening, roughly <strong>3:15 to 5:00</strong> with nothing booked.</p>
+                  <p class="agent-follow">A 30 to 40 minute run fits easily. Want me to block it so the rest of your day stays realistic?</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="func-wait-rail" id="funcWaitRail" hidden aria-hidden="true">
+    <p class="func-wait-msg" id="funcWaitMsg">Early access for UQ students. Join the waitlist in one click.</p>
+    <a href="#waitlist" class="func-wait-cta">Join waitlist</a>
+  </div>
+</section>
+
+<!-- FEATURE BENTO -->
+<section class="features" id="features">
+  <div class="head">
+    <div>
+      <div class="section-eyebrow reveal">Built for UQ</div>
+      <h2 class="section-title reveal delay-1">Everything a student needs to <em>stop panicking</em>.</h2>
+    </div>
+    <p class="reveal delay-2">Tempo sits between your timetable and your semester, with the features students actually need, before the deadline is already tomorrow.</p>
+  </div>
+  <div class="feat-grid">
+    <div class="feat-card span-7 reveal">
+      <div class="lbl">AI Study Assistant</div>
+      <h3>Ask anything about <em>your semester.</em></h3>
+      <p>Tempo AI is powered by Claude and has full context of your enrolled courses, upcoming deadlines, assessment weights, and hurdle requirements. Get a real answer, not a generic one.</p>
+      <div class="visual">
+        <div class="fv-search">
+          <span style="color:var(--accent)">›</span>
+          <span class="fv-typing">help me plan for my MECH2300 exam</span>
+          <span class="caret"></span>
+          <span class="k">⌘K</span>
+        </div>
+      </div>
+    </div>
+    <div class="feat-card span-5 reveal delay-1">
+      <div class="lbl">1,261 courses</div>
+      <h3>All your assessments, <em>already loaded.</em></h3>
+      <p>Tempo cross-references a pre-scraped database of UQ courses and auto-populates every assessment name, weight, due date, and category the moment you connect your timetable.</p>
+      <div class="visual">
+        <div class="fv-blocks">
+          <div class="row active" style="--w:100%"></div>
+          <div class="row active" style="--w:100%"></div>
+          <div class="row active" style="--w:100%"></div>
+          <div class="row active" style="--w:100%"></div>
+          <div class="row active" style="--w:85%"></div>
+          <div class="row active" style="--w:60%"></div>
+          <div class="row" style="--w:20%"></div>
+        </div>
+      </div>
+    </div>
+    <div class="feat-card span-4 reveal">
+      <div class="lbl">Focus timer</div>
+      <h3>Deep work that <em>respects your timetable.</em></h3>
+      <p>Start a Pomodoro-style session on any task. Tempo runs the countdown, keeps the block tied to a real assessment, and can park the finished session on your calendar so your week stays honest.</p>
+      <div class="visual">
+        <div class="fv-focus" aria-hidden="true">
+          <div class="fv-focus-ring">
+            <div class="fv-focus-inner">
+              <span class="fv-focus-time">24:38</span>
+              <span class="fv-focus-cap">Focus</span>
+            </div>
+          </div>
+          <div class="fv-focus-bar"><span></span></div>
+          <p class="fv-focus-task">MECH2300 · Problem set 3 · 25 min</p>
+        </div>
+      </div>
+    </div>
+    <div class="feat-card span-8 reveal delay-1">
+      <div class="lbl">Prompts &amp; workflows</div>
+      <h3>Set your semester with a prompt <span class="feat-beta">Beta</span></h3>
+      <p>Describe what you need in plain English or start from a student template: prep for a hurdle, carve focus time around labs, or replan the week after a timetable change. Tempo turns the prompt into concrete steps on your timeline.</p>
+      <div class="visual">
+        <div class="fv-workflow">
+          <div class="fv-workflow-phone">
+            <div class="fv-workflow-screen">
+              <div class="fv-workflow-sun" aria-hidden="true">☀</div>
+              <div class="fv-workflow-bubble">
+                Heavy day Thursday. Want a <strong>25 min</strong> focus block after BIOL lab and quiet notifications until then?
+                <span class="fv-workflow-time">7:30</span>
+              </div>
+              <div class="fv-workflow-input">
+                <span class="fv-workflow-plus" aria-hidden="true">+</span>
+                <span>Chat with Tempo</span>
+                <span class="fv-workflow-mic" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 14a3 3 0 003-3V5a3 3 0 00-6 0v6a3 3 0 003 3z"/><path d="M19 10v2a7 7 0 01-14 0v-2M12 19v3M8 22h8"/></svg></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORKFLOW SHOWCASE -->
+<section class="flow-showcase" id="workflows" aria-label="What Tempo automates">
+  <div class="flow-inner">
+    <div class="flow-badge reveal">
+      <span class="flow-badge-dot" aria-hidden="true"></span>
+      Automate your semester
+    </div>
+    <h2 class="flow-heading reveal delay-1">Hand Tempo the messy parts. <em>It keeps your week coherent.</em></h2>
+    <p class="flow-sub reveal delay-1">Delegate planning with a single clear prompt. Tempo lines up classes, assessments, and study blocks the way you would if you had an extra brain.</p>
+
+    <div class="flow-carousel">
+      <button type="button" class="flow-nav flow-prev" aria-label="Previous cards">‹</button>
+      <div class="flow-viewport">
+        <div class="flow-track">
+          <article class="flow-card reveal delay-1">
+            <div class="flow-card-inner">
+              <div class="flow-card-flip">
+                <div class="flow-card-face flow-card-front">
+                  <div class="flow-card-kicker">Today brief</div>
+                  <p class="flow-card-front-hint">Hover to reveal</p>
+                </div>
+                <div class="flow-card-face flow-card-back">
+                  <h3>Here is your day before you leave home</h3>
+                  <p class="flow-card-p">Lectures, labs, and gaps sketched from your real timetable so you are not guessing in the GroupMe chat.</p>
+                  <ul class="flow-card-list">
+                    <li>MECH2300 lecture 9:00 to 11:00</li>
+                    <li>BIOL1020 lab 12:00 to 15:00</li>
+                    <li>Open block after 3:15 for errands or a run</li>
+                  </ul>
+                  <div class="flow-pill-chat">Ask Tempo to tighten travel time</div>
+                </div>
+              </div>
+            </div>
+          </article>
+          <article class="flow-card tint-mist reveal delay-2">
+            <div class="flow-card-inner">
+              <div class="flow-card-flip">
+                <div class="flow-card-face flow-card-front">
+                  <div class="flow-card-kicker">Study follow-up</div>
+                  <p class="flow-card-front-hint">Hover to reveal</p>
+                </div>
+                <div class="flow-card-face flow-card-back">
+                  <h3>Here is what to prep before Friday</h3>
+                  <p class="flow-card-p">Tempo drafts a short checklist from your weights and due dates, not generic advice from the web.</p>
+                  <div class="flow-draft">Finish quiz bank for BIOL · Skim Lab 7 notes · Outline MECH report sections (35%)</div>
+                  <div class="flow-card-footer">Grounded in your course profile</div>
+                </div>
+              </div>
+            </div>
+          </article>
+          <article class="flow-card tint-blue reveal delay-2">
+            <div class="flow-card-inner">
+              <div class="flow-card-flip">
+                <div class="flow-card-face flow-card-front">
+                  <div class="flow-card-kicker">Campus ping</div>
+                  <p class="flow-card-front-hint">Hover to reveal</p>
+                </div>
+                <div class="flow-card-face flow-card-back">
+                  <div class="flow-notify"><strong>Leave in 8 minutes.</strong> 11 min walk to Hawken L2 for your tutorial.</div>
+                  <h3>Never sprint from the wrong building again</h3>
+                  <p class="flow-card-p">Tempo nudges you when back-to-back contact hours get tight, using the rooms and times already on your ICS link.</p>
+                </div>
+              </div>
+            </div>
+          </article>
+          <article class="flow-card tint-soft reveal delay-3">
+            <div class="flow-card-inner">
+              <div class="flow-card-flip">
+                <div class="flow-card-face flow-card-front">
+                  <div class="flow-card-kicker">Semester clarity</div>
+                  <p class="flow-card-front-hint">Hover to reveal</p>
+                </div>
+                <div class="flow-card-face flow-card-back">
+                  <div class="flow-spark" aria-hidden="true"></div>
+                  <div class="flow-metric-row">
+                    <div class="flow-metric-big">1,<em>261</em></div>
+                    <span class="flow-metric-cap">UQ courses indexed</span>
+                  </div>
+                  <p class="flow-card-p">Every row is tied to the same public course data UQ publishes, so weights and due dates land in one timeline instead of five PDFs.</p>
+                </div>
+              </div>
+            </div>
+          </article>
+          <article class="flow-card reveal delay-3">
+            <div class="flow-card-inner">
+              <div class="flow-card-flip">
+                <div class="flow-card-face flow-card-front">
+                  <div class="flow-card-kicker">Focus &amp; gym</div>
+                  <p class="flow-card-front-hint">Hover to reveal</p>
+                </div>
+                <div class="flow-card-face flow-card-back">
+                  <div class="flow-notify">Last week you kept <strong>3</strong> focus blocks. Nice streak.</div>
+                  <h3>Four realistic study sessions around your labs</h3>
+                  <p class="flow-card-p">Tell Tempo you want a run or a rest day and it reshapes the week without erasing your deadlines.</p>
+                  <div class="flow-card-footer">Smart reorder respects work shifts</div>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+      <button type="button" class="flow-nav flow-next" aria-label="Next cards">›</button>
+    </div>
+
+    <div class="flow-cta-wrap reveal delay-2">
+      <a class="flow-cta" href="#waitlist">Join the waitlist</a>
+      <p class="flow-cta-note">Free for UQ students. Rolling invites through Semester&nbsp;1.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="container reveal" style="margin-bottom:60px">
+    <div class="section-eyebrow">What students say</div>
+    <h2 class="section-title">Finally, a tool that <em>gets</em> uni.</h2>
+  </div>
+  <div class="test-grid">
+    <div class="test reveal">
+      <p>I pasted my ICS link and every MECH2300 assessment was already there. Weights, due dates, the lot. I genuinely cried a little.</p>
+      <div class="who"><div class="av">M</div><div class="meta"><strong>Maya Chen</strong><span>BE (Mechanical) · Year 2</span></div></div>
+    </div>
+    <div class="test reveal delay-1">
+      <p>Tempo AI knew I had a BIOL1020 hurdle exam coming up before I did. Asked it to make me a study plan and it used <em>my actual timetable</em>.</p>
+      <div class="who"><div class="av">J</div><div class="meta"><strong>James Vo</strong><span>BSc (Biomedical) · Year 1</span></div></div>
+    </div>
+    <div class="test reveal delay-2">
+      <p>I've been using a spreadsheet for three years. This is genuinely embarrassing. <em>Why didn't this exist sooner.</em></p>
+      <div class="who"><div class="av">P</div><div class="meta"><strong>Priya Sharma</strong><span>BBus (Finance) · Year 3</span></div></div>
+    </div>
+    <div class="test reveal">
+      <p>My whole semester was set up in under a minute. Didn't have to open a single course profile. I don't know how it knows, but it knows.</p>
+      <div class="who"><div class="av">T</div><div class="meta"><strong>Tom Liu</strong><span>BE (Software) · Year 2</span></div></div>
+    </div>
+    <div class="test reveal delay-1">
+      <p>LAWS3001 has seven assessments. Tempo found all of them, with weights and due dates. <em>I just had to show up.</em></p>
+      <div class="who"><div class="av">S</div><div class="meta"><strong>Sarah Kim</strong><span>LLB · Year 3</span></div></div>
+    </div>
+    <div class="test reveal delay-2">
+      <p>The urgency badges are genuinely scary in the best way. Nothing sneaks up on me anymore. Week 10 used to destroy me.</p>
+      <div class="who"><div class="av">A</div><div class="meta"><strong>Alex Nguyen</strong><span>BCom (Economics) · Year 2</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="pricing">
+  <div class="cta-inner">
+    <h2 class="reveal">Get your <em>semester sorted.</em></h2>
+    <p class="reveal delay-1">Free for all UQ students. Join <strong>1,400+</strong> students on the waitlist. We're rolling out spots throughout Semester 1, 2026.</p>
+    <div class="cta-row reveal delay-2">
+      <form
+        class="cta-waitlist-form"
+        id="waitlistCtaForm"
+        name="waitlist-cta"
+        method="POST"
+        data-netlify="true"
+        netlify-honeypot="bot-field-cta"
+      >
+        <input type="hidden" name="form-name" value="waitlist-cta" />
+        <p class="honeypot-cta" hidden>
+          <label>Leave blank: <input name="bot-field-cta" autocomplete="off" tabindex="-1" /></label>
+        </p>
+        <input type="email" name="email" class="cta-wait-email" id="waitlistCtaEmail" placeholder="Enter your email" required autocomplete="email" />
+        <button type="submit" class="btn-primary cta-wait-submit">
+          <span class="cta-btn-label">Join the waitlist</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </button>
+      </form>
+      <a href="#how" class="btn-secondary">See how it works →</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot">
+    <div>
+      <div class="brand">
+        <svg width="26" height="26" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="0" y="0" width="16" height="16" rx="3.5" style="fill:var(--ink)"/>
+          <rect x="20" y="0" width="16" height="16" rx="3.5" fill="#4165e5"/>
+          <rect x="0" y="20" width="16" height="16" rx="3.5" fill="#b0c4f5"/>
+          <path d="M28 20C28 24.4 31.6 28 36 28C31.6 28 28 31.6 28 36C28 31.6 24.4 28 20 28C24.4 28 28 24.4 28 20Z" fill="#4165e5"/>
+        </svg>
+        Tempo
+      </div>
+      <div class="brand-sub">An AI study assistant for UQ students. Built for the way university actually works: deadlines, weights, hurdles and all. Made in Brisbane.</div>
+    </div>
+    <div>
+      <h4>Product</h4>
+      <a href="#">Features</a>
+      <a href="#">UQ Courses</a>
+      <a href="#">AI Assistant</a>
+      <a href="#">Roadmap</a>
+    </div>
+    <div>
+      <h4>University</h4>
+      <a href="#">About UQ integration</a>
+      <a href="#">ICS import guide</a>
+      <a href="#">Course coverage</a>
+      <a href="#">Request a course</a>
+    </div>
+    <div>
+      <h4>Support</h4>
+      <a href="#">Help centre</a>
+      <a href="#">Discord community</a>
+      <a href="#">Status</a>
+      <a href="#">Give feedback</a>
+    </div>
+  </div>
+  <div class="bottombar">
+    <span>© 2026 Tempo · built for UQ students · v0.4</span>
+    <span>made in Brisbane with quiet attention</span>
+  </div>
+</footer>
+
+<script>
+// ───── Waitlist: scroll to hero + Netlify (waitlist-hero / waitlist-cta)
+// Tall hero + email focus() can trigger scroll-into-view past the hero (into #app)
+// even when preventScroll is set — pin window scroll to top after navigation.
+function pinScrollTop(){
+  window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+}
+
+function goToWaitlistHero(){
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  window.scrollTo({ top: 0, left: 0, behavior: reduce ? 'auto' : 'smooth' });
+  history.replaceState(null, '', '#waitlist');
+
+  const inp = document.getElementById('waitlistEmail');
+  const focusHeroEmail = () => {
+    if (!inp) return;
+    pinScrollTop();
+    inp.focus({ preventScroll: true });
+    pinScrollTop();
+    requestAnimationFrame(() => {
+      pinScrollTop();
+      requestAnimationFrame(pinScrollTop);
+    });
+    [0, 32, 80, 160, 320, 520, 900].forEach((ms) => {
+      setTimeout(pinScrollTop, ms);
+    });
+  };
+
+  if (reduce) requestAnimationFrame(focusHeroEmail);
+  else setTimeout(focusHeroEmail, 320);
+}
+
+function isWaitlistNavLink(a){
+  if (!a || a.tagName !== 'A') return false;
+  try {
+    const u = new URL(a.getAttribute('href') || '', location.href);
+    return u.hash === '#waitlist';
+  } catch {
+    return false;
+  }
+}
+
+document.addEventListener('click', (e) => {
+  const a = e.target.closest('a');
+  if (!isWaitlistNavLink(a)) return;
+  if (e.defaultPrevented || e.button !== 0) return;
+  if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+  e.preventDefault();
+  goToWaitlistHero();
+}, true);
+
+window.addEventListener('hashchange', () => {
+  if (location.hash === '#waitlist' && window.scrollY > 48) {
+    pinScrollTop();
+    const inp = document.getElementById('waitlistEmail');
+    if (inp) inp.focus({ preventScroll: true });
+    pinScrollTop();
+  }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  if (location.hash === '#waitlist') pinScrollTop();
+});
+
+window.addEventListener('load', () => {
+  if (location.hash === '#waitlist' && window.scrollY > 48) goToWaitlistHero();
+});
+
+if (location.hash === '#waitlist') pinScrollTop();
+
+async function submitNetlifyForm(form){
+  const body = new URLSearchParams(new FormData(form)).toString();
+  const res = await fetch('/', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body,
+  });
+  if (!res.ok) throw new Error('netlify');
+}
+
+const waitlistForm = document.getElementById('waitlistHeroForm');
+if (waitlistForm) {
+  waitlistForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = document.getElementById('waitlistEmail').value.trim();
+    if (!email || !email.includes('@')) {
+      const inp = document.getElementById('waitlistEmail');
+      inp.style.color = '#ff6b6b';
+      setTimeout(() => { inp.style.color = ''; }, 600);
+      return;
+    }
+    try {
+      await submitNetlifyForm(waitlistForm);
+      waitlistForm.classList.add('submitted');
+      const btn = waitlistForm.querySelector('.btn-label');
+      if (btn) btn.textContent = "You're in";
+    } catch {
+      alert('Could not send just now. Check your connection and try again.');
+    }
+  });
+}
+
+const waitlistCtaForm = document.getElementById('waitlistCtaForm');
+if (waitlistCtaForm) {
+  waitlistCtaForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const inp = document.getElementById('waitlistCtaEmail');
+    const email = (inp && inp.value.trim()) || '';
+    if (!email || !email.includes('@')) {
+      if (inp) {
+        inp.style.color = '#ff6b6b';
+        setTimeout(() => { inp.style.color = ''; }, 600);
+      }
+      return;
+    }
+    try {
+      await submitNetlifyForm(waitlistCtaForm);
+      waitlistCtaForm.classList.add('submitted');
+      const lbl = waitlistCtaForm.querySelector('.cta-btn-label');
+      if (lbl) lbl.textContent = "You're in";
+    } catch {
+      alert('Could not send just now. Check your connection and try again.');
+    }
+  });
+}
+
+// ───── App Showcase Interactivity
+(function appShowcase(){
+  const calBody = document.getElementById('calBody');
+  if (!calBody) return;
+
+  const dayNames = ['Mon 27','Tue 28','Wed 29','Thu 30','Fri 1','Sat 2','Sun 3'];
+
+  // ── DRAG-DROP for existing events
+  let draggedEv = null;
+  function bindEvent(ev){
+    ev.addEventListener('dragstart', e => {
+      draggedEv = ev;
+      ev.classList.add('dragging');
+      try { e.dataTransfer.setData('text/plain', ev.dataset.evid); e.dataTransfer.effectAllowed = 'move'; } catch(_){}
+    });
+    ev.addEventListener('dragend', () => {
+      if (draggedEv) draggedEv.classList.remove('dragging');
+      draggedEv = null;
+      document.querySelectorAll('.app-cal-cell.drag-over').forEach(c => c.classList.remove('drag-over'));
+    });
+  }
+  document.querySelectorAll('.app-cal-event').forEach(bindEvent);
+
+  document.querySelectorAll('.app-cal-cell').forEach(cell => {
+    cell.addEventListener('dragover', e => {
+      if (!draggedEv) return;
+      e.preventDefault();
+      cell.classList.add('drag-over');
+    });
+    cell.addEventListener('dragleave', () => cell.classList.remove('drag-over'));
+    cell.addEventListener('drop', e => {
+      e.preventDefault();
+      cell.classList.remove('drag-over');
+      if (!draggedEv) return;
+      // Move event into this cell
+      const computed = window.getComputedStyle(draggedEv);
+      const oldHeight = computed.height;
+      // Reset positioning to top:0 so it sits at the start of new cell
+      draggedEv.style.top = '0';
+      draggedEv.style.height = oldHeight;
+      cell.appendChild(draggedEv);
+      // Pulse new spot
+      draggedEv.classList.add('just-added');
+      setTimeout(() => draggedEv && draggedEv.classList.remove('just-added'), 1700);
+    });
+  });
+
+  // ── ADD EVENT MODAL
+  const modal = document.getElementById('addModal');
+  const modalSlot = document.getElementById('addModalSlot');
+  const titleInp = document.getElementById('addEventTitle');
+  const catSel = document.getElementById('addEventCategory');
+  const durSel = document.getElementById('addEventDuration');
+  const cancelBtn = document.getElementById('addModalCancel');
+  const saveBtn = document.getElementById('addModalSave');
+  const addEventBtn = document.getElementById('addEventBtn');
+  let pendingCell = null;
+
+  function openModal(cell){
+    pendingCell = cell;
+    const day = parseInt(cell.dataset.day);
+    const hour = parseInt(cell.dataset.hour);
+    const hourLabel = hour > 12 ? `${hour-12}:00 PM` : (hour === 12 ? '12:00 PM' : `${hour}:00 AM`);
+    modalSlot.textContent = `${dayNames[day]} · ${hourLabel}`;
+    titleInp.value = '';
+    catSel.value = 'study';
+    durSel.value = '2';
+    modal.classList.add('open');
+    setTimeout(() => titleInp.focus(), 200);
+  }
+  function closeModal(){
+    modal.classList.remove('open');
+    pendingCell = null;
+  }
+  function saveEvent(){
+    if (!pendingCell) { closeModal(); return; }
+    const title = titleInp.value.trim() || 'New event';
+    const category = catSel.value;
+    const dur = parseInt(durSel.value);
+    const hour = parseInt(pendingCell.dataset.hour);
+    const startLabel = hour > 12 ? `${hour-12}:00 PM` : (hour === 12 ? '12:00 PM' : `${hour}:00 AM`);
+    const endHour = hour + dur;
+    const endLabel = endHour > 12 ? `${endHour-12}:00 PM` : (endHour === 12 ? '12:00 PM' : `${endHour}:00 AM`);
+
+    const catIcon = {
+      uni: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/></svg>',
+      study: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
+      work: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/></svg>',
+      health: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>',
+      personal: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg>'
+    }[category] || '';
+    const catLabel = category.charAt(0).toUpperCase() + category.slice(1);
+
+    const newEv = document.createElement('div');
+    newEv.className = `app-cal-event ${category} just-added`;
+    newEv.draggable = true;
+    newEv.dataset.evid = 'u' + Date.now();
+    newEv.style.top = '0';
+    newEv.style.height = (dur * 64) + 'px';
+    newEv.innerHTML = `
+      <span class="ev-title">${title}</span>
+      <span class="ev-meta">${catIcon}${catLabel}</span>
+      <span class="ev-time">${startLabel} to ${endLabel}</span>
+    `;
+    pendingCell.appendChild(newEv);
+    bindEvent(newEv);
+    setTimeout(() => newEv.classList.remove('just-added'), 1700);
+    closeModal();
+  }
+
+  document.querySelectorAll('.app-cal-cell').forEach(cell => {
+    cell.addEventListener('click', e => {
+      // Only fire if click is on cell itself or +, not on existing event
+      if (e.target.closest('.app-cal-event')) return;
+      openModal(cell);
+    });
+  });
+  if (addEventBtn) {
+    addEventBtn.addEventListener('click', () => {
+      // Default to a Thursday 2pm slot if user clicks main Add event
+      const def = calBody.querySelector('[data-day="3"][data-hour="14"]') || calBody.querySelector('.app-cal-cell');
+      if (def) openModal(def);
+    });
+  }
+  cancelBtn && cancelBtn.addEventListener('click', closeModal);
+  modal && modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+  saveBtn && saveBtn.addEventListener('click', saveEvent);
+  titleInp && titleInp.addEventListener('keydown', e => { if (e.key === 'Enter') saveEvent(); if (e.key === 'Escape') closeModal(); });
+
+  // ── ASK TEMPO chat
+  const askBtn = document.getElementById('askTempoBtn');
+  const askPanel = document.getElementById('askPanel');
+  const askClose = document.getElementById('askClose');
+  const askBody = document.getElementById('askBody');
+  const askInput = document.getElementById('askInput');
+  const askSend = document.getElementById('askSend');
+  const askPrompts = document.getElementById('askPrompts');
+
+  const responses = {
+    day: {
+      q: "What does my day look like?",
+      r: `<strong>Thursday, 30 April · 4 events.</strong> You've got <em>back-to-back lectures</em> from 10:30 AM through 6 PM. Heavy day. I've left a 2-hour study block free at 2 PM that you can claim if you want.
+        <ul class="bot-list">
+          <li><span class="ldot" style="background:#4165e5"></span>PHYS1171 Lab<span class="ltime">10:30 AM</span></li>
+          <li><span class="ldot" style="background:#4165e5"></span>Introduction to Eng…<span class="ltime">11:00 AM</span></li>
+          <li><span class="ldot" style="background:#4165e5"></span>DECO2300 Workshop<span class="ltime">2:00 PM</span></li>
+          <li><span class="ldot" style="background:#4165e5"></span>CHEM1100 Lecture<span class="ltime">4:00 PM</span></li>
+        </ul>`
+    },
+    week: {
+      q: "What's due this week?",
+      r: `Three things on your radar this week: <strong>2 assessable, 1 hurdle attendance</strong>.
+        <ul class="bot-list">
+          <li><span class="ldot" style="background:#ff6b6b"></span>STAT1301 Asst 2, <strong>Fri 5 PM · 25%</strong><span class="ltime">in 2 days</span></li>
+          <li><span class="ldot" style="background:#f7c948"></span>CHEM1100 Quiz 4, Mon 11:59 PM · 10%<span class="ltime">in 5 days</span></li>
+          <li><span class="ldot" style="background:#7c9ef8"></span>DECO2300 Workshop, <em>hurdle</em><span class="ltime">Fri 2 PM</span></li>
+        </ul>`
+    },
+    study: {
+      q: "When should I study for CHEM1100?",
+      r: `Your CHEM1100 quiz is <strong>Mon 11:59 PM, 10%</strong>. Based on your focus patterns (you peak Tue to Thu mornings), I'd block <em>Tuesday 9 to 11 AM</em> and <em>Thursday 12 to 1 PM</em>. That puts your last touch-up the night before without sacrificing your Friday work shift. Want me to add those blocks?`
+    },
+    conflict: {
+      q: "Any deadline conflicts?",
+      r: `<strong>One soft clash this week.</strong> Your STAT1301 Asst 2 is due <em>Friday 5 PM</em>, and your DECO2300 Workshop runs 2 to 4 PM the same day, so you only get a 1-hour final-submission window. Smart Reorder has a fix: shift Tuesday's study block to Thursday morning. Open it from the banner above ↑`
+    },
+    free: {
+      q: "When am I free on Friday?",
+      r: `Friday's actually one of your lighter days: <strong>only DECO2300 Workshop 2 to 4 PM</strong>. You're free <em>9 AM to 2 PM</em> and again <em>4 PM onwards</em> until your work shift at 5:30 PM. Bring lunch.`
+    }
+  };
+
+  function openAsk(){
+    askPanel.classList.add('open');
+    setTimeout(() => askInput && askInput.focus(), 250);
+  }
+  function closeAsk(){ askPanel.classList.remove('open'); }
+  askBtn && askBtn.addEventListener('click', () => {
+    askPanel.classList.contains('open') ? closeAsk() : openAsk();
+  });
+  askClose && askClose.addEventListener('click', closeAsk);
+
+  function pushUser(text){
+    const m = document.createElement('div');
+    m.className = 'ask-msg user';
+    m.textContent = text;
+    askBody.appendChild(m);
+    askBody.scrollTop = askBody.scrollHeight;
+  }
+  function pushTyping(){
+    const t = document.createElement('div');
+    t.className = 'ask-msg bot typing';
+    t.id = 'askTyping';
+    t.innerHTML = '<span></span><span></span><span></span>';
+    askBody.appendChild(t);
+    askBody.scrollTop = askBody.scrollHeight;
+    return t;
+  }
+  function pushBot(html){
+    const t = document.getElementById('askTyping');
+    if (t) t.remove();
+    const m = document.createElement('div');
+    m.className = 'ask-msg bot';
+    m.innerHTML = html;
+    askBody.appendChild(m);
+    askBody.scrollTop = askBody.scrollHeight;
+  }
+  function answer(key, btn){
+    const data = responses[key];
+    if (!data) return;
+    pushUser(data.q);
+    if (btn) btn.disabled = true;
+    pushTyping();
+    setTimeout(() => pushBot(data.r), 850 + Math.random() * 500);
+  }
+  askPrompts && askPrompts.querySelectorAll('.ask-prompt').forEach(btn => {
+    btn.addEventListener('click', () => answer(btn.dataset.q, btn));
+  });
+
+  function freeAnswer(text){
+    pushUser(text);
+    pushTyping();
+    setTimeout(() => {
+      // Best-guess match against known prompts
+      const t = text.toLowerCase();
+      let key = null;
+      if (/today|day/.test(t)) key = 'day';
+      else if (/week|due/.test(t)) key = 'week';
+      else if (/chem|study/.test(t)) key = 'study';
+      else if (/conflict|clash/.test(t)) key = 'conflict';
+      else if (/free|fri/.test(t)) key = 'free';
+
+      if (key) {
+        pushBot(responses[key].r);
+      } else {
+        pushBot(`I'd need to be hooked up to your real timetable to answer that. In the live app, I'd pull from your enrolled courses, every assessment weight, and your historical focus patterns to give you something useful. <em>Try one of the suggested prompts above</em> to see a real example.`);
+      }
+    }, 850 + Math.random() * 500);
+  }
+  function sendInput(){
+    const text = askInput.value.trim();
+    if (!text) return;
+    askInput.value = '';
+    freeAnswer(text);
+  }
+  askSend && askSend.addEventListener('click', sendInput);
+  askInput && askInput.addEventListener('keydown', e => { if (e.key === 'Enter') sendInput(); });
+})();
+
+// ───── Custom cursor
+const cursor = document.getElementById('cursor');
+window.addEventListener('mousemove', e => {
+  cursor.style.left = e.clientX + 'px';
+  cursor.style.top = e.clientY + 'px';
+});
+document.querySelectorAll('a,button,.feat-card,.test,.event,.app-cal-event,.sidebar-link,.ask-prompt,.flow-nav,.flow-card,.func-wait-cta').forEach(el => {
+  el.addEventListener('mouseenter', () => cursor.classList.add('active'));
+  el.addEventListener('mouseleave', () => cursor.classList.remove('active'));
+});
+
+// ───── Nav scroll state
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 30);
+});
+
+// ───── Reveal-on-scroll
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('in');
+      io.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.15 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+// ───── Sticky scroll function visualization
+const funcScroll = document.getElementById('funcScroll');
+const steps = document.querySelectorAll('.func-step');
+const stages = document.querySelectorAll('.vis-stage');
+const funcWaitRail = document.getElementById('funcWaitRail');
+const funcWaitMsg = document.getElementById('funcWaitMsg');
+const funcWaitCopy = [
+  'Paste your ICS link once. Save a Semester 1 spot while spots are opening.',
+  '1,261 courses already mapped. Join the waitlist and skip the PDF scavenger hunt.',
+  'One timeline for every deadline. Free for UQ students on the list.',
+  'Tempo sees your real week. Lock in early access before the rush.',
+];
+const agentThread = document.querySelector('.stage-4 .agent-thread');
+let agentScrollTimers = [];
+let prevFuncIdx = -1;
+
+function clearAgentScrollTimers(){
+  agentScrollTimers.forEach(id => clearTimeout(id));
+  agentScrollTimers = [];
+}
+
+function scrollAgentThreadToEnd(){
+  if (!agentThread) return;
+  const top = agentThread.scrollHeight;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    agentThread.scrollTop = top;
+  } else {
+    agentThread.scrollTo({ top, behavior: 'smooth' });
+  }
+}
+
+function updateFunc(){
+  const rect = funcScroll.getBoundingClientRect();
+  const total = funcScroll.offsetHeight - window.innerHeight;
+  const scrolled = -rect.top;
+  const insideHow = rect.top <= 0 && rect.bottom >= window.innerHeight;
+
+  if (total <= 0) {
+    if (funcWaitRail) {
+      funcWaitRail.classList.remove('show');
+      funcWaitRail.setAttribute('hidden', '');
+      funcWaitRail.setAttribute('aria-hidden', 'true');
+    }
+    return;
+  }
+  const p = Math.max(0, Math.min(1, scrolled / total));
+  // 4 steps split equally
+  const idx = Math.min(3, Math.floor(p * 4));
+
+  if (funcWaitRail) {
+    const showRail = insideHow;
+    funcWaitRail.classList.toggle('show', showRail);
+    funcWaitRail.toggleAttribute('hidden', !showRail);
+    funcWaitRail.setAttribute('aria-hidden', (!showRail).toString());
+    if (showRail && funcWaitMsg) funcWaitMsg.textContent = funcWaitCopy[idx] || funcWaitCopy[0];
+  }
+
+  if (idx !== prevFuncIdx) {
+    prevFuncIdx = idx;
+    clearAgentScrollTimers();
+    if (idx === 3 && agentThread) {
+      agentThread.scrollTop = 0;
+      agentScrollTimers.push(setTimeout(scrollAgentThreadToEnd, 1600));
+      agentScrollTimers.push(setTimeout(scrollAgentThreadToEnd, 2850));
+      agentScrollTimers.push(setTimeout(scrollAgentThreadToEnd, 3050));
+      agentScrollTimers.push(setTimeout(scrollAgentThreadToEnd, 4050));
+      agentScrollTimers.push(setTimeout(scrollAgentThreadToEnd, 4600));
+    }
+  }
+
+  steps.forEach((s, i) => s.classList.toggle('active', i === idx));
+  stages.forEach((s, i) => s.classList.toggle('active', i === idx));
+}
+window.addEventListener('scroll', updateFunc, { passive:true });
+window.addEventListener('resize', updateFunc);
+updateFunc();
+
+// ───── Workflow carousel (horizontal scroll + initial center)
+(function(){
+  const root = document.querySelector('.flow-carousel');
+  if (!root) return;
+  const track = root.querySelector('.flow-track');
+  const prev = root.querySelector('.flow-prev');
+  const next = root.querySelector('.flow-next');
+  if (!track || !prev || !next) return;
+  const gap = 18;
+  let centerTimer;
+  function centerFlowTrack(){
+    const max = track.scrollWidth - track.clientWidth;
+    track.scrollLeft = max > 0 ? Math.round(max / 2) : 0;
+  }
+  function scheduleCenter(){
+    clearTimeout(centerTimer);
+    centerTimer = setTimeout(() => {
+      requestAnimationFrame(() => requestAnimationFrame(centerFlowTrack));
+    }, 60);
+  }
+  function step(dir){
+    const card = track.querySelector('.flow-card');
+    const amount = card ? Math.round((card.getBoundingClientRect().width + gap) * 0.92) : 300;
+    track.scrollBy({ left: dir * amount, behavior: 'smooth' });
+  }
+  prev.addEventListener('click', () => step(-1));
+  next.addEventListener('click', () => step(1));
+  window.addEventListener('load', scheduleCenter);
+  window.addEventListener('resize', scheduleCenter);
+  queueMicrotask(scheduleCenter);
+  const wf = document.getElementById('workflows');
+  if (wf && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) scheduleCenter();
+      });
+    }, { threshold: 0.08 });
+    io.observe(wf);
+  }
+})();
+
+// ───── Parallax on hero title (subtle)
+const heroTitle = document.querySelector('.hero-title');
+window.addEventListener('scroll', () => {
+  const y = window.scrollY;
+  if (y < 800 && heroTitle) {
+    heroTitle.style.transform = `translateY(${y * -0.08}px)`;
+    heroTitle.style.opacity = `${Math.max(0, 1 - y / 600)}`;
+  }
+}, { passive:true });
+
+// ───── Tilt the app-window showcase with mouse
+const appWin = document.querySelector('.app-window');
+if (appWin) {
+  const showcaseSection = appWin.closest('.app-showcase');
+  showcaseSection.addEventListener('mousemove', e => {
+    const r = appWin.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width - .5;
+    const y = (e.clientY - r.top) / r.height - .5;
+    appWin.style.transform = `perspective(2200px) rotateX(${y * -1.6}deg) rotateY(${x * 2.2}deg)`;
+  });
+  showcaseSection.addEventListener('mouseleave', () => {
+    appWin.style.transform = '';
+  });
+}
+</script>
+</body>
+</html>

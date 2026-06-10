@@ -1,0 +1,302 @@
+<style>
+  :root { color-scheme: light only; supported-color-schemes: light only; }
+  /* Gmail mobile dark mode: lock text to desktop light-mode colours */
+  @media (prefers-color-scheme: dark) {
+    .force-light, .force-light * { color: inherit !important; -webkit-text-fill-color: inherit !important; }
+    .c-010101, .c-010101 * { color: #010101 !important; -webkit-text-fill-color: #010101 !important; }
+    .c-5c5c5c { color: #5c5c5c !important; -webkit-text-fill-color: #5c5c5c !important; }
+    .c-9a9a9a { color: #9a9a9a !important; -webkit-text-fill-color: #9a9a9a !important; }
+    .c-4165e5 { color: #4165e5 !important; -webkit-text-fill-color: #4165e5 !important; }
+    .c-8a93a8 { color: #8a93a8 !important; -webkit-text-fill-color: #8a93a8 !important; }
+    .c-0a0a0a { color: #0a0a0a !important; -webkit-text-fill-color: #0a0a0a !important; }
+    .c-5c6373 { color: #5c6373 !important; -webkit-text-fill-color: #5c6373 !important; }
+    .c-15151a { color: #15151a !important; -webkit-text-fill-color: #15151a !important; }
+    .c-8a8f9c { color: #8a8f9c !important; -webkit-text-fill-color: #8a8f9c !important; }
+    .c-9aa3c0 { color: #9aa3c0 !important; -webkit-text-fill-color: #9aa3c0 !important; }
+    .c-8a8a8a { color: #8a8a8a !important; -webkit-text-fill-color: #8a8a8a !important; }
+    .c-1a1a1a { color: #1a1a1a !important; -webkit-text-fill-color: #1a1a1a !important; }
+    .c-b8b8b8 { color: #b8b8b8 !important; -webkit-text-fill-color: #b8b8b8 !important; }
+    .c-ffffff { color: #ffffff !important; -webkit-text-fill-color: #ffffff !important; }
+  }
+  u + .body .c-010101, u + .body .c-010101 * { color: #010101 !important; -webkit-text-fill-color: #010101 !important; }
+  u + .body .c-5c5c5c { color: #5c5c5c !important; -webkit-text-fill-color: #5c5c5c !important; }
+  u + .body .c-9a9a9a { color: #9a9a9a !important; -webkit-text-fill-color: #9a9a9a !important; }
+  u + .body .c-4165e5 { color: #4165e5 !important; -webkit-text-fill-color: #4165e5 !important; }
+  u + .body .c-8a93a8 { color: #8a93a8 !important; -webkit-text-fill-color: #8a93a8 !important; }
+  u + .body .c-0a0a0a { color: #0a0a0a !important; -webkit-text-fill-color: #0a0a0a !important; }
+  u + .body .c-5c6373 { color: #5c6373 !important; -webkit-text-fill-color: #5c6373 !important; }
+  u + .body .c-15151a { color: #15151a !important; -webkit-text-fill-color: #15151a !important; }
+  u + .body .c-8a8f9c { color: #8a8f9c !important; -webkit-text-fill-color: #8a8f9c !important; }
+  u + .body .c-9aa3c0 { color: #9aa3c0 !important; -webkit-text-fill-color: #9aa3c0 !important; }
+  u + .body .c-8a8a8a { color: #8a8a8a !important; -webkit-text-fill-color: #8a8a8a !important; }
+  u + .body .c-1a1a1a { color: #1a1a1a !important; -webkit-text-fill-color: #1a1a1a !important; }
+  u + .body .c-b8b8b8 { color: #b8b8b8 !important; -webkit-text-fill-color: #b8b8b8 !important; }
+  u + .body .c-ffffff { color: #ffffff !important; -webkit-text-fill-color: #ffffff !important; }
+  [data-ogsc] .c-010101, [data-ogsc] .c-010101 * { color: #010101 !important; -webkit-text-fill-color: #010101 !important; }
+  [data-ogsc] .c-5c5c5c { color: #5c5c5c !important; -webkit-text-fill-color: #5c5c5c !important; }
+  [data-ogsc] .c-9a9a9a { color: #9a9a9a !important; -webkit-text-fill-color: #9a9a9a !important; }
+  [data-ogsc] .c-4165e5 { color: #4165e5 !important; -webkit-text-fill-color: #4165e5 !important; }
+  [data-ogsc] .c-8a93a8 { color: #8a93a8 !important; -webkit-text-fill-color: #8a93a8 !important; }
+  [data-ogsc] .c-0a0a0a { color: #0a0a0a !important; -webkit-text-fill-color: #0a0a0a !important; }
+  [data-ogsc] .c-5c6373 { color: #5c6373 !important; -webkit-text-fill-color: #5c6373 !important; }
+  [data-ogsc] .c-15151a { color: #15151a !important; -webkit-text-fill-color: #15151a !important; }
+  [data-ogsc] .c-8a8f9c { color: #8a8f9c !important; -webkit-text-fill-color: #8a8f9c !important; }
+  [data-ogsc] .c-9aa3c0 { color: #9aa3c0 !important; -webkit-text-fill-color: #9aa3c0 !important; }
+  [data-ogsc] .c-8a8a8a { color: #8a8a8a !important; -webkit-text-fill-color: #8a8a8a !important; }
+  [data-ogsc] .c-1a1a1a { color: #1a1a1a !important; -webkit-text-fill-color: #1a1a1a !important; }
+  [data-ogsc] .c-b8b8b8 { color: #b8b8b8 !important; -webkit-text-fill-color: #b8b8b8 !important; }
+  [data-ogsc] .c-ffffff { color: #ffffff !important; -webkit-text-fill-color: #ffffff !important; }
+</style>
+
+<div style="color-scheme:light only;font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI','Helvetica Neue',Arial,sans-serif;max-width:560px;margin:0 auto;background-color:#ffffff;" bgcolor="#ffffff">
+
+  <div style="height:4px;background:linear-gradient(90deg,#3454c4,#4165e5,#6b8aeb);border-radius:4px 4px 0 0;"></div>
+
+  <table width="100%" cellpadding="0" cellspacing="0" bgcolor="#ffffff" style="background-color:#ffffff;background-image:linear-gradient(#ffffff,#ffffff);border-bottom:1px solid #ececef;">
+    <tr>
+      <td bgcolor="#ffffff" style="padding:38px 40px 34px;background-color:#ffffff;background-image:linear-gradient(#ffffff,#ffffff);">
+        <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:36px;">
+          <tr>
+            <td><font class="c-010101" color="#010101" style="font-size:20px;font-weight:800;letter-spacing:-0.6px;">Tempo</font></td>
+            <td align="right"><font class="c-4165e5" color="#4165e5" style="font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;background:#eef2ff;padding:6px 13px;border-radius:100px;">Beta Access</font></td>
+          </tr>
+        </table>
+        <h1 style="margin:0 0 14px;font-size:38px;font-weight:800;letter-spacing:-1.4px;line-height:1.08;"><font class="c-010101" color="#010101">You're in.</font></h1>
+        <p style="margin:0;font-size:16px;line-height:1.65;"><font class="c-5c5c5c" color="#5c5c5c">Welcome to Tempo. Your spot in the beta is secured. Soon your inbox and calendar live in one assistant, so you can get unbusy and find your tempo. We'll reach out personally when your invite is ready.</font></p>
+      </td>
+    </tr>
+  </table>
+
+  <table width="100%" cellpadding="0" cellspacing="0" bgcolor="#ffffff" style="background-color:#ffffff;background-image:linear-gradient(#ffffff,#ffffff);">
+    <tr>
+      <td bgcolor="#ffffff" style="padding:30px 28px 0;background-color:#ffffff;background-image:linear-gradient(#ffffff,#ffffff);">
+        <div style="border-radius:20px;overflow:hidden;border:1px solid #e2e6f5;color-scheme:light only;">
+          <table width="100%" cellpadding="0" cellspacing="0" bgcolor="#e9edfb" style="background-color:#e9edfb;background-image:linear-gradient(135deg,#e6e9ff 0%,#eef2ff 50%,#e4ecff 100%);">
+            <tr>
+              <td bgcolor="#e9edfb" style="padding:30px;background-color:#e9edfb;background-image:linear-gradient(135deg,#e6e9ff 0%,#eef2ff 50%,#e4ecff 100%);">
+                <table cellpadding="0" cellspacing="0" style="margin-bottom:16px;">
+                  <tr>
+                    <td style="width:8px;height:8px;background:#22c55e;border-radius:50%;font-size:0;line-height:0;">&nbsp;</td>
+                    <td style="padding-left:9px;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;"><font class="c-8a93a8" color="#8a93a8">Spot confirmed</font></td>
+                  </tr>
+                </table>
+
+                <p style="margin:0 0 10px;font-size:28px;font-weight:800;letter-spacing:-0.8px;line-height:1.12;"><font class="c-0a0a0a" color="#0a0a0a">You're on the </font><font class="c-4165e5" color="#4165e5">list.</font></p>
+                <p style="margin:0 0 18px;font-size:14px;line-height:1.6;"><font class="c-5c6373" color="#5c6373">Among the first to use Tempo when we launch. We'll email your TestFlight invite before anyone else.</font></p>
+
+                <table cellpadding="0" cellspacing="0" style="margin-bottom:26px;">
+                  <tr>
+                    <td bgcolor="#ffffff" style="background:#ffffff;background-image:linear-gradient(#ffffff,#ffffff);border:1px solid #dfe4f3;border-radius:100px;padding:8px 15px;font-size:12px;font-weight:600;">
+                      <font class="c-5c6373" color="#5c6373"><span style="color:#22c55e;font-size:9px;">&#9679;</span>&nbsp;&nbsp;You're confirmed &middot; next: your invite email</font>
+                    </td>
+                  </tr>
+                </table>
+
+                <table width="100%" cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td width="42" style="vertical-align:top;">
+                      <div style="width:28px;height:28px;background:#4165e5;border-radius:50%;font-size:13px;font-weight:700;text-align:center;line-height:28px;"><font class="c-ffffff" color="#ffffff">&#10003;</font></div>
+                    </td>
+                    <td style="vertical-align:top;padding-top:3px;padding-bottom:16px;">
+                      <div style="font-size:13px;font-weight:700;margin-bottom:3px;"><font class="c-15151a" color="#15151a">You're on the list</font></div>
+                      <div style="font-size:12px;line-height:1.5;"><font class="c-8a8f9c" color="#8a8f9c">Your spot is confirmed. No further action needed.</font></div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td width="42" style="vertical-align:top;">
+                      <div style="width:28px;height:28px;background:#ffffff;border:1px solid #d9def0;border-radius:50%;font-size:12px;font-weight:700;text-align:center;line-height:26px;"><font class="c-9aa3c0" color="#9aa3c0">2</font></div>
+                    </td>
+                    <td style="vertical-align:top;padding-top:3px;padding-bottom:16px;">
+                      <div style="font-size:13px;font-weight:700;margin-bottom:3px;"><font class="c-15151a" color="#15151a">We send your invite</font></div>
+                      <div style="font-size:12px;line-height:1.5;"><font class="c-8a8f9c" color="#8a8f9c">A personal TestFlight invite, before public launch.</font></div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td width="42" style="vertical-align:top;">
+                      <div style="width:28px;height:28px;background:#ffffff;border:1px solid #d9def0;border-radius:50%;font-size:12px;font-weight:700;text-align:center;line-height:26px;"><font class="c-9aa3c0" color="#9aa3c0">3</font></div>
+                    </td>
+                    <td style="vertical-align:top;padding-top:3px;">
+                      <div style="font-size:13px;font-weight:700;margin-bottom:3px;"><font class="c-15151a" color="#15151a">Connect and go</font></div>
+                      <div style="font-size:12px;line-height:1.5;"><font class="c-8a8f9c" color="#8a8f9c">Link your apps, Tempo builds context, and you approve every change.</font></div>
+                    </td>
+                  </tr>
+                </table>
+
+              </td>
+            </tr>
+          </table>
+        </div>
+      </td>
+    </tr>
+  </table>
+
+  <table width="100%" cellpadding="0" cellspacing="0" bgcolor="#ffffff" style="background-color:#ffffff;background-image:linear-gradient(#ffffff,#ffffff);">
+    <tr>
+      <td bgcolor="#ffffff" style="padding:36px 28px 6px;background-color:#ffffff;background-image:linear-gradient(#ffffff,#ffffff);">
+        <p style="margin:0 0 6px;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;"><font class="c-9a9a9a" color="#9a9a9a">Inside the app</font></p>
+        <h2 style="margin:0 0 22px;font-size:24px;font-weight:800;letter-spacing:-0.8px;line-height:1.15;"><font class="c-010101" color="#010101">What you'll use every day</font></h2>
+
+        <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:14px;">
+          <tr>
+            <td width="50%" style="vertical-align:top;padding-right:7px;">
+              <div style="border-radius:14px;overflow:hidden;border:1px solid #ededf0;">
+                <table width="100%" height="158" cellpadding="0" cellspacing="0" bgcolor="#fafafb" style="background-color:#fafafb;background-image:linear-gradient(#fafafb,#fafafb);">
+                  <tr>
+                    <td bgcolor="#fafafb" style="padding:20px;vertical-align:top;background-color:#fafafb;background-image:linear-gradient(#fafafb,#fafafb);">
+                      <span style="display:inline-block;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:#eef2ff;padding:5px 10px;border-radius:100px;margin-bottom:14px;"><font class="c-4165e5" color="#4165e5">Plan</font></span>
+                      <div style="font-size:14px;font-weight:700;margin-bottom:6px;letter-spacing:-0.2px;"><font class="c-010101" color="#010101">See the whole week</font></div>
+                      <div style="font-size:12.5px;line-height:1.55;"><font class="c-8a8a8a" color="#8a8a8a">Drag, resize and pin blocks, with conflict warnings before they bite.</font></div>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </td>
+            <td width="50%" style="vertical-align:top;padding-left:7px;">
+              <div style="border-radius:14px;overflow:hidden;border:1px solid #ededf0;">
+                <table width="100%" height="158" cellpadding="0" cellspacing="0" bgcolor="#fafafb" style="background-color:#fafafb;background-image:linear-gradient(#fafafb,#fafafb);">
+                  <tr>
+                    <td bgcolor="#fafafb" style="padding:20px;vertical-align:top;background-color:#fafafb;background-image:linear-gradient(#fafafb,#fafafb);">
+                      <span style="display:inline-block;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:#eef2ff;padding:5px 10px;border-radius:100px;margin-bottom:14px;"><font class="c-4165e5" color="#4165e5">Act</font></span>
+                      <div style="font-size:14px;font-weight:700;margin-bottom:6px;letter-spacing:-0.2px;"><font class="c-010101" color="#010101">Ask Tempo to act</font></div>
+                      <div style="font-size:12.5px;line-height:1.55;"><font class="c-8a8a8a" color="#8a8a8a">Block focus around real commitments and reschedule at-risk meetings in one ask.</font></div>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </td>
+          </tr>
+        </table>
+
+        <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:32px;">
+          <tr>
+            <td width="50%" style="vertical-align:top;padding-right:7px;">
+              <div style="border-radius:14px;overflow:hidden;border:1px solid #ededf0;">
+                <table width="100%" height="158" cellpadding="0" cellspacing="0" bgcolor="#fafafb" style="background-color:#fafafb;background-image:linear-gradient(#fafafb,#fafafb);">
+                  <tr>
+                    <td bgcolor="#fafafb" style="padding:20px;vertical-align:top;background-color:#fafafb;background-image:linear-gradient(#fafafb,#fafafb);">
+                      <span style="display:inline-block;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:#eef2ff;padding:5px 10px;border-radius:100px;margin-bottom:14px;"><font class="c-4165e5" color="#4165e5">Catch up</font></span>
+                      <div style="font-size:14px;font-weight:700;margin-bottom:6px;letter-spacing:-0.2px;"><font class="c-010101" color="#010101">Start with a briefing</font></div>
+                      <div style="font-size:12.5px;line-height:1.55;"><font class="c-8a8a8a" color="#8a8a8a">A morning summary, not a wall of mail, with reply drafts in your tone.</font></div>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </td>
+            <td width="50%" style="vertical-align:top;padding-left:7px;">
+              <div style="border-radius:14px;overflow:hidden;border:1px solid #ededf0;">
+                <table width="100%" height="158" cellpadding="0" cellspacing="0" bgcolor="#fafafb" style="background-color:#fafafb;background-image:linear-gradient(#fafafb,#fafafb);">
+                  <tr>
+                    <td bgcolor="#fafafb" style="padding:20px;vertical-align:top;background-color:#fafafb;background-image:linear-gradient(#fafafb,#fafafb);">
+                      <span style="display:inline-block;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:#eef2ff;padding:5px 10px;border-radius:100px;margin-bottom:14px;"><font class="c-4165e5" color="#4165e5">Social</font></span>
+                      <div style="font-size:14px;font-weight:700;margin-bottom:6px;letter-spacing:-0.2px;"><font class="c-010101" color="#010101">Plan together</font></div>
+                      <div style="font-size:12.5px;line-height:1.55;"><font class="c-8a8a8a" color="#8a8a8a">See friends' free time and send a quick invite to plan as a group.</font></div>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </td>
+          </tr>
+        </table>
+
+      </td>
+    </tr>
+  </table>
+
+  <table width="100%" cellpadding="0" cellspacing="0" bgcolor="#f9f9f9" style="background-color:#f9f9f9;background-image:linear-gradient(#f9f9f9,#f9f9f9);border-top:1px solid #ececef;border-bottom:1px solid #ececef;">
+    <tr>
+      <td bgcolor="#f9f9f9" style="padding:32px 28px;background-color:#f9f9f9;background-image:linear-gradient(#f9f9f9,#f9f9f9);">
+        <p style="margin:0 0 6px;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;text-align:center;"><font class="c-9a9a9a" color="#9a9a9a">Integrations</font></p>
+        <h2 style="margin:0 0 24px;font-size:24px;font-weight:800;letter-spacing:-0.8px;line-height:1.15;text-align:center;"><font class="c-010101" color="#010101">Your stack, connected</font></h2>
+        <table width="100%" cellpadding="0" cellspacing="0">
+          <tr>
+            <td width="25%" align="center" style="vertical-align:top;">
+              <table cellpadding="0" cellspacing="0" align="center">
+                <tr><td width="58" height="58" align="center" valign="middle" bgcolor="#ffffff" style="background-color:#ffffff;background-image:linear-gradient(#ffffff,#ffffff);border:1px solid #e8e8e8;border-radius:15px;">
+                  <img src="https://tempocalendar.com/assets/gmail.png" alt="Gmail" width="26" height="26" style="display:block;margin:0 auto;border:0;" />
+                </td></tr>
+              </table>
+              <div style="font-size:11px;font-weight:600;margin-top:9px;"><font class="c-5c5c5c" color="#5c5c5c">Gmail</font></div>
+            </td>
+            <td width="25%" align="center" style="vertical-align:top;">
+              <table cellpadding="0" cellspacing="0" align="center">
+                <tr><td width="58" height="58" align="center" valign="middle" bgcolor="#ffffff" style="background-color:#ffffff;background-image:linear-gradient(#ffffff,#ffffff);border:1px solid #e8e8e8;border-radius:15px;">
+                  <img src="https://tempocalendar.com/assets/google-calendar.png" alt="Google Calendar" width="26" height="26" style="display:block;margin:0 auto;border:0;" />
+                </td></tr>
+              </table>
+              <div style="font-size:11px;font-weight:600;margin-top:9px;"><font class="c-5c5c5c" color="#5c5c5c">Calendar</font></div>
+            </td>
+            <td width="25%" align="center" style="vertical-align:top;">
+              <table cellpadding="0" cellspacing="0" align="center">
+                <tr><td width="58" height="58" align="center" valign="middle" bgcolor="#ffffff" style="background-color:#ffffff;background-image:linear-gradient(#ffffff,#ffffff);border:1px solid #e8e8e8;border-radius:15px;">
+                  <img src="data:image/png;base64,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" alt="Notion" width="26" height="26" style="display:block;margin:0 auto;border:0;" />
+                </td></tr>
+              </table>
+              <div style="font-size:11px;font-weight:600;margin-top:9px;"><font class="c-5c5c5c" color="#5c5c5c">Notion</font></div>
+            </td>
+            <td width="25%" align="center" style="vertical-align:top;">
+              <table cellpadding="0" cellspacing="0" align="center">
+                <tr><td width="58" height="58" align="center" valign="middle" bgcolor="#ffffff" style="background-color:#ffffff;background-image:linear-gradient(#ffffff,#ffffff);border:1px solid #e8e8e8;border-radius:15px;">
+                  <img src="https://tempocalendar.com/assets/outlook.png" alt="Outlook" width="26" height="26" style="display:block;margin:0 auto;border:0;" />
+                </td></tr>
+              </table>
+              <div style="font-size:11px;font-weight:600;margin-top:9px;"><font class="c-5c5c5c" color="#5c5c5c">Outlook</font></div>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+
+  <table width="100%" cellpadding="0" cellspacing="0" bgcolor="#ffffff" style="background-color:#ffffff;background-image:linear-gradient(#ffffff,#ffffff);">
+    <tr>
+      <td bgcolor="#ffffff" style="padding:36px 28px 8px;background-color:#ffffff;background-image:linear-gradient(#ffffff,#ffffff);">
+        <p style="margin:0 0 6px;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;"><font class="c-9a9a9a" color="#9a9a9a">Pricing</font></p>
+        <h2 style="margin:0 0 18px;font-size:24px;font-weight:800;letter-spacing:-0.8px;line-height:1.15;"><font class="c-010101" color="#010101">Beta pricing</font></h2>
+
+        <div style="border-radius:16px;overflow:hidden;border:1px solid #ededf0;margin-bottom:32px;">
+          <table width="100%" cellpadding="0" cellspacing="0" bgcolor="#fafafb" style="background-color:#fafafb;background-image:linear-gradient(#fafafb,#fafafb);">
+            <tr>
+              <td bgcolor="#fafafb" style="padding:26px;background-color:#fafafb;background-image:linear-gradient(#fafafb,#fafafb);">
+                <p style="margin:0 0 4px;font-size:34px;font-weight:800;letter-spacing:-1px;"><font class="c-010101" color="#010101">$6.99 </font><font class="c-9a9a9a" color="#9a9a9a" style="font-size:14px;font-weight:600;letter-spacing:0;">AUD / month</font></p>
+                <p style="margin:0 0 22px;font-size:13px;line-height:1.5;"><font class="c-8a8a8a" color="#8a8a8a">Standard pricing when your invite arrives. Cancel anytime from the App Store.</font></p>
+
+                <table width="100%" cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td width="26" style="vertical-align:top;padding-bottom:11px;"><font class="c-4165e5" color="#4165e5" style="font-weight:800;font-size:14px;">&#10003;</font></td>
+                    <td style="font-size:13px;line-height:1.5;padding-bottom:11px;"><font class="c-1a1a1a" color="#1a1a1a">Priority invite when beta spots open</font></td>
+                  </tr>
+                  <tr>
+                    <td width="26" style="vertical-align:top;padding-bottom:11px;"><font class="c-4165e5" color="#4165e5" style="font-weight:800;font-size:14px;">&#10003;</font></td>
+                    <td style="font-size:13px;line-height:1.5;padding-bottom:11px;"><font class="c-1a1a1a" color="#1a1a1a">Product updates and early looks at what's shipping</font></td>
+                  </tr>
+                  <tr>
+                    <td width="26" style="vertical-align:top;"><font class="c-4165e5" color="#4165e5" style="font-weight:800;font-size:14px;">&#10003;</font></td>
+                    <td style="font-size:13px;line-height:1.5;"><font class="c-1a1a1a" color="#1a1a1a">No payment until you accept your TestFlight invite</font></td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </div>
+
+      </td>
+    </tr>
+  </table>
+
+  <table width="100%" cellpadding="0" cellspacing="0" bgcolor="#ffffff" style="background-color:#ffffff;background-image:linear-gradient(#ffffff,#ffffff);border-top:1px solid #ececef;">
+    <tr>
+      <td bgcolor="#ffffff" style="padding:26px 28px;background-color:#ffffff;background-image:linear-gradient(#ffffff,#ffffff);">
+        <p style="margin:0 0 16px;font-size:15px;font-weight:700;letter-spacing:-0.3px;"><font class="c-010101" color="#010101">Get unbusy. </font><font class="c-4165e5" color="#4165e5">Catch your tempo.</font></p>
+        <table width="100%" cellpadding="0" cellspacing="0">
+          <tr>
+            <td style="vertical-align:middle;"><font class="c-010101" color="#010101" style="font-size:14px;font-weight:800;">Tempo</font></td>
+            <td align="right" style="vertical-align:middle;">
+              <p style="margin:0;font-size:11px;text-align:right;line-height:1.6;"><font class="c-b8b8b8" color="#b8b8b8">Signed up at </font><a href="https://tempocalendar.com" style="color:#4165e5;text-decoration:none;">tempocalendar.com</a><br><font class="c-b8b8b8" color="#b8b8b8">&copy; 2026 Tempo Labs</font></p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+
+</div>

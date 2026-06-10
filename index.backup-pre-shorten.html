@@ -1,0 +1,2889 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Tempo: Your week, clear. Inbox and calendar, one assistant.</title>
+<meta name="description" content="Plan your week on iPhone with Tempo. Native calendar with built-in AI for planning and inbox. Free waitlist." />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Tempo: Your week, clear. One assistant for calendar and inbox." />
+<meta property="og:description" content="Native iOS calendar with built-in AI for planning and inbox. Free waitlist." />
+<meta property="og:image" content="https://tempocalendar.com/assets/app-screenshot.png" />
+<meta property="og:url" content="https://tempocalendar.com/" />
+<link rel="canonical" href="https://tempocalendar.com/" />
+<meta name="twitter:card" content="summary_large_image" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Tempo",
+  "applicationCategory": "ProductivityApplication",
+  "operatingSystem": "iOS",
+  "description": "Native iOS calendar with a built-in AI assistant for planning and inbox work.",
+  "offers": {
+    "@type": "Offer",
+    "price": "7.99",
+    "priceCurrency": "AUD"
+  }
+}
+</script>
+<meta name="twitter:title" content="Tempo: Your week, clear. One assistant for calendar and inbox." />
+<meta name="twitter:description" content="Native iOS calendar with AI for planning and inbox. Free waitlist." />
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="assets/app-screenshot.png" />
+<meta name="theme-color" content="#f9f9f9" />
+<meta name="color-scheme" content="light" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..800&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --bg:#f9f9f9;
+  --bg-elevated:#ffffff;
+  --ink:#000000;
+  --ink-dim:#5c5c5c;
+  --ink-soft:#1a1a1a;
+  --line:#e8e8e8;
+  --line-strong:#d4d4d4;
+  --accent:#4165e5;
+  --accent-2:#f7c948;
+  --accent-3:#3454c4;
+  --accent-4:#6b8aeb;
+  --accent-5:#3454c4;
+  --accent-muted:rgba(65,101,229,.08);
+  --uq-purple:#51247A;
+  --nav-bg:rgba(255,255,255,.92);
+  --sans:"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  --max:1080px;
+  --pad:clamp(20px, 5vw, 48px);
+  --tracking-tight:-0.035em;
+  --leading-display:1.08;
+  --nav-offset:max(72px, calc(56px + env(safe-area-inset-top)));
+  --ease-premium:cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-reveal:.72s;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{
+  scroll-behavior:smooth;
+  -webkit-text-size-adjust:100%;
+  overflow-x:clip;
+}
+body{
+  overflow-x:clip;
+  max-width:100%;
+  font-family:var(--sans);
+  font-feature-settings:"cv01","ss03";
+  background-color:var(--bg);
+  background-image:
+    linear-gradient(rgba(0,0,0,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,.04) 1px, transparent 1px);
+  background-size:56px 56px;
+  color:var(--ink);
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  padding-left:env(safe-area-inset-left);
+  padding-right:env(safe-area-inset-right);
+}
+::selection{background:var(--accent);color:#fff}
+
+a{color:inherit;text-decoration:none}
+img,svg{display:block}
+
+/* Nav */
+nav{
+  position:sticky;top:0;z-index:100;
+  display:flex;align-items:center;
+  flex-wrap:wrap;
+  gap:12px 16px;
+  padding:max(14px, env(safe-area-inset-top)) var(--pad) 14px;
+  background:var(--nav-bg);
+  backdrop-filter:blur(16px);
+  box-shadow:0 1px 0 rgba(18,20,28,.04);
+  border-bottom:1px solid transparent;
+}
+nav.scrolled{border-bottom-color:var(--line)}
+nav.nav-past-hero .nav-cta{
+  box-shadow:0 4px 14px rgba(65,101,229,.25);
+}
+.logo{
+  display:flex;align-items:center;gap:10px;
+  font-size:20px;font-weight:700;letter-spacing:var(--tracking-tight);
+  flex:1;
+  min-width:0;
+}
+.logo-icon{flex-shrink:0}
+.nav-cta,.nav-toggle{flex-shrink:0}
+.nav-links{
+  display:flex;gap:28px;
+  font-size:14px;font-weight:500;
+  color:var(--ink-dim);
+  letter-spacing:-.01em;
+}
+.nav-links a{
+  position:relative;
+  transition:color .2s ease;
+}
+.nav-links a::after{
+  content:"";
+  position:absolute;
+  left:0;right:0;bottom:-4px;
+  height:1px;
+  background:currentColor;
+  transform:scaleX(0);
+  transform-origin:left center;
+  transition:transform .28s var(--ease-premium);
+}
+.nav-links a:hover{color:var(--ink)}
+.nav-links a:hover::after{transform:scaleX(1)}
+.nav-cta{
+  font-size:13px;font-weight:600;
+  letter-spacing:-.02em;
+  padding:10px 18px;border-radius:8px;
+  background:var(--ink);color:#fff;
+  white-space:nowrap;
+  transition:background .2s, transform .2s, box-shadow .2s;
+}
+.nav-cta:hover{
+  background:#1a1a1a;
+  transform:translateY(-1px);
+  box-shadow:0 6px 18px rgba(0,0,0,.12);
+}
+.nav-toggle{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:44px;height:44px;
+  -webkit-tap-highlight-color:transparent;
+  border:1px solid var(--line-strong);
+  border-radius:8px;
+  background:var(--bg-elevated);
+  color:var(--ink);
+  cursor:pointer;
+}
+.nav-toggle svg{width:18px;height:18px}
+.nav-toggle[aria-expanded="true"]{background:var(--accent-muted);border-color:var(--accent)}
+@media (min-width:920px){
+  .nav-toggle{display:none}
+}
+.nav-mobile{
+  display:none;
+  position:absolute;
+  top:100%;left:0;right:0;
+  padding:16px var(--pad) 20px;
+  background:var(--nav-bg);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--line);
+  flex-direction:column;
+  gap:12px;
+}
+.nav-mobile.is-open{display:flex}
+.nav-mobile a{
+  font-size:15px;font-weight:500;
+  color:var(--ink-soft);
+  padding:12px 0;
+  min-height:44px;
+  display:flex;
+  align-items:center;
+}
+.nav-mobile a:hover{color:var(--ink)}
+.nav-mobile .nav-mobile-cta{
+  margin-top:4px;
+  padding:12px 18px;
+  border-radius:10px;
+  background:var(--ink);
+  color:#fff;
+  font-weight:600;
+  justify-content:center;
+}
+
+/* Layout */
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
+section{padding:clamp(48px, 8vw, 120px) 0}
+[id]{scroll-margin-top:var(--nav-offset)}
+.section-label{
+  font-size:11px;font-weight:600;
+  letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-dim);margin-bottom:14px;
+}
+h2,.hero h1{
+  font-family:var(--sans);
+  font-weight:700;
+  letter-spacing:var(--tracking-tight);
+  line-height:var(--leading-display);
+  color:var(--ink);
+}
+
+/* Hero */
+.hero{
+  padding:clamp(48px, 8vw, 96px) 0 clamp(72px, 12vw, 120px);
+  position:relative;
+  overflow:hidden;
+}
+.hero::before{
+  content:"";
+  position:absolute;
+  top:-10%;left:50%;
+  transform:translateX(-50%);
+  width:min(720px, 100%);
+  height:80%;
+  background:radial-gradient(ellipse at 50% 40%, rgba(176,196,245,.35), transparent 68%);
+  pointer-events:none;
+  animation:hero-glow-breathe 8s ease-in-out infinite;
+}
+.hero::after{
+  content:"";
+  position:absolute;
+  left:0;right:0;bottom:0;
+  height:clamp(80px, 14vw, 140px);
+  background:linear-gradient(to bottom, transparent, var(--bg));
+  pointer-events:none;
+  z-index:1;
+}
+@keyframes hero-glow-breathe{
+  0%,100%{opacity:.85;transform:translateX(-50%) scale(1)}
+  50%{opacity:1;transform:translateX(-50%) scale(1.04)}
+}
+.hero-inner{
+  position:relative;
+  max-width:var(--max);
+  margin:0 auto;
+  padding:0 var(--pad);
+}
+.hero-grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:48px;
+  align-items:center;
+  text-align:center;
+}
+@media (min-width:920px){
+  .hero-grid{
+    grid-template-columns:1fr 1fr;
+    gap:56px;
+    text-align:left;
+  }
+  .hero-grid .waitlist-block,
+  .hero-grid .waitlist-fine,
+  .hero-grid .hero-note,
+  .hero-grid .feedback-line,
+  .hero-grid .trust-row{justify-content:flex-start;text-align:left;margin-left:0;margin-right:0}
+  .hero-grid .trust-row{justify-content:flex-start}
+}
+.hero h1{
+  font-size:clamp(2.125rem, 8.5vw, 5rem);
+  font-weight:800;
+  max-width:none;
+  margin:0 auto 20px;
+  text-wrap:balance;
+}
+@media (min-width:920px){
+  .hero h1{
+    margin-left:0;margin-right:0;
+    max-width:14ch;
+  }
+}
+.hero-line{display:block}
+/* Motion system — scroll reveals + staged hero (Linear / Notion pattern) */
+.reveal{
+  opacity:0;
+  transform:translateY(22px);
+  transition:
+    opacity var(--dur-reveal) var(--ease-premium),
+    transform var(--dur-reveal) var(--ease-premium),
+    filter var(--dur-reveal) var(--ease-premium);
+}
+.reveal.is-in{
+  opacity:1;
+  transform:translateY(0);
+  filter:none;
+}
+.reveal-blur{filter:blur(6px)}
+.reveal-blur.is-in{filter:blur(0)}
+.reveal-scale{
+  opacity:0;
+  transform:translateY(18px) scale(.97);
+}
+.reveal-scale.is-in{
+  opacity:1;
+  transform:translateY(0) scale(1);
+}
+[data-hero-enter]{
+  opacity:0;
+  transform:translateY(20px);
+  filter:blur(5px);
+  transition:
+    opacity .7s var(--ease-premium),
+    transform .7s var(--ease-premium),
+    filter .7s var(--ease-premium);
+}
+.hero.is-ready [data-hero-enter].is-in{
+  opacity:1;
+  transform:translateY(0);
+  filter:blur(0);
+}
+.section-spotlight{
+  position:relative;
+  isolation:isolate;
+}
+.section-spotlight::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:radial-gradient(ellipse 70% 45% at 50% 0%, rgba(176,196,245,.22), transparent 72%);
+  opacity:0;
+  transition:opacity 1.1s var(--ease-premium);
+  pointer-events:none;
+  z-index:-1;
+}
+.section-spotlight.is-lit::before{opacity:1}
+.integrations.section-spotlight::before{
+  background:radial-gradient(ellipse 60% 50% at 50% 50%, rgba(65,101,229,.1), transparent 70%);
+}
+.hero-lead{
+  font-size:clamp(1.125rem, 2vw, 1.375rem);
+  color:var(--ink);
+  max-width:34rem;
+  margin:0 auto 20px;
+  font-weight:400;
+  line-height:1.55;
+  letter-spacing:-.01em;
+}
+@media (min-width:920px){
+  .hero-lead{margin-left:0;margin-right:0}
+}
+.hero-lead strong{font-weight:600}
+.hero-actions{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  align-items:stretch;
+}
+.hero-secondary{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  width:100%;
+  min-height:48px;
+  font-size:14px;
+  font-weight:600;
+  letter-spacing:-.02em;
+  color:var(--ink-soft);
+  padding:12px 18px;
+  border-radius:10px;
+  border:1px solid var(--line-strong);
+  background:var(--bg-elevated);
+  transition:border-color .2s, background .2s, transform .2s;
+  -webkit-tap-highlight-color:transparent;
+}
+.hero-secondary:hover{
+  border-color:var(--ink);
+  background:#fff;
+  transform:translateY(-1px);
+}
+.waitlist-count{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  font-size:13px;
+  font-weight:500;
+  color:var(--ink-dim);
+  margin-bottom:14px;
+  padding:7px 14px;
+  border-radius:999px;
+  border:1px solid var(--line);
+  background:linear-gradient(165deg, rgba(65,101,229,.06) 0%, rgba(255,255,255,.8) 100%);
+  letter-spacing:-.01em;
+}
+.waitlist-count strong{
+  color:var(--ink);
+  font-weight:700;
+}
+.hero-note{
+  font-size:13px;
+  color:var(--ink-dim);
+  line-height:1.5;
+  margin-top:12px;
+  text-align:center;
+}
+.hero-note a{
+  color:var(--accent);
+  font-weight:600;
+  text-decoration:underline;
+  text-underline-offset:2px;
+}
+@media (min-width:640px){
+  .hero-actions{
+    flex-direction:row;
+    flex-wrap:wrap;
+    align-items:stretch;
+  }
+  .hero-actions .waitlist-form{flex:1 1 240px;min-width:min(100%, 300px)}
+  .hero-secondary{
+    width:auto;
+    align-self:stretch;
+    min-width:140px;
+  }
+}
+@media (min-width:920px){
+  .hero-actions{align-items:flex-start}
+  .waitlist-count{align-self:flex-start}
+  .hero-note{text-align:left}
+}
+@keyframes phone-float-hero{
+  0%,100%{transform:translateY(0) rotate(-1.5deg)}
+  50%{transform:translateY(-16px) rotate(0.5deg)}
+}
+@keyframes phone-float-left{
+  0%,100%{transform:translateY(0) rotate(-2deg)}
+  50%{transform:translateY(-12px) rotate(-3.5deg)}
+}
+@keyframes phone-float-right{
+  0%,100%{transform:translateY(0) rotate(2deg)}
+  50%{transform:translateY(-12px) rotate(3.5deg)}
+}
+@keyframes phone-enter-left{
+  0%{opacity:0;transform:translateY(32px) rotate(-5deg)}
+  100%{opacity:1;transform:translateY(0) rotate(-2deg)}
+}
+@keyframes phone-enter-right{
+  0%{opacity:0;transform:translateY(32px) rotate(5deg)}
+  100%{opacity:1;transform:translateY(0) rotate(2deg)}
+}
+@keyframes phone-float-mini{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-8px)}
+}
+@keyframes phone-glow-pulse{
+  0%,100%{opacity:.55;transform:scale(1)}
+  50%{opacity:.9;transform:scale(1.06)}
+}
+.hero-device-wrap{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:14px;
+  perspective:1200px;
+  transition:opacity .2s ease;
+}
+.hero-device{
+  --phone-pad-x:10px;
+  --phone-pad-y:12px;
+  --phone-pad-b:14px;
+  --phone-screen-r:42px;
+  --phone-bezel-r:54px;
+  position:relative;
+  width:min(280px, 78vw);
+  aspect-ratio:470/1024;
+  padding:var(--phone-pad-y) var(--phone-pad-x) var(--phone-pad-b);
+  border-radius:var(--phone-bezel-r);
+  overflow:visible;
+  background:linear-gradient(165deg, #5a5a5c 0%, #1d1d1f 28%, #000 72%, #2c2c2e 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.14),
+    inset 0 -1px 0 rgba(0,0,0,.5),
+    0 48px 96px -24px rgba(0,0,0,.42),
+    0 24px 48px -20px rgba(65,101,229,.16);
+  transform-style:preserve-3d;
+  animation:phone-float-hero 6.5s ease-in-out infinite;
+  will-change:transform;
+  transition:transform .45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.hero-device::before{
+  content:"";
+  position:absolute;
+  left:-2px;
+  top:24%;
+  width:3px;
+  height:44px;
+  border-radius:2px 0 0 2px;
+  background:linear-gradient(180deg, #3a3a3c, #1c1c1e);
+  box-shadow:0 52px 0 0 #1c1c1e;
+}
+.hero-device::after{
+  content:"";
+  position:absolute;
+  right:-2px;
+  top:30%;
+  width:3px;
+  height:64px;
+  border-radius:0 2px 2px 0;
+  background:linear-gradient(180deg, #3a3a3c, #1c1c1e);
+  pointer-events:none;
+}
+.hero-device img{
+  position:relative;
+  z-index:1;
+  width:100%;
+  height:100%;
+  border-radius:var(--phone-screen-r);
+  object-fit:cover;
+  object-position:top center;
+  box-shadow:inset 0 0 0 1px rgba(0,0,0,.12);
+}
+.hero-badge{
+  font-size:13px;
+  font-weight:500;
+  color:var(--ink-dim);
+  letter-spacing:-.01em;
+  font-style:italic;
+}
+.hero-badge em{
+  font-style:normal;
+  font-weight:600;
+  color:var(--accent);
+}
+.proof-strip{
+  padding:20px 0;
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  background:rgba(255,255,255,.55);
+}
+.proof-strip .wrap{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:12px 28px;
+  text-align:center;
+}
+.proof-item{
+  font-size:14px;
+  font-weight:500;
+  color:var(--ink-soft);
+  letter-spacing:-.01em;
+  padding:8px 14px;
+  border-radius:999px;
+  border:1px solid transparent;
+  transition:border-color .25s ease, background .25s ease, transform .25s var(--ease-premium);
+}
+.proof-item:hover{
+  border-color:var(--line);
+  background:rgba(255,255,255,.7);
+  transform:translateY(-2px);
+}
+.proof-item strong{color:var(--ink);font-weight:600}
+.logo-strip{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:center;
+  gap:14px 22px;
+  margin-top:18px;
+  padding-top:18px;
+  border-top:1px solid var(--line);
+}
+.logo-strip img{
+  width:22px;height:22px;
+  object-fit:contain;
+  opacity:.88;
+  transition:transform .3s var(--ease-premium), opacity .3s ease;
+}
+.logo-strip img:hover{
+  transform:translateY(-3px) scale(1.08);
+  opacity:1;
+}
+.partner-strip{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:center;
+  gap:10px 12px;
+  width:100%;
+  margin-top:16px;
+  padding-top:16px;
+  border-top:1px solid var(--line);
+}
+.partner-label{
+  font-size:12px;
+  font-weight:500;
+  color:var(--ink-dim);
+  letter-spacing:-.01em;
+}
+.partner-link{
+  font-size:13px;
+  font-weight:700;
+  letter-spacing:-.02em;
+  color:var(--uq-purple);
+  line-height:1;
+  text-decoration:none;
+  transition:color .2s, opacity .2s;
+}
+.partner-link:hover{
+  color:#3d1b5c;
+  text-decoration:underline;
+  text-underline-offset:3px;
+}
+
+/* Quotes */
+.quotes{
+  padding:clamp(32px, 5vw, 56px) 0;
+}
+.quotes .wrap{text-align:center}
+.quotes h2{
+  font-size:clamp(1.35rem, 3vw, 1.75rem);
+  font-weight:700;
+  letter-spacing:var(--tracking-tight);
+  margin-bottom:clamp(24px, 3.5vw, 36px);
+}
+.quote-grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:16px;
+  text-align:left;
+}
+@media (min-width:720px){
+  .quote-grid{grid-template-columns:repeat(3, 1fr);gap:18px}
+}
+.quote-card{
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  padding:clamp(22px, 2.4vw, 28px);
+  border:1px solid var(--line);
+  border-radius:16px;
+  background:linear-gradient(165deg, var(--bg-elevated) 0%, rgba(65,101,229,.035) 100%);
+  box-shadow:0 1px 3px rgba(18,20,28,.04);
+  overflow:hidden;
+  isolation:isolate;
+  transition:border-color .4s ease, box-shadow .4s var(--ease-premium), transform .4s var(--ease-premium);
+}
+/* large decorative quote mark */
+.quote-card::before{
+  content:"\201C";
+  position:absolute;
+  top:-14px;
+  right:14px;
+  font-family:Georgia, "Times New Roman", serif;
+  font-size:104px;
+  line-height:1;
+  color:rgba(65,101,229,.1);
+  z-index:-1;
+  transition:color .4s var(--ease-premium), transform .4s var(--ease-premium);
+  pointer-events:none;
+}
+/* sheen sweep on hover */
+.quote-card::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(115deg, transparent 30%, rgba(255,255,255,.5) 50%, transparent 70%);
+  transform:translateX(-120%);
+  transition:transform .7s var(--ease-premium);
+  z-index:1;
+  pointer-events:none;
+}
+.quote-card:hover{
+  border-color:rgba(65,101,229,.35);
+  box-shadow:0 18px 44px rgba(65,101,229,.12);
+  transform:translateY(-5px);
+}
+.quote-card:hover::before{
+  color:rgba(65,101,229,.18);
+  transform:scale(1.08) rotate(-2deg);
+}
+.quote-card:hover::after{
+  transform:translateX(120%);
+}
+.quote-card p{
+  font-size:15.5px;
+  line-height:1.6;
+  color:var(--ink-soft);
+  letter-spacing:-.01em;
+  margin:0 0 18px;
+  flex:1;
+}
+.quote-card footer{
+  display:flex;
+  align-items:center;
+  gap:11px;
+  font-size:0;
+  margin-top:auto;
+}
+.quote-avatar{
+  flex:none;
+  width:54px;
+  height:54px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  font-size:18px;
+  font-weight:700;
+  letter-spacing:.01em;
+  color:#fff;
+  background:linear-gradient(150deg, var(--accent-4) 0%, var(--accent) 55%, var(--accent-3) 100%);
+  box-shadow:0 4px 12px rgba(65,101,229,.28);
+  transition:transform .4s var(--ease-premium);
+}
+.quote-card:hover .quote-avatar{
+  transform:scale(1.06) rotate(-3deg);
+}
+.quote-avatar--photo{
+  background:linear-gradient(150deg, #eef2ff 0%, #dde6ff 100%);
+  padding:0;
+  overflow:hidden;
+}
+.quote-avatar--photo img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+.quote-meta{
+  display:flex;
+  flex-direction:column;
+  line-height:1.3;
+  text-align:left;
+}
+.quote-name{
+  font-size:13.5px;
+  font-weight:700;
+  color:var(--ink);
+  letter-spacing:-.01em;
+}
+.quote-role{
+  font-size:12px;
+  font-weight:500;
+  color:var(--ink-dim);
+  letter-spacing:.01em;
+}
+@media (prefers-reduced-motion:reduce){
+  .quote-card,
+  .quote-card::before,
+  .quote-card::after,
+  .quote-avatar{transition:none}
+  .quote-card:hover{transform:none}
+  .quote-card:hover::after{transform:translateX(-120%)}
+}
+
+/* Problem / solution */
+.contrast{
+  padding:clamp(40px, 6vw, 72px) 0;
+}
+.contrast-grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:16px;
+}
+@media (min-width:720px){
+  .contrast-grid{grid-template-columns:1fr 1fr;gap:20px}
+}
+.contrast-col{
+  padding:22px 24px;
+  border-radius:14px;
+  border:1px solid var(--line);
+  text-align:left;
+  transition:border-color .3s ease, box-shadow .35s var(--ease-premium), transform .35s var(--ease-premium);
+}
+.contrast-col:hover{transform:translateY(-3px)}
+.contrast-before:hover{box-shadow:0 10px 28px rgba(18,20,28,.05)}
+.contrast-after:hover{box-shadow:0 14px 36px rgba(65,101,229,.1)}
+.contrast-before{
+  background:rgba(255,255,255,.7);
+}
+.contrast-after{
+  background:linear-gradient(165deg, #fff 40%, rgba(176,196,245,.2) 100%);
+  border-color:rgba(65,101,229,.2);
+  box-shadow:0 8px 28px rgba(65,101,229,.08);
+}
+.contrast-col h2{
+  font-size:clamp(1.25rem, 2.5vw, 1.5rem);
+  font-weight:700;
+  letter-spacing:var(--tracking-tight);
+  margin-bottom:10px;
+}
+.contrast-col p{
+  font-size:14px;
+  color:var(--ink-dim);
+  line-height:1.55;
+}
+
+/* Sticky mobile waitlist */
+.sticky-waitlist{
+  display:none;
+  position:fixed;
+  left:0;right:0;bottom:0;
+  z-index:90;
+  padding:10px var(--pad) max(10px, env(safe-area-inset-bottom));
+  background:var(--nav-bg);
+  backdrop-filter:blur(16px);
+  border-top:1px solid var(--line);
+  box-shadow:0 -8px 24px rgba(18,20,28,.08);
+  transform:translateY(110%);
+  transition:transform .25s ease;
+}
+.sticky-waitlist.is-visible{transform:translateY(0)}
+.sticky-waitlist[hidden]{display:none}
+@media (max-width:759px){
+  .sticky-waitlist:not([hidden]){display:block}
+  body.sticky-waitlist-on{
+    padding-bottom:calc(68px + env(safe-area-inset-bottom));
+  }
+}
+.sticky-waitlist-btn{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:100%;
+  min-height:48px;
+  padding:14px 20px;
+  -webkit-tap-highlight-color:transparent;
+  border-radius:10px;
+  background:var(--ink);
+  color:#fff;
+  font-size:15px;
+  font-weight:600;
+  letter-spacing:-.02em;
+}
+
+/* How it works + What we do panels */
+.how-it-works{
+  padding:clamp(40px, 6vw, 64px) 0;
+}
+.how-it-works .wrap{text-align:center}
+.how-it-works h2{
+  font-size:clamp(1.75rem, 4vw, 2.5rem);
+  font-weight:700;
+  margin-bottom:24px;
+}
+.panel-row{
+  display:flex;
+  gap:12px;
+  overflow-x:auto;
+  overscroll-behavior-x:contain;
+  scroll-snap-type:x mandatory;
+  -webkit-overflow-scrolling:touch;
+  padding:2px 2px 6px;
+  margin:0 calc(var(--pad) * -1);
+  padding-left:var(--pad);
+  padding-right:var(--pad);
+  scrollbar-width:none;
+}
+.panel-row::-webkit-scrollbar{display:none}
+.panel-card{
+  flex:0 0 min(84vw, 280px);
+  scroll-snap-align:start;
+  text-align:left;
+  padding:16px 18px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:linear-gradient(165deg, #fff 55%, rgba(176,196,245,.12) 100%);
+  box-shadow:0 1px 2px rgba(18,20,28,.04);
+  position:relative;
+  transition:border-color .2s, box-shadow .2s, transform .2s;
+}
+.panel-card:hover{
+  border-color:var(--line-strong);
+  box-shadow:0 8px 24px rgba(65,101,229,.08);
+  transform:translateY(-2px);
+}
+.panel-card::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  pointer-events:none;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.9);
+}
+.panel-mark{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:12px;
+}
+.panel-icon{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:36px;height:36px;
+  border-radius:10px;
+  background:var(--accent-muted);
+  color:var(--accent);
+  flex-shrink:0;
+}
+.panel-icon svg{width:18px;height:18px}
+.panel-num{
+  font-size:11px;font-weight:700;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:var(--ink-dim);
+}
+.panel-card h3{
+  font-size:1rem;font-weight:700;
+  letter-spacing:var(--tracking-tight);
+  margin-bottom:6px;
+  line-height:1.25;
+}
+.panel-card p{
+  font-size:13px;
+  color:var(--ink-dim);
+  line-height:1.5;
+}
+@media (min-width:720px){
+  .panel-row{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:0;
+    overflow:visible;
+    margin:0;
+    padding:0;
+    border:1px solid var(--line);
+    border-radius:14px;
+    background:var(--bg-elevated);
+    box-shadow:0 4px 24px rgba(18,20,28,.05);
+  }
+  .panel-card{
+    flex:none;
+    scroll-snap-align:unset;
+    border:none;
+    border-radius:0;
+    background:transparent;
+    box-shadow:none;
+    padding:20px 22px;
+  }
+  .panel-card::after{display:none}
+  .panel-card:hover{
+    transform:none;
+    background:rgba(176,196,245,.14);
+    box-shadow:none;
+  }
+  .panel-card + .panel-card{
+    border-left:1px solid var(--line);
+  }
+  .panel-card:first-child{border-radius:13px 0 0 13px}
+  .panel-card:last-child{border-radius:0 13px 13px 0}
+}
+.steps.panel-row .panel-card:nth-child(1) .panel-icon{background:rgba(65,101,229,.1);color:var(--accent)}
+.steps.panel-row .panel-card:nth-child(2) .panel-icon{background:rgba(247,201,72,.22);color:#9a7b10}
+.steps.panel-row .panel-card:nth-child(3) .panel-icon{background:rgba(52,84,196,.12);color:var(--accent-3)}
+
+/* Pricing */
+.pricing{
+  padding:clamp(56px, 8vw, 96px) 0;
+  background:var(--bg-elevated);
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+}
+.pricing .wrap{text-align:center}
+.pricing h2{
+  font-size:clamp(1.75rem, 4vw, 2.5rem);
+  font-weight:700;
+  margin-bottom:12px;
+}
+.pricing > .wrap > p{
+  color:var(--ink-dim);
+  font-size:16px;
+  max-width:32rem;
+  margin:0 auto 32px;
+}
+.pricing-card{
+  max-width:400px;
+  margin:0 auto;
+  padding:32px 28px;
+  border:1px solid var(--line);
+  border-radius:16px;
+  background:var(--bg);
+  text-align:left;
+  box-shadow:0 4px 20px rgba(18,20,28,.06);
+  transition:border-color .4s ease, box-shadow .5s var(--ease-premium), transform .5s var(--ease-premium);
+}
+.pricing-card.is-in{
+  border-color:rgba(65,101,229,.22);
+  box-shadow:0 16px 48px rgba(65,101,229,.12);
+}
+.pricing-card:hover{
+  transform:translateY(-2px);
+}
+.pricing-price{
+  font-size:2.5rem;
+  font-weight:700;
+  letter-spacing:var(--tracking-tight);
+  line-height:1;
+  margin-bottom:4px;
+}
+.pricing-price span{
+  font-size:15px;
+  font-weight:500;
+  color:var(--ink-dim);
+}
+.pricing-card > p{
+  font-size:14px;
+  color:var(--ink-dim);
+  margin-bottom:20px;
+  line-height:1.5;
+}
+.pricing-list{
+  list-style:none;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+.pricing-list li{
+  font-size:14px;
+  color:var(--ink-soft);
+  padding-left:22px;
+  position:relative;
+  line-height:1.45;
+}
+.pricing-list li::before{
+  content:"";
+  position:absolute;left:0;top:5px;
+  width:14px;height:14px;
+  border-radius:50%;
+  background:var(--accent-muted) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234165e5' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><polyline points='20 6 9 17 4 12'/></svg>") center/10px no-repeat;
+}
+
+/* FAQ */
+.faq{padding:clamp(56px, 8vw, 96px) 0}
+.faq .wrap{max-width:640px}
+.faq h2{
+  font-size:clamp(1.75rem, 4vw, 2.5rem);
+  font-weight:700;
+  text-align:center;
+  margin-bottom:32px;
+}
+.faq-list{display:flex;flex-direction:column;gap:10px}
+.faq-item{
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:var(--bg-elevated);
+  overflow:hidden;
+  transition:border-color .25s ease, box-shadow .3s var(--ease-premium);
+}
+.faq-item[open]{
+  border-color:rgba(65,101,229,.2);
+  box-shadow:0 8px 24px rgba(65,101,229,.06);
+}
+.faq-item summary{
+  padding:16px 18px;
+  min-height:52px;
+  font-size:15px;
+  font-weight:600;
+  letter-spacing:-.01em;
+  cursor:pointer;
+  list-style:none;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  transition:color .2s ease;
+  gap:12px;
+  -webkit-tap-highlight-color:transparent;
+}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::after{
+  content:"+";
+  font-size:18px;
+  font-weight:400;
+  color:var(--ink-dim);
+  flex-shrink:0;
+}
+.faq-item[open] summary::after{content:"−"}
+.faq-item p{
+  padding:0 18px 16px;
+  font-size:14px;
+  color:var(--ink-dim);
+  line-height:1.6;
+}
+
+/* More features grid */
+.more-features{
+  margin-top:clamp(48px, 8vw, 72px);
+  padding-top:48px;
+  border-top:1px solid var(--line);
+  text-align:center;
+}
+.more-features h3{
+  font-size:clamp(1.5rem, 3vw, 2rem);
+  font-weight:700;
+  letter-spacing:var(--tracking-tight);
+  margin-bottom:8px;
+}
+.more-features > p{
+  color:var(--ink-dim);
+  font-size:15px;
+  margin-bottom:32px;
+  max-width:28rem;
+  margin-left:auto;margin-right:auto;
+}
+.more-grid{
+  display:grid;
+  grid-template-columns:repeat(2, minmax(0, 1fr));
+  gap:16px;
+}
+@media (min-width:520px){
+  .more-grid{gap:20px}
+}
+@media (min-width:700px){
+  .more-grid{grid-template-columns:repeat(4, minmax(0, 1fr))}
+}
+@media (max-width:359px){
+  .more-grid{grid-template-columns:1fr;max-width:200px;margin:0 auto}
+}
+.more-card{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  align-items:center;
+}
+.more-card .app-screen{
+  --phone-pad-x:6px;
+  --phone-pad-y:7px;
+  --phone-pad-b:8px;
+  --phone-screen-r:22px;
+  --phone-bezel-r:28px;
+  width:100%;
+  max-width:160px;
+  opacity:1;
+  animation:phone-float-mini 4.8s ease-in-out infinite;
+}
+.more-card:nth-child(1) .app-screen{animation-delay:0s}
+.more-card:nth-child(2) .app-screen{animation-delay:.6s}
+.more-card:nth-child(3) .app-screen{animation-delay:1.2s}
+.more-card:nth-child(4) .app-screen{animation-delay:1.8s}
+.more-card span{
+  font-size:13px;
+  font-weight:600;
+  color:var(--ink-soft);
+  letter-spacing:-.01em;
+}
+
+.trust-row{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:8px 16px;
+  margin-top:14px;
+  font-size:12px;
+  color:var(--ink-dim);
+}
+.trust-row a{
+  color:var(--ink-dim);
+  text-decoration:underline;
+  text-underline-offset:2px;
+}
+.trust-row a:hover{color:var(--ink)}
+
+/* Showcase: feature sections, no phone frame */
+.showcase{
+  position:relative;
+  padding:clamp(80px, 11vw, 140px) 0 clamp(56px, 8vw, 96px);
+  background:linear-gradient(180deg, var(--bg) 0%, #eef2fa 50%, var(--bg) 100%);
+  border-top:1px solid var(--line);
+  overflow:hidden;
+}
+.showcase-intro{
+  text-align:center;
+  max-width:640px;
+  margin:0 auto clamp(56px, 8vw, 96px);
+}
+.showcase-intro h2{
+  font-size:clamp(2rem, 4.6vw, 3rem);
+  font-weight:700;
+  letter-spacing:var(--tracking-tight);
+  margin-bottom:14px;
+}
+.showcase-intro p{
+  color:var(--ink-dim);
+  font-size:clamp(1rem, 1.8vw, 1.1875rem);
+  line-height:1.55;
+  max-width:36rem;
+  margin:0 auto;
+}
+.feature-block{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:48px 64px;
+  align-items:center;
+  margin-bottom:clamp(80px, 11vw, 140px);
+}
+.feature-block:last-child{margin-bottom:0}
+.feature-copy{
+  max-width:30rem;
+  margin:0 auto;
+  text-align:center;
+}
+.feature-tag{
+  display:inline-block;
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--accent);
+  margin-bottom:14px;
+}
+.feature-copy h3{
+  font-size:clamp(1.75rem, 3.6vw, 2.5rem);
+  font-weight:700;
+  letter-spacing:var(--tracking-tight);
+  line-height:1.1;
+  margin-bottom:16px;
+}
+.feature-copy h3 em{
+  font-style:normal;
+  color:var(--accent);
+}
+.feature-copy p{
+  color:var(--ink-dim);
+  font-size:clamp(1rem, 1.6vw, 1.0625rem);
+  line-height:1.6;
+  margin-bottom:20px;
+}
+.feature-points{
+  list-style:none;
+  margin:0;
+  padding:0;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  text-align:left;
+  max-width:24rem;
+}
+.feature-copy[data-align="center"] .feature-points{margin:0 auto}
+.feature-points li{
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+  font-size:14px;
+  color:var(--ink-soft);
+  font-weight:500;
+  line-height:1.5;
+}
+.feature-points li::before{
+  content:"";
+  flex-shrink:0;
+  width:18px;height:18px;
+  margin-top:1px;
+  border-radius:50%;
+  background:var(--accent-muted) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234165e5' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><polyline points='20 6 9 17 4 12'/></svg>") center / 12px no-repeat;
+}
+.feature-visual{
+  position:relative;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:clamp(20px, 4vw, 40px) 0;
+}
+.feature-visual::before{
+  content:"";
+  position:absolute;
+  inset:auto 8% -4% 8%;
+  height:24%;
+  background:radial-gradient(ellipse, rgba(65,101,229,.18) 0%, transparent 70%);
+  filter:blur(28px);
+  pointer-events:none;
+  z-index:0;
+  animation:phone-glow-pulse 5s ease-in-out infinite;
+}
+.app-screen{
+  --phone-pad-x:9px;
+  --phone-pad-y:11px;
+  --phone-pad-b:13px;
+  --phone-screen-r:38px;
+  --phone-bezel-r:48px;
+  position:relative;
+  width:min(280px, 72vw);
+  aspect-ratio:470 / 1024;
+  padding:var(--phone-pad-y) var(--phone-pad-x) var(--phone-pad-b);
+  border-radius:var(--phone-bezel-r);
+  overflow:visible;
+  background:linear-gradient(165deg, #5a5a5c 0%, #1d1d1f 28%, #000 72%, #2c2c2e 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.12),
+    inset 0 -1px 0 rgba(0,0,0,.45),
+    0 40px 80px -24px rgba(0,0,0,.38),
+    0 18px 36px -16px rgba(65,101,229,.14);
+  z-index:1;
+  opacity:0;
+}
+.feature-block.is-visible .app-screen{
+  opacity:1;
+}
+.app-screen img{
+  position:relative;
+  z-index:1;
+  width:100%;
+  height:100%;
+  border-radius:var(--phone-screen-r);
+  object-fit:cover;
+  object-position:top center;
+  display:block;
+  box-shadow:inset 0 0 0 1px rgba(0,0,0,.12);
+}
+.app-screen.is-tilt-left{transform:translateY(32px) rotate(-5deg)}
+.app-screen.is-tilt-right{transform:translateY(32px) rotate(5deg)}
+.feature-block.is-visible .app-screen.is-tilt-left{
+  animation:
+    phone-enter-left .9s cubic-bezier(0.22, 1, 0.36, 1) forwards,
+    phone-float-left 5.5s ease-in-out 1.15s infinite;
+}
+.feature-block.is-visible .app-screen.is-tilt-right{
+  animation:
+    phone-enter-right .9s cubic-bezier(0.22, 1, 0.36, 1) forwards,
+    phone-float-right 5.5s ease-in-out 1.15s infinite;
+}
+.feature-block:nth-child(3).is-visible .app-screen.is-tilt-right{animation-delay:0s, 1.4s}
+.feature-block:nth-child(4).is-visible .app-screen.is-tilt-left{animation-delay:0s, 1.65s}
+
+/* Floating accent cards near each screen */
+.feature-chip{
+  position:absolute;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:10px 14px;
+  border-radius:14px;
+  background:var(--bg-elevated);
+  border:1px solid var(--line);
+  box-shadow:0 12px 28px rgba(18,20,28,.1);
+  font-size:13px;
+  font-weight:600;
+  letter-spacing:-.02em;
+  color:var(--ink);
+  z-index:2;
+  white-space:nowrap;
+  opacity:0;
+  transform:translateY(10px);
+  transition:opacity .7s ease .25s, transform .7s ease .25s;
+}
+@keyframes chip-float{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-7px)}
+}
+.feature-block.is-visible .feature-chip{
+  opacity:1;
+  animation:chip-float 4.2s ease-in-out infinite;
+}
+.feature-block.is-visible .feature-chip.top-right{animation-delay:.2s}
+.feature-block.is-visible .feature-chip.bottom-left{animation-delay:.8s}
+.feature-block.is-visible .feature-chip.top-left{animation-delay:.5s}
+.feature-block.is-visible .feature-chip.bottom-right{animation-delay:1.1s}
+.feature-chip .dot{
+  width:8px;height:8px;border-radius:50%;
+  background:var(--accent);
+  box-shadow:0 0 0 3px rgba(65,101,229,.18);
+}
+.feature-chip svg{
+  width:16px;height:16px;
+  color:var(--accent);
+}
+.feature-chip.top-right{top:8%;right:0}
+.feature-chip.bottom-left{bottom:14%;left:0}
+.feature-chip.top-left{top:14%;left:0}
+.feature-chip.bottom-right{bottom:8%;right:0}
+@media (min-width:880px){
+  .feature-chip.top-right{right:-4%}
+  .feature-chip.bottom-left{left:-6%}
+  .feature-chip.top-left{left:-6%}
+  .feature-chip.bottom-right{right:-4%}
+}
+@media (max-width:879px){
+  .feature-chip{display:none}
+  .feature-visual{padding:16px 0}
+}
+
+.feature-copy,
+.feature-copy > *{
+  opacity:0;
+  transform:translateY(16px);
+  transition:opacity .8s ease, transform .8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.feature-block.is-visible .feature-copy,
+.feature-block.is-visible .feature-copy > *{opacity:1;transform:translateY(0)}
+.feature-block.is-visible .feature-copy > *:nth-child(2){transition-delay:.05s}
+.feature-block.is-visible .feature-copy > *:nth-child(3){transition-delay:.1s}
+.feature-block.is-visible .feature-copy > *:nth-child(4){transition-delay:.15s}
+
+@media(min-width:880px){
+  .feature-block{
+    grid-template-columns:1fr 1fr;
+    gap:40px 64px;
+  }
+  .feature-copy{text-align:left;margin:0}
+  .feature-copy[data-align="center"] .feature-points{margin:0}
+  .feature-block[data-layout="image-left"] .feature-visual{order:1}
+  .feature-block[data-layout="image-left"] .feature-copy{order:2}
+  .app-screen{width:min(300px, 32vw)}
+}
+@media (max-width:879px){
+  .feature-block{
+    gap:32px;
+    margin-bottom:clamp(56px, 10vw, 96px);
+  }
+  .showcase{padding-top:clamp(56px, 9vw, 96px)}
+  .showcase-intro{margin-bottom:clamp(40px, 7vw, 72px)}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .hero::before{animation:none}
+  .hero-device-wrap,
+  .app-screen,
+  .feature-visual::before,
+  .feature-block.is-visible .feature-chip{animation:none}
+  .hero-device{transition:none}
+  .reveal,
+  .reveal-scale,
+  [data-hero-enter]{opacity:1;transform:none;filter:none;transition:none}
+  .section-spotlight::before{opacity:1;transition:none}
+  .nav-links a::after{display:none}
+  .waitlist-submit::after{display:none}
+  .app-screen,
+  .feature-chip,
+  .feature-copy,
+  .feature-copy > *{transform:none;opacity:1;transition:none}
+  .feature-block.is-visible .app-screen.is-tilt-left,
+  .feature-block.is-visible .app-screen.is-tilt-right{transform:rotate(-2deg)}
+  .feature-block.is-visible .app-screen.is-tilt-right{transform:rotate(2deg)}
+  .feature-block.is-visible .feature-chip{opacity:1}
+}
+/* Waitlist */
+.waitlist-block{
+  max-width:440px;
+  width:100%;
+  margin:0 auto;
+}
+.waitlist-offer{
+  font-size:15px;
+  line-height:1.55;
+  color:var(--ink);
+  letter-spacing:-.02em;
+  margin:0 auto 18px;
+  max-width:36rem;
+  text-align:center;
+}
+.waitlist-offer strong{font-weight:600}
+.waitlist-offer .price{
+  font-weight:600;
+  color:var(--ink);
+}
+.waitlist-form{
+  display:flex;
+  flex-direction:column;
+  align-items:stretch;
+  gap:10px;
+  margin:0;
+}
+.waitlist-input{
+  width:100%;
+  border:1px solid var(--line-strong);
+  border-radius:10px;
+  background:var(--bg-elevated);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:16px;
+  padding:14px 16px;
+  outline:none;
+  transition:border-color .2s, box-shadow .2s;
+}
+.waitlist-input::placeholder{color:var(--ink-dim)}
+.waitlist-input:focus{
+  border-color:var(--ink);
+  box-shadow:0 0 0 3px rgba(0,0,0,.06);
+}
+.waitlist-submit{
+  position:relative;
+  overflow:hidden;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  width:100%;
+  min-height:48px;
+  border:none;
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+  font-family:var(--sans);
+  font-size:15px;
+  font-weight:600;
+  letter-spacing:-.02em;
+  padding:15px 24px;
+  border-radius:10px;
+  background:var(--ink);
+  color:#fff;
+  transition:background .2s, transform .2s, box-shadow .2s;
+}
+.waitlist-submit::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(105deg, transparent 38%, rgba(255,255,255,.16) 50%, transparent 62%);
+  transform:translateX(-130%);
+  transition:transform .6s var(--ease-premium);
+  pointer-events:none;
+}
+.waitlist-submit:hover::after{transform:translateX(130%)}
+.waitlist-submit .btn-label,
+.waitlist-submit svg{position:relative;z-index:1}
+.waitlist-submit svg{
+  width:16px;height:16px;
+  flex-shrink:0;
+  opacity:.9;
+}
+.waitlist-submit:hover{
+  background:#1a1a1a;
+  box-shadow:0 6px 20px rgba(0,0,0,.12);
+}
+.waitlist-submit:active{transform:scale(.99)}
+.waitlist-form.submitted .waitlist-input,
+.waitlist-form.submitted .waitlist-submit{display:none}
+.waitlist-success{
+  display:none;
+  padding:16px 18px;
+  font-size:15px;
+  color:var(--ink);
+  font-weight:500;
+  text-align:center;
+  width:100%;
+  border:1px solid var(--line);
+  border-radius:10px;
+  background:var(--accent-muted);
+  line-height:1.45;
+}
+.waitlist-success.is-visible{display:block}
+.waitlist-fine{
+  margin-top:12px;
+  font-size:13px;
+  color:var(--ink-dim);
+  line-height:1.45;
+  text-align:center;
+}
+.feedback-line{
+  font-size:15px;
+  font-weight:500;
+  color:var(--ink);
+  letter-spacing:-.02em;
+  line-height:1.45;
+  text-align:center;
+  max-width:28rem;
+  margin-left:auto;
+  margin-right:auto;
+}
+.beta-cta .hero-note{margin-top:12px;text-align:center}
+
+/* Integrations */
+.integrations{
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  background:rgba(255,255,255,.65);
+  padding:clamp(48px, 8vw, 80px) 0;
+}
+.integrations-head{
+  text-align:center;
+  margin-bottom:40px;
+}
+.integrations-head h2{
+  font-size:clamp(1.75rem, 4vw, 2.5rem);
+  font-weight:700;
+}
+.integrations-head p{
+  margin-top:12px;
+  color:var(--ink-dim);
+  font-size:15px;
+  max-width:36rem;
+  margin-left:auto;margin-right:auto;
+}
+/* Integration sync stage (hub + orbit, Kinso/Akiflow-inspired) */
+.integration-stage-wrap{
+  margin:0 auto;
+  max-width:520px;
+}
+.integration-stage{
+  position:relative;
+  width:min(360px, 88vw);
+  aspect-ratio:1;
+  margin:0 auto 20px;
+}
+.sync-ring{
+  position:absolute;inset:12%;
+  border:1px dashed var(--line-strong);
+  border-radius:50%;
+  animation:sync-ring-spin 48s linear infinite;
+}
+.sync-ring::before{
+  content:"";
+  position:absolute;inset:-1px;
+  border-radius:50%;
+  background:conic-gradient(from 0deg, transparent 0deg, rgba(65,101,229,.12) 60deg, transparent 120deg);
+  animation:sync-ring-spin 8s linear infinite reverse;
+}
+@keyframes sync-ring-spin{to{transform:rotate(360deg)}}
+.sync-svg{
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  pointer-events:none;
+}
+.sync-path{
+  fill:none;
+  stroke:var(--line-strong);
+  stroke-width:1.5;
+  stroke-dasharray:6 8;
+  opacity:.55;
+  transition:stroke .4s ease, opacity .4s ease;
+}
+.sync-path.is-active{
+  stroke:url(#syncGrad);
+  stroke-width:2;
+  opacity:1;
+  animation:sync-dash 1.2s linear infinite;
+}
+@keyframes sync-dash{to{stroke-dashoffset:-28}}
+.sync-packet{
+  position:absolute;
+  width:8px;height:8px;
+  border-radius:50%;
+  background:var(--accent);
+  box-shadow:0 0 12px var(--accent);
+  opacity:0;
+  pointer-events:none;
+}
+.sync-packet.run{
+  opacity:1;
+  animation:sync-travel 1.35s ease-in forwards;
+}
+@keyframes sync-travel{
+  0%{offset-distance:0%;opacity:0;transform:scale(.6)}
+  8%{opacity:1}
+  92%{opacity:1}
+  100%{offset-distance:100%;opacity:0;transform:scale(.35)}
+}
+.sync-hub{
+  position:absolute;left:50%;top:50%;
+  transform:translate(-50%,-50%);
+  width:88px;height:88px;
+  border-radius:22px;
+  background:var(--bg-elevated);
+  border:1px solid var(--line);
+  box-shadow:0 8px 32px rgba(65,101,229,.14), 0 2px 8px rgba(0,0,0,.06);
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  gap:4px;
+  z-index:3;
+}
+.sync-hub::before{
+  content:"";
+  position:absolute;inset:-8px;
+  border-radius:26px;
+  border:1px solid rgba(65,101,229,.25);
+  animation:hub-pulse 2.8s ease-out infinite;
+}
+@keyframes hub-pulse{
+  0%{transform:scale(.92);opacity:.7}
+  70%{transform:scale(1.08);opacity:0}
+  100%{transform:scale(1.08);opacity:0}
+}
+.sync-hub svg{width:36px;height:36px}
+.sync-hub span{
+  font-size:11px;font-weight:700;
+  letter-spacing:-.03em;
+  color:var(--ink);
+}
+.sync-orbit{
+  position:absolute;inset:0;
+  animation:sync-orbit-tilt 10s ease-in-out infinite alternate;
+}
+@keyframes sync-orbit-tilt{
+  0%{transform:rotate(-2deg)}
+  100%{transform:rotate(2deg)}
+}
+.sync-satellite{
+  --float-delay:0s;
+  position:absolute;
+  left:var(--x);
+  top:var(--y);
+  transform:translate(-50%,-50%);
+  z-index:2;
+  animation:sync-float 4.5s ease-in-out infinite;
+  animation-delay:var(--float-delay);
+}
+@keyframes sync-float{
+  0%,100%{transform:translate(-50%,-50%) translateY(0)}
+  50%{transform:translate(-50%,-50%) translateY(-7px)}
+}
+.sync-satellite.is-active .sync-node{
+  border-color:var(--accent);
+  box-shadow:0 12px 28px rgba(65,101,229,.22);
+  transform:scale(1.06);
+}
+.sync-node{
+  width:72px;height:72px;
+  border-radius:16px;
+  background:var(--bg-elevated);
+  border:1px solid var(--line);
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  gap:6px;
+  transition:border-color .35s ease, box-shadow .35s ease, transform .35s ease;
+  box-shadow:0 4px 14px rgba(0,0,0,.06);
+}
+.sync-node img{
+  width:32px;height:32px;
+  object-fit:contain;
+}
+.sync-node span{
+  font-size:10px;font-weight:600;
+  color:var(--ink-dim);
+  letter-spacing:-.02em;
+}
+.sync-satellite.is-active .sync-node span{color:var(--accent)}
+.sync-status{
+  text-align:center;
+  font-size:14px;
+  font-weight:500;
+  color:var(--ink-dim);
+  min-height:1.5em;
+  letter-spacing:-.02em;
+  transition:opacity .25s ease;
+}
+.sync-status.is-changing{opacity:.4}
+.integration-marquee{
+  margin-top:28px;
+  overflow:hidden;
+  mask-image:linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  -webkit-mask-image:linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
+.integration-marquee-track{
+  display:flex;
+  gap:12px;
+  width:max-content;
+  animation:marquee-slide 28s linear infinite;
+}
+@keyframes marquee-slide{
+  0%{transform:translateX(0)}
+  100%{transform:translateX(-50%)}
+}
+.marquee-chip{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:8px 14px;
+  border-radius:100px;
+  border:1px solid var(--line);
+  background:var(--bg-elevated);
+  font-size:12px;font-weight:500;
+  color:var(--ink-soft);
+  white-space:nowrap;
+}
+.marquee-chip img{width:18px;height:18px;object-fit:contain}
+@media(max-width:400px){
+  .sync-node{width:64px;height:64px}
+  .sync-node img{width:28px;height:28px}
+  .sync-hub{width:76px;height:76px}
+}
+@media(prefers-reduced-motion:reduce){
+  .sync-ring,.sync-ring::before,.sync-orbit,.sync-satellite,.integration-marquee-track,.sync-hub::before{animation:none}
+  .sync-path.is-active{animation:none}
+  .sync-packet.run{display:none}
+}
+
+/* Beta CTA */
+.beta-cta{
+  text-align:center;
+}
+.beta-cta h2{
+  font-size:clamp(1.75rem, 4vw, 2.75rem);
+  font-weight:700;
+  margin-bottom:12px;
+}
+.beta-cta .waitlist-block{margin-top:8px}
+
+/* Footer */
+footer{
+  border-top:1px solid var(--line);
+  background:var(--bg-elevated);
+  padding:40px var(--pad) max(32px, env(safe-area-inset-bottom));
+}
+.foot{
+  max-width:var(--max);margin:0 auto;
+  display:flex;flex-wrap:wrap;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  gap:24px;
+  text-align:center;
+}
+.foot-brand{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  font-weight:600;font-size:18px;
+  margin-bottom:8px;
+}
+.foot-tag{
+  font-size:14px;color:var(--ink-dim);
+  max-width:28rem;
+}
+.foot-links{
+  display:flex;flex-wrap:wrap;justify-content:center;gap:20px;
+  font-size:13px;color:var(--ink-dim);
+}
+.foot-links a:hover{color:var(--ink)}
+.foot-bottom{
+  max-width:var(--max);margin:28px auto 0;
+  padding-top:20px;border-top:1px solid var(--line);
+  font-size:12px;color:var(--ink-dim);
+  display:flex;flex-wrap:wrap;justify-content:center;gap:8px 20px;
+  text-align:center;
+}
+
+/* Tablet: compact nav */
+@media (max-width:919px){
+  .nav-links{display:none}
+  .nav-cta{display:none}
+}
+
+/* Mobile */
+@media (max-width:759px){
+  :root{--pad:clamp(16px, 4.5vw, 24px)}
+  .hero{padding-top:clamp(32px, 6vw, 56px)}
+  .hero-grid{gap:36px}
+  .proof-strip .wrap{
+    flex-direction:column;
+    align-items:center;
+    gap:10px;
+  }
+  .logo-strip{
+    width:100%;
+    margin-top:14px;
+    padding-top:14px;
+  }
+  .contrast-col{padding:18px 16px}
+  .pricing-card{padding:24px 20px}
+  .integration-stage{width:min(320px, 92vw)}
+  .sync-node{width:60px;height:60px}
+  .sync-node img{width:26px;height:26px}
+  .sync-node span{font-size:9px}
+  .waitlist-input{font-size:16px}
+  .btn-label{font-size:14px}
+}
+
+/* Small phones */
+@media (max-width:380px){
+  .logo{font-size:18px}
+  .logo-icon{width:30px;height:30px}
+  .hero h1{font-size:2rem}
+  .hero-lead{font-size:1.0625rem}
+  .marquee-chip{font-size:11px;padding:7px 12px}
+}
+
+/* Laptops and desktops */
+@media (min-width:920px){
+  .hero-device{width:min(300px, 42vw)}
+  .waitlist-block{max-width:100%}
+}
+
+@media (min-width:1200px){
+  :root{--max:1120px}
+  .nav-links{gap:32px}
+  .hero-grid{gap:64px}
+}
+
+@media (min-width:1440px){
+  :root{--max:1160px;--pad:clamp(32px, 4vw, 56px)}
+}
+
+/* Coarse pointer: no hover-only layout breaks */
+@media (hover:none){
+  .panel-card:hover{transform:none}
+  .hero-secondary:hover{transform:none}
+}
+body.nav-open{overflow:hidden}
+
+/* Premium polish: scroll progress, scroll-spy, screen glare, micro-interactions */
+.scroll-progress{
+  position:fixed;
+  top:0;left:0;right:0;
+  height:2px;
+  z-index:200;
+  transform:scaleX(0);
+  transform-origin:0 50%;
+  background:linear-gradient(90deg, var(--accent), var(--accent-4) 60%, var(--accent-2));
+  box-shadow:0 0 12px rgba(65,101,229,.45);
+  pointer-events:none;
+  will-change:transform;
+}
+.nav-links a.is-active{color:var(--ink)}
+.nav-links a.is-active::after{transform:scaleX(1)}
+.nav-cta{position:relative;overflow:hidden}
+.nav-cta::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(105deg, transparent 40%, rgba(255,255,255,.22) 50%, transparent 60%);
+  transform:translateX(-130%);
+  transition:transform .6s var(--ease-premium);
+  pointer-events:none;
+}
+.nav-cta:hover::after{transform:translateX(130%)}
+.device-glare{
+  position:absolute;
+  z-index:2;
+  inset:var(--phone-pad-y) var(--phone-pad-x) var(--phone-pad-b);
+  border-radius:var(--phone-screen-r);
+  overflow:hidden;
+  pointer-events:none;
+}
+.device-glare::before{
+  content:"";
+  position:absolute;
+  top:-30%;
+  left:-70%;
+  width:55%;
+  height:160%;
+  background:linear-gradient(100deg, transparent, rgba(255,255,255,.22), transparent);
+  transform:translateX(0) rotate(8deg);
+  animation:device-glare-sweep 7.5s ease-in-out infinite;
+}
+@keyframes device-glare-sweep{
+  0%,62%{transform:translateX(0) rotate(8deg);opacity:0}
+  70%{opacity:1}
+  100%{transform:translateX(420%) rotate(8deg);opacity:0}
+}
+.panel-icon{transition:transform .55s var(--ease-premium) .15s, background .25s ease, color .25s ease}
+.panel-card.reveal-scale .panel-icon{transform:scale(.65)}
+.panel-card.reveal-scale.is-in .panel-icon{transform:scale(1)}
+@media (hover:hover){
+  .panel-card:hover .panel-icon{transform:scale(1.08) rotate(-3deg)}
+}
+@media(prefers-reduced-motion:reduce){
+  .scroll-progress,
+  .device-glare{display:none}
+  .nav-cta::after{display:none}
+  .panel-card.reveal-scale .panel-icon,
+  .panel-card.reveal-scale.is-in .panel-icon{transform:none}
+}
+</style>
+</head>
+<body>
+
+<div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+<!-- Netlify form detection -->
+<form name="waitlist-hero" data-netlify="true" netlify-honeypot="bot-field" hidden>
+  <input type="hidden" name="form-name" value="waitlist-hero" />
+  <input name="bot-field" />
+  <input type="email" name="email" />
+</form>
+
+<nav id="nav">
+  <a href="#top" class="logo">
+    <svg class="logo-icon" width="34" height="34" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <rect x="0" y="0" width="16" height="16" rx="3.5" fill="var(--ink)"/>
+      <rect x="20" y="0" width="16" height="16" rx="3.5" fill="#4165e5"/>
+      <rect x="0" y="20" width="16" height="16" rx="3.5" fill="#b0c4f5"/>
+      <path d="M28 20C28 24.4 31.6 28 36 28C31.6 28 28 31.6 28 36C28 31.6 24.4 28 20 28C24.4 28 28 24.4 28 20Z" fill="#4165e5"/>
+    </svg>
+    Tempo
+  </a>
+  <div class="nav-links">
+    <a href="#how">How it works</a>
+    <a href="#integrations">Integrations</a>
+    <a href="#preview">The app</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#faq">FAQ</a>
+    <a href="#waitlist">Beta</a>
+  </div>
+  <a href="#waitlist" class="nav-cta">Join the Beta</a>
+  <button type="button" class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navMobile" aria-label="Open menu">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+  </button>
+  <div class="nav-mobile" id="navMobile">
+    <a href="#how">How it works</a>
+    <a href="#integrations">Integrations</a>
+    <a href="#preview">The app</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#faq">FAQ</a>
+    <a href="#waitlist" class="nav-mobile-cta">Join the Beta</a>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="hero-inner hero-grid">
+    <div class="hero-copy">
+      <h1>
+        <span class="hero-line" data-hero-enter>Your week, clear.</span>
+        <span class="hero-line" data-hero-enter>Inbox and calendar, one assistant.</span>
+      </h1>
+      <p class="hero-lead" data-hero-enter>
+        Native iOS calendar with a built-in assistant for planning, inbox, and focus.
+        <strong>You approve every send.</strong>
+      </p>
+
+      <div class="waitlist-block" data-hero-enter>
+        <p class="waitlist-count"><strong>120+ students</strong> on the waitlist</p>
+        <div class="hero-actions">
+          <form
+            class="waitlist-form"
+            id="waitlistHeroForm"
+            name="waitlist-hero"
+            method="POST"
+            data-netlify="true"
+            netlify-honeypot="bot-field"
+            novalidate
+          >
+            <input type="hidden" name="form-name" value="waitlist-hero" />
+            <p hidden>
+              <label>Don't fill this out: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+            </p>
+            <input
+              type="email"
+              name="email"
+              class="waitlist-input"
+              id="waitlistEmail"
+              placeholder="Enter your email to join the beta"
+              autocomplete="email"
+              required
+            />
+            <button type="submit" class="waitlist-submit">
+              <span class="btn-label">Get TestFlight access</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </button>
+          </form>
+          <a href="#preview" class="hero-secondary">See the app</a>
+        </div>
+        <p class="waitlist-success" id="waitlistHeroSuccess" role="status" aria-live="polite">
+          You're on the list. Watch your inbox for TestFlight within 48 hours.
+        </p>
+        <p class="hero-note">Free waitlist · no card · <a href="#pricing">Pricing</a></p>
+        <p class="trust-row">
+          <a href="privacy.html">Privacy</a>
+          <a href="terms.html">Terms</a>
+        </p>
+      </div>
+    </div>
+
+    <div class="hero-device-wrap" data-hero-enter>
+      <div class="hero-device">
+        <img
+          src="assets/app-screenshot.png"
+          alt="Tempo calendar on iPhone showing Friday 5 June with gym, team meeting, study, and tutor blocks"
+          width="470"
+          height="1024"
+          fetchpriority="high"
+          decoding="async"
+        />
+        <span class="device-glare" aria-hidden="true"></span>
+      </div>
+      <p class="hero-badge">Get unbusy. <em>Catch your tempo.</em></p>
+    </div>
+  </div>
+</header>
+
+<section class="proof-strip" aria-label="Beta highlights">
+  <div class="wrap">
+    <span class="proof-item reveal" data-reveal-delay="0"><strong>120+ students</strong> on the waitlist</span>
+    <span class="proof-item reveal" data-reveal-delay="80"><strong>Native iOS</strong> not a web wrapper</span>
+    <span class="proof-item reveal" data-reveal-delay="160"><strong>Built in Brisbane</strong> shipping weekly</span>
+    <span class="proof-item reveal" data-reveal-delay="240"><strong>Beta feedback</strong> shapes each release</span>
+    <div class="logo-strip reveal" data-reveal-delay="320" aria-label="Connects to Gmail, Google Calendar, Notion, and Outlook">
+      <img src="assets/gmail.svg" alt="Gmail" width="22" height="22" />
+      <img src="assets/google-calendar.svg" alt="Google Calendar" width="22" height="22" />
+      <img src="assets/notion.svg" alt="Notion" width="22" height="22" />
+      <img src="assets/outlook.png" alt="Outlook" width="22" height="22" />
+    </div>
+    <div class="partner-strip reveal" data-reveal-delay="400">
+      <span class="partner-label">Supported by</span>
+      <a
+        class="partner-link"
+        href="https://ventures.uq.edu.au/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >UQ Ventures</a>
+    </div>
+  </div>
+</section>
+
+<section class="quotes" aria-label="Beta feedback">
+  <div class="wrap">
+    <p class="section-label reveal">In their words</p>
+    <h2 class="reveal" data-reveal-delay="40">From early testers</h2>
+    <div class="quote-grid">
+      <blockquote class="quote-card reveal-scale" data-reveal-delay="80">
+        <p>The tool that means you never have to hold your calendar in your head.</p>
+        <footer>
+          <span class="quote-avatar quote-avatar--photo" aria-hidden="true">
+            <img src="assets/memoji-colin.png" alt="" width="54" height="54" loading="lazy" decoding="async" />
+          </span>
+          <span class="quote-meta">
+            <span class="quote-name">Colin</span>
+            <span class="quote-role">Mechanical Engineering Student</span>
+          </span>
+        </footer>
+      </blockquote>
+      <blockquote class="quote-card reveal-scale" data-reveal-delay="180">
+        <p>I was about to subscribe to Motion. Then I saw $34 a month and backed off. Tempo does similar AI scheduling for a fraction of that. I was sold.</p>
+        <footer>
+          <span class="quote-avatar quote-avatar--photo" aria-hidden="true">
+            <img src="assets/memoji-ari.png" alt="" width="54" height="54" loading="lazy" decoding="async" />
+          </span>
+          <span class="quote-meta">
+            <span class="quote-name">Ari</span>
+            <span class="quote-role">Content Creator</span>
+          </span>
+        </footer>
+      </blockquote>
+      <blockquote class="quote-card reveal-scale" data-reveal-delay="280">
+        <p>I spend more on energy drinks in a day than Tempo costs for a month. Of course I'd subscribe.</p>
+        <footer>
+          <span class="quote-avatar quote-avatar--photo" aria-hidden="true">
+            <img src="assets/memoji-tom.png" alt="" width="54" height="54" loading="lazy" decoding="async" />
+          </span>
+          <span class="quote-meta">
+            <span class="quote-name">Tom</span>
+            <span class="quote-role">Mathematics Student</span>
+          </span>
+        </footer>
+      </blockquote>
+    </div>
+  </div>
+</section>
+
+<section class="contrast" id="problem">
+  <div class="wrap contrast-grid">
+    <div class="contrast-col contrast-before reveal" data-reveal-delay="0">
+      <p class="section-label">The problem</p>
+      <h2>Your day is split across apps</h2>
+      <p>Calendar here, inbox there, notes somewhere else. You lose time switching tabs and rewriting the same context.</p>
+    </div>
+    <div class="contrast-col contrast-after reveal" data-reveal-delay="120">
+      <p class="section-label">With Tempo</p>
+      <h2>One app for the day</h2>
+      <p>Calendar, inbox, and notes in context so Tempo can plan and draft with you, not beside you.</p>
+    </div>
+  </div>
+</section>
+
+<section class="how-it-works" id="how">
+  <div class="wrap">
+    <p class="section-label reveal">Setup</p>
+    <h2 class="reveal" data-reveal-delay="60">How it works</h2>
+    <div class="steps panel-row">
+      <article class="panel-card reveal-scale" data-reveal-delay="0">
+        <div class="panel-mark">
+          <span class="panel-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+          </span>
+          <span class="panel-num">Step 1</span>
+        </div>
+        <h3>Connect your apps</h3>
+        <p>One-time setup on iPhone. Your stack syncs in the background.</p>
+      </article>
+      <article class="panel-card reveal-scale" data-reveal-delay="100">
+        <div class="panel-mark">
+          <span class="panel-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="3"/><path d="M3 10h18M8 2v4M16 2v4"/></svg>
+          </span>
+          <span class="panel-num">Step 2</span>
+        </div>
+        <h3>Tempo builds context</h3>
+        <p>Your week, threads, and notes inform every suggestion.</p>
+      </article>
+      <article class="panel-card reveal-scale" data-reveal-delay="200">
+        <div class="panel-mark">
+          <span class="panel-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          </span>
+          <span class="panel-num">Step 3</span>
+        </div>
+        <h3>You confirm, then act</h3>
+        <p>Review drafts and schedule changes. Nothing moves until you say so.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="integrations section-spotlight" id="integrations">
+  <div class="wrap">
+    <div class="integrations-head">
+      <p class="section-label reveal">Integrations</p>
+      <h2 class="reveal" data-reveal-delay="60">Your stack, connected</h2>
+    </div>
+
+    <div class="integration-stage-wrap reveal-scale" data-reveal-delay="120">
+      <div class="integration-stage" id="integrationStage" aria-label="Tempo connects Gmail, Google Calendar, Notion, and Outlook">
+        <div class="sync-ring" aria-hidden="true"></div>
+        <svg class="sync-svg" viewBox="0 0 360 360" aria-hidden="true">
+          <defs>
+            <linearGradient id="syncGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#b0c4f5"/>
+              <stop offset="50%" stop-color="#4165e5"/>
+              <stop offset="100%" stop-color="#b0c4f5"/>
+            </linearGradient>
+          </defs>
+          <path id="pathGmail" class="sync-path" d="M180 58 C180 110 180 130 180 152"/>
+          <path id="pathCalendar" class="sync-path" d="M302 180 C250 180 210 180 180 180"/>
+          <path id="pathNotion" class="sync-path" d="M180 302 C180 250 180 210 180 188"/>
+          <path id="pathOutlook" class="sync-path" d="M58 180 C110 180 150 180 180 180"/>
+        </svg>
+
+        <div class="sync-hub">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none" aria-hidden="true">
+            <rect x="0" y="0" width="16" height="16" rx="3.5" fill="#12141c"/>
+            <rect x="20" y="0" width="16" height="16" rx="3.5" fill="#4165e5"/>
+            <rect x="0" y="20" width="16" height="16" rx="3.5" fill="#b0c4f5"/>
+            <path d="M28 20C28 24.4 31.6 28 36 28C31.6 28 28 31.6 28 36C28 31.6 24.4 28 20 28C24.4 28 28 24.4 28 20Z" fill="#4165e5"/>
+          </svg>
+          <span>Tempo</span>
+        </div>
+
+        <div class="sync-orbit">
+          <div class="sync-satellite is-active" data-sync="gmail" style="--x:50%;--y:16%;--float-delay:0s">
+            <div class="sync-node">
+              <img src="assets/gmail.svg" alt="" width="32" height="32" />
+              <span>Gmail</span>
+            </div>
+          </div>
+          <div class="sync-satellite" data-sync="calendar" style="--x:84%;--y:50%;--float-delay:.6s">
+            <div class="sync-node">
+              <img src="assets/google-calendar.svg" alt="" width="32" height="32" />
+              <span>Calendar</span>
+            </div>
+          </div>
+          <div class="sync-satellite" data-sync="notion" style="--x:50%;--y:84%;--float-delay:1.2s">
+            <div class="sync-node">
+              <img src="assets/notion.svg" alt="" width="32" height="32" />
+              <span>Notion</span>
+            </div>
+          </div>
+          <div class="sync-satellite" data-sync="outlook" style="--x:16%;--y:50%;--float-delay:1.8s">
+            <div class="sync-node">
+              <img src="assets/outlook.png" alt="" width="32" height="32" />
+              <span>Outlook</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p class="sync-status" id="syncStatus" aria-live="polite">Prioritising inbox…</p>
+
+      <div class="integration-marquee" aria-hidden="true">
+        <div class="integration-marquee-track">
+          <span class="marquee-chip"><img src="assets/gmail.svg" alt="" />Email draft ready</span>
+          <span class="marquee-chip"><img src="assets/google-calendar.svg" alt="" />Meeting in 2h</span>
+          <span class="marquee-chip"><img src="assets/notion.svg" alt="" />Sprint notes linked</span>
+          <span class="marquee-chip"><img src="assets/outlook.png" alt="" />Follow-up queued</span>
+          <span class="marquee-chip"><img src="assets/gmail.svg" alt="" />Inbox prioritized</span>
+          <span class="marquee-chip"><img src="assets/google-calendar.svg" alt="" />Focus block placed</span>
+          <span class="marquee-chip"><img src="assets/gmail.svg" alt="" />Email draft ready</span>
+          <span class="marquee-chip"><img src="assets/google-calendar.svg" alt="" />Meeting in 2h</span>
+          <span class="marquee-chip"><img src="assets/notion.svg" alt="" />Sprint notes linked</span>
+          <span class="marquee-chip"><img src="assets/outlook.png" alt="" />Follow-up queued</span>
+          <span class="marquee-chip"><img src="assets/gmail.svg" alt="" />Inbox prioritized</span>
+          <span class="marquee-chip"><img src="assets/google-calendar.svg" alt="" />Focus block placed</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="showcase section-spotlight" id="preview">
+  <div class="wrap">
+    <div class="showcase-intro">
+      <p class="section-label reveal">Inside the app</p>
+      <h2 class="reveal" data-reveal-delay="60">Three things you'll use every day</h2>
+    </div>
+
+    <article class="feature-block" data-layout="image-right">
+      <div class="feature-copy" data-align="left">
+        <span class="feature-tag">Plan</span>
+        <h3>See the whole week</h3>
+        <p>Events, focus blocks, and deadlines on one timeline.</p>
+        <ul class="feature-points">
+          <li>Drag, resize, and pin blocks</li>
+          <li>Conflict warnings before they bite</li>
+          <li>Add by voice or text</li>
+        </ul>
+      </div>
+      <div class="feature-visual">
+        <div class="app-screen is-tilt-left">
+          <img
+            src="assets/app-screenshot.png"
+            alt="Tempo day view with color-coded events across gym, uni, study, and work"
+            width="470" height="1024"
+            loading="lazy" decoding="async"
+          />
+        </div>
+        <span class="feature-chip top-right">
+          <span class="dot"></span>
+          2 suggestions ready
+        </span>
+        <span class="feature-chip bottom-left">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="3"/><path d="M3 10h18M8 2v4M16 2v4"/></svg>
+          Friday cleared
+        </span>
+      </div>
+    </article>
+
+    <article class="feature-block" data-layout="image-left">
+      <div class="feature-copy" data-align="left">
+        <span class="feature-tag">Act</span>
+        <h3>Ask Tempo to <em>act</em></h3>
+        <p>Prompts run against live context from your connected apps.</p>
+        <ul class="feature-points">
+          <li>Block focus around real commitments</li>
+          <li>Find open slots without scrolling</li>
+          <li>Reschedule at-risk meetings in one ask</li>
+        </ul>
+      </div>
+      <div class="feature-visual">
+        <div class="app-screen is-tilt-right">
+          <img
+            src="assets/app-assistant.png"
+            alt="Talk to Tempo with shortcuts to block focus time, find free slots, reschedule, and get a week summary"
+            width="470" height="1024"
+            loading="lazy" decoding="async"
+          />
+        </div>
+        <span class="feature-chip top-left">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          Block focus time
+        </span>
+        <span class="feature-chip bottom-right">
+          <span class="dot"></span>
+          Aware of your week
+        </span>
+      </div>
+    </article>
+
+    <article class="feature-block" data-layout="image-right">
+      <div class="feature-copy" data-align="left">
+        <span class="feature-tag">Catch up</span>
+        <h3>Start with a short briefing</h3>
+        <p>Inbox and notifications distilled into what needs you today.</p>
+        <ul class="feature-points">
+          <li>Morning summary, not a wall of mail</li>
+          <li>Reply drafts in your tone, ready to review</li>
+          <li>Go deeper only when you ask</li>
+        </ul>
+      </div>
+      <div class="feature-visual">
+        <div class="app-screen is-tilt-left">
+          <img
+            src="assets/app-updates.png"
+            alt="Tempo updates with an afternoon briefing and inbox items ready for draft replies"
+            width="470" height="1024"
+            loading="lazy" decoding="async"
+          />
+        </div>
+        <span class="feature-chip top-right">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v12H5.17L4 17.17V4z"/></svg>
+          2 drafts ready
+        </span>
+        <span class="feature-chip bottom-left">
+          <span class="dot"></span>
+          Briefing for today
+        </span>
+      </div>
+    </article>
+
+    <div class="more-features">
+      <h3 class="reveal">Also in the app</h3>
+      <div class="more-grid">
+        <figure class="more-card reveal-scale" data-reveal-delay="0">
+          <div class="app-screen">
+            <img src="assets/app-social.png" alt="Tempo Social tab showing friends and quick invite to plan together" width="470" height="1024" loading="lazy" decoding="async" />
+          </div>
+          <span>Social</span>
+        </figure>
+        <figure class="more-card reveal-scale" data-reveal-delay="80">
+          <div class="app-screen">
+            <img src="assets/app-social-request.png" alt="Request a coffee catch-up with a friend that syncs to both calendars" width="470" height="1024" loading="lazy" decoding="async" />
+          </div>
+          <span>Plan together</span>
+        </figure>
+        <figure class="more-card reveal-scale" data-reveal-delay="160">
+          <div class="app-screen">
+            <img src="assets/app-study.png" alt="Tempo focus timer with 25/5, 50/10, and 90/15 session presets" width="470" height="1024" loading="lazy" decoding="async" />
+          </div>
+          <span>Focus</span>
+        </figure>
+        <figure class="more-card reveal-scale" data-reveal-delay="240">
+          <div class="app-screen">
+            <img src="assets/app-darkmode.png" alt="Tempo calendar in dark mode with color-coded Friday schedule" width="470" height="1024" loading="lazy" decoding="async" />
+          </div>
+          <span>Dark mode</span>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pricing section-spotlight" id="pricing">
+  <div class="wrap">
+    <p class="section-label reveal">Pricing</p>
+    <h2 class="reveal" data-reveal-delay="60">Beta pricing</h2>
+    <p class="reveal" data-reveal-delay="100">No charge until you accept your TestFlight invite.</p>
+    <div class="pricing-card reveal-scale" data-reveal-delay="160">
+      <p class="pricing-price">$7.99 <span>AUD / month</span></p>
+      <p>After your beta trial. Cancel anytime from the App Store.</p>
+      <ul class="pricing-list">
+        <li>2 weeks of full access when you join the beta</li>
+        <li>Your first paid month free after the trial</li>
+        <li>All integrations included during beta</li>
+        <li>Direct line to the team while we build</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="faq" id="faq">
+  <div class="wrap">
+    <p class="section-label reveal">FAQ</p>
+    <h2 class="reveal" data-reveal-delay="60">Common questions</h2>
+    <div class="faq-list">
+      <details class="faq-item reveal" data-reveal-delay="0">
+        <summary>Who is Tempo for?</summary>
+        <p>Students and professionals on iPhone who want one calendar app with planning and inbox help built in.</p>
+      </details>
+      <details class="faq-item reveal" data-reveal-delay="50">
+        <summary>Is Tempo only on iOS?</summary>
+        <p>Yes. Native iPhone app in private beta today. App Store timing will be announced later.</p>
+      </details>
+      <details class="faq-item reveal" data-reveal-delay="100">
+        <summary>How much does the beta cost?</summary>
+        <p>Waitlist is free. You get 2 weeks of full access, then your first paid month free. After that, $7.99 AUD per month unless we notify you otherwise.</p>
+      </details>
+      <details class="faq-item reveal" data-reveal-delay="150">
+        <summary>When will I get access?</summary>
+        <p>Usually within 48 hours by email. Check spam if you do not see TestFlight.</p>
+      </details>
+      <details class="faq-item reveal" data-reveal-delay="200">
+        <summary>Does Tempo send or reschedule without asking?</summary>
+        <p>No. It suggests drafts and calendar changes. You review and approve before anything goes out or moves.</p>
+      </details>
+      <details class="faq-item reveal" data-reveal-delay="250">
+        <summary>How is my data used?</summary>
+        <p>We use your data to run the assistant features you enable. We do not sell your personal information. See our <a href="privacy.html">Privacy Policy</a> for full details.</p>
+      </details>
+      <details class="faq-item reveal" data-reveal-delay="300">
+        <summary>How is Tempo different from Motion or Reclaim?</summary>
+        <p>They auto-place blocks in calendars you already use. Tempo is a full native calendar app with inbox drafts and briefings built in.</p>
+      </details>
+      <details class="faq-item reveal" data-reveal-delay="350">
+        <summary>Can I cancel?</summary>
+        <p>Yes. You can cancel a subscription through the App Store at any time. Leaving the waitlist before invite is as simple as not accepting the TestFlight email.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="beta-cta section-spotlight" id="waitlist">
+  <div class="wrap">
+    <h2 class="reveal">Get on the list</h2>
+
+    <div class="waitlist-block reveal-scale" data-reveal-delay="100">
+      <p class="waitlist-count"><strong>120+ students</strong> on the waitlist</p>
+      <form
+        class="waitlist-form"
+        id="waitlistCtaForm"
+        name="waitlist-cta"
+        method="POST"
+        data-netlify="true"
+        netlify-honeypot="bot-field-cta"
+        novalidate
+      >
+        <input type="hidden" name="form-name" value="waitlist-cta" />
+        <p hidden>
+          <label>Don't fill this out: <input name="bot-field-cta" tabindex="-1" autocomplete="off" /></label>
+        </p>
+        <input
+          type="email"
+          name="email"
+          class="waitlist-input"
+          id="waitlistCtaEmail"
+          placeholder="Enter your email to join the beta"
+          autocomplete="email"
+          required
+        />
+        <button type="submit" class="waitlist-submit">
+          <span class="btn-label">Get TestFlight access</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </button>
+      </form>
+      <p class="waitlist-success" id="waitlistCtaSuccess" role="status" aria-live="polite">
+        You're on the list. Watch your inbox for TestFlight within 48 hours.
+      </p>
+      <p class="trust-row">
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+      </p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="foot">
+    <div>
+      <div class="foot-brand">
+        <svg width="26" height="26" viewBox="0 0 36 36" fill="none" aria-hidden="true">
+          <rect x="0" y="0" width="16" height="16" rx="3.5" fill="var(--ink)"/>
+          <rect x="20" y="0" width="16" height="16" rx="3.5" fill="#4165e5"/>
+          <rect x="0" y="20" width="16" height="16" rx="3.5" fill="#b0c4f5"/>
+          <path d="M28 20C28 24.4 31.6 28 36 28C31.6 28 28 31.6 28 36C28 31.6 24.4 28 20 28C24.4 28 28 24.4 28 20Z" fill="#4165e5"/>
+        </svg>
+        Tempo
+      </div>
+      <p class="foot-tag">Native iOS calendar · Built in Brisbane</p>
+    </div>
+    <div class="foot-links">
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+      <a href="mailto:tempo.calendar.ai@gmail.com">Contact</a>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>© 2026 Tempo</span>
+    <span>Made in Brisbane</span>
+  </div>
+</footer>
+
+<div class="sticky-waitlist" id="stickyWaitlist" hidden>
+  <a href="#waitlist" class="sticky-waitlist-btn">Get TestFlight access</a>
+</div>
+
+<script>
+const nav = document.getElementById('nav');
+const heroEl = document.querySelector('.hero');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 8);
+  if (heroEl) {
+    nav.classList.toggle('nav-past-hero', window.scrollY > heroEl.offsetHeight * 0.55);
+  }
+}, { passive: true });
+
+(function initNavMobile() {
+  const toggle = document.getElementById('navToggle');
+  const menu = document.getElementById('navMobile');
+  if (!toggle || !menu) return;
+  const desktopMq = window.matchMedia('(min-width: 920px)');
+  function setMenuOpen(open) {
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    menu.classList.toggle('is-open', open);
+    document.body.classList.toggle('nav-open', open);
+  }
+  toggle.addEventListener('click', () => {
+    setMenuOpen(toggle.getAttribute('aria-expanded') !== 'true');
+  });
+  menu.querySelectorAll('a').forEach((a) => {
+    a.addEventListener('click', () => setMenuOpen(false));
+  });
+  desktopMq.addEventListener('change', (e) => {
+    if (e.matches) setMenuOpen(false);
+  });
+})();
+
+async function submitNetlifyForm(form) {
+  const body = new URLSearchParams(new FormData(form)).toString();
+  const res = await fetch('/', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body,
+  });
+  if (!res.ok) throw new Error('netlify');
+}
+
+function bindWaitlist(formId, emailId, successId) {
+  const form = document.getElementById(formId);
+  const successEl = successId ? document.getElementById(successId) : null;
+  if (!form) return;
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const inp = document.getElementById(emailId);
+    const email = (inp && inp.value.trim()) || '';
+    if (!email || !email.includes('@')) {
+      if (inp) {
+        inp.style.color = '#ff6b6b';
+        setTimeout(() => { inp.style.color = ''; }, 600);
+      }
+      return;
+    }
+    try {
+      await submitNetlifyForm(form);
+      form.classList.add('submitted');
+      if (successEl) successEl.classList.add('is-visible');
+    } catch {
+      alert('Could not send just now. Check your connection and try again.');
+    }
+  });
+}
+
+bindWaitlist('waitlistHeroForm', 'waitlistEmail', 'waitlistHeroSuccess');
+bindWaitlist('waitlistCtaForm', 'waitlistCtaEmail', 'waitlistCtaSuccess');
+
+(function initStickyWaitlist() {
+  const bar = document.getElementById('stickyWaitlist');
+  const hero = document.querySelector('.hero');
+  if (!bar || !hero) return;
+  const mq = window.matchMedia('(max-width: 759px)');
+  const io = new IntersectionObserver(([entry]) => {
+    if (!mq.matches) {
+      bar.hidden = true;
+      bar.classList.remove('is-visible');
+      document.body.classList.remove('sticky-waitlist-on');
+      return;
+    }
+    const show = !entry.isIntersecting;
+    bar.hidden = !show;
+    bar.classList.toggle('is-visible', show);
+    document.body.classList.toggle('sticky-waitlist-on', show);
+  }, { threshold: 0, rootMargin: '0px 0px -40px 0px' });
+  io.observe(hero);
+  mq.addEventListener('change', () => {
+    if (!mq.matches) {
+      bar.hidden = true;
+      bar.classList.remove('is-visible');
+      document.body.classList.remove('sticky-waitlist-on');
+    }
+  });
+})();
+
+document.querySelectorAll('a[href="#waitlist"]').forEach((a) => {
+  a.addEventListener('click', (e) => {
+    const target = document.getElementById('waitlist');
+    if (!target) return;
+    e.preventDefault();
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const inp = document.getElementById('waitlistCtaEmail');
+    if (inp) setTimeout(() => inp.focus({ preventScroll: true }), 400);
+  });
+});
+
+(function initIntegrationSync() {
+  const stage = document.getElementById('integrationStage');
+  const statusEl = document.getElementById('syncStatus');
+  if (!stage || !statusEl) return;
+
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const satellites = [...stage.querySelectorAll('.sync-satellite')];
+  const paths = {
+    gmail: document.getElementById('pathGmail'),
+    calendar: document.getElementById('pathCalendar'),
+    notion: document.getElementById('pathNotion'),
+    outlook: document.getElementById('pathOutlook'),
+  };
+  const messages = {
+    gmail: 'Prioritising inbox…',
+    calendar: 'Reading your week…',
+    notion: 'Pulling page context…',
+    outlook: 'Queuing follow-ups…',
+  };
+  let index = 0;
+  let timer;
+
+  function spawnPacket(pathEl) {
+    if (reduce || !pathEl || !CSS.supports('offset-path', 'path("M0 0")')) return;
+    const packet = document.createElement('span');
+    packet.className = 'sync-packet run';
+    packet.style.offsetPath = `path('${pathEl.getAttribute('d')}')`;
+    stage.appendChild(packet);
+    packet.addEventListener('animationend', () => packet.remove(), { once: true });
+  }
+
+  function setActive(i) {
+    const sat = satellites[i];
+    if (!sat) return;
+    const key = sat.dataset.sync;
+    satellites.forEach((s) => s.classList.toggle('is-active', s === sat));
+    Object.values(paths).forEach((p) => p && p.classList.remove('is-active'));
+    if (paths[key]) paths[key].classList.add('is-active');
+    statusEl.classList.add('is-changing');
+    statusEl.textContent = messages[key] || 'Connected to Tempo.';
+    requestAnimationFrame(() => statusEl.classList.remove('is-changing'));
+    spawnPacket(paths[key]);
+  }
+
+  function tick() {
+    setActive(index);
+    index = (index + 1) % satellites.length;
+  }
+
+  function startCycle() {
+    if (reduce || timer) return;
+    timer = setInterval(tick, 2800);
+  }
+  function stopCycle() {
+    if (!timer) return;
+    clearInterval(timer);
+    timer = null;
+  }
+
+  tick();
+  startCycle();
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => (e.isIntersecting ? startCycle() : stopCycle()));
+  }, { threshold: 0.15 });
+  io.observe(stage);
+})();
+
+(function initShowcaseReveal() {
+  const blocks = document.querySelectorAll('.feature-block');
+  if (!blocks.length) return;
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) {
+    blocks.forEach((b) => b.classList.add('is-visible'));
+    return;
+  }
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) {
+        e.target.classList.add('is-visible');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.18, rootMargin: '0px 0px -10% 0px' });
+  blocks.forEach((b) => io.observe(b));
+})();
+
+(function initHeroEntrance() {
+  const hero = document.querySelector('.hero');
+  if (!hero) return;
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const els = [...hero.querySelectorAll('[data-hero-enter]')];
+  hero.classList.add('is-ready');
+  if (reduce) {
+    els.forEach((el) => el.classList.add('is-in'));
+    return;
+  }
+  els.forEach((el, i) => {
+    setTimeout(() => el.classList.add('is-in'), 90 + i * 95);
+  });
+})();
+
+(function initReveal() {
+  const items = document.querySelectorAll('.reveal, .reveal-scale');
+  if (!items.length) return;
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) {
+    items.forEach((el) => el.classList.add('is-in'));
+    return;
+  }
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      const delay = Number(el.dataset.revealDelay || 0);
+      setTimeout(() => el.classList.add('is-in'), delay);
+      io.unobserve(el);
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+  items.forEach((el) => io.observe(el));
+})();
+
+(function initSectionSpotlight() {
+  const sections = document.querySelectorAll('.section-spotlight');
+  if (!sections.length) return;
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) {
+    sections.forEach((s) => s.classList.add('is-lit'));
+    return;
+  }
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      e.target.classList.toggle('is-lit', e.isIntersecting);
+    });
+  }, { threshold: 0.15, rootMargin: '-8% 0px -8% 0px' });
+  sections.forEach((s) => io.observe(s));
+})();
+
+(function initHeroScrollParallax() {
+  const wrap = document.querySelector('.hero-device-wrap');
+  const hero = document.querySelector('.hero');
+  if (!wrap || !hero) return;
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) return;
+
+  let ticking = false;
+  function update() {
+    ticking = false;
+    const rect = hero.getBoundingClientRect();
+    const progress = Math.min(1, Math.max(0, -rect.top / (rect.height * 0.9)));
+    wrap.style.opacity = String(1 - progress * 0.2);
+  }
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      ticking = true;
+      requestAnimationFrame(update);
+    }
+  }, { passive: true });
+  update();
+})();
+
+(function initHeroPhoneTilt() {
+  const wrap = document.querySelector('.hero-device-wrap');
+  const phone = document.querySelector('.hero-device');
+  if (!wrap || !phone) return;
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const desktop = window.matchMedia('(min-width: 920px)');
+  if (reduce) return;
+
+  function resetTilt() {
+    phone.style.transform = '';
+  }
+
+  function onMove(e) {
+    if (!desktop.matches) return;
+    const rect = wrap.getBoundingClientRect();
+    const dx = (e.clientX - (rect.left + rect.width / 2)) / rect.width;
+    const dy = (e.clientY - (rect.top + rect.height / 2)) / rect.height;
+    const rotateY = Math.max(-10, Math.min(10, dx * 14));
+    const rotateX = Math.max(-8, Math.min(8, -dy * 10));
+    phone.style.transform =
+      `rotateX(${rotateX}deg) rotateY(${rotateY}deg) rotate(-1.5deg)`;
+  }
+
+  wrap.addEventListener('mousemove', onMove, { passive: true });
+  wrap.addEventListener('mouseleave', resetTilt);
+  desktop.addEventListener('change', (e) => {
+    if (!e.matches) resetTilt();
+  });
+})();
+
+(function initScrollProgress() {
+  const bar = document.getElementById('scrollProgress');
+  if (!bar) return;
+  let ticking = false;
+  function update() {
+    ticking = false;
+    const doc = document.documentElement;
+    const max = doc.scrollHeight - doc.clientHeight;
+    const p = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+    bar.style.transform = `scaleX(${p})`;
+  }
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      ticking = true;
+      requestAnimationFrame(update);
+    }
+  }, { passive: true });
+  window.addEventListener('resize', update, { passive: true });
+  update();
+})();
+
+(function initScrollSpy() {
+  const links = [...document.querySelectorAll('.nav-links a[href^="#"]')];
+  if (!links.length) return;
+  const map = new Map();
+  links.forEach((link) => {
+    const id = link.getAttribute('href').slice(1);
+    const section = document.getElementById(id);
+    if (section) map.set(section, link);
+  });
+  if (!map.size) return;
+
+  let current = null;
+  function setActive(link) {
+    if (link === current) return;
+    if (current) current.classList.remove('is-active');
+    if (link) link.classList.add('is-active');
+    current = link;
+  }
+
+  const io = new IntersectionObserver((entries) => {
+    const visible = entries
+      .filter((e) => e.isIntersecting)
+      .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+    if (visible.length) setActive(map.get(visible[0].target));
+  }, { rootMargin: '-45% 0px -45% 0px', threshold: [0, 0.25, 0.5, 1] });
+
+  map.forEach((_, section) => io.observe(section));
+})();
+</script>
+</body>
+</html>
