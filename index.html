@@ -3,24 +3,23 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-<title>Tempo: Your Personal AI Assistant</title>
-<meta name="description" content="AI calendar and inbox assistant for iOS. Syncs Gmail, Calendar, Notion, Outlook. Home screen widgets. For young adults and busy people. Free waitlist." />
+<title>Tempo — AI Calendar & Daily Assistant for iOS</title>
+<meta name="description" content="Tempo integrates your calendar, inbox, and notes into one AI assistant for iOS. Plan your week, draft replies, and stay focused." />
 <meta name="robots" content="index, follow, max-image-preview:large" />
 <link rel="canonical" href="https://tempoassistant.com/" />
+<link rel="preload" as="image" href="assets/app-screenshot.png" fetchpriority="high" />
 
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Tempo" />
 <meta property="og:locale" content="en_AU" />
-<meta property="og:title" content="Tempo: Your Personal AI Assistant" />
-<meta property="og:description" content="One native iOS app for calendar, inbox, and notes, with home screen widgets and an AI engine that keeps up. Built in Brisbane." />
+<meta property="og:title" content="Tempo — AI Calendar & Daily Assistant for iOS" />
+<meta property="og:description" content="Plan your week, draft email replies, and stay organized with Tempo on iOS." />
 <meta property="og:url" content="https://tempoassistant.com/" />
 <meta property="og:image" content="https://tempoassistant.com/assets/app-screenshot.png" />
-<meta property="og:image:width" content="470" />
-<meta property="og:image:height" content="1024" />
 
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Tempo: Your Personal AI Assistant" />
-<meta name="twitter:description" content="Plan your week, draft your inbox, and check widgets on your home screen. One native iOS app." />
+<meta name="twitter:title" content="Tempo — AI Calendar & Daily Assistant for iOS" />
+<meta name="twitter:description" content="Plan your week, draft email replies, and stay organized with Tempo on iOS." />
 <meta name="twitter:image" content="https://tempoassistant.com/assets/app-screenshot.png" />
 
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
@@ -37,7 +36,7 @@
   "name": "Tempo",
   "legalName": "Tempo Software Pty Ltd",
   "taxID": "85 701 184 358",
-  "url": "https://tempoassistant.com",
+  "url": "https://tempoassistant.com/",
   "logo": "https://tempoassistant.com/assets/logo.png",
   "foundingLocation": {
     "@type": "Place",
@@ -57,9 +56,9 @@
   "name": "Tempo",
   "applicationCategory": "ProductivityApplication",
   "operatingSystem": "iOS",
-  "url": "https://tempoassistant.com",
+  "url": "https://tempoassistant.com/",
   "image": "https://tempoassistant.com/assets/app-screenshot.png",
-  "description": "Native iOS calendar and inbox assistant built for young adults and busy people, with a competitive AI engine, home screen widgets, and integrations across Gmail, Google Calendar, Notion, and Outlook. Every send and schedule change requires user approval.",
+  "description": "Tempo integrates calendar, inbox, and notes into an AI daily assistant with native iOS home screen widgets.",
   "offers": {
     "@type": "Offer",
     "name": "Tempo Subscription",
@@ -169,6 +168,7 @@
   --bg-elevated:#ffffff;
   --ink:#000000;
   --ink-dim:#5c5c5c;
+  --ink-dim-on-dark:#c4cad4;
   --ink-soft:#1a1a1a;
   --line:#e8e8e8;
   --line-strong:#d4d4d4;
@@ -217,6 +217,17 @@ body{
 
 a{color:inherit;text-decoration:none}
 img,svg{display:block}
+
+:focus-visible{
+  outline:2px solid #4165e5;
+  outline-offset:3px;
+}
+button:focus-visible,
+a:focus-visible,
+input:focus-visible{
+  outline:2px solid #4165e5;
+  outline-offset:2px;
+}
 
 /* Nav */
 nav{
@@ -1522,8 +1533,11 @@ h2,.hero h1{
   --phone-screen-r:38px;
   --phone-bezel-r:48px;
   position:relative;
-  width:min(232px, 62vw);
   aspect-ratio:470 / 1024;
+  width:100%;
+  max-width:min(232px, 62vw);
+  height:auto;
+  contain:layout;
   padding:var(--phone-pad-y) var(--phone-pad-x) var(--phone-pad-b);
   border-radius:var(--phone-bezel-r);
   overflow:visible;
@@ -1643,7 +1657,7 @@ h2,.hero h1{
   .feature-copy[data-align="center"] .feature-points{margin:0}
   .feature-block[data-layout="image-left"] .feature-visual{order:1}
   .feature-block[data-layout="image-left"] .feature-copy{order:2}
-  .app-screen{width:min(238px, 26vw)}
+  .app-screen{max-width:min(238px, 26vw)}
 }
 @media (max-width:879px){
   .feature-block{
@@ -2137,6 +2151,10 @@ footer{
   display:flex;flex-wrap:wrap;justify-content:center;gap:8px 20px;
   text-align:center;
 }
+:is(.dark, .theme-dark, .dark-surface, .on-dark, [data-theme="dark"], [data-surface="dark"]) :is(.partner-label, .sync-status, .foot-tag),
+:is(.partner-label, .sync-status, .foot-tag).on-dark{
+  color:var(--ink-dim-on-dark);
+}
 
 /* Tablet: compact nav */
 @media (max-width:919px){
@@ -2275,9 +2293,9 @@ body.nav-open{overflow-x:clip}
 
 <!-- Netlify form detection -->
 <form name="waitlist-hero" data-netlify="true" netlify-honeypot="bot-field" hidden>
-  <input type="hidden" name="form-name" value="waitlist-hero" />
-  <input name="bot-field" />
-  <input type="email" name="email" />
+  <input type="hidden" name="form-name" value="waitlist-hero" aria-label="Form name" />
+  <input name="bot-field" aria-label="Leave blank" />
+  <input type="email" name="email" aria-label="Email address to join the beta waitlist" />
 </form>
 
 <nav id="nav">
@@ -2339,15 +2357,16 @@ body.nav-open{overflow-x:clip}
               netlify-honeypot="bot-field"
               novalidate
             >
-              <input type="hidden" name="form-name" value="waitlist-hero" />
+              <input type="hidden" name="form-name" value="waitlist-hero" aria-label="Form name" />
               <p hidden>
-                <label>Don't fill this out: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+                <label>Don't fill this out: <input name="bot-field" aria-label="Leave blank" tabindex="-1" autocomplete="off" /></label>
               </p>
               <input
                 type="email"
                 name="email"
                 class="waitlist-input"
                 id="waitlistEmail"
+                aria-label="Email address to join the beta waitlist"
                 placeholder="Enter your email to join the beta"
                 autocomplete="email"
                 required
@@ -2385,7 +2404,7 @@ body.nav-open{overflow-x:clip}
           width="470"
           height="1024"
           fetchpriority="high"
-          decoding="async"
+          decoding="sync"
         />
         <span class="device-glare" aria-hidden="true"></span>
       </div>
@@ -2401,10 +2420,10 @@ body.nav-open{overflow-x:clip}
     <span class="proof-item reveal" data-reveal-delay="160"><strong>Built in Brisbane</strong> shipping weekly</span>
     <span class="proof-item reveal" data-reveal-delay="240"><strong>Beta feedback</strong> helps decide what we ship</span>
     <div class="logo-strip reveal" data-reveal-delay="320" aria-label="Connects to Gmail, Google Calendar, Notion, and Outlook">
-      <img src="assets/gmail.svg" alt="Gmail" width="22" height="22" />
-      <img src="assets/google-calendar.svg" alt="Google Calendar" width="22" height="22" />
-      <img src="assets/notion.svg" alt="Notion" width="22" height="22" />
-      <img src="assets/outlook.png" alt="Outlook" width="22" height="22" />
+      <img src="assets/gmail.svg" alt="Gmail" width="22" height="22" loading="lazy" decoding="async" />
+      <img src="assets/google-calendar.svg" alt="Google Calendar" width="22" height="22" loading="lazy" decoding="async" />
+      <img src="assets/notion.svg" alt="Notion" width="22" height="22" loading="lazy" decoding="async" />
+      <img src="assets/outlook.png" alt="Outlook" width="22" height="22" loading="lazy" decoding="async" />
     </div>
     <div class="partner-strip reveal" data-reveal-delay="400">
       <span class="partner-label">Supported by</span>
@@ -2558,25 +2577,25 @@ body.nav-open{overflow-x:clip}
         <div class="sync-orbit">
           <div class="sync-satellite is-active" data-sync="gmail" style="--x:50%;--y:16%;--float-delay:0s">
             <div class="sync-node">
-              <img src="assets/gmail.svg" alt="" width="32" height="32" />
+              <img src="assets/gmail.svg" alt="" width="32" height="32" loading="lazy" decoding="async" />
               <span>Gmail</span>
             </div>
           </div>
           <div class="sync-satellite" data-sync="calendar" style="--x:84%;--y:50%;--float-delay:.6s">
             <div class="sync-node">
-              <img src="assets/google-calendar.svg" alt="" width="32" height="32" />
+              <img src="assets/google-calendar.svg" alt="" width="32" height="32" loading="lazy" decoding="async" />
               <span>Calendar</span>
             </div>
           </div>
           <div class="sync-satellite" data-sync="notion" style="--x:50%;--y:84%;--float-delay:1.2s">
             <div class="sync-node">
-              <img src="assets/notion.svg" alt="" width="32" height="32" />
+              <img src="assets/notion.svg" alt="" width="32" height="32" loading="lazy" decoding="async" />
               <span>Notion</span>
             </div>
           </div>
           <div class="sync-satellite" data-sync="outlook" style="--x:16%;--y:50%;--float-delay:1.8s">
             <div class="sync-node">
-              <img src="assets/outlook.png" alt="" width="32" height="32" />
+              <img src="assets/outlook.png" alt="" width="32" height="32" loading="lazy" decoding="async" />
               <span>Outlook</span>
             </div>
           </div>
@@ -2587,18 +2606,18 @@ body.nav-open{overflow-x:clip}
 
       <div class="integration-marquee" aria-hidden="true">
         <div class="integration-marquee-track">
-          <span class="marquee-chip"><img src="assets/gmail.svg" alt="" />Email draft ready</span>
-          <span class="marquee-chip"><img src="assets/google-calendar.svg" alt="" />Meeting in 2h</span>
-          <span class="marquee-chip"><img src="assets/notion.svg" alt="" />Sprint notes linked</span>
-          <span class="marquee-chip"><img src="assets/outlook.png" alt="" />Follow-up queued</span>
-          <span class="marquee-chip"><img src="assets/gmail.svg" alt="" />Inbox prioritized</span>
-          <span class="marquee-chip"><img src="assets/google-calendar.svg" alt="" />Focus block placed</span>
-          <span class="marquee-chip"><img src="assets/gmail.svg" alt="" />Email draft ready</span>
-          <span class="marquee-chip"><img src="assets/google-calendar.svg" alt="" />Meeting in 2h</span>
-          <span class="marquee-chip"><img src="assets/notion.svg" alt="" />Sprint notes linked</span>
-          <span class="marquee-chip"><img src="assets/outlook.png" alt="" />Follow-up queued</span>
-          <span class="marquee-chip"><img src="assets/gmail.svg" alt="" />Inbox prioritized</span>
-          <span class="marquee-chip"><img src="assets/google-calendar.svg" alt="" />Focus block placed</span>
+          <span class="marquee-chip"><img src="assets/gmail.svg" alt="" loading="lazy" decoding="async" />Email draft ready</span>
+          <span class="marquee-chip"><img src="assets/google-calendar.svg" alt="" loading="lazy" decoding="async" />Meeting in 2h</span>
+          <span class="marquee-chip"><img src="assets/notion.svg" alt="" loading="lazy" decoding="async" />Sprint notes linked</span>
+          <span class="marquee-chip"><img src="assets/outlook.png" alt="" loading="lazy" decoding="async" />Follow-up queued</span>
+          <span class="marquee-chip"><img src="assets/gmail.svg" alt="" loading="lazy" decoding="async" />Inbox prioritized</span>
+          <span class="marquee-chip"><img src="assets/google-calendar.svg" alt="" loading="lazy" decoding="async" />Focus block placed</span>
+          <span class="marquee-chip"><img src="assets/gmail.svg" alt="" loading="lazy" decoding="async" />Email draft ready</span>
+          <span class="marquee-chip"><img src="assets/google-calendar.svg" alt="" loading="lazy" decoding="async" />Meeting in 2h</span>
+          <span class="marquee-chip"><img src="assets/notion.svg" alt="" loading="lazy" decoding="async" />Sprint notes linked</span>
+          <span class="marquee-chip"><img src="assets/outlook.png" alt="" loading="lazy" decoding="async" />Follow-up queued</span>
+          <span class="marquee-chip"><img src="assets/gmail.svg" alt="" loading="lazy" decoding="async" />Inbox prioritized</span>
+          <span class="marquee-chip"><img src="assets/google-calendar.svg" alt="" loading="lazy" decoding="async" />Focus block placed</span>
         </div>
       </div>
     </div>
@@ -2869,15 +2888,16 @@ body.nav-open{overflow-x:clip}
           netlify-honeypot="bot-field-cta"
           novalidate
         >
-          <input type="hidden" name="form-name" value="waitlist-cta" />
+          <input type="hidden" name="form-name" value="waitlist-cta" aria-label="Form name" />
           <p hidden>
-            <label>Don't fill this out: <input name="bot-field-cta" tabindex="-1" autocomplete="off" /></label>
+            <label>Don't fill this out: <input name="bot-field-cta" aria-label="Leave blank" tabindex="-1" autocomplete="off" /></label>
           </p>
           <input
             type="email"
             name="email"
             class="waitlist-input"
             id="waitlistCtaEmail"
+            aria-label="Email address to join the beta waitlist"
             placeholder="Enter your email to join the beta"
             autocomplete="email"
             required
@@ -2941,6 +2961,7 @@ body.nav-open{overflow-x:clip}
 const nav = document.getElementById('nav');
 const heroEl = document.querySelector('.hero');
 window.addEventListener('scroll', () => {
+  if (!nav) return;
   nav.classList.toggle('scrolled', window.scrollY > 8);
   if (heroEl) {
     nav.classList.toggle('nav-past-hero', window.scrollY > heroEl.offsetHeight * 0.55);
@@ -3071,7 +3092,7 @@ document.querySelectorAll('a[href="#waitlist"]').forEach((a) => {
   let timer;
 
   function spawnPacket(pathEl) {
-    if (reduce || !pathEl || !CSS.supports('offset-path', 'path("M0 0")')) return;
+    if (reduce || !pathEl || !window.CSS || !CSS.supports('offset-path', 'path("M0 0")')) return;
     const packet = document.createElement('span');
     packet.className = 'sync-packet run';
     packet.style.offsetPath = `path('${pathEl.getAttribute('d')}')`;
@@ -3150,7 +3171,7 @@ document.querySelectorAll('a[href="#waitlist"]').forEach((a) => {
   });
 })();
 
-(function initReveal() {
+(function initScrollReveal() {
   const items = document.querySelectorAll('.reveal, .reveal-scale');
   if (!items.length) return;
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
