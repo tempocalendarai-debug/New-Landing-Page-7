@@ -1,0 +1,1420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Tempo: AI executive assistant with a calendar interface</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..800&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --bg:#f9f9f9;
+  --bg-elevated:#ffffff;
+  --ink:#000000;
+  --ink-dim:#5c5c5c;
+  --ink-soft:#1a1a1a;
+  --line:#e8e8e8;
+  --line-strong:#d4d4d4;
+  --accent:#4165e5;
+  --accent-2:#f7c948;
+  --accent-3:#3454c4;
+  --accent-4:#6b8aeb;
+  --accent-5:#3454c4;
+  --accent-muted:rgba(65,101,229,.08);
+  --nav-bg:rgba(255,255,255,.92);
+  --sans:"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  --max:1080px;
+  --pad:clamp(20px, 5vw, 48px);
+  --tracking-tight:-0.035em;
+  --leading-display:1.08;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  font-family:var(--sans);
+  font-feature-settings:"cv01","ss03";
+  background-color:var(--bg);
+  background-image:
+    linear-gradient(rgba(0,0,0,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,.04) 1px, transparent 1px);
+  background-size:56px 56px;
+  color:var(--ink);
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  padding-left:env(safe-area-inset-left);
+  padding-right:env(safe-area-inset-right);
+}
+::selection{background:var(--accent);color:#fff}
+
+a{color:inherit;text-decoration:none}
+img,svg{display:block}
+
+/* Nav */
+nav{
+  position:sticky;top:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:16px;
+  padding:max(14px, env(safe-area-inset-top)) var(--pad) 14px;
+  background:var(--nav-bg);
+  backdrop-filter:blur(16px);
+  box-shadow:0 1px 0 rgba(18,20,28,.04);
+  border-bottom:1px solid transparent;
+}
+nav.scrolled{border-bottom-color:var(--line)}
+.logo{
+  display:flex;align-items:center;gap:10px;
+  font-size:20px;font-weight:700;letter-spacing:var(--tracking-tight);
+}
+.logo-icon{flex-shrink:0}
+.nav-links{
+  display:flex;gap:28px;
+  font-size:14px;font-weight:500;
+  color:var(--ink-dim);
+  letter-spacing:-.01em;
+}
+.nav-links a:hover{color:var(--ink)}
+.nav-cta{
+  font-size:13px;font-weight:600;
+  letter-spacing:-.02em;
+  padding:10px 18px;border-radius:8px;
+  background:var(--ink);color:#fff;
+  white-space:nowrap;
+  transition:background .2s, transform .2s, box-shadow .2s;
+}
+.nav-cta:hover{
+  background:#1a1a1a;
+  transform:translateY(-1px);
+  box-shadow:0 6px 18px rgba(0,0,0,.12);
+}
+
+/* Layout */
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
+section{padding:clamp(64px, 10vw, 120px) 0}
+.section-label{
+  font-size:11px;font-weight:600;
+  letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-dim);margin-bottom:14px;
+}
+h2,.hero h1{
+  font-family:var(--sans);
+  font-weight:700;
+  letter-spacing:var(--tracking-tight);
+  line-height:var(--leading-display);
+  color:var(--ink);
+}
+
+/* Hero */
+.hero{
+  padding:clamp(48px, 8vw, 96px) 0 clamp(72px, 12vw, 120px);
+  position:relative;
+  overflow:hidden;
+}
+.hero::before{
+  content:"";
+  position:absolute;
+  top:-10%;left:50%;
+  transform:translateX(-50%);
+  width:min(720px, 100%);
+  height:80%;
+  background:radial-gradient(ellipse at 50% 40%, rgba(176,196,245,.35), transparent 68%);
+  pointer-events:none;
+}
+.hero-inner{
+  position:relative;
+  max-width:var(--max);
+  margin:0 auto;
+  padding:0 var(--pad);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+}
+.hero h1{
+  font-size:clamp(2.75rem, 7vw, 5rem);
+  font-weight:800;
+  max-width:14ch;
+  margin:0 auto 28px;
+}
+.hero-line{display:block}
+.hero-lead{
+  font-size:clamp(1.125rem, 2vw, 1.375rem);
+  color:var(--ink);
+  max-width:34rem;
+  margin:0 auto 40px;
+  font-weight:400;
+  line-height:1.55;
+  letter-spacing:-.01em;
+}
+.hero-lead strong{font-weight:600}
+
+/* Showcase: feature sections, no phone frame */
+.showcase{
+  position:relative;
+  padding:clamp(80px, 11vw, 140px) 0 clamp(56px, 8vw, 96px);
+  background:linear-gradient(180deg, var(--bg) 0%, #eef2fa 50%, var(--bg) 100%);
+  border-top:1px solid var(--line);
+  overflow:hidden;
+}
+.showcase-intro{
+  text-align:center;
+  max-width:640px;
+  margin:0 auto clamp(56px, 8vw, 96px);
+}
+.showcase-intro h2{
+  font-size:clamp(2rem, 4.6vw, 3rem);
+  font-weight:700;
+  letter-spacing:var(--tracking-tight);
+  margin-bottom:14px;
+}
+.showcase-intro p{
+  color:var(--ink-dim);
+  font-size:clamp(1rem, 1.8vw, 1.1875rem);
+  line-height:1.55;
+  max-width:36rem;
+  margin:0 auto;
+}
+.feature-block{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:48px 64px;
+  align-items:center;
+  margin-bottom:clamp(80px, 11vw, 140px);
+}
+.feature-block:last-child{margin-bottom:0}
+.feature-copy{
+  max-width:30rem;
+  margin:0 auto;
+  text-align:center;
+}
+.feature-tag{
+  display:inline-block;
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--accent);
+  margin-bottom:14px;
+}
+.feature-copy h3{
+  font-size:clamp(1.75rem, 3.6vw, 2.5rem);
+  font-weight:700;
+  letter-spacing:var(--tracking-tight);
+  line-height:1.1;
+  margin-bottom:16px;
+}
+.feature-copy h3 em{
+  font-style:normal;
+  color:var(--accent);
+}
+.feature-copy p{
+  color:var(--ink-dim);
+  font-size:clamp(1rem, 1.6vw, 1.0625rem);
+  line-height:1.6;
+  margin-bottom:20px;
+}
+.feature-points{
+  list-style:none;
+  margin:0;
+  padding:0;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  text-align:left;
+  max-width:24rem;
+}
+.feature-copy[data-align="center"] .feature-points{margin:0 auto}
+.feature-points li{
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+  font-size:14px;
+  color:var(--ink-soft);
+  font-weight:500;
+  line-height:1.5;
+}
+.feature-points li::before{
+  content:"";
+  flex-shrink:0;
+  width:18px;height:18px;
+  margin-top:1px;
+  border-radius:50%;
+  background:var(--accent-muted) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234165e5' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><polyline points='20 6 9 17 4 12'/></svg>") center / 12px no-repeat;
+}
+.feature-visual{
+  position:relative;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:clamp(20px, 4vw, 40px) 0;
+}
+.feature-visual::before{
+  content:"";
+  position:absolute;
+  inset:auto 8% -4% 8%;
+  height:24%;
+  background:radial-gradient(ellipse, rgba(65,101,229,.18) 0%, transparent 70%);
+  filter:blur(28px);
+  pointer-events:none;
+  z-index:0;
+}
+.app-screen{
+  position:relative;
+  width:min(280px, 72vw);
+  aspect-ratio:472 / 980;
+  border-radius:38px;
+  overflow:hidden;
+  background:#f8f9fc;
+  border:1px solid rgba(18,20,28,.06);
+  box-shadow:
+    0 32px 64px -16px rgba(18,20,28,.22),
+    0 16px 32px -12px rgba(65,101,229,.18),
+    0 0 0 1px rgba(255,255,255,.6) inset;
+  z-index:1;
+  transform:translateY(20px);
+  opacity:0;
+  transition:transform .9s cubic-bezier(0.22, 1, 0.36, 1), opacity .9s ease;
+}
+.feature-block.is-visible .app-screen{
+  transform:translateY(0);
+  opacity:1;
+}
+.app-screen img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:top center;
+  display:block;
+}
+.app-screen.is-tilt-left{transform:translateY(20px) rotate(-2deg)}
+.app-screen.is-tilt-right{transform:translateY(20px) rotate(2deg)}
+.feature-block.is-visible .app-screen.is-tilt-left{transform:translateY(0) rotate(-2deg)}
+.feature-block.is-visible .app-screen.is-tilt-right{transform:translateY(0) rotate(2deg)}
+
+/* Floating accent cards near each screen */
+.feature-chip{
+  position:absolute;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:10px 14px;
+  border-radius:14px;
+  background:var(--bg-elevated);
+  border:1px solid var(--line);
+  box-shadow:0 12px 28px rgba(18,20,28,.1);
+  font-size:13px;
+  font-weight:600;
+  letter-spacing:-.02em;
+  color:var(--ink);
+  z-index:2;
+  white-space:nowrap;
+  opacity:0;
+  transform:translateY(10px);
+  transition:opacity .7s ease .25s, transform .7s ease .25s;
+}
+.feature-block.is-visible .feature-chip{opacity:1;transform:translateY(0)}
+.feature-chip .dot{
+  width:8px;height:8px;border-radius:50%;
+  background:var(--accent);
+  box-shadow:0 0 0 3px rgba(65,101,229,.18);
+}
+.feature-chip svg{
+  width:16px;height:16px;
+  color:var(--accent);
+}
+.feature-chip.top-right{top:8%;right:-6%}
+.feature-chip.bottom-left{bottom:14%;left:-12%}
+.feature-chip.top-left{top:14%;left:-14%}
+.feature-chip.bottom-right{bottom:8%;right:-8%}
+
+.feature-copy,
+.feature-copy > *{
+  opacity:0;
+  transform:translateY(16px);
+  transition:opacity .8s ease, transform .8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.feature-block.is-visible .feature-copy,
+.feature-block.is-visible .feature-copy > *{opacity:1;transform:translateY(0)}
+.feature-block.is-visible .feature-copy > *:nth-child(2){transition-delay:.05s}
+.feature-block.is-visible .feature-copy > *:nth-child(3){transition-delay:.1s}
+.feature-block.is-visible .feature-copy > *:nth-child(4){transition-delay:.15s}
+
+@media(min-width:880px){
+  .feature-block{grid-template-columns:1fr 1fr}
+  .feature-copy{text-align:left;margin:0}
+  .feature-copy[data-align="center"] .feature-points{margin:0}
+  .feature-block[data-layout="image-left"] .feature-visual{order:1}
+  .feature-block[data-layout="image-left"] .feature-copy{order:2}
+  .app-screen{width:min(300px, 30vw)}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .app-screen,
+  .feature-chip,
+  .feature-copy,
+  .feature-copy > *{transform:none;opacity:1;transition:none}
+}
+/* Waitlist */
+#waitlist{scroll-margin-top:80px}
+.waitlist-block{
+  max-width:440px;
+  width:100%;
+  margin:0 auto;
+}
+.waitlist-offer{
+  font-size:15px;
+  line-height:1.55;
+  color:var(--ink);
+  letter-spacing:-.02em;
+  margin:0 auto 18px;
+  max-width:36rem;
+  text-align:center;
+}
+.waitlist-offer strong{font-weight:600}
+.waitlist-offer .price{
+  font-weight:600;
+  color:var(--ink);
+}
+.waitlist-form{
+  display:flex;
+  flex-direction:column;
+  align-items:stretch;
+  gap:10px;
+  margin:0;
+}
+.waitlist-input{
+  width:100%;
+  border:1px solid var(--line-strong);
+  border-radius:10px;
+  background:var(--bg-elevated);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:16px;
+  padding:14px 16px;
+  outline:none;
+  transition:border-color .2s, box-shadow .2s;
+}
+.waitlist-input::placeholder{color:var(--ink-dim)}
+.waitlist-input:focus{
+  border-color:var(--ink);
+  box-shadow:0 0 0 3px rgba(0,0,0,.06);
+}
+.waitlist-submit{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  width:100%;
+  border:none;
+  cursor:pointer;
+  font-family:var(--sans);
+  font-size:15px;
+  font-weight:600;
+  letter-spacing:-.02em;
+  padding:15px 24px;
+  border-radius:10px;
+  background:var(--ink);
+  color:#fff;
+  transition:background .2s, transform .2s, box-shadow .2s;
+}
+.waitlist-submit svg{
+  width:16px;height:16px;
+  flex-shrink:0;
+  opacity:.9;
+}
+.waitlist-submit:hover{
+  background:#1a1a1a;
+  box-shadow:0 6px 20px rgba(0,0,0,.12);
+}
+.waitlist-submit:active{transform:scale(.99)}
+.waitlist-form.submitted .waitlist-input,
+.waitlist-form.submitted .waitlist-submit{display:none}
+.waitlist-form.submitted::after{
+  content:"Thanks. We'll email you with beta access details.";
+  display:block;
+  padding:16px 18px;
+  font-size:15px;
+  color:var(--ink);
+  font-weight:500;
+  text-align:center;
+  width:100%;
+  border:1px solid var(--line);
+  border-radius:10px;
+  background:var(--bg-elevated);
+}
+.waitlist-fine{
+  margin-top:12px;
+  font-size:13px;
+  color:var(--ink-dim);
+  line-height:1.45;
+  text-align:center;
+}
+.feedback-line{
+  font-size:15px;
+  font-weight:500;
+  color:var(--ink);
+  letter-spacing:-.02em;
+  line-height:1.45;
+  text-align:center;
+  max-width:28rem;
+  margin-left:auto;
+  margin-right:auto;
+}
+.hero .feedback-line{margin-top:20px}
+.beta-cta .feedback-line{margin-bottom:20px}
+
+/* Integrations */
+.integrations{
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  background:rgba(255,255,255,.65);
+  padding:clamp(48px, 8vw, 80px) 0;
+}
+.integrations-head{
+  text-align:center;
+  margin-bottom:40px;
+}
+.integrations-head h2{
+  font-size:clamp(1.75rem, 4vw, 2.5rem);
+  font-weight:700;
+}
+.integrations-head p{
+  margin-top:12px;
+  color:var(--ink-dim);
+  font-size:15px;
+  max-width:36rem;
+  margin-left:auto;margin-right:auto;
+}
+/* Integration sync stage (hub + orbit, Kinso/Akiflow-inspired) */
+.integration-stage-wrap{
+  margin:0 auto;
+  max-width:520px;
+}
+.integration-stage{
+  position:relative;
+  width:min(360px, 88vw);
+  aspect-ratio:1;
+  margin:0 auto 20px;
+}
+.sync-ring{
+  position:absolute;inset:12%;
+  border:1px dashed var(--line-strong);
+  border-radius:50%;
+  animation:sync-ring-spin 48s linear infinite;
+}
+.sync-ring::before{
+  content:"";
+  position:absolute;inset:-1px;
+  border-radius:50%;
+  background:conic-gradient(from 0deg, transparent 0deg, rgba(65,101,229,.12) 60deg, transparent 120deg);
+  animation:sync-ring-spin 8s linear infinite reverse;
+}
+@keyframes sync-ring-spin{to{transform:rotate(360deg)}}
+.sync-svg{
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  pointer-events:none;
+}
+.sync-path{
+  fill:none;
+  stroke:var(--line-strong);
+  stroke-width:1.5;
+  stroke-dasharray:6 8;
+  opacity:.55;
+  transition:stroke .4s ease, opacity .4s ease;
+}
+.sync-path.is-active{
+  stroke:url(#syncGrad);
+  stroke-width:2;
+  opacity:1;
+  animation:sync-dash 1.2s linear infinite;
+}
+@keyframes sync-dash{to{stroke-dashoffset:-28}}
+.sync-packet{
+  position:absolute;
+  width:8px;height:8px;
+  border-radius:50%;
+  background:var(--accent);
+  box-shadow:0 0 12px var(--accent);
+  opacity:0;
+  pointer-events:none;
+}
+.sync-packet.run{
+  opacity:1;
+  animation:sync-travel 1.35s ease-in forwards;
+}
+@keyframes sync-travel{
+  0%{offset-distance:0%;opacity:0;transform:scale(.6)}
+  8%{opacity:1}
+  92%{opacity:1}
+  100%{offset-distance:100%;opacity:0;transform:scale(.35)}
+}
+.sync-hub{
+  position:absolute;left:50%;top:50%;
+  transform:translate(-50%,-50%);
+  width:88px;height:88px;
+  border-radius:22px;
+  background:var(--bg-elevated);
+  border:1px solid var(--line);
+  box-shadow:0 8px 32px rgba(65,101,229,.14), 0 2px 8px rgba(0,0,0,.06);
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  gap:4px;
+  z-index:3;
+}
+.sync-hub::before{
+  content:"";
+  position:absolute;inset:-8px;
+  border-radius:26px;
+  border:1px solid rgba(65,101,229,.25);
+  animation:hub-pulse 2.8s ease-out infinite;
+}
+@keyframes hub-pulse{
+  0%{transform:scale(.92);opacity:.7}
+  70%{transform:scale(1.08);opacity:0}
+  100%{transform:scale(1.08);opacity:0}
+}
+.sync-hub svg{width:36px;height:36px}
+.sync-hub span{
+  font-size:11px;font-weight:700;
+  letter-spacing:-.03em;
+  color:var(--ink);
+}
+.sync-orbit{
+  position:absolute;inset:0;
+  animation:sync-orbit-tilt 10s ease-in-out infinite alternate;
+}
+@keyframes sync-orbit-tilt{
+  0%{transform:rotate(-2deg)}
+  100%{transform:rotate(2deg)}
+}
+.sync-satellite{
+  --float-delay:0s;
+  position:absolute;
+  left:var(--x);
+  top:var(--y);
+  transform:translate(-50%,-50%);
+  z-index:2;
+  animation:sync-float 4.5s ease-in-out infinite;
+  animation-delay:var(--float-delay);
+}
+@keyframes sync-float{
+  0%,100%{transform:translate(-50%,-50%) translateY(0)}
+  50%{transform:translate(-50%,-50%) translateY(-7px)}
+}
+.sync-satellite.is-active .sync-node{
+  border-color:var(--accent);
+  box-shadow:0 12px 28px rgba(65,101,229,.22);
+  transform:scale(1.06);
+}
+.sync-node{
+  width:72px;height:72px;
+  border-radius:16px;
+  background:var(--bg-elevated);
+  border:1px solid var(--line);
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  gap:6px;
+  transition:border-color .35s ease, box-shadow .35s ease, transform .35s ease;
+  box-shadow:0 4px 14px rgba(0,0,0,.06);
+}
+.sync-node img{
+  width:32px;height:32px;
+  object-fit:contain;
+}
+.sync-node span{
+  font-size:10px;font-weight:600;
+  color:var(--ink-dim);
+  letter-spacing:-.02em;
+}
+.sync-satellite.is-active .sync-node span{color:var(--accent)}
+.sync-status{
+  text-align:center;
+  font-size:14px;
+  font-weight:500;
+  color:var(--ink-dim);
+  min-height:1.5em;
+  letter-spacing:-.02em;
+  transition:opacity .25s ease;
+}
+.sync-status.is-changing{opacity:.4}
+.integration-marquee{
+  margin-top:28px;
+  overflow:hidden;
+  mask-image:linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  -webkit-mask-image:linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
+.integration-marquee-track{
+  display:flex;
+  gap:12px;
+  width:max-content;
+  animation:marquee-slide 28s linear infinite;
+}
+@keyframes marquee-slide{
+  0%{transform:translateX(0)}
+  100%{transform:translateX(-50%)}
+}
+.marquee-chip{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:8px 14px;
+  border-radius:100px;
+  border:1px solid var(--line);
+  background:var(--bg-elevated);
+  font-size:12px;font-weight:500;
+  color:var(--ink-soft);
+  white-space:nowrap;
+}
+.marquee-chip img{width:18px;height:18px;object-fit:contain}
+@media(max-width:400px){
+  .sync-node{width:64px;height:64px}
+  .sync-node img{width:28px;height:28px}
+  .sync-hub{width:76px;height:76px}
+}
+@media(prefers-reduced-motion:reduce){
+  .sync-ring,.sync-ring::before,.sync-orbit,.sync-satellite,.integration-marquee-track,.sync-hub::before{animation:none}
+  .sync-path.is-active{animation:none}
+  .sync-packet.run{display:none}
+}
+
+/* What we do */
+.what .wrap{
+  text-align:center;
+}
+.what h2{
+  font-size:clamp(1.75rem, 4.5vw, 3rem);
+  font-weight:700;
+  margin-bottom:12px;
+}
+.what > .wrap > p.lead{
+  color:var(--ink);
+  font-size:clamp(1.0625rem, 1.8vw, 1.25rem);
+  font-weight:400;
+  line-height:1.55;
+  max-width:38rem;
+  margin:0 auto 48px;
+  letter-spacing:-.01em;
+}
+.cards{
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:20px;
+}
+.card{
+  padding:28px 24px;
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:var(--bg-elevated);
+  box-shadow:0 1px 3px rgba(18,20,28,.04);
+  text-align:center;
+}
+.card-num{
+  font-size:11px;font-weight:600;
+  color:var(--ink-dim);letter-spacing:.08em;
+  margin-bottom:16px;
+}
+.card h3{
+  font-size:1.125rem;font-weight:700;
+  letter-spacing:var(--tracking-tight);
+  margin-bottom:10px;
+}
+.card p{
+  font-size:14px;color:var(--ink-dim);
+  line-height:1.6;
+}
+
+/* Beta CTA */
+.beta-cta{
+  text-align:center;
+}
+.beta-cta h2{
+  font-size:clamp(1.75rem, 4vw, 2.75rem);
+  font-weight:700;
+  margin-bottom:12px;
+}
+.beta-cta p{
+  color:var(--ink);
+  margin:0 auto 32px;
+  font-size:clamp(1.0625rem, 1.8vw, 1.25rem);
+  line-height:1.55;
+  max-width:32rem;
+}
+
+/* Footer */
+footer{
+  border-top:1px solid var(--line);
+  background:var(--bg-elevated);
+  padding:40px var(--pad) max(32px, env(safe-area-inset-bottom));
+}
+.foot{
+  max-width:var(--max);margin:0 auto;
+  display:flex;flex-wrap:wrap;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  gap:24px;
+  text-align:center;
+}
+.foot-brand{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  font-weight:600;font-size:18px;
+  margin-bottom:8px;
+}
+.foot-tag{
+  font-size:14px;color:var(--ink-dim);
+  max-width:28rem;
+}
+.foot-links{
+  display:flex;flex-wrap:wrap;justify-content:center;gap:20px;
+  font-size:13px;color:var(--ink-dim);
+}
+.foot-links a:hover{color:var(--ink)}
+.foot-bottom{
+  max-width:var(--max);margin:28px auto 0;
+  padding-top:20px;border-top:1px solid var(--line);
+  font-size:12px;color:var(--ink-dim);
+  display:flex;flex-wrap:wrap;justify-content:center;gap:8px 20px;
+  text-align:center;
+}
+
+@media(max-width:860px){
+  .cards{grid-template-columns:1fr}
+}
+@media(max-width:760px){
+  .nav-links{display:none}
+  .waitlist-submit{min-height:52px}
+  .waitlist-input{font-size:16px}
+  .logo-grid{grid-template-columns:repeat(2, 1fr)}
+}
+</style>
+</head>
+<body>
+
+<!-- Netlify form detection -->
+<form name="waitlist-hero" data-netlify="true" netlify-honeypot="bot-field" hidden>
+  <input type="hidden" name="form-name" value="waitlist-hero" />
+  <input name="bot-field" />
+  <input type="email" name="email" />
+</form>
+
+<nav id="nav">
+  <a href="#" class="logo">
+    <svg class="logo-icon" width="34" height="34" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <rect x="0" y="0" width="16" height="16" rx="3.5" fill="var(--ink)"/>
+      <rect x="20" y="0" width="16" height="16" rx="3.5" fill="#4165e5"/>
+      <rect x="0" y="20" width="16" height="16" rx="3.5" fill="#b0c4f5"/>
+      <path d="M28 20C28 24.4 31.6 28 36 28C31.6 28 28 31.6 28 36C28 31.6 24.4 28 20 28C24.4 28 28 24.4 28 20Z" fill="#4165e5"/>
+    </svg>
+    Tempo
+  </a>
+  <div class="nav-links">
+    <a href="#what">What we do</a>
+    <a href="#integrations">Integrations</a>
+    <a href="#preview">The app</a>
+    <a href="#waitlist">Beta</a>
+  </div>
+  <a href="#waitlist" class="nav-cta">Join the Beta</a>
+</nav>
+
+<header class="hero" id="top">
+  <div class="hero-inner">
+    <h1>
+      <span class="hero-line">The AI executive assistant</span>
+      <span class="hero-line">inside your calendar.</span>
+    </h1>
+    <p class="hero-lead">
+      Tempo is an AI executive assistant built around a calendar. You see your week at a glance,
+      your tools stay connected, and you get help that drafts replies, plans your time, and
+      <strong>keeps your day moving</strong> without switching between apps.
+    </p>
+
+    <div class="waitlist-block">
+      <p class="waitlist-offer">
+        <strong>Join the Beta</strong> for <span class="price">$7.99 AUD</span>.
+        2 weeks of full access, plus your first subscription month free.
+      </p>
+      <form
+        class="waitlist-form"
+        id="waitlistHeroForm"
+        name="waitlist-hero"
+        method="POST"
+        data-netlify="true"
+        netlify-honeypot="bot-field"
+        novalidate
+      >
+        <input type="hidden" name="form-name" value="waitlist-hero" />
+        <p hidden>
+          <label>Don't fill this out: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+        </p>
+        <input
+          type="email"
+          name="email"
+          class="waitlist-input"
+          id="waitlistEmail"
+          placeholder="Enter your email to join the beta"
+          autocomplete="email"
+          required
+        />
+        <button type="submit" class="waitlist-submit">
+          <span class="btn-label">Join the Beta</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </button>
+      </form>
+      <p class="waitlist-fine">iOS only. Limited spots. We'll email TestFlight details.</p>
+      <p class="feedback-line">Your feedback directly shapes the product.</p>
+    </div>
+  </div>
+</header>
+
+<section class="integrations" id="integrations">
+  <div class="wrap">
+    <div class="integrations-head">
+      <p class="section-label">Integrations</p>
+      <h2>Works with the tools you already use</h2>
+      <p>We connect to <strong>Gmail</strong>, <strong>Google Calendar</strong>, <strong>Notion</strong>, and <strong>Outlook</strong> today. More integrations are on the way.</p>
+    </div>
+
+    <div class="integration-stage-wrap">
+      <div class="integration-stage" id="integrationStage" aria-label="Tempo connects Gmail, Google Calendar, Notion, and Outlook">
+        <div class="sync-ring" aria-hidden="true"></div>
+        <svg class="sync-svg" viewBox="0 0 360 360" aria-hidden="true">
+          <defs>
+            <linearGradient id="syncGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#b0c4f5"/>
+              <stop offset="50%" stop-color="#4165e5"/>
+              <stop offset="100%" stop-color="#b0c4f5"/>
+            </linearGradient>
+          </defs>
+          <path id="pathGmail" class="sync-path" d="M180 58 C180 110 180 130 180 152"/>
+          <path id="pathCalendar" class="sync-path" d="M302 180 C250 180 210 180 180 180"/>
+          <path id="pathNotion" class="sync-path" d="M180 302 C180 250 180 210 180 188"/>
+          <path id="pathOutlook" class="sync-path" d="M58 180 C110 180 150 180 180 180"/>
+        </svg>
+
+        <div class="sync-hub">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none" aria-hidden="true">
+            <rect x="0" y="0" width="16" height="16" rx="3.5" fill="#12141c"/>
+            <rect x="20" y="0" width="16" height="16" rx="3.5" fill="#4165e5"/>
+            <rect x="0" y="20" width="16" height="16" rx="3.5" fill="#b0c4f5"/>
+            <path d="M28 20C28 24.4 31.6 28 36 28C31.6 28 28 31.6 28 36C28 31.6 24.4 28 20 28C24.4 28 28 24.4 28 20Z" fill="#4165e5"/>
+          </svg>
+          <span>Tempo</span>
+        </div>
+
+        <div class="sync-orbit">
+          <div class="sync-satellite is-active" data-sync="gmail" style="--x:50%;--y:16%;--float-delay:0s">
+            <div class="sync-node">
+              <img src="assets/gmail.svg" alt="" width="32" height="32" />
+              <span>Gmail</span>
+            </div>
+          </div>
+          <div class="sync-satellite" data-sync="calendar" style="--x:84%;--y:50%;--float-delay:.6s">
+            <div class="sync-node">
+              <img src="assets/google-calendar.svg" alt="" width="32" height="32" />
+              <span>Calendar</span>
+            </div>
+          </div>
+          <div class="sync-satellite" data-sync="notion" style="--x:50%;--y:84%;--float-delay:1.2s">
+            <div class="sync-node">
+              <img src="https://cdn.simpleicons.org/notion/000000" alt="" width="32" height="32" />
+              <span>Notion</span>
+            </div>
+          </div>
+          <div class="sync-satellite" data-sync="outlook" style="--x:16%;--y:50%;--float-delay:1.8s">
+            <div class="sync-node">
+              <img src="assets/outlook.png" alt="" width="32" height="32" />
+              <span>Outlook</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p class="sync-status" id="syncStatus" aria-live="polite">Syncing Gmail into your assistant.</p>
+
+      <div class="integration-marquee" aria-hidden="true">
+        <div class="integration-marquee-track">
+          <span class="marquee-chip"><img src="assets/gmail.svg" alt="" />Email draft ready</span>
+          <span class="marquee-chip"><img src="assets/google-calendar.svg" alt="" />Meeting in 2h</span>
+          <span class="marquee-chip"><img src="https://cdn.simpleicons.org/notion/000000" alt="" />Sprint notes linked</span>
+          <span class="marquee-chip"><img src="assets/outlook.png" alt="" />Follow-up queued</span>
+          <span class="marquee-chip"><img src="assets/gmail.svg" alt="" />Inbox prioritized</span>
+          <span class="marquee-chip"><img src="assets/google-calendar.svg" alt="" />Focus block placed</span>
+          <span class="marquee-chip"><img src="assets/gmail.svg" alt="" />Email draft ready</span>
+          <span class="marquee-chip"><img src="assets/google-calendar.svg" alt="" />Meeting in 2h</span>
+          <span class="marquee-chip"><img src="https://cdn.simpleicons.org/notion/000000" alt="" />Sprint notes linked</span>
+          <span class="marquee-chip"><img src="assets/outlook.png" alt="" />Follow-up queued</span>
+          <span class="marquee-chip"><img src="assets/gmail.svg" alt="" />Inbox prioritized</span>
+          <span class="marquee-chip"><img src="assets/google-calendar.svg" alt="" />Focus block placed</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="what" id="what">
+  <div class="wrap">
+    <p class="section-label">What we do</p>
+    <h2>Less inbox chaos, more clarity</h2>
+    <p class="lead">You get a calendar you can trust, plus an executive assistant that works with the apps you already use.</p>
+
+    <div class="cards">
+      <article class="card">
+        <p class="card-num">01</p>
+        <h3>Your calendar comes first</h3>
+        <p>Your day, week, and deadlines in one clear view. Time blocks, exams, and focus sessions are laid out the way you actually think about time.</p>
+      </article>
+      <article class="card">
+        <p class="card-num">02</p>
+        <h3>Executive assistant</h3>
+        <p>Draft replies, reschedule around conflicts, and get a clear read on what matters next. Tempo acts on your behalf while you stay in control.</p>
+      </article>
+      <article class="card">
+        <p class="card-num">03</p>
+        <h3>Connected tools</h3>
+        <p>Gmail, Google Calendar, Notion, and Outlook feed into one place. Connect once on iOS, then run your day from a single app.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="showcase" id="preview">
+  <div class="wrap">
+    <div class="showcase-intro">
+      <p class="section-label">Inside the app</p>
+      <h2>Built for how you work</h2>
+      <p>Tempo is your AI executive assistant with a calendar interface. Plan your week, focus, coordinate with friends, and more, all in one app.</p>
+    </div>
+
+    <article class="feature-block" data-layout="image-right">
+      <div class="feature-copy" data-align="left">
+        <span class="feature-tag">Plan</span>
+        <h3>Your week, organised <em>in one view</em></h3>
+        <p>A clear calendar for how you really plan time, with events, focus blocks, study sessions, and personal plans on one screen.</p>
+        <ul class="feature-points">
+          <li>Drag events, pin focus blocks, protect deep work</li>
+          <li>Tempo flags conflicts before you notice them</li>
+          <li>Add events by typing or saying what you want</li>
+        </ul>
+      </div>
+      <div class="feature-visual">
+        <div class="app-screen is-tilt-left">
+          <img
+            src="assets/app-screenshot.png"
+            alt="Tempo calendar showing Friday schedule with study blocks, football game, and dinner"
+            width="472" height="1024"
+            loading="lazy" decoding="async"
+          />
+        </div>
+        <span class="feature-chip top-right">
+          <span class="dot"></span>
+          2 suggestions ready
+        </span>
+        <span class="feature-chip bottom-left">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="3"/><path d="M3 10h18M8 2v4M16 2v4"/></svg>
+          Friday cleared
+        </span>
+      </div>
+    </article>
+
+    <article class="feature-block" data-layout="image-left">
+      <div class="feature-copy" data-align="left">
+        <span class="feature-tag">Act</span>
+        <h3>Talk to Tempo, your <em>AI executive assistant</em></h3>
+        <p>Block focus time, find free slots, reschedule around conflicts, or ask about your week. Tempo uses your real calendar context to act on your behalf.</p>
+        <ul class="feature-points">
+          <li>Block focus time around real commitments</li>
+          <li>Find free slots tomorrow without scrolling</li>
+          <li>Reschedule what's at risk in one prompt</li>
+        </ul>
+      </div>
+      <div class="feature-visual">
+        <div class="app-screen is-tilt-right">
+          <img
+            src="assets/app-assistant.png"
+            alt="Talk to Tempo AI assistant with block focus time, free slots, reschedule, and week summary actions"
+            width="472" height="1024"
+            loading="lazy" decoding="async"
+          />
+        </div>
+        <span class="feature-chip top-left">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          Block focus time
+        </span>
+        <span class="feature-chip bottom-right">
+          <span class="dot"></span>
+          Aware of your week
+        </span>
+      </div>
+    </article>
+
+    <article class="feature-block" data-layout="image-right">
+      <div class="feature-copy" data-align="left">
+        <span class="feature-tag">Catch up</span>
+        <h3>A daily briefing <em>that stays short</em></h3>
+        <p>Tempo reads your inbox and notifications, summarises what needs you today, and drafts replies in your voice so you start each day in control.</p>
+        <ul class="feature-points">
+          <li>Morning briefing of what needs your attention</li>
+          <li>Drafted replies in your tone, one tap to send</li>
+          <li>Only shows what matters unless you ask for more</li>
+        </ul>
+      </div>
+      <div class="feature-visual">
+        <div class="app-screen is-tilt-left">
+          <img
+            src="assets/app-updates.png"
+            alt="Tempo updates screen with morning briefing and drafted replies to recent messages"
+            width="472" height="1024"
+            loading="lazy" decoding="async"
+          />
+        </div>
+        <span class="feature-chip top-right">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v12H5.17L4 17.17V4z"/></svg>
+          2 drafts ready
+        </span>
+        <span class="feature-chip bottom-left">
+          <span class="dot"></span>
+          Briefing for today
+        </span>
+      </div>
+    </article>
+
+    <article class="feature-block" data-layout="image-left">
+      <div class="feature-copy" data-align="left">
+        <span class="feature-tag">Social</span>
+        <h3>See who's free. <em>Plan together.</em></h3>
+        <p>Find friends by name or username, see who's free right now, and invite them from your circle without leaving your calendar.</p>
+        <ul class="feature-points">
+          <li>Quick invite from friends who are free now</li>
+          <li>Search and filter your circle in one place</li>
+          <li>One tap to plan from the Social tab</li>
+        </ul>
+      </div>
+      <div class="feature-visual">
+        <div class="app-screen is-tilt-right">
+          <img
+            src="assets/app-social.png"
+            alt="Tempo Social screen with friends circle, quick invite, and who is free now"
+            width="472" height="980"
+            loading="lazy" decoding="async"
+          />
+        </div>
+        <span class="feature-chip top-left">
+          <span class="dot"></span>
+          1 free now
+        </span>
+        <span class="feature-chip bottom-right">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          Your circle
+        </span>
+      </div>
+    </article>
+
+    <article class="feature-block" data-layout="image-right">
+      <div class="feature-copy" data-align="left">
+        <span class="feature-tag">Social</span>
+        <h3>Request events that land on <em>both calendars.</em></h3>
+        <p>Pick a friend, time, and title. They see the exact slot you chose. When they accept, it syncs to both calendars automatically.</p>
+        <ul class="feature-points">
+          <li>Your friend sees the exact time you pick</li>
+          <li>Duration, location, and title in one flow</li>
+          <li>Accepts straight onto both calendars</li>
+        </ul>
+      </div>
+      <div class="feature-visual">
+        <div class="app-screen is-tilt-left">
+          <img
+            src="assets/app-social-request.png"
+            alt="Tempo Social screen to request an event with friend, time, and duration"
+            width="472" height="980"
+            loading="lazy" decoding="async"
+          />
+        </div>
+        <span class="feature-chip top-right">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="3"/><path d="M3 10h18M8 2v4M16 2v4"/></svg>
+          Send request
+        </span>
+        <span class="feature-chip bottom-left">
+          <span class="dot"></span>
+          Both calendars
+        </span>
+      </div>
+    </article>
+
+    <article class="feature-block" data-layout="image-left">
+      <div class="feature-copy" data-align="left">
+        <span class="feature-tag">Study</span>
+        <h3>Deep work, <em>built into your day.</em></h3>
+        <p>Focus sessions that fit around what's already on your calendar, with presets from 25/5 classic to 90/15 deep work.</p>
+        <ul class="feature-points">
+          <li>Timer shaped around your real schedule</li>
+          <li>Presets for classic, standard, and deep work</li>
+          <li>See tasks due this week in one place</li>
+        </ul>
+      </div>
+      <div class="feature-visual">
+        <div class="app-screen is-tilt-right">
+          <img
+            src="assets/app-study.png"
+            alt="Tempo Study screen with focus timer, 50/10 session presets, and start focus session"
+            width="472" height="980"
+            loading="lazy" decoding="async"
+          />
+        </div>
+        <span class="feature-chip top-left">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          50:00 focus
+        </span>
+        <span class="feature-chip bottom-right">
+          <span class="dot"></span>
+          Deep work preset
+        </span>
+      </div>
+    </article>
+
+    <article class="feature-block" data-layout="image-right">
+      <div class="feature-copy" data-align="left">
+        <span class="feature-tag">Dark mode</span>
+        <h3>Easy on the eyes, <em>day or night.</em></h3>
+        <p>A full dark theme across calendar, events, and navigation. Same clarity and colour-coded blocks, with less glare when you plan late at night.</p>
+        <ul class="feature-points">
+          <li>Same calendar layout in dark</li>
+          <li>Colour-coded events stay readable</li>
+          <li>Matches system appearance on iOS</li>
+        </ul>
+      </div>
+      <div class="feature-visual">
+        <div class="app-screen is-tilt-left">
+          <img
+            src="assets/app-darkmode.png"
+            alt="Tempo calendar in dark mode showing Friday schedule with study, health, and personal events"
+            width="472" height="980"
+            loading="lazy" decoding="async"
+          />
+        </div>
+        <span class="feature-chip top-right">
+          <span class="dot"></span>
+          Dark mode
+        </span>
+        <span class="feature-chip bottom-left">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          Night planning
+        </span>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="beta-cta" id="waitlist">
+  <div class="wrap">
+    <h2>Join the private beta</h2>
+    <p>Get early access on iOS before we launch on the App Store.</p>
+    <p class="feedback-line">Your feedback directly shapes the product.</p>
+
+    <div class="waitlist-block">
+      <p class="waitlist-offer">
+        <strong>Join the Beta</strong> for <span class="price">$7.99 AUD</span>.
+        2 weeks of full access, plus your first subscription month free.
+      </p>
+      <form
+        class="waitlist-form"
+        id="waitlistCtaForm"
+        name="waitlist-cta"
+        method="POST"
+        data-netlify="true"
+        netlify-honeypot="bot-field-cta"
+        novalidate
+      >
+        <input type="hidden" name="form-name" value="waitlist-cta" />
+        <p hidden>
+          <label>Don't fill this out: <input name="bot-field-cta" tabindex="-1" autocomplete="off" /></label>
+        </p>
+        <input
+          type="email"
+          name="email"
+          class="waitlist-input"
+          id="waitlistCtaEmail"
+          placeholder="Enter your email to join the beta"
+          autocomplete="email"
+          required
+        />
+        <button type="submit" class="waitlist-submit">
+          <span class="btn-label">Join the Beta</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </button>
+      </form>
+      <p class="waitlist-fine">iOS only. Limited spots. We'll email TestFlight details.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="foot">
+    <div>
+      <div class="foot-brand">
+        <svg width="26" height="26" viewBox="0 0 36 36" fill="none" aria-hidden="true">
+          <rect x="0" y="0" width="16" height="16" rx="3.5" fill="var(--ink)"/>
+          <rect x="20" y="0" width="16" height="16" rx="3.5" fill="#4165e5"/>
+          <rect x="0" y="20" width="16" height="16" rx="3.5" fill="#b0c4f5"/>
+          <path d="M28 20C28 24.4 31.6 28 36 28C31.6 28 28 31.6 28 36C28 31.6 24.4 28 20 28C24.4 28 28 24.4 28 20Z" fill="#4165e5"/>
+        </svg>
+        Tempo
+      </div>
+      <p class="foot-tag">An AI executive assistant with a calendar interface. Built for iOS in Brisbane.</p>
+    </div>
+    <div class="foot-links">
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+      <a href="mailto:tempo.calendar.ai@gmail.com">Contact</a>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>© 2026 Tempo</span>
+    <span>Made in Brisbane</span>
+  </div>
+</footer>
+
+<script>
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 8);
+}, { passive: true });
+
+async function submitNetlifyForm(form) {
+  const body = new URLSearchParams(new FormData(form)).toString();
+  const res = await fetch('/', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body,
+  });
+  if (!res.ok) throw new Error('netlify');
+}
+
+function bindWaitlist(formId, emailId) {
+  const form = document.getElementById(formId);
+  if (!form) return;
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const inp = document.getElementById(emailId);
+    const email = (inp && inp.value.trim()) || '';
+    if (!email || !email.includes('@')) {
+      if (inp) {
+        inp.style.color = '#ff6b6b';
+        setTimeout(() => { inp.style.color = ''; }, 600);
+      }
+      return;
+    }
+    try {
+      await submitNetlifyForm(form);
+      form.classList.add('submitted');
+    } catch {
+      alert('Could not send just now. Check your connection and try again.');
+    }
+  });
+}
+
+bindWaitlist('waitlistHeroForm', 'waitlistEmail');
+bindWaitlist('waitlistCtaForm', 'waitlistCtaEmail');
+
+document.querySelectorAll('a[href="#waitlist"]').forEach((a) => {
+  a.addEventListener('click', (e) => {
+    const target = document.getElementById('waitlist');
+    if (!target) return;
+    e.preventDefault();
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const inp = document.getElementById('waitlistCtaEmail');
+    if (inp) setTimeout(() => inp.focus({ preventScroll: true }), 400);
+  });
+});
+
+// Integration sync animation (orbit hub + data packets)
+(function initIntegrationSync() {
+  const stage = document.getElementById('integrationStage');
+  const statusEl = document.getElementById('syncStatus');
+  if (!stage || !statusEl) return;
+
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const satellites = [...stage.querySelectorAll('.sync-satellite')];
+  const paths = {
+    gmail: document.getElementById('pathGmail'),
+    calendar: document.getElementById('pathCalendar'),
+    notion: document.getElementById('pathNotion'),
+    outlook: document.getElementById('pathOutlook'),
+  };
+  const messages = {
+    gmail: 'Syncing Gmail into your assistant.',
+    calendar: 'Reading Google Calendar for your week.',
+    notion: 'Linking Notion pages to your day.',
+    outlook: 'Pulling Outlook threads into context.',
+  };
+  let index = 0;
+  let timer;
+
+  function spawnPacket(pathEl) {
+    if (reduce || !pathEl || !CSS.supports('offset-path', 'path("M0 0")')) return;
+    const packet = document.createElement('span');
+    packet.className = 'sync-packet run';
+    packet.style.offsetPath = `path('${pathEl.getAttribute('d')}')`;
+    stage.appendChild(packet);
+    packet.addEventListener('animationend', () => packet.remove(), { once: true });
+  }
+
+  function setActive(i) {
+    const sat = satellites[i];
+    if (!sat) return;
+    const key = sat.dataset.sync;
+    satellites.forEach((s) => s.classList.toggle('is-active', s === sat));
+    Object.values(paths).forEach((p) => p && p.classList.remove('is-active'));
+    if (paths[key]) paths[key].classList.add('is-active');
+    statusEl.classList.add('is-changing');
+    statusEl.textContent = messages[key] || 'Everything in one assistant.';
+    requestAnimationFrame(() => statusEl.classList.remove('is-changing'));
+    spawnPacket(paths[key]);
+  }
+
+  function tick() {
+    setActive(index);
+    index = (index + 1) % satellites.length;
+  }
+
+  function startCycle() {
+    if (reduce || timer) return;
+    timer = setInterval(tick, 2800);
+  }
+  function stopCycle() {
+    if (!timer) return;
+    clearInterval(timer);
+    timer = null;
+  }
+
+  tick();
+  startCycle();
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => (e.isIntersecting ? startCycle() : stopCycle()));
+  }, { threshold: 0.15 });
+  io.observe(stage);
+})();
+
+// Showcase: reveal feature blocks on scroll
+(function initShowcaseReveal() {
+  const blocks = document.querySelectorAll('.feature-block');
+  if (!blocks.length) return;
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) {
+    blocks.forEach((b) => b.classList.add('is-visible'));
+    return;
+  }
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) {
+        e.target.classList.add('is-visible');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.18, rootMargin: '0px 0px -10% 0px' });
+  blocks.forEach((b) => io.observe(b));
+})();
+</script>
+</body>
+</html>
