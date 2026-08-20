@@ -3,31 +3,39 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-<title>Tempo — AI Calendar & Daily Assistant for iOS</title>
-<meta name="description" content="Tempo integrates your calendar, inbox, and notes into one AI assistant for iOS. Plan your week, draft replies, and stay focused." />
+<title>Tempo | The AI Assistant That Knows Your Day</title>
+<meta name="description" content="Tempo is an AI assistant for iPhone and desktop. It reads your calendar, inbox and notes, then plans your day. Built for students and busy people." />
 <meta name="robots" content="index, follow, max-image-preview:large" />
 <link rel="canonical" href="https://tempoassistant.com/" />
-<link rel="preload" as="image" href="assets/app-screenshot.png" fetchpriority="high" />
+<link rel="preload" as="image" href="assets/app-briefing.webp" fetchpriority="high" />
 
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Tempo" />
 <meta property="og:locale" content="en_AU" />
-<meta property="og:title" content="Tempo — AI Calendar & Daily Assistant for iOS" />
-<meta property="og:description" content="Plan your week, draft email replies, and stay organized with Tempo on iOS." />
+<meta property="og:title" content="Tempo | The AI Assistant That Knows Your Day" />
+<meta property="og:description" content="Ask in plain English. Tempo plans your calendar, drafts your inbox, and keeps your day on a home screen widget. iPhone and desktop." />
 <meta property="og:url" content="https://tempoassistant.com/" />
-<meta property="og:image" content="https://tempoassistant.com/assets/app-screenshot.png" />
+<meta property="og:image" content="https://tempoassistant.com/assets/og-image.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Tempo: an assistant that actually knows you. The daily briefing shown on an iPhone." />
 
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Tempo — AI Calendar & Daily Assistant for iOS" />
-<meta name="twitter:description" content="Plan your week, draft email replies, and stay organized with Tempo on iOS." />
-<meta name="twitter:image" content="https://tempoassistant.com/assets/app-screenshot.png" />
+<meta name="twitter:title" content="Tempo | The AI Assistant That Knows Your Day" />
+<meta name="twitter:description" content="Ask in plain English. Tempo plans your calendar, drafts your inbox, and keeps your day on a widget. iOS and desktop." />
+<meta name="twitter:image" content="https://tempoassistant.com/assets/og-image.jpg" />
+<meta name="twitter:image:alt" content="Tempo: an assistant that actually knows you. The daily briefing shown on an iPhone." />
 
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
 <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png" />
 <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png" />
 <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png" />
-<meta name="theme-color" content="#f9f9f9" />
+<meta name="theme-color" content="#ffffff" />
 <meta name="color-scheme" content="light" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..800&display=swap" rel="stylesheet" />
 
 <script type="application/ld+json">
 {
@@ -45,6 +53,31 @@
   "email": "tempo.calendar.ai@gmail.com",
   "sameAs": [
     "https://www.linkedin.com/company/tempoassistant/"
+  ],
+  "founder": [
+    {
+      "@type": "Person",
+      "name": "Axel Garc\u00eda Ferreira",
+      "jobTitle": "Co-founder",
+      "affiliation": {"@type": "CollegeOrUniversity", "name": "The University of Queensland"},
+      "sameAs": ["https://www.linkedin.com/in/axel-garcia-ferreira/"]
+    },
+    {
+      "@type": "Person",
+      "name": "Nick Svetlov",
+      "jobTitle": "Co-founder",
+      "affiliation": {"@type": "CollegeOrUniversity", "name": "The University of Queensland"},
+      "sameAs": ["https://www.linkedin.com/in/nick-svetlov/"]
+    }
+  ],
+  "memberOf": {"@type": "Organization", "name": "UQ Ventures"},
+  "areaServed": "Worldwide",
+  "knowsAbout": [
+    "AI calendar assistant",
+    "AI email drafting",
+    "iOS home screen widgets",
+    "student time management",
+    "daily briefings"
   ]
 }
 </script>
@@ -55,10 +88,24 @@
   "@type": "SoftwareApplication",
   "name": "Tempo",
   "applicationCategory": "ProductivityApplication",
-  "operatingSystem": "iOS",
+  "operatingSystem": "iOS, macOS, Windows",
+  "audience": {
+    "@type": "Audience",
+    "audienceType": ["University students", "Young adults", "Busy professionals"]
+  },
+  "softwareVersion": "Beta",
+  "installUrl": "https://tempoassistant.com/#waitlist",
   "url": "https://tempoassistant.com/",
-  "image": "https://tempoassistant.com/assets/app-screenshot.png",
-  "description": "Tempo integrates calendar, inbox, and notes into an AI daily assistant with native iOS home screen widgets.",
+  "image": "https://tempoassistant.com/assets/og-image.jpg",
+  "description": "Tempo is a personal AI assistant that reads your calendar, inbox, and notes, plans your day in plain English, and surfaces it on native iOS home screen widgets.",
+  "featureList": [
+    "Plain-English scheduling",
+    "AI email drafts you approve before sending",
+    "Native iOS home screen widgets",
+    "Daily briefing",
+    "Focus timer and task planning",
+    "See which friends are free"
+  ],
   "offers": {
     "@type": "Offer",
     "name": "Tempo Subscription",
@@ -84,7 +131,39 @@
       "name": "Which platforms is Tempo on?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Tempo is currently a native iPhone app in private beta. When it publicly releases, Tempo will also be available on desktop and Android."
+        "text": "Tempo runs on iPhone and on desktop. The iPhone app is built and running, but it is not on the App Store yet, so joining the waitlist is how you get access today. The desktop app is in beta."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I get access to Tempo?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Join the waitlist with your email. Because Tempo is not on the App Store yet, the waitlist is the way in. We send access in batches so we can support every new user properly."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What makes Tempo different from a normal calendar app?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A normal calendar shows your events. Tempo is an AI assistant that also drafts inbox replies, proposes schedule changes, delivers a short daily briefing, and puts your day on a native iOS home screen widget. Nothing sends or moves until you approve it."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is Tempo different from Motion or Reclaim?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Motion and Reclaim auto-place blocks in a calendar you already use. Tempo is a full native calendar app with inbox drafting, daily briefings, and home screen widgets built in, at a fraction of the price."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is Tempo only for students?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Tempo is built for young adults and busy individuals generally. It happens to work especially well for students, but the AI engine, integrations, and widgets are designed for anyone juggling a full calendar and inbox."
       }
     },
     {
@@ -100,2381 +179,1336 @@
       "name": "Does Tempo send or reschedule without asking?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. Tempo suggests drafts and calendar changes. The user reviews and approves before anything goes out or moves."
+        "text": "No. Tempo drafts and proposes, then waits. Every email send and every calendar change shows you a confirmation before anything happens."
       }
     },
     {
       "@type": "Question",
-      "name": "How is Tempo different from Motion or Reclaim?",
+      "name": "What does Tempo connect to?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Motion and Reclaim auto-place blocks in a calendar you already use. Tempo is a full native calendar app with inbox drafting, daily briefings, and home screen widgets built in."
+        "text": "Gmail, Google Calendar, Outlook, and Notion. Tempo reads them to understand your day and only writes when you approve an action."
       }
     },
     {
       "@type": "Question",
-      "name": "Is Tempo only for students?",
+      "name": "How is my data used?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. Tempo is built for young adults and busy individuals generally. It happens to work especially well for students, but the AI engine, integrations, and widgets are designed for anyone juggling a full calendar and inbox."
+        "text": "Your calendar and inbox data is used to run your assistant and nothing else. We do not sell your data and we do not use it to train public models. See the Privacy Policy for detail."
       }
-    },
-    {
-      "@type": "Question",
-      "name": "What makes Tempo different from a normal calendar app?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "A normal calendar shows your events. Tempo is an AI assistant that also drafts inbox replies, proposes schedule changes, delivers a short daily briefing, and puts your day on a native iOS home screen widget. Nothing sends or moves until you approve it."
-      }
-    }
-  ]
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "HowTo",
-  "name": "How Tempo works",
-  "description": "Connect your apps, let Tempo build context, then confirm drafts and schedule changes before anything moves.",
-  "step": [
-    {
-      "@type": "HowToStep",
-      "position": 1,
-      "name": "Connect your apps",
-      "text": "One-time setup on iPhone. Your apps sync in the background."
-    },
-    {
-      "@type": "HowToStep",
-      "position": 2,
-      "name": "Tempo builds context",
-      "text": "Your week, threads, and notes feed into every suggestion."
-    },
-    {
-      "@type": "HowToStep",
-      "position": 3,
-      "name": "You confirm, then act",
-      "text": "Review drafts and schedule changes. Nothing moves until you say so."
     }
   ]
 }
 </script>
 
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..800&display=swap" rel="stylesheet" />
 <style>
+/* ============================================================
+   TOKENS
+   ============================================================ */
 :root{
-  --bg:#f9f9f9;
-  --bg-elevated:#ffffff;
-  --ink:#000000;
-  --ink-dim:#5c5c5c;
-  --ink-dim-on-dark:#c4cad4;
-  --ink-soft:#1a1a1a;
-  --line:#e8e8e8;
-  --line-strong:#d4d4d4;
-  --accent:#4165e5;
-  --accent-2:#f7c948;
-  --accent-3:#3454c4;
-  --accent-4:#6b8aeb;
-  --accent-5:#3454c4;
-  --accent-muted:rgba(65,101,229,.08);
-  --uq-purple:#51247A;
-  --nav-bg:rgba(255,255,255,.92);
-  --sans:"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
-  --max:1080px;
-  --pad:clamp(20px, 5vw, 48px);
-  --tracking-tight:-0.035em;
-  --leading-display:1.08;
-  --nav-offset:max(72px, calc(56px + env(safe-area-inset-top)));
-  --ease-premium:cubic-bezier(0.22, 1, 0.36, 1);
-  --dur-reveal:.72s;
+  --bg:#ffffff;
+  --bg-tint:#f4f7fe;
+  --bg-deep:#eaf0fd;
+  --surface:#ffffff;
+
+  --ink:#080b16;
+  --ink-2:#39415a;
+  --ink-3:#6b7590;
+  --ink-inv:#ffffff;
+
+  --line:#e4e9f5;
+  --line-2:#d2daee;
+
+  --blue:#2f5bff;
+  --blue-deep:#1c3ecc;
+  --blue-soft:#eef2ff;
+  --violet:#7b5cf0;
+  --pink:#f05f9e;
+
+  --grad-brand:linear-gradient(115deg,#2f5bff 0%,#7b5cf0 52%,#f05f9e 100%);
+  --grad-orb:linear-gradient(150deg,#3d8bff 0%,#7b5cf0 100%);
+
+  --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+
+  --max:1120px;
+  --pad:clamp(20px,5vw,44px);
+  --dot:rgba(12,22,55,.07);
+  --nav-h:62px;
+  --nav-top:14px;
+  --nav-inset:clamp(12px,3vw,22px);
+
+  --r-sm:8px;
+  --r-md:11px;
+  --r-lg:14px;
+  --r-xl:18px;
+
+  --shadow-sm:0 1px 2px rgba(10,20,50,.05);
+  --shadow-md:0 1px 2px rgba(10,20,50,.05),0 6px 16px rgba(10,20,50,.06);
+  --shadow-lg:0 2px 6px rgba(10,20,50,.06),0 18px 44px rgba(10,20,50,.10);
+
+  --ease:cubic-bezier(.22,1,.36,1);
+  --ease-soft:cubic-bezier(.4,0,.2,1);
 }
 
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+/* ============================================================
+   BASE
+   ============================================================ */
+*,*::before,*::after{box-sizing:border-box}
+/* Chrome's default tap highlight is a teal wash and accent-color:auto
+   inherits the OS highlight colour, so presses flashed green. Pin both. */
+*{-webkit-tap-highlight-color:transparent}
+:root{accent-color:var(--blue)}
+::selection{background:rgba(47,91,255,.16);color:var(--ink)}
 html{
-  scroll-behavior:smooth;
   -webkit-text-size-adjust:100%;
-  overflow-x:clip;
+  scroll-behavior:smooth;
+  scroll-padding-top:calc(var(--nav-top) + var(--nav-h) + 20px);
 }
 body{
-  overflow-x:clip;
-  max-width:100%;
-  font-family:var(--sans);
-  font-feature-settings:"cv01","ss03";
-  background-color:var(--bg);
-  background-image:
-    linear-gradient(rgba(0,0,0,.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,0,0,.04) 1px, transparent 1px);
-  background-size:56px 56px;
+  margin:0;
+  background:var(--bg);
   color:var(--ink);
-  line-height:1.55;
+  font-family:var(--sans);
+  font-size:17px;
+  line-height:1.6;
   -webkit-font-smoothing:antialiased;
   -moz-osx-font-smoothing:grayscale;
-  padding-left:env(safe-area-inset-left);
-  padding-right:env(safe-area-inset-right);
+  overflow-x:hidden;
 }
-::selection{background:var(--accent);color:#fff}
+body.nav-open{overflow:hidden}
+img{max-width:100%;display:block;height:auto}
+a{color:inherit}
+button{font:inherit;cursor:pointer}
 
-a{color:inherit;text-decoration:none}
-img,svg{display:block}
-
-:focus-visible{
-  outline:2px solid #4165e5;
-  outline-offset:3px;
-}
-button:focus-visible,
-a:focus-visible,
-input:focus-visible{
-  outline:2px solid #4165e5;
-  outline-offset:2px;
-}
-
-/* Nav */
-nav{
-  position:sticky;top:0;z-index:100;
-  display:flex;align-items:center;
-  flex-wrap:wrap;
-  gap:12px 16px;
-  padding:max(14px, env(safe-area-inset-top)) var(--pad) 14px;
-  background:var(--nav-bg);
-  backdrop-filter:blur(16px);
-  box-shadow:0 1px 0 rgba(18,20,28,.04);
-  border-bottom:1px solid transparent;
-}
-nav.scrolled{border-bottom-color:var(--line)}
-nav.nav-past-hero .nav-cta{
-  box-shadow:0 4px 14px rgba(65,101,229,.25);
-}
-.logo{
-  display:flex;align-items:center;gap:10px;
-  font-size:20px;font-weight:700;letter-spacing:var(--tracking-tight);
-  flex:1;
-  min-width:0;
-}
-.logo-icon{flex-shrink:0}
-.nav-cta,.nav-toggle{flex-shrink:0}
-.nav-links{
-  display:flex;gap:28px;
-  font-size:14px;font-weight:500;
-  color:var(--ink-dim);
-  letter-spacing:-.01em;
-}
-.nav-links a{
-  position:relative;
-  transition:color .2s ease;
-}
-.nav-links a::after{
-  content:"";
-  position:absolute;
-  left:0;right:0;bottom:-4px;
-  height:1px;
-  background:currentColor;
-  transform:scaleX(0);
-  transform-origin:left center;
-  transition:transform .28s var(--ease-premium);
-}
-.nav-links a:hover{color:var(--ink)}
-.nav-links a:hover::after{transform:scaleX(1)}
-.nav-cta{
-  font-size:13px;font-weight:600;
-  letter-spacing:-.02em;
-  padding:10px 18px;border-radius:8px;
-  background:var(--ink);color:#fff;
-  white-space:nowrap;
-  transition:background .2s, transform .2s, box-shadow .2s;
-}
-.nav-cta:hover{
-  background:#1a1a1a;
-  transform:translateY(-1px);
-  box-shadow:0 6px 18px rgba(0,0,0,.12);
-}
-.nav-toggle{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  width:44px;height:44px;
-  -webkit-tap-highlight-color:transparent;
-  border:1px solid var(--line-strong);
-  border-radius:8px;
-  background:var(--bg-elevated);
-  color:var(--ink);
-  cursor:pointer;
-}
-.nav-toggle svg{width:18px;height:18px}
-.nav-toggle[aria-expanded="true"]{background:var(--accent-muted);border-color:var(--accent)}
-@media (min-width:920px){
-  .nav-toggle{display:none}
-}
-.nav-mobile{
-  display:none;
-  position:absolute;
-  top:100%;left:0;right:0;
-  padding:16px var(--pad) 20px;
-  background:var(--nav-bg);
-  backdrop-filter:blur(16px);
-  border-bottom:1px solid var(--line);
-  flex-direction:column;
-  gap:12px;
-}
-@keyframes nav-drop{
-  from{opacity:0;transform:translateY(-8px)}
-  to{opacity:1;transform:translateY(0)}
-}
-.nav-mobile.is-open{display:flex;animation:nav-drop .22s ease both}
-@media(prefers-reduced-motion:reduce){
-  .nav-mobile.is-open{animation:none}
-}
-.nav-mobile a{
-  font-size:15px;font-weight:500;
-  color:var(--ink-soft);
-  padding:12px 0;
-  min-height:44px;
-  display:flex;
-  align-items:center;
-}
-.nav-mobile a:hover{color:var(--ink)}
-.nav-mobile .nav-mobile-cta{
-  margin-top:4px;
-  padding:12px 18px;
-  border-radius:10px;
-  background:var(--ink);
-  color:#fff;
-  font-weight:600;
-  justify-content:center;
-}
-
-/* Layout */
-.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
-section{padding:clamp(32px, 5vw, 72px) 0}
-[id]{scroll-margin-top:var(--nav-offset)}
-.section-label{
-  font-size:11px;font-weight:600;
-  letter-spacing:.14em;text-transform:uppercase;
-  color:var(--ink-dim);margin-bottom:14px;
-}
-h2,.hero h1{
-  font-family:var(--sans);
-  font-weight:700;
-  letter-spacing:var(--tracking-tight);
-  line-height:var(--leading-display);
-  color:var(--ink);
-}
-
-/* Hero */
-.hero{
-  padding:clamp(40px, 6vw, 72px) 0 clamp(48px, 8vw, 84px);
-  position:relative;
-  overflow:hidden;
-}
-.hero::before{
-  content:"";
-  position:absolute;
-  top:-10%;left:50%;
-  transform:translateX(-50%);
-  width:min(720px, 100%);
-  height:80%;
-  background:radial-gradient(ellipse at 50% 40%, rgba(176,196,245,.35), transparent 68%);
-  pointer-events:none;
-  animation:hero-glow-breathe 8s ease-in-out infinite;
-}
-.hero::after{
-  content:"";
-  position:absolute;
-  left:0;right:0;bottom:0;
-  height:clamp(80px, 14vw, 140px);
-  background:linear-gradient(to bottom, transparent, var(--bg));
-  pointer-events:none;
-  z-index:1;
-}
-@keyframes hero-glow-breathe{
-  0%,100%{opacity:.85;transform:translateX(-50%) scale(1)}
-  50%{opacity:1;transform:translateX(-50%) scale(1.04)}
-}
-.hero-inner{
-  position:relative;
-  max-width:var(--max);
-  margin:0 auto;
-  padding:0 var(--pad);
-}
-.hero-grid{
-  display:grid;
-  grid-template-columns:1fr;
-  gap:48px;
-  align-items:center;
-  text-align:center;
-}
-@media (min-width:920px){
-  .hero-grid{
-    grid-template-columns:1fr 1fr;
-    gap:56px;
-    text-align:left;
-  }
-  .hero-grid .hero-device-wrap{order:0}
-  .hero-grid .waitlist-block,
-  .hero-grid .waitlist-fine,
-  .hero-grid .hero-note,
-  .hero-grid .feedback-line,
-  .hero-grid .trust-row{justify-content:flex-start;text-align:left;margin-left:0;margin-right:0}
-  .hero-grid .trust-row{justify-content:flex-start}
-}
-.hero h1{
-  font-size:clamp(2.125rem, 8.5vw, 5rem);
+h1,h2,h3{
+  margin:0;
+  letter-spacing:-.038em;
+  line-height:1.06;
   font-weight:800;
-  max-width:none;
-  margin:0 auto 20px;
   text-wrap:balance;
 }
-@media (min-width:920px){
-  .hero h1{
-    margin-left:0;margin-right:0;
-    max-width:14ch;
-  }
+h1{font-size:clamp(2.5rem,6.1vw,3.95rem)}
+h2{font-size:clamp(2rem,4.6vw,3.1rem)}
+h3{font-size:clamp(1.12rem,1.7vw,1.32rem);letter-spacing:-.024em;line-height:1.25}
+p{margin:0}
+
+.wrap{width:min(var(--max),100%);margin-inline:auto;padding-inline:var(--pad)}
+.grad-text{
+  /* One blue ramp clipped to the glyphs. Palindromic stops so the 200% shift
+     loops with no seam, and a deliberately narrow blue range so the motion
+     reads as a slow shift rather than a sweep passing through. */
+  background-image:linear-gradient(100deg,
+    #2a55f2 0%, #3f6bff 25%, #5b86ff 50%, #3f6bff 75%, #2a55f2 100%);
+  background-size:200% auto;
+  background-position:0% center;
+  -webkit-background-clip:text;background-clip:text;
+  color:transparent;
+  animation:gradFlow 20s linear infinite;
 }
-.hero-line{display:block}
-/* Motion system — scroll reveals + staged hero (Linear / Notion pattern) */
-.reveal{
-  opacity:0;
-  transform:translateY(22px);
-  transition:
-    opacity var(--dur-reveal) var(--ease-premium),
-    transform var(--dur-reveal) var(--ease-premium),
-    filter var(--dur-reveal) var(--ease-premium);
+@keyframes gradFlow{
+  from{background-position:0% center}
+  to{background-position:200% center}
 }
-.reveal.is-in{
-  opacity:1;
-  transform:translateY(0);
-  filter:none;
+.eyebrow{
+  display:inline-flex;align-items:center;gap:9px;
+  font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--blue);
 }
-.reveal-blur{filter:blur(6px)}
-.reveal-blur.is-in{filter:blur(0)}
-.reveal-scale{
-  opacity:0;
-  transform:translateY(18px) scale(.97);
+.eyebrow::before{
+  content:"";width:5px;height:5px;border-radius:50%;
+  background:var(--blue);
 }
-.reveal-scale.is-in{
-  opacity:1;
-  transform:translateY(0) scale(1);
+.lede{
+  font-size:clamp(1.02rem,1.35vw,1.16rem);
+  color:var(--ink-2);
+  line-height:1.62;
+  max-width:56ch;
+  text-wrap:pretty;
 }
-[data-hero-enter]{
-  opacity:0;
-  transform:translateY(20px);
-  filter:blur(5px);
-  transition:
-    opacity .7s var(--ease-premium),
-    transform .7s var(--ease-premium),
-    filter .7s var(--ease-premium);
+.section{padding-block:clamp(72px,9vw,116px);position:relative}
+
+@media(min-width:1360px){:root{--max:1200px}}
+@media(min-width:1640px){:root{--max:1280px}}
+
+/* Fine dot grid, echoing the texture on the app's own briefing card.
+   A pattern reads as engineered; a blurred blob reads as stock AI art. */
+.dotted::before{
+  content:"";position:absolute;inset:0;pointer-events:none;z-index:0;
+  background-image:radial-gradient(var(--dot) 1px,transparent 1px);
+  background-size:26px 26px;
+  -webkit-mask-image:linear-gradient(180deg,#000 0%,transparent 78%);
+  mask-image:linear-gradient(180deg,#000 0%,transparent 78%);
 }
-.hero.is-ready [data-hero-enter].is-in{
-  opacity:1;
-  transform:translateY(0);
-  filter:blur(0);
+.dotted>.wrap{position:relative;z-index:1}
+.widgets.dotted::before,.cta.dotted::before{
+  background-image:radial-gradient(rgba(255,255,255,.09) 1px,transparent 1px);
 }
-.section-spotlight{
-  position:relative;
-  isolation:isolate;
+.section-head{max-width:62ch;margin-bottom:clamp(38px,5vw,60px)}
+.section-head h2{margin-block:14px 18px}
+.center{text-align:center;margin-inline:auto}
+.center .lede{margin-inline:auto}
+
+.skip{
+  position:absolute;left:-9999px;top:0;z-index:200;
+  background:var(--ink);color:#fff;padding:12px 18px;border-radius:0 0 10px 0;
 }
-.section-spotlight::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:radial-gradient(ellipse 70% 45% at 50% 0%, rgba(176,196,245,.22), transparent 72%);
-  opacity:0;
-  transition:opacity 1.1s var(--ease-premium);
+.skip:focus{left:0}
+:focus-visible{outline:2.5px solid var(--blue);outline-offset:3px;border-radius:6px}
+
+/* ============================================================
+   NAV
+   ============================================================ */
+/* Floating inset card rather than a full-bleed bar. The <header> itself is
+   just a transparent positioning shell, so it must not swallow clicks. */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding-top:var(--nav-top);
   pointer-events:none;
-  z-index:-1;
 }
-.section-spotlight.is-lit::before{opacity:1}
-.integrations.section-spotlight::before{
-  background:radial-gradient(ellipse 60% 50% at 50% 50%, rgba(65,101,229,.1), transparent 70%);
-}
-.hero-lead{
-  font-size:clamp(1.125rem, 2vw, 1.375rem);
-  color:var(--ink);
-  max-width:34rem;
-  margin:0 auto 20px;
-  font-weight:400;
-  line-height:1.55;
-  letter-spacing:-.01em;
-}
-@media (min-width:920px){
-  .hero-lead{margin-left:0;margin-right:0}
-}
-.hero-lead strong{font-weight:600}
-.hero-actions{
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-  align-items:stretch;
-}
-.hero-secondary{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:6px;
-  width:100%;
-  min-height:48px;
-  font-size:14px;
-  font-weight:600;
-  letter-spacing:-.02em;
-  color:var(--ink-soft);
-  padding:12px 18px;
-  border-radius:10px;
-  border:1px solid var(--line-strong);
-  background:var(--bg-elevated);
-  transition:border-color .2s, background .2s, transform .2s;
-  -webkit-tap-highlight-color:transparent;
-}
-.hero-secondary:hover{
-  border-color:var(--ink);
-  background:#fff;
-  transform:translateY(-1px);
-}
-.waitlist-count{
-  display:inline-flex;
-  align-items:center;
-  gap:6px;
-  font-size:13px;
-  font-weight:500;
-  color:var(--ink-dim);
-  margin-bottom:14px;
-  padding:7px 14px;
-  border-radius:999px;
+.nav .wrap{
+  pointer-events:auto;
+  width:min(var(--max),calc(100% - 2*var(--nav-inset)));
+  padding:8px 8px 8px 18px;
+  display:flex;align-items:center;justify-content:space-between;gap:18px;
+  /* No backdrop-filter here on purpose: a filtered ancestor becomes the
+     containing block for position:fixed descendants, which would size the
+     mobile menu against this card instead of the viewport. */
+  background:rgba(255,255,255,.97);
   border:1px solid var(--line);
-  background:linear-gradient(165deg, rgba(65,101,229,.06) 0%, rgba(255,255,255,.8) 100%);
-  letter-spacing:-.01em;
+  border-radius:16px;
+  box-shadow:0 1px 2px rgba(10,20,50,.04),0 8px 24px rgba(10,20,50,.07);
+  transition:background .3s,box-shadow .3s;
 }
-.waitlist-count strong{
-  color:var(--ink);
-  font-weight:700;
+.nav.is-stuck .wrap{
+  background:rgba(255,255,255,.96);
+  box-shadow:0 1px 2px rgba(10,20,50,.05),0 12px 34px rgba(10,20,50,.11);
 }
-.hero-note{
-  font-size:13px;
-  color:var(--ink-dim);
-  line-height:1.5;
-  margin-top:12px;
-  text-align:center;
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:800;letter-spacing:-.03em;font-size:1.16rem}
+.brand img{width:26px;height:26px;border-radius:7px}
+.nav-links{display:flex;align-items:center;gap:30px}
+.nav-links a{
+  text-decoration:none;font-size:.92rem;font-weight:500;color:var(--ink-2);
+  transition:color .2s;
 }
-.hero-note a{
-  color:var(--accent);
-  font-weight:600;
-  text-decoration:underline;
-  text-underline-offset:2px;
+.nav-links a:hover{color:var(--ink)}
+.nav-right{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.nav-cta{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--blue);color:#fff;text-decoration:none;
+  padding:11px 20px;border-radius:12px;
+  font-size:.92rem;font-weight:650;letter-spacing:-.012em;
+  transition:background .2s,transform .22s var(--ease);
 }
-@media (min-width:640px){
-  .hero-actions{
-    flex-direction:row;
-    flex-wrap:wrap;
-    align-items:stretch;
+.nav-cta:hover{background:var(--blue-deep);transform:translateY(-1px)}
+/* squared, outlined toggle in the Lindy style */
+.nav-toggle{
+  display:none;width:44px;height:44px;flex-shrink:0;
+  border:1.5px solid var(--ink);background:transparent;border-radius:9px;
+  align-items:center;justify-content:center;
+}
+.nav-toggle span{display:block;width:18px;height:1.8px;background:var(--ink);border-radius:2px;position:relative;transition:transform .3s var(--ease)}
+.nav-toggle span::before,.nav-toggle span::after{
+  content:"";position:absolute;left:0;width:18px;height:1.8px;background:var(--ink);border-radius:2px;
+  transition:transform .3s var(--ease),opacity .2s;
+}
+.nav-toggle span::before{top:-6px}
+.nav-toggle span::after{top:6px}
+.nav-toggle[aria-expanded="true"] span{transform:rotate(45deg)}
+.nav-toggle[aria-expanded="true"] span::before{transform:translateY(6px) rotate(-90deg)}
+.nav-toggle[aria-expanded="true"] span::after{opacity:0}
+
+/* dims the page behind the open menu */
+.nav-scrim{
+  position:fixed;inset:0;z-index:99;
+  background:rgba(10,16,34,.28);
+  opacity:0;pointer-events:none;
+  transition:opacity .3s var(--ease);
+}
+.nav-scrim.is-open{opacity:1;pointer-events:auto}
+
+@media(max-width:919px){
+  /* the links restack inside the sheet; display:none would hide them with it */
+  .nav-links{display:grid;gap:0;align-items:stretch}
+  .nav-toggle{display:flex}
+  /* CTA stays in the bar on mobile; only the links move into the sheet */
+  .nav-cta{padding:11px 16px;font-size:.88rem}
+  .brand{font-size:1.06rem}
+  /* second floating card, sitting just under the bar */
+  .nav-menu{
+    position:fixed;
+    top:calc(var(--nav-top) + var(--nav-h) + 10px);
+    left:50%;translate:-50% 0;
+    width:min(var(--max),calc(100% - 2*var(--nav-inset)));
+    max-height:calc(100dvh - var(--nav-top) - var(--nav-h) - 26px);
+    overflow-y:auto;overscroll-behavior:contain;
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:16px;
+    box-shadow:0 2px 6px rgba(10,20,50,.06),0 18px 44px rgba(10,20,50,.14);
+    padding:6px 22px 18px;
+    display:grid;
+    transform-origin:top center;
+    opacity:0;scale:.985;pointer-events:none;
+    transition:opacity .26s var(--ease),scale .26s var(--ease);
   }
-  .hero-actions .waitlist-slot{flex:1 1 240px;min-width:min(100%, 300px)}
-  .hero-secondary{
-    width:auto;
-    align-self:stretch;
-    min-width:140px;
+  .nav-menu.is-open{opacity:1;scale:1;pointer-events:auto}
+  .nav-menu a{
+    display:block;color:var(--ink);
+    text-decoration:none;padding:20px 2px;font-size:1.12rem;font-weight:550;
+    letter-spacing:-.02em;
+    border-bottom:1px solid var(--line);
   }
+  .nav-menu a:last-child{border-bottom:0}
 }
-@media (min-width:920px){
-  .hero-actions{align-items:flex-start}
-  .waitlist-count{align-self:flex-start}
-  .hero-note{text-align:left}
-}
-@keyframes phone-float-hero{
-  0%,100%{transform:translateY(0) rotate(-1.5deg)}
-  50%{transform:translateY(-16px) rotate(0.5deg)}
-}
-@keyframes phone-float-left{
-  0%,100%{transform:translateY(0) rotate(-2deg)}
-  50%{transform:translateY(-12px) rotate(-3.5deg)}
-}
-@keyframes phone-float-right{
-  0%,100%{transform:translateY(0) rotate(2deg)}
-  50%{transform:translateY(-12px) rotate(3.5deg)}
-}
-@keyframes phone-enter-left{
-  0%{opacity:0;transform:translateY(32px) rotate(-5deg)}
-  100%{opacity:1;transform:translateY(0) rotate(-2deg)}
-}
-@keyframes phone-enter-right{
-  0%{opacity:0;transform:translateY(32px) rotate(5deg)}
-  100%{opacity:1;transform:translateY(0) rotate(2deg)}
-}
-@keyframes phone-float-mini{
-  0%,100%{transform:translateY(0)}
-  50%{transform:translateY(-8px)}
-}
-@keyframes phone-glow-pulse{
-  0%,100%{opacity:.55;transform:scale(1)}
-  50%{opacity:.9;transform:scale(1.06)}
-}
-.hero-device-wrap{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:14px;
-  perspective:1200px;
-  transition:opacity .2s ease;
-  order:-1;
-}
-.hero-device{
-  --phone-pad-x:10px;
-  --phone-pad-y:12px;
-  --phone-pad-b:14px;
-  --phone-screen-r:42px;
-  --phone-bezel-r:54px;
-  position:relative;
-  width:min(280px, 78vw);
-  aspect-ratio:470/1024;
-  padding:var(--phone-pad-y) var(--phone-pad-x) var(--phone-pad-b);
-  border-radius:var(--phone-bezel-r);
-  overflow:visible;
-  background:linear-gradient(165deg, #5a5a5c 0%, #1d1d1f 28%, #000 72%, #2c2c2e 100%);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.14),
-    inset 0 -1px 0 rgba(0,0,0,.5),
-    0 48px 96px -24px rgba(0,0,0,.42),
-    0 24px 48px -20px rgba(65,101,229,.16);
-  transform-style:preserve-3d;
-  animation:phone-float-hero 6.5s ease-in-out infinite;
-  will-change:transform;
-  transition:transform .45s cubic-bezier(0.22, 1, 0.36, 1);
-}
-.hero-device::before{
-  content:"";
-  position:absolute;
-  left:-2px;
-  top:24%;
-  width:3px;
-  height:44px;
-  border-radius:2px 0 0 2px;
-  background:linear-gradient(180deg, #3a3a3c, #1c1c1e);
-  box-shadow:0 52px 0 0 #1c1c1e;
-}
-.hero-device::after{
-  content:"";
-  position:absolute;
-  right:-2px;
-  top:30%;
-  width:3px;
-  height:64px;
-  border-radius:0 2px 2px 0;
-  background:linear-gradient(180deg, #3a3a3c, #1c1c1e);
-  pointer-events:none;
-}
-.hero-device img{
-  position:relative;
-  z-index:1;
-  width:100%;
-  height:100%;
-  border-radius:var(--phone-screen-r);
-  object-fit:cover;
-  object-position:top center;
-  box-shadow:inset 0 0 0 1px rgba(0,0,0,.12);
-}
-.hero-badge{
-  font-size:13px;
-  font-weight:500;
-  color:var(--ink-dim);
-  letter-spacing:-.01em;
-  font-style:italic;
-}
-.hero-badge em{
-  font-style:normal;
-  font-weight:600;
-  color:var(--accent);
-}
-.proof-strip{
-  padding:20px 0;
-  border-top:1px solid var(--line);
-  border-bottom:1px solid var(--line);
-  background:rgba(255,255,255,.55);
-}
-.proof-strip .wrap{
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
-  gap:12px 28px;
-  text-align:center;
-}
-.proof-item{
-  font-size:14px;
-  font-weight:500;
-  color:var(--ink-soft);
-  letter-spacing:-.01em;
-  padding:8px 14px;
-  border-radius:999px;
-  border:1px solid transparent;
-  transition:border-color .25s ease, background .25s ease, transform .25s var(--ease-premium);
-}
-.proof-item:hover{
-  border-color:var(--line);
-  background:rgba(255,255,255,.7);
-  transform:translateY(-2px);
-}
-.proof-item strong{color:var(--ink);font-weight:600}
-.logo-strip{
-  display:flex;
-  flex-wrap:wrap;
-  align-items:center;
-  justify-content:center;
-  gap:14px 22px;
-  margin-top:18px;
-  padding-top:18px;
-  border-top:1px solid var(--line);
-}
-.logo-strip img{
-  width:22px;height:22px;
-  object-fit:contain;
-  opacity:.88;
-  transition:transform .3s var(--ease-premium), opacity .3s ease;
-}
-.logo-strip img:hover{
-  transform:translateY(-3px) scale(1.08);
-  opacity:1;
-}
-.partner-strip{
-  display:flex;
-  flex-wrap:wrap;
-  align-items:center;
-  justify-content:center;
-  gap:10px 12px;
-  width:100%;
-  margin-top:16px;
-  padding-top:16px;
-  border-top:1px solid var(--line);
-}
-.partner-label{
-  font-size:12px;
-  font-weight:500;
-  color:var(--ink-dim);
-  letter-spacing:-.01em;
-}
-.partner-link{
-  font-size:13px;
-  font-weight:700;
-  letter-spacing:-.02em;
-  color:var(--uq-purple);
-  line-height:1;
-  text-decoration:none;
-  transition:color .2s, opacity .2s;
-}
-.partner-link:hover{
-  color:#3d1b5c;
-  text-decoration:underline;
-  text-underline-offset:3px;
+@media(min-width:920px){
+  .nav-menu{display:contents}
+  .nav-scrim{display:none}
 }
 
-/* Quotes */
-.quotes{
-  padding:clamp(28px, 4vw, 44px) 0;
+/* ============================================================
+   BUTTONS + WAITLIST FORM
+   ============================================================ */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  border-radius:999px;border:0;text-decoration:none;
+  font-weight:650;letter-spacing:-.012em;
+  transition:transform .22s var(--ease),box-shadow .22s,background .2s;
 }
-.quotes .wrap{text-align:center}
-.quotes h2{
-  font-size:clamp(1.35rem, 3vw, 1.75rem);
-  font-weight:700;
-  letter-spacing:var(--tracking-tight);
-  margin-bottom:clamp(24px, 3.5vw, 36px);
+.btn-primary{
+  background:var(--blue);color:#fff;padding:15px 26px;font-size:1rem;
+  box-shadow:0 3px 12px rgba(47,91,255,.28);
 }
-.quote-grid{
-  display:grid;
+.btn-primary:hover{background:var(--blue-deep);transform:translateY(-2px);box-shadow:0 10px 28px rgba(47,91,255,.34)}
+.btn-ghost{
+  background:#fff;color:var(--ink);padding:14px 24px;font-size:.98rem;
+  border:1px solid var(--line-2);
+}
+.btn-ghost:hover{border-color:var(--ink-3);transform:translateY(-2px)}
+
+.waitlist-slot{position:relative;width:100%;max-width:470px}
+.waitlist-form{
+  display:flex;align-items:center;gap:7px;
+  background:#fff;border:1px solid var(--line-2);
+  border-radius:999px;padding:6px 6px 6px 8px;
+  box-shadow:var(--shadow-sm);
+  transition:opacity .28s,transform .28s var(--ease),border-color .2s,box-shadow .2s;
+}
+.waitlist-form:focus-within{border-color:var(--blue);box-shadow:0 0 0 4px rgba(47,91,255,.12)}
+.waitlist-form.is-exiting{opacity:0;transform:scale(.97)}
+.waitlist-form.submitted{display:none}
+.waitlist-input{
+  flex:1;min-width:0;border:0;outline:0;background:transparent;
+  padding:12px 10px;font-size:1rem;color:var(--ink);font-family:inherit;
+}
+.waitlist-input::placeholder{color:var(--ink-3)}
+.waitlist-submit{
+  flex-shrink:0;display:inline-flex;align-items:center;gap:7px;
+  background:var(--blue);color:#fff;border:0;border-radius:999px;
+  padding:13px 20px;font-weight:650;font-size:.95rem;letter-spacing:-.012em;
+  transition:background .2s,transform .2s var(--ease);
+}
+.waitlist-submit:hover{background:var(--blue-deep);transform:translateX(1.5px)}
+.waitlist-submit svg{width:16px;height:16px}
+.waitlist-success{
+  display:none;align-items:center;gap:13px;
+  background:#fff;border:1px solid #b9e6cd;border-radius:var(--r-lg);
+  padding:16px 20px;box-shadow:var(--shadow-sm);
+}
+.waitlist-success.is-visible{display:flex;animation:pop .42s var(--ease) both}
+.success-check{
+  flex-shrink:0;width:34px;height:34px;border-radius:50%;
+  background:#12a35c;color:#fff;display:grid;place-items:center;
+}
+.success-check svg{width:17px;height:17px}
+.success-text{display:grid;gap:1px;font-size:.93rem;line-height:1.42}
+.success-text strong{font-size:1rem}
+.success-text span{color:var(--ink-2)}
+@keyframes pop{from{opacity:0;transform:translateY(10px) scale(.97)}to{opacity:1;transform:none}}
+
+.form-note{font-size:.87rem;color:var(--ink-3);margin-top:13px;line-height:1.5}
+.form-note a{color:var(--ink-2);text-underline-offset:3px}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{
+  position:relative;
+  padding-top:calc(var(--nav-top) + var(--nav-h) + clamp(30px,5vw,64px));
+  padding-bottom:clamp(48px,7vw,86px);
+  overflow:hidden;
+}
+/* Stripe-style flowing ribbon. Kept to the top-right, on-brand blues and
+   indigos rather than a full-spectrum wash, and masked out before it reaches
+   the copy so it never fights the text for contrast. */
+.hero-ribbon{
+  position:absolute;
+  top:calc(-1*var(--nav-top) - 70px);right:-9%;
+  width:min(84vw,1210px);aspect-ratio:1050/700;height:auto;
+  pointer-events:none;z-index:0;
+  opacity:.55;
+  will-change:transform;
+  /* fades down and to the left, so the band never sits under the headline */
+  -webkit-mask-image:linear-gradient(236deg,#000 24%,rgba(0,0,0,.5) 50%,transparent 76%);
+  mask-image:linear-gradient(236deg,#000 24%,rgba(0,0,0,.5) 50%,transparent 76%);
+}
+/* the artwork has its own framing and transparent margins, so scale it
+   whole rather than cropping into the composition */
+.hero-ribbon img{
+  width:100%;height:100%;display:block;
+  object-fit:contain;object-position:right top;
+}
+
+/* softer wave on the dark closing panel */
+.cta-ribbon{
+  position:absolute;inset:auto 0 -14% 0;
+  height:78%;pointer-events:none;z-index:0;
+  opacity:.42;
+  -webkit-mask-image:linear-gradient(180deg,transparent 0%,#000 46%,#000 100%);
+  mask-image:linear-gradient(180deg,transparent 0%,#000 46%,#000 100%);
+}
+.cta-ribbon img{
+  width:100%;height:100%;display:block;
+  object-fit:cover;object-position:center bottom;
+}
+@media(max-width:939px){
+  .hero-ribbon{width:120vw;height:62vh;opacity:.6;top:-40px;right:-30vw}
+}
+.hero .wrap{position:relative;z-index:1}
+.hero-grid{
+  display:grid;gap:clamp(38px,5vw,60px);
+  grid-template-columns:1fr;align-items:center;
+}
+@media(min-width:940px){
+  .hero-grid{grid-template-columns:1.06fr .94fr;gap:52px}
+}
+.hero h1{margin-block:16px 20px}
+.hero-sub{
+  font-size:clamp(1.05rem,1.5vw,1.22rem);
+  color:var(--ink-2);line-height:1.58;max-width:34ch;
+  text-wrap:pretty;
+}
+.hero-form-block{margin-top:28px}
+.hero-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.chip{
+  display:inline-flex;align-items:center;gap:7px;
+  background:rgba(255,255,255,.8);border:1px solid var(--line);
+  border-radius:999px;padding:7px 14px;
+  font-size:.83rem;font-weight:600;color:var(--ink-2);
+}
+.chip svg{width:14px;height:14px;color:var(--blue)}
+
+/* hero device */
+.hero-visual{position:relative;display:grid;place-items:center;min-height:clamp(420px,52vw,600px)}
+.phone{
+  position:relative;
+  width:min(272px,74vw);
+  border-radius:44px;
+  background:#0b0e17;
+  padding:9px;
+  box-shadow:var(--shadow-lg),0 0 0 1px rgba(8,11,22,.06);
+}
+.phone::after{
+  content:"";position:absolute;top:17px;left:50%;transform:translateX(-50%);
+  width:31%;height:20px;background:#0b0e17;border-radius:999px;z-index:2;
+}
+.phone img,.phone .phone-fallback{
+  width:100%;border-radius:36px;display:block;background:var(--bg-tint);
+  aspect-ratio:9/19.5;object-fit:cover;object-position:top center;
+}
+.phone-fallback{
+  display:grid;place-items:center;text-align:center;padding:26px;
+  color:var(--ink-3);font-size:.82rem;line-height:1.5;
+}
+/* the widget PNG carries its own rounded alpha, so no card chrome around it.
+   The border-radius is belt-and-braces: mid-decode a PNG can paint its RGB
+   channels before the alpha composites, flashing opaque white in the corners.
+   Clipping the element means a square can never appear. 14.4% matches the
+   artwork's own corner radius (78px of 540), so it clips nothing real. */
+.hero-float{position:absolute}
+.hero-float img{
+  width:100%;display:block;
+  border-radius:14.4%;
+  filter:
+    drop-shadow(0 1px 1px rgba(10,20,50,.10))
+    drop-shadow(0 8px 14px rgba(10,20,50,.12))
+    drop-shadow(0 20px 34px rgba(10,20,50,.14));
+}
+.float-widget{
+  width:min(208px,46vw);
+  right:-10px;bottom:9%;
+  animation:heroFloat 6.5s ease-in-out infinite;
+}
+@keyframes heroFloat{
+  0%,100%{translate:0 0;rotate:0deg}
+  50%{translate:0 -14px;rotate:-.6deg}
+}
+@media(max-width:939px){
+  .hero-visual{min-height:auto;padding-block:8px}
+  .float-widget{right:-2px;bottom:2%;width:min(160px,40vw)}
+}
+
+/* ============================================================
+   MARQUEE / TRUST
+   ============================================================ */
+.trust{
+  border-block:1px solid var(--line);
+  background:var(--bg-tint);
+  padding-block:20px;
+}
+.trust .wrap{
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:center;
+  gap:12px clamp(20px,4vw,44px);
+  font-size:.87rem;color:var(--ink-2);font-weight:550;
+}
+.trust b{color:var(--ink);font-weight:750}
+.trust-item{display:inline-flex;align-items:center;gap:9px}
+.trust-dot{width:6px;height:6px;border-radius:50%;background:#12a35c;flex-shrink:0}
+
+/* ============================================================
+   CONVERSATION PROOF
+   ============================================================ */
+.talk{background:var(--bg);position:relative}
+.talk-quote{
+  max-width:22ch;
+  font-size:clamp(1.5rem,3.2vw,2.15rem);
+  font-weight:750;letter-spacing:-.032em;line-height:1.22;
+  margin-block:0 22px;
+}
+.talk-grid{
+  display:grid;gap:clamp(22px,3vw,34px);
   grid-template-columns:1fr;
-  gap:16px;
-  text-align:left;
+  align-items:start;
 }
-@media (min-width:720px){
-  .quote-grid{grid-template-columns:repeat(3, 1fr);gap:18px}
+@media(min-width:860px){.talk-grid{grid-template-columns:repeat(2,1fr)}}
+.talk-card{
+  background:var(--bg-tint);
+  border:1px solid var(--line);
+  border-radius:var(--r-xl);
+  padding:clamp(20px,2.6vw,28px);
+  display:grid;gap:20px;
+}
+.talk-card .phone{width:100%;max-width:360px;margin-inline:auto}
+.talk-caption{display:grid;gap:7px}
+.talk-caption .step{
+  font-size:.72rem;font-weight:750;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--blue);
+}
+.talk-caption p{color:var(--ink-2);font-size:.96rem;line-height:1.58}
+
+/* ============================================================
+   CONTEXT GRID
+   ============================================================ */
+.context{background:var(--bg-tint);position:relative;overflow:hidden}
+.context .wrap{position:relative}
+.ctx-grid{
+  display:grid;gap:16px;
+  grid-template-columns:repeat(auto-fit,minmax(238px,1fr));
+}
+.ctx-card{
+  background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);
+  padding:24px 22px;display:grid;gap:11px;align-content:start;
+  transition:transform .3s var(--ease),box-shadow .3s,border-color .3s;
+}
+.ctx-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-md);border-color:var(--line-2)}
+.ctx-icon{
+  width:40px;height:40px;border-radius:12px;
+  display:grid;place-items:center;
+  background:var(--blue-soft);color:var(--blue);
+  margin-bottom:3px;
+}
+.ctx-icon svg{width:20px;height:20px}
+.ctx-card p{color:var(--ink-2);font-size:.93rem;line-height:1.56}
+.ctx-card.is-wide{grid-column:1/-1;background:var(--ink);border-color:var(--ink)}
+.ctx-card.is-wide h3,.ctx-card.is-wide p{color:#fff}
+.ctx-card.is-wide p{color:#b9c2da;max-width:58ch}
+.ctx-card.is-wide .ctx-icon{background:rgba(255,255,255,.12);color:#fff}
+.ctx-card.is-wide:hover{transform:none;box-shadow:none}
+
+/* ============================================================
+   TESTIMONIALS
+   ============================================================ */
+/* sits between a tinted section and a white one, so it fades tint -> white */
+.quotes{background:var(--bg);position:relative}
+.quotes .wrap{position:relative;z-index:1}
+.quote-grid{
+  display:grid;gap:18px;
+  grid-template-columns:repeat(auto-fit,minmax(282px,1fr));
+  margin-top:clamp(32px,4vw,50px);
 }
 .quote-card{
-  position:relative;
-  display:flex;
-  flex-direction:column;
-  padding:clamp(22px, 2.4vw, 28px);
-  border:1px solid var(--line);
-  border-radius:16px;
-  background:linear-gradient(165deg, var(--bg-elevated) 0%, rgba(65,101,229,.035) 100%);
-  box-shadow:0 1px 3px rgba(18,20,28,.04);
-  overflow:hidden;
-  isolation:isolate;
-  transition:border-color .4s ease, box-shadow .4s var(--ease-premium), transform .4s var(--ease-premium);
+  position:relative;margin:0;overflow:hidden;
+  background:#fff;
+  border:1px solid rgba(220,227,243,.9);
+  border-radius:24px;
+  padding:clamp(26px,2.4vw,34px) clamp(24px,2.2vw,30px) 24px;
+  display:flex;flex-direction:column;gap:22px;
+  box-shadow:0 1px 2px rgba(10,20,50,.04),0 10px 30px rgba(10,20,50,.06);
+  transition:transform .45s var(--ease),box-shadow .45s,border-color .45s;
 }
-/* large decorative quote mark */
-.quote-card::before{
-  content:"\201C";
-  position:absolute;
-  top:-14px;
-  right:14px;
-  font-family:Georgia, "Times New Roman", serif;
-  font-size:104px;
-  line-height:1;
-  color:rgba(65,101,229,.1);
-  z-index:-1;
-  transition:color .4s var(--ease-premium), transform .4s var(--ease-premium);
-  pointer-events:none;
-}
-/* sheen sweep on hover */
+/* brand hairline that draws itself in on hover */
 .quote-card::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:linear-gradient(115deg, transparent 30%, rgba(255,255,255,.5) 50%, transparent 70%);
-  transform:translateX(-120%);
-  transition:transform .7s var(--ease-premium);
-  z-index:1;
-  pointer-events:none;
+  content:"";position:absolute;inset:0 0 auto 0;height:2px;
+  background:var(--blue);
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .6s var(--ease);
 }
 .quote-card:hover{
-  border-color:rgba(65,101,229,.35);
-  box-shadow:0 18px 44px rgba(65,101,229,.12);
-  transform:translateY(-5px);
+  transform:translateY(-6px);
+  border-color:transparent;
+  box-shadow:0 3px 8px rgba(10,20,50,.05),0 26px 56px rgba(10,20,50,.13);
 }
-.quote-card:hover::before{
-  color:rgba(65,101,229,.18);
-  transform:scale(1.08) rotate(-2deg);
-}
-.quote-card:hover::after{
-  transform:translateX(120%);
-}
+.quote-card:hover::after{transform:scaleX(1)}
 .quote-card p{
-  font-size:15.5px;
-  line-height:1.6;
-  color:var(--ink-soft);
-  letter-spacing:-.01em;
-  margin:0 0 18px;
-  flex:1;
+  font-size:clamp(1.04rem,1.35vw,1.13rem);
+  line-height:1.5;letter-spacing:-.022em;
+  font-weight:550;color:var(--ink);flex:1;text-wrap:pretty;
 }
+.quote-card p::before{content:"\201C"}
+.quote-card p::after{content:"\201D"}
 .quote-card footer{
-  display:flex;
-  align-items:center;
-  gap:11px;
-  font-size:0;
-  margin-top:auto;
+  display:flex;align-items:center;gap:14px;
+  padding-top:22px;border-top:1px solid var(--line);
 }
 .quote-avatar{
-  flex:none;
-  width:54px;
-  height:54px;
-  border-radius:50%;
-  display:grid;
-  place-items:center;
-  font-size:18px;
-  font-weight:700;
-  letter-spacing:.01em;
-  color:#fff;
-  background:linear-gradient(150deg, var(--accent-4) 0%, var(--accent) 55%, var(--accent-3) 100%);
-  box-shadow:0 4px 12px rgba(65,101,229,.28);
-  transition:transform .4s var(--ease-premium);
-}
-.quote-card:hover .quote-avatar{
-  transform:scale(1.06) rotate(-3deg);
-}
-.quote-avatar--photo{
-  background:linear-gradient(150deg, #eef2ff 0%, #dde6ff 100%);
-  padding:0;
-  overflow:hidden;
-}
-.quote-avatar--photo img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
+  flex-shrink:0;width:46px;height:46px;border-radius:50%;
+  background:var(--bg-deep);
   display:block;
 }
-.quote-meta{
-  display:flex;
-  flex-direction:column;
-  line-height:1.3;
-  text-align:left;
+.quote-avatar img{
+  width:100%;height:100%;border-radius:50%;
+  object-fit:cover;background:#fff;
 }
-.quote-name{
-  font-size:13.5px;
-  font-weight:700;
-  color:var(--ink);
-  letter-spacing:-.01em;
-}
+.quote-meta{display:grid;gap:2px;line-height:1.3}
+.quote-name{font-weight:750;font-size:.98rem;letter-spacing:-.018em}
 .quote-role{
-  font-size:12px;
-  font-weight:500;
-  color:var(--ink-dim);
-  letter-spacing:.01em;
-}
-@media (prefers-reduced-motion:reduce){
-  .quote-card,
-  .quote-card::before,
-  .quote-card::after,
-  .quote-avatar{transition:none}
-  .quote-card:hover{transform:none}
-  .quote-card:hover::after{transform:translateX(-120%)}
+  font-size:.76rem;color:var(--ink-3);
+  letter-spacing:.05em;text-transform:uppercase;font-weight:600;
 }
 
-/* Problem / solution */
-.contrast{
-  padding:clamp(32px, 4.5vw, 52px) 0;
+/* ============================================================
+   WIDGETS
+   ============================================================ */
+.widgets{
+  background:#0e1424;
+  color:#fff;position:relative;overflow:hidden;
 }
-.contrast-grid{
-  display:grid;
+.widgets .wrap{position:relative;z-index:1}
+.widgets h2{color:#fff}
+.widgets .eyebrow{color:#8fb0ff}
+.widgets .lede{color:#b9c6e6}
+.wid-stage{
+  display:grid;gap:clamp(20px,3vw,32px);
   grid-template-columns:1fr;
-  gap:16px;
-}
-@media (min-width:720px){
-  .contrast-grid{grid-template-columns:1fr 1fr;gap:20px}
-}
-.contrast-col{
-  padding:22px 24px;
-  border-radius:14px;
-  border:1px solid var(--line);
-  text-align:left;
-  transition:border-color .3s ease, box-shadow .35s var(--ease-premium), transform .35s var(--ease-premium);
-}
-.contrast-col:hover{transform:translateY(-3px)}
-.contrast-before:hover{box-shadow:0 10px 28px rgba(18,20,28,.05)}
-.contrast-after:hover{box-shadow:0 14px 36px rgba(65,101,229,.1)}
-.contrast-before{
-  background:rgba(255,255,255,.7);
-}
-.contrast-after{
-  background:linear-gradient(165deg, #fff 40%, rgba(176,196,245,.2) 100%);
-  border-color:rgba(65,101,229,.2);
-  box-shadow:0 8px 28px rgba(65,101,229,.08);
-}
-.contrast-col h2{
-  font-size:clamp(1.25rem, 2.5vw, 1.5rem);
-  font-weight:700;
-  letter-spacing:var(--tracking-tight);
-  margin-bottom:10px;
-}
-.contrast-col p{
-  font-size:14px;
-  color:var(--ink-dim);
-  line-height:1.55;
-}
-
-/* Sticky mobile waitlist */
-.sticky-waitlist{
-  display:none;
-  position:fixed;
-  left:0;right:0;bottom:0;
-  z-index:90;
-  padding:10px var(--pad) max(10px, env(safe-area-inset-bottom));
-  background:var(--nav-bg);
-  backdrop-filter:blur(16px);
-  border-top:1px solid var(--line);
-  box-shadow:0 -8px 24px rgba(18,20,28,.08);
-  transform:translateY(110%);
-  transition:transform .25s ease;
-}
-.sticky-waitlist.is-visible{transform:translateY(0)}
-.sticky-waitlist[hidden]{display:none}
-@media (max-width:759px){
-  .sticky-waitlist:not([hidden]){display:block}
-  body.sticky-waitlist-on{
-    padding-bottom:calc(68px + env(safe-area-inset-bottom));
-  }
-}
-.sticky-waitlist-btn{
-  display:flex;
   align-items:center;
-  justify-content:center;
-  width:100%;
-  min-height:48px;
-  padding:14px 20px;
-  -webkit-tap-highlight-color:transparent;
-  border-radius:10px;
-  background:var(--ink);
-  color:#fff;
-  font-size:15px;
-  font-weight:600;
-  letter-spacing:-.02em;
+  margin-top:clamp(34px,4vw,50px);
 }
+@media(min-width:900px){.wid-stage{grid-template-columns:1.15fr .85fr}}
+.wid-shots{
+  display:grid;gap:22px;
+  grid-template-columns:1.25fr .75fr;
+  align-items:center;
+  perspective:1800px;
+}
+.wid-shot{
+  position:relative;
+  /* drop-shadow follows the PNG alpha, so the shadow hugs the widget's
+     rounded silhouette instead of boxing it in a rectangle */
+  filter:
+    drop-shadow(0 1px 1px rgba(2,6,18,.28))
+    drop-shadow(0 7px 12px rgba(2,6,18,.26))
+    drop-shadow(0 18px 26px rgba(2,6,18,.24));
+  transform:rotateY(7deg) rotateX(4deg);
+  transition:transform .6s var(--ease);
+}
+/* same decode guard as the hero widget; radii match each artwork */
+.wid-shot img{width:100%;display:block;border-radius:10%}
+.wid-shot.is-small img{border-radius:14.4%}
+.wid-shot.is-small{transform:rotateY(7deg) rotateX(4deg) translateZ(46px)}
+.wid-shots:hover .wid-shot{transform:none}
+.wid-shots:hover .wid-shot.is-small{transform:translateZ(46px)}
+/* the shadow spills well past the image box, so the copy needs to sit above it */
+.wid-list{position:relative;z-index:3}
+@media(max-width:640px){
+  /* strong rotation reads as skew in a narrow column */
+  .wid-shot,.wid-shot.is-small{transform:rotateY(4deg) rotateX(2deg)}
+  .wid-shots{gap:14px}
+}
+.wid-fallback{
+  aspect-ratio:2/1;display:grid;place-items:center;text-align:center;
+  padding:22px;color:#93a2c6;font-size:.8rem;line-height:1.5;
+}
+.wid-shot.is-small .wid-fallback{aspect-ratio:1/1}
+.wid-list{display:grid;gap:20px;margin-top:8px}
+.wid-item{display:flex;gap:14px;align-items:flex-start}
+.wid-num{
+  flex-shrink:0;width:28px;height:28px;border-radius:9px;
+  background:rgba(255,255,255,.11);border:1px solid rgba(255,255,255,.17);
+  display:grid;place-items:center;font-size:.78rem;font-weight:750;color:#cfe0ff;
+}
+.wid-item h3{color:#fff;font-size:1.04rem;margin-bottom:5px}
+.wid-item p{color:#a9b8d9;font-size:.93rem;line-height:1.55}
 
-/* How it works + What we do panels */
-.how-it-works{
-  padding:clamp(32px, 4.5vw, 52px) 0;
-}
-.how-it-works .wrap{text-align:center}
-.how-it-works h2{
-  font-size:clamp(1.75rem, 4vw, 2.5rem);
-  font-weight:700;
-  margin-bottom:24px;
-}
-.panel-row{
-  display:flex;
-  gap:12px;
-  overflow-x:auto;
-  overscroll-behavior-x:contain;
-  scroll-snap-type:x mandatory;
-  -webkit-overflow-scrolling:touch;
+/* ============================================================
+   APP TOUR (auto-advancing showcase)
+   ============================================================ */
+.tour{--dwell:6200ms;background:var(--bg);position:relative;overflow:hidden}
+
+/* tab rail */
+.tour-tabs{
+  display:flex;gap:9px;
+  overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;
+  scroll-snap-type:x proximity;
+  margin-top:clamp(26px,3.4vw,40px);
   padding:2px 2px 6px;
-  margin:0 calc(var(--pad) * -1);
-  padding-left:var(--pad);
-  padding-right:var(--pad);
-  scrollbar-width:none;
+  -webkit-overflow-scrolling:touch;
 }
-.panel-row::-webkit-scrollbar{display:none}
-.panel-card{
-  flex:0 0 min(84vw, 280px);
-  scroll-snap-align:start;
-  text-align:left;
-  padding:16px 18px;
-  border:1px solid var(--line);
-  border-radius:12px;
-  background:linear-gradient(165deg, #fff 55%, rgba(176,196,245,.12) 100%);
-  box-shadow:0 1px 2px rgba(18,20,28,.04);
-  position:relative;
-  transition:border-color .2s, box-shadow .2s, transform .2s;
-}
-.panel-card:hover{
-  border-color:var(--line-strong);
-  box-shadow:0 8px 24px rgba(65,101,229,.08);
-  transform:translateY(-2px);
-}
-.panel-card::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  border-radius:inherit;
-  pointer-events:none;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.9);
-}
-.panel-mark{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  margin-bottom:12px;
-}
-.panel-icon{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  width:36px;height:36px;
-  border-radius:10px;
-  background:var(--accent-muted);
-  color:var(--accent);
-  flex-shrink:0;
-}
-.panel-icon svg{width:18px;height:18px}
-.panel-num{
-  font-size:11px;font-weight:700;
-  letter-spacing:.1em;
-  text-transform:uppercase;
-  color:var(--ink-dim);
-}
-.panel-card h3{
-  font-size:1rem;font-weight:700;
-  letter-spacing:var(--tracking-tight);
-  margin-bottom:6px;
-  line-height:1.25;
-}
-.panel-card p{
-  font-size:13px;
-  color:var(--ink-dim);
-  line-height:1.5;
-}
-@media (min-width:720px){
-  .panel-row{
-    display:grid;
-    grid-template-columns:repeat(3, 1fr);
-    gap:0;
-    overflow:visible;
-    margin:0;
-    padding:0;
-    border:1px solid var(--line);
-    border-radius:14px;
-    background:var(--bg-elevated);
-    box-shadow:0 4px 24px rgba(18,20,28,.05);
-  }
-  .panel-card{
-    flex:none;
-    scroll-snap-align:unset;
-    border:none;
-    border-radius:0;
-    background:transparent;
-    box-shadow:none;
-    padding:20px 22px;
-  }
-  .panel-card::after{display:none}
-  .panel-card:hover{
-    transform:none;
-    background:rgba(176,196,245,.14);
-    box-shadow:none;
-  }
-  .panel-card + .panel-card{
-    border-left:1px solid var(--line);
-  }
-  .panel-card:first-child{border-radius:13px 0 0 13px}
-  .panel-card:last-child{border-radius:0 13px 13px 0}
-}
-.steps.panel-row .panel-card:nth-child(1) .panel-icon{background:rgba(65,101,229,.1);color:var(--accent)}
-.steps.panel-row .panel-card:nth-child(2) .panel-icon{background:rgba(247,201,72,.22);color:#9a7b10}
-.steps.panel-row .panel-card:nth-child(3) .panel-icon{background:rgba(52,84,196,.12);color:var(--accent-3)}
-
-/* Pricing */
-.pricing{
-  padding:clamp(40px, 5vw, 60px) 0;
-  background:var(--bg-elevated);
-  border-top:1px solid var(--line);
-  border-bottom:1px solid var(--line);
-}
-.pricing .wrap{text-align:center}
-.pricing h2{
-  font-size:clamp(1.75rem, 4vw, 2.5rem);
-  font-weight:700;
-  margin-bottom:12px;
-}
-.pricing > .wrap > p{
-  color:var(--ink-dim);
-  font-size:16px;
-  max-width:32rem;
-  margin:0 auto 32px;
-}
-.pricing-card{
-  max-width:400px;
-  margin:0 auto;
-  padding:32px 28px;
-  border:1px solid var(--line);
-  border-radius:16px;
-  background:var(--bg);
-  text-align:left;
-  box-shadow:0 4px 20px rgba(18,20,28,.06);
-  transition:border-color .4s ease, box-shadow .5s var(--ease-premium), transform .5s var(--ease-premium);
-}
-.pricing-card.is-in{
-  border-color:rgba(65,101,229,.22);
-  box-shadow:0 16px 48px rgba(65,101,229,.12);
-}
-.pricing-card:hover{
-  transform:translateY(-2px);
-}
-.pricing-price{
-  font-size:2.5rem;
-  font-weight:700;
-  letter-spacing:var(--tracking-tight);
-  line-height:1;
-  margin-bottom:4px;
-}
-.pricing-price span{
-  font-size:15px;
-  font-weight:500;
-  color:var(--ink-dim);
-}
-.pricing-card > p{
-  font-size:14px;
-  color:var(--ink-dim);
-  margin-bottom:20px;
-  line-height:1.5;
-}
-.pricing-list{
-  list-style:none;
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-}
-.pricing-list li{
-  font-size:14px;
-  color:var(--ink-soft);
-  padding-left:22px;
-  position:relative;
-  line-height:1.45;
-}
-.pricing-list li::before{
-  content:"";
-  position:absolute;left:0;top:5px;
-  width:14px;height:14px;
-  border-radius:50%;
-  background:var(--accent-muted) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234165e5' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><polyline points='20 6 9 17 4 12'/></svg>") center/10px no-repeat;
-}
-
-.pricing-plan{
-  font-size:12px;
-  font-weight:700;
-  letter-spacing:.12em;
-  text-transform:uppercase;
-  color:var(--ink-dim);
-  margin-bottom:12px;
-}
-.pricing-card--waitlist{
-  border-color:var(--line);
-  background:var(--bg);
-  box-shadow:0 2px 12px rgba(18,20,28,.04);
-}
-.pricing-card .pricing-list{margin-bottom:24px}
-.pricing-card .pricing-ghost-btn{
-  width:100%;
-  margin-top:auto;
-}
-.pricing-ghost-btn{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  padding:13px 24px;
-  border-radius:12px;
-  border:1px solid var(--line);
-  background:var(--bg);
-  color:var(--ink);
-  font-size:15px;
-  font-weight:600;
-  letter-spacing:-.01em;
-  transition:border-color .2s ease, color .2s ease;
-}
-.pricing-ghost-btn:hover{border-color:var(--accent);color:var(--accent)}
-
-/* FAQ */
-.faq{padding:clamp(40px, 5vw, 60px) 0}
-.compare-wrap{margin:28px 0 8px}
-.compare-wrap > p{
-  font-size:15px;
-  color:var(--ink-dim);
-  margin-bottom:14px;
-  line-height:1.55;
-}
-.compare-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
-.compare-table{
-  width:100%;
-  min-width:520px;
-  border-collapse:collapse;
-  font-size:14px;
-  line-height:1.45;
-}
-.compare-table th,
-.compare-table td{
-  padding:12px 14px;
-  text-align:left;
-  border-bottom:1px solid var(--line);
-  vertical-align:top;
-}
-.compare-table th{
-  font-size:12px;
-  font-weight:700;
-  letter-spacing:.08em;
-  text-transform:uppercase;
-  color:var(--ink-dim);
-  background:rgba(255,255,255,.7);
-}
-.compare-table th:first-child,
-.compare-table td:first-child{
-  font-weight:600;
-  color:var(--ink);
-  white-space:nowrap;
-}
-.compare-table td.tempo-col{color:var(--accent);font-weight:600}
-.compare-note{
-  margin-top:10px;
-  font-size:12px;
-  color:var(--ink-dim);
-}
-.hero-definition{
-  font-size:clamp(15px, 2.1vw, 17px);
-  line-height:1.55;
-  color:var(--ink-soft);
-  max-width:34rem;
-  margin:0 0 18px;
-}
-.hero-definition strong{font-weight:700;color:var(--ink)}
-.section-answer{
-  font-size:1.05rem;
-  font-weight:600;
-  color:var(--ink);
-  line-height:1.45;
-  margin:0 0 10px;
-  max-width:40rem;
-}
-.foot-updated{
-  font-size:12px;
-  color:var(--ink-dim);
-}
-.faq .wrap{max-width:640px}
-.faq h2{
-  font-size:clamp(1.75rem, 4vw, 2.5rem);
-  font-weight:700;
-  text-align:center;
-  margin-bottom:32px;
-}
-.faq-list{display:flex;flex-direction:column;gap:10px}
-.faq-item{
-  border:1px solid var(--line);
-  border-radius:12px;
-  background:var(--bg-elevated);
+.tour-tabs::-webkit-scrollbar{display:none}
+.tour-tab{
+  flex:1 0 auto;min-width:148px;scroll-snap-align:start;
+  background:#fff;border:1px solid var(--line);border-radius:15px;
+  padding:13px 16px 0;text-align:left;color:var(--ink-3);
+  display:flex;flex-direction:column;gap:12px;
   overflow:hidden;
-  transition:border-color .25s ease, box-shadow .3s var(--ease-premium);
+  transition:color .3s,border-color .3s,box-shadow .3s,transform .3s var(--ease);
 }
-.faq-item[open]{
-  border-color:rgba(65,101,229,.2);
-  box-shadow:0 8px 24px rgba(65,101,229,.06);
+.tour-tab:hover{color:var(--ink-2);transform:translateY(-2px)}
+.tour-tab:active{transform:translateY(0);background:var(--bg-tint)}
+.tour-tab:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.tour-tab[aria-selected="true"]{
+  color:var(--ink);border-color:var(--line-2);box-shadow:var(--shadow-sm);
 }
+.tt-label{font-weight:650;font-size:.9rem;letter-spacing:-.015em;white-space:nowrap}
+.tt-bar{
+  height:3px;background:var(--bg-deep);
+  margin:0 -16px;position:relative;overflow:hidden;
+}
+.tt-bar i{
+  position:absolute;inset:0;display:block;
+  background:var(--blue);
+  transform:scaleX(0);transform-origin:left;
+}
+.tour-tab[aria-selected="true"] .tt-bar i{
+  transform:scaleX(1);
+  transition:transform var(--dwell) linear;
+}
+.tour-tab[aria-selected="true"].is-paused .tt-bar i{
+  transition:none;transform:scaleX(var(--held,.35));
+}
+.tour-tab:not([aria-selected="true"]) .tt-bar i{transform:scaleX(0);transition:none}
+
+/* stage */
+.tour-stage{
+  display:grid;gap:clamp(26px,3.4vw,44px);
+  grid-template-columns:1fr;align-items:center;
+  margin-top:clamp(26px,3.6vw,44px);
+}
+@media(min-width:900px){
+  .tour-stage{grid-template-columns:auto 1fr;gap:clamp(44px,5.5vw,84px)}
+}
+.tour-phone{position:relative;width:min(274px,66vw);margin-inline:auto}
+.tour-phone .phone{width:100%}
+.tour-screens{
+  position:relative;border-radius:36px;overflow:hidden;
+  aspect-ratio:9/19.5;background:var(--bg-tint);
+}
+.tour-screens img{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;object-position:top center;border-radius:0;
+  opacity:0;transform:scale(1.03) translateY(10px);
+  transition:opacity .55s var(--ease-soft),transform .75s var(--ease);
+}
+.tour-screens img.is-active{opacity:1;transform:none}
+
+/* panels */
+.tour-panels{position:relative;display:grid}
+.tour-panel{
+  grid-area:1/1;
+  opacity:0;transform:translateY(14px);pointer-events:none;
+  transition:opacity .45s var(--ease-soft),transform .55s var(--ease);
+}
+.tour-panel.is-active{opacity:1;transform:none;pointer-events:auto}
+.tour-panel .p-count{
+  display:block;font-size:.72rem;font-weight:750;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--blue);margin-bottom:12px;
+}
+.tour-panel h3{
+  font-size:clamp(1.32rem,2.5vw,1.85rem);letter-spacing:-.032em;
+  line-height:1.16;margin-bottom:13px;
+}
+.tour-panel p{color:var(--ink-2);font-size:1.02rem;line-height:1.62;max-width:44ch;text-wrap:pretty}
+@media(max-width:899px){
+  /* read what the screen is, then look at it */
+  .tour-panels{order:1;text-align:center}
+  .tour-phone{order:2;width:min(274px,62vw)}
+  .tour-stage{gap:22px}
+  .tour-panel p{margin-inline:auto}
+}
+
+/* ============================================================
+   INTEGRATIONS
+   ============================================================ */
+.integrations{background:var(--bg-tint)}
+.int-row{
+  display:flex;flex-wrap:wrap;justify-content:center;gap:14px;
+  margin-top:clamp(28px,3.4vw,42px);
+}
+.int-node{
+  display:flex;align-items:center;gap:11px;
+  background:#fff;border:1px solid var(--line);border-radius:999px;
+  padding:12px 22px 12px 14px;
+  box-shadow:var(--shadow-sm);
+  font-weight:600;font-size:.95rem;
+  transition:transform .3s var(--ease),box-shadow .3s;
+}
+.int-node:hover{transform:translateY(-3px);box-shadow:var(--shadow-md)}
+.int-node img{width:26px;height:26px;object-fit:contain}
+.int-note{margin-top:26px;font-size:.9rem;color:var(--ink-3);text-align:center}
+
+/* ============================================================
+   PRICING
+   ============================================================ */
+.pricing{background:var(--bg)}
+.price-card{
+  max-width:520px;margin-inline:auto;margin-top:clamp(28px,3.4vw,42px);
+  background:#fff;border:1px solid var(--line);border-radius:var(--r-xl);
+  padding:clamp(28px,3.6vw,40px);
+  box-shadow:var(--shadow-md);
+  position:relative;overflow:hidden;
+}
+.price-card::before{
+  content:"";position:absolute;inset:0 0 auto 0;height:3px;background:var(--blue);
+}
+.price-tag{display:flex;align-items:baseline;gap:9px;margin-block:6px 6px}
+.price-tag .amount{font-size:clamp(2.4rem,5vw,3rem);font-weight:800;letter-spacing:-.04em}
+.price-tag .per{color:var(--ink-3);font-size:1rem;font-weight:550}
+.price-sub{color:var(--ink-2);font-size:.96rem;margin-bottom:22px}
+.price-list{list-style:none;margin:0 0 26px;padding:0;display:grid;gap:12px}
+.price-list li{display:flex;gap:11px;align-items:flex-start;font-size:.96rem;color:var(--ink-2)}
+.price-list svg{width:18px;height:18px;color:#12a35c;flex-shrink:0;margin-top:2px}
+.price-card .btn{width:100%}
+
+/* ============================================================
+   FAQ
+   ============================================================ */
+.faq{background:var(--bg-tint)}
+.faq-list{max-width:760px;margin-inline:auto;display:grid;gap:12px}
+.faq-item{
+  background:#fff;border:1px solid var(--line);border-radius:var(--r-md);
+  overflow:hidden;transition:border-color .25s,box-shadow .25s;
+}
+.faq-item[open]{border-color:var(--line-2);box-shadow:var(--shadow-sm)}
 .faq-item summary{
-  padding:16px 18px;
-  min-height:52px;
-  font-size:15px;
-  font-weight:600;
-  letter-spacing:-.01em;
-  cursor:pointer;
-  list-style:none;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  transition:color .2s ease;
-  gap:12px;
-  -webkit-tap-highlight-color:transparent;
+  list-style:none;cursor:pointer;
+  padding:19px 22px;
+  display:flex;align-items:center;justify-content:space-between;gap:18px;
+  font-weight:650;font-size:1rem;letter-spacing:-.016em;
 }
 .faq-item summary::-webkit-details-marker{display:none}
-.faq-item summary::after{
-  content:"+";
-  font-size:18px;
-  font-weight:400;
-  color:var(--ink-dim);
-  flex-shrink:0;
+.faq-plus{
+  flex-shrink:0;width:22px;height:22px;position:relative;color:var(--ink-3);
+  transition:transform .3s var(--ease),color .25s;
 }
-.faq-item[open] summary::after{content:"−"}
-.faq-item p{
-  padding:0 18px 16px;
-  font-size:14px;
-  color:var(--ink-dim);
-  line-height:1.6;
+.faq-plus::before,.faq-plus::after{
+  content:"";position:absolute;top:50%;left:50%;translate:-50% -50%;
+  background:currentColor;border-radius:2px;
 }
-@keyframes faq-open{
-  from{opacity:0;transform:translateY(-6px)}
-  to{opacity:1;transform:translateY(0)}
-}
-.faq-item[open] > p{animation:faq-open .28s var(--ease-premium) both}
-@media(prefers-reduced-motion:reduce){
-  .faq-item[open] > p{animation:none}
-}
+.faq-plus::before{width:12px;height:1.9px}
+.faq-plus::after{width:1.9px;height:12px;transition:opacity .25s,transform .3s var(--ease)}
+.faq-item[open] .faq-plus{color:var(--blue);transform:rotate(90deg)}
+.faq-item[open] .faq-plus::after{opacity:0}
+.faq-answer{padding:0 22px 20px;color:var(--ink-2);font-size:.96rem;line-height:1.62;max-width:64ch}
+.faq-answer a{color:var(--blue);text-underline-offset:3px}
 
-/* More features grid */
-.more-features{
-  margin-top:clamp(32px, 5vw, 48px);
-  padding-top:32px;
-  border-top:1px solid var(--line);
-  text-align:center;
+/* ============================================================
+   FOUNDERS
+   ============================================================ */
+.founders{background:var(--bg);position:relative}
+.founder-grid{
+  display:grid;gap:18px;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  max-width:720px;margin:clamp(30px,4vw,44px) auto 0;
 }
-.more-features h3{
-  font-size:clamp(1.5rem, 3vw, 2rem);
-  font-weight:700;
-  letter-spacing:var(--tracking-tight);
-  margin-bottom:8px;
-}
-.more-features > p{
-  color:var(--ink-dim);
-  font-size:15px;
-  margin-bottom:32px;
-  max-width:28rem;
-  margin-left:auto;margin-right:auto;
-}
-.more-grid{
-  display:grid;
-  grid-template-columns:repeat(2, minmax(0, 1fr));
-  gap:16px;
-}
-@media (min-width:520px){
-  .more-grid{gap:20px}
-}
-@media (min-width:700px){
-  .more-grid{grid-template-columns:repeat(4, minmax(0, 1fr))}
-}
-@media (max-width:359px){
-  .more-grid{grid-template-columns:1fr;max-width:200px;margin:0 auto}
-}
-.more-card{
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-  align-items:center;
-}
-.more-card .app-screen{
-  --phone-pad-x:6px;
-  --phone-pad-y:7px;
-  --phone-pad-b:8px;
-  --phone-screen-r:22px;
-  --phone-bezel-r:28px;
-  width:100%;
-  max-width:132px;
-  opacity:1;
-  animation:phone-float-mini 4.8s ease-in-out infinite;
-}
-.more-card:nth-child(1) .app-screen{animation-delay:0s}
-.more-card:nth-child(2) .app-screen{animation-delay:.6s}
-.more-card:nth-child(3) .app-screen{animation-delay:1.2s}
-.more-card:nth-child(4) .app-screen{animation-delay:1.8s}
-.more-card span{
-  font-size:13px;
-  font-weight:600;
-  color:var(--ink-soft);
-  letter-spacing:-.01em;
-}
-
-.trust-row{
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
-  gap:8px 16px;
-  margin-top:14px;
-  font-size:12px;
-  color:var(--ink-dim);
-}
-.trust-row a{
-  color:var(--ink-dim);
-  text-decoration:underline;
-  text-underline-offset:2px;
-}
-.trust-row a:hover{color:var(--ink)}
-
-/* Showcase: feature sections, no phone frame */
-.showcase{
-  position:relative;
-  padding:clamp(44px, 6vw, 72px) 0 clamp(40px, 5vw, 60px);
-  background:linear-gradient(180deg, var(--bg) 0%, #eef2fa 50%, var(--bg) 100%);
-  border-top:1px solid var(--line);
-  overflow:hidden;
-}
-.showcase-intro{
-  text-align:center;
-  max-width:640px;
-  margin:0 auto clamp(32px, 4.5vw, 48px);
-}
-.showcase-intro h2{
-  font-size:clamp(2rem, 4.6vw, 3rem);
-  font-weight:700;
-  letter-spacing:var(--tracking-tight);
-  margin-bottom:14px;
-}
-.showcase-intro p{
-  color:var(--ink-dim);
-  font-size:clamp(1rem, 1.8vw, 1.1875rem);
-  line-height:1.55;
-  max-width:36rem;
-  margin:0 auto;
-}
-.feature-block{
-  display:grid;
-  grid-template-columns:1fr;
-  gap:40px 64px;
-  align-items:center;
-  margin-bottom:clamp(40px, 5.5vw, 64px);
-}
-.feature-block:last-child{margin-bottom:0}
-.feature-copy{
-  max-width:30rem;
-  margin:0 auto;
-  text-align:center;
-}
-.feature-tag{
-  display:inline-block;
-  font-size:11px;
-  font-weight:700;
-  letter-spacing:.18em;
-  text-transform:uppercase;
-  color:var(--accent);
-  margin-bottom:14px;
-}
-.feature-copy h3{
-  font-size:clamp(1.75rem, 3.6vw, 2.5rem);
-  font-weight:700;
-  letter-spacing:var(--tracking-tight);
-  line-height:1.1;
-  margin-bottom:16px;
-}
-.feature-copy h3 em{
-  font-style:normal;
-  color:var(--accent);
-}
-.feature-copy p{
-  color:var(--ink-dim);
-  font-size:clamp(1rem, 1.6vw, 1.0625rem);
-  line-height:1.6;
-  margin-bottom:20px;
-}
-.feature-points{
-  list-style:none;
-  margin:0;
-  padding:0;
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-  text-align:left;
-  max-width:24rem;
-}
-.feature-copy[data-align="center"] .feature-points{margin:0 auto}
-.feature-points li{
-  display:flex;
-  align-items:flex-start;
-  gap:10px;
-  font-size:14px;
-  color:var(--ink-soft);
-  font-weight:500;
-  line-height:1.5;
-}
-.feature-points li::before{
-  content:"";
-  flex-shrink:0;
-  width:18px;height:18px;
-  margin-top:1px;
-  border-radius:50%;
-  background:var(--accent-muted) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234165e5' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><polyline points='20 6 9 17 4 12'/></svg>") center / 12px no-repeat;
-}
-.feature-visual{
-  position:relative;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  padding:clamp(10px, 2vw, 20px) 0;
-}
-.feature-visual::before{
-  content:"";
-  position:absolute;
-  inset:auto 8% -4% 8%;
-  height:24%;
-  background:radial-gradient(ellipse, rgba(65,101,229,.18) 0%, transparent 70%);
-  filter:blur(28px);
-  pointer-events:none;
-  z-index:0;
-  animation:phone-glow-pulse 5s ease-in-out infinite;
-}
-.app-screen{
-  --phone-pad-x:9px;
-  --phone-pad-y:11px;
-  --phone-pad-b:13px;
-  --phone-screen-r:38px;
-  --phone-bezel-r:48px;
-  position:relative;
-  aspect-ratio:470 / 1024;
-  width:100%;
-  max-width:min(232px, 62vw);
-  height:auto;
-  contain:layout;
-  padding:var(--phone-pad-y) var(--phone-pad-x) var(--phone-pad-b);
-  border-radius:var(--phone-bezel-r);
-  overflow:visible;
-  background:linear-gradient(165deg, #5a5a5c 0%, #1d1d1f 28%, #000 72%, #2c2c2e 100%);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.12),
-    inset 0 -1px 0 rgba(0,0,0,.45),
-    0 40px 80px -24px rgba(0,0,0,.38),
-    0 18px 36px -16px rgba(65,101,229,.14);
-  z-index:1;
-  opacity:0;
-}
-.feature-block.is-visible .app-screen{
-  opacity:1;
-}
-.app-screen img{
-  position:relative;
-  z-index:1;
-  width:100%;
-  height:100%;
-  border-radius:var(--phone-screen-r);
-  object-fit:cover;
-  object-position:top center;
-  display:block;
-  box-shadow:inset 0 0 0 1px rgba(0,0,0,.12);
-}
-.app-screen.is-tilt-left{transform:translateY(32px) rotate(-5deg)}
-.app-screen.is-tilt-right{transform:translateY(32px) rotate(5deg)}
-.feature-block.is-visible .app-screen.is-tilt-left{
-  animation:
-    phone-enter-left .9s cubic-bezier(0.22, 1, 0.36, 1) forwards,
-    phone-float-left 5.5s ease-in-out 1.15s infinite;
-}
-.feature-block.is-visible .app-screen.is-tilt-right{
-  animation:
-    phone-enter-right .9s cubic-bezier(0.22, 1, 0.36, 1) forwards,
-    phone-float-right 5.5s ease-in-out 1.15s infinite;
-}
-.feature-block:nth-child(3).is-visible .app-screen.is-tilt-right{animation-delay:0s, 1.4s}
-.feature-block:nth-child(4).is-visible .app-screen.is-tilt-left{animation-delay:0s, 1.65s}
-
-/* Floating accent cards near each screen */
-.feature-chip{
-  position:absolute;
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  padding:10px 14px;
-  border-radius:14px;
-  background:var(--bg-elevated);
+.founder-card{
+  background:var(--bg-tint);
   border:1px solid var(--line);
-  box-shadow:0 12px 28px rgba(18,20,28,.1);
-  font-size:13px;
-  font-weight:600;
-  letter-spacing:-.02em;
-  color:var(--ink);
-  z-index:2;
-  white-space:nowrap;
-  opacity:0;
-  transform:translateY(10px);
-  transition:opacity .7s ease .25s, transform .7s ease .25s;
+  border-radius:var(--r-lg);
+  padding:28px 24px 24px;
+  text-align:center;
+  display:grid;gap:4px;justify-items:center;
+  transition:transform .4s var(--ease),box-shadow .4s,border-color .4s;
 }
-@keyframes chip-float{
-  0%,100%{transform:translateY(0)}
-  50%{transform:translateY(-7px)}
+.founder-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-md);border-color:var(--line-2)}
+.founder-card img{
+  width:104px;height:104px;border-radius:50%;
+  margin-bottom:14px;background:var(--bg-deep);
 }
-.feature-block.is-visible .feature-chip{
-  opacity:1;
-  animation:chip-float 4.2s ease-in-out infinite;
+.founder-card h3{font-size:1.08rem;letter-spacing:-.02em}
+.founder-role{font-size:.85rem;color:var(--ink-3);margin-bottom:12px}
+.founder-link{
+  display:inline-flex;align-items:center;gap:7px;
+  font-size:.86rem;font-weight:600;color:var(--blue);
+  text-decoration:none;
+  padding:7px 14px;border-radius:999px;
+  border:1px solid var(--line-2);background:#fff;
+  transition:border-color .25s,background .25s;
 }
-.feature-block.is-visible .feature-chip.top-right{animation-delay:.2s}
-.feature-block.is-visible .feature-chip.bottom-left{animation-delay:.8s}
-.feature-block.is-visible .feature-chip.top-left{animation-delay:.5s}
-.feature-block.is-visible .feature-chip.bottom-right{animation-delay:1.1s}
-.feature-chip .dot{
-  width:8px;height:8px;border-radius:50%;
-  background:var(--accent);
-  box-shadow:0 0 0 3px rgba(65,101,229,.18);
+.founder-link:hover{border-color:var(--blue);background:var(--blue-soft)}
+.founder-link svg{width:14px;height:14px}
+.founder-backing{
+  text-align:center;margin-top:clamp(26px,3vw,36px);
+  font-size:.95rem;color:var(--ink-2);
 }
-.feature-chip svg{
-  width:16px;height:16px;
-  color:var(--accent);
-}
-.feature-chip.top-right{top:8%;right:0}
-.feature-chip.bottom-left{bottom:14%;left:0}
-.feature-chip.top-left{top:14%;left:0}
-.feature-chip.bottom-right{bottom:8%;right:0}
-@media (min-width:880px){
-  .feature-chip.top-right{right:-4%}
-  .feature-chip.bottom-left{left:-6%}
-  .feature-chip.top-left{left:-6%}
-  .feature-chip.bottom-right{right:-4%}
-}
-@media (max-width:879px){
-  .feature-chip{display:none}
-  .feature-visual{padding:16px 0}
-}
+.founder-backing strong{color:var(--ink);font-weight:700}
+.founder-backing a{color:var(--blue);text-underline-offset:3px}
 
-.feature-copy,
-.feature-copy > *{
-  opacity:0;
-  transform:translateY(16px);
-  transition:opacity .8s ease, transform .8s cubic-bezier(0.22, 1, 0.36, 1);
+/* ============================================================
+   FINAL CTA
+   ============================================================ */
+.cta{
+  background:var(--ink);color:#fff;position:relative;overflow:hidden;
 }
-.feature-block.is-visible .feature-copy,
-.feature-block.is-visible .feature-copy > *{opacity:1;transform:translateY(0)}
-.feature-block.is-visible .feature-copy > *:nth-child(2){transition-delay:.05s}
-.feature-block.is-visible .feature-copy > *:nth-child(3){transition-delay:.1s}
-.feature-block.is-visible .feature-copy > *:nth-child(4){transition-delay:.15s}
+.cta .wrap{position:relative;z-index:1;text-align:center}
+.cta h2{color:#fff;margin-block:14px 18px}
+.cta .lede{color:#b9c2da;margin-inline:auto}
+.cta .waitlist-slot{margin:30px auto 0}
+.cta .waitlist-form{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.2)}
+.cta .waitlist-form:focus-within{border-color:#7fa2ff;box-shadow:0 0 0 4px rgba(127,162,255,.18)}
+.cta .waitlist-input{color:#fff}
+.cta .waitlist-input::placeholder{color:#8e9bbb}
+.cta .form-note{color:#8e9bbb}
+.cta .form-note a{color:#c3cfea}
 
-@media(min-width:880px){
-  .feature-block{
-    grid-template-columns:1fr 1fr;
-    gap:40px 64px;
-  }
-  .feature-copy{text-align:left;margin:0}
-  .feature-copy[data-align="center"] .feature-points{margin:0}
-  .feature-block[data-layout="image-left"] .feature-visual{order:1}
-  .feature-block[data-layout="image-left"] .feature-copy{order:2}
-  .app-screen{max-width:min(238px, 26vw)}
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.footer{background:var(--ink);color:#8e9bbb;border-top:1px solid rgba(255,255,255,.09);padding-block:34px}
+.footer .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;font-size:.88rem}
+.footer a{color:#c3cfea;text-decoration:none;margin-right:20px;text-underline-offset:3px}
+.footer a:hover{text-decoration:underline}
+.footer-legal{display:flex;flex-wrap:wrap;gap:2px}
+
+/* ============================================================
+   STICKY MOBILE CTA
+   ============================================================ */
+.sticky-cta{
+  position:fixed;inset:auto 0 0 0;z-index:90;
+  padding:12px var(--pad) calc(12px + env(safe-area-inset-bottom));
+  background:rgba(255,255,255,.9);
+  backdrop-filter:blur(18px);
+  border-top:1px solid var(--line);
+  transform:translateY(110%);
+  transition:transform .38s var(--ease);
 }
-@media (max-width:879px){
-  .feature-block{
-    gap:22px;
-    margin-bottom:clamp(32px, 6vw, 56px);
-  }
-  .showcase{padding-top:clamp(32px, 5vw, 56px)}
-  .showcase-intro{margin-bottom:clamp(24px, 4.5vw, 44px)}
+.sticky-cta.is-visible{transform:none}
+.sticky-cta a{width:100%}
+@media(min-width:760px){.sticky-cta{display:none}}
+
+/* ============================================================
+   REVEAL
+   ============================================================ */
+.reveal{opacity:0;transform:translateY(20px);
+  transition:opacity .7s var(--ease-soft),transform .7s var(--ease);
+  transition-delay:var(--d,0ms);
 }
+.reveal.is-in{opacity:1;transform:none}
 
 @media(prefers-reduced-motion:reduce){
-  .hero::before{animation:none}
-  .waitlist-form,
-  .waitlist-success,
-  .waitlist-success.is-visible,
-  .waitlist-success.is-visible .success-check,
-  .waitlist-success.is-visible .success-text strong,
-  .waitlist-success.is-visible .success-text span{animation:none;transition:none}
-  .waitlist-form.is-exiting,
-  .waitlist-form.submitted{opacity:1;transform:none;visibility:visible}
-  .waitlist-success{opacity:1;visibility:visible;transform:none}
-  .waitlist-success .success-text strong,
-  .waitlist-success .success-text span{opacity:1;transform:none}
-  .waitlist-success.is-visible .success-check{transform:none;opacity:1}
-  .hero-device-wrap,
-  .app-screen,
-  .feature-visual::before,
-  .feature-block.is-visible .feature-chip{animation:none}
-  .hero-device{transition:none}
-  .reveal,
-  .reveal-scale,
-  [data-hero-enter]{opacity:1;transform:none;filter:none;transition:none}
-  .section-spotlight::before{opacity:1;transition:none}
-  .nav-links a::after{display:none}
-  .waitlist-submit::after{display:none}
-  .app-screen,
-  .feature-chip,
-  .feature-copy,
-  .feature-copy > *{transform:none;opacity:1;transition:none}
-  .feature-block.is-visible .app-screen.is-tilt-left,
-  .feature-block.is-visible .app-screen.is-tilt-right{transform:rotate(-2deg)}
-  .feature-block.is-visible .app-screen.is-tilt-right{transform:rotate(2deg)}
-  .feature-block.is-visible .feature-chip{opacity:1}
-}
-/* Waitlist */
-.waitlist-block{
-  max-width:440px;
-  width:100%;
-  margin:0 auto;
-}
-.waitlist-offer{
-  font-size:15px;
-  line-height:1.55;
-  color:var(--ink);
-  letter-spacing:-.02em;
-  margin:0 auto 18px;
-  max-width:36rem;
-  text-align:center;
-}
-.waitlist-offer strong{font-weight:600}
-.waitlist-offer .price{
-  font-weight:600;
-  color:var(--ink);
-}
-.waitlist-slot{
-  display:grid;
-  grid-template-columns:1fr;
-  width:100%;
-}
-.waitlist-slot > .waitlist-form,
-.waitlist-slot > .waitlist-success{grid-area:1 / 1;width:100%}
-.waitlist-form{
-  display:flex;
-  flex-direction:column;
-  align-items:stretch;
-  gap:10px;
-  margin:0;
-  transition:opacity .32s ease, transform .36s cubic-bezier(.4,0,.2,1), visibility 0s;
-}
-.waitlist-form.is-exiting,
-.waitlist-form.submitted{
-  opacity:0;
-  transform:translateY(-8px) scale(.985);
-  pointer-events:none;
-}
-.waitlist-form.submitted{
-  visibility:hidden;
-  transition:opacity .32s ease, transform .36s cubic-bezier(.4,0,.2,1), visibility 0s .32s;
-}
-.waitlist-input{
-  width:100%;
-  border:1px solid var(--line-strong);
-  border-radius:10px;
-  background:var(--bg-elevated);
-  color:var(--ink);
-  font-family:var(--sans);
-  font-size:16px;
-  padding:14px 16px;
-  outline:none;
-  transition:border-color .2s, box-shadow .2s;
-}
-.waitlist-input::placeholder{color:var(--ink-dim)}
-.waitlist-input:focus{
-  border-color:var(--ink);
-  box-shadow:0 0 0 3px rgba(0,0,0,.06);
-}
-.waitlist-submit{
-  position:relative;
-  overflow:hidden;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:8px;
-  width:100%;
-  min-height:48px;
-  border:none;
-  cursor:pointer;
-  -webkit-tap-highlight-color:transparent;
-  font-family:var(--sans);
-  font-size:15px;
-  font-weight:600;
-  letter-spacing:-.02em;
-  padding:15px 24px;
-  border-radius:10px;
-  background:var(--ink);
-  color:#fff;
-  transition:background .2s, transform .2s, box-shadow .2s;
-}
-.waitlist-submit::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:linear-gradient(105deg, transparent 38%, rgba(255,255,255,.16) 50%, transparent 62%);
-  transform:translateX(-130%);
-  transition:transform .6s var(--ease-premium);
-  pointer-events:none;
-}
-.waitlist-submit:hover::after{transform:translateX(130%)}
-.waitlist-submit .btn-label,
-.waitlist-submit svg{position:relative;z-index:1}
-.waitlist-submit svg{
-  width:16px;height:16px;
-  flex-shrink:0;
-  opacity:.9;
-}
-.waitlist-submit:hover{
-  background:#1a1a1a;
-  box-shadow:0 6px 20px rgba(0,0,0,.12);
-}
-.waitlist-submit:active{transform:scale(.99)}
-.waitlist-success{
-  display:flex;
-  align-items:center;
-  gap:14px;
-  width:100%;
-  padding:14px 16px;
-  text-align:left;
-  border-radius:12px;
-  border:1px solid rgba(65,101,229,.2);
-  background:linear-gradient(135deg, rgba(65,101,229,.1), rgba(65,101,229,.04));
-  line-height:1.4;
-  opacity:0;
-  visibility:hidden;
-  transform:translateY(8px) scale(.98);
-  pointer-events:none;
-}
-.waitlist-success.is-visible{
-  opacity:1;
-  visibility:visible;
-  transform:translateY(0) scale(1);
-  pointer-events:auto;
-  transition:
-    opacity .48s cubic-bezier(.22,1,.36,1) .1s,
-    transform .52s cubic-bezier(.22,1,.36,1) .1s,
-    visibility 0s .1s;
-}
-.success-check{
-  flex-shrink:0;
-  width:38px;
-  height:38px;
-  border-radius:50%;
-  background:var(--accent);
-  color:#fff;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  box-shadow:0 4px 14px rgba(65,101,229,.32);
-  transform:scale(0);
-  opacity:0;
-}
-.success-check svg{width:18px;height:18px;display:block}
-.waitlist-success.is-visible .success-check{
-  animation:success-pop .55s cubic-bezier(.34,1.45,.64,1) .22s both;
-}
-.success-text{display:flex;flex-direction:column;gap:3px;min-width:0}
-.success-text strong,
-.success-text span{
-  display:block;
-  opacity:0;
-  transform:translateY(5px);
-}
-.success-text strong{font-size:15px;font-weight:700;color:var(--ink);letter-spacing:-.01em}
-.success-text span{font-size:13px;color:var(--ink-dim)}
-.waitlist-success.is-visible .success-text strong{animation:success-line .42s cubic-bezier(.22,1,.36,1) .34s both}
-.waitlist-success.is-visible .success-text span{animation:success-line .42s cubic-bezier(.22,1,.36,1) .44s both}
-@keyframes success-pop{
-  0%{transform:scale(0);opacity:0}
-  65%{transform:scale(1.06);opacity:1}
-  100%{transform:scale(1);opacity:1}
-}
-@keyframes success-line{
-  to{opacity:1;transform:translateY(0)}
-}
-.waitlist-fine{
-  margin-top:12px;
-  font-size:13px;
-  color:var(--ink-dim);
-  line-height:1.45;
-  text-align:center;
-}
-.feedback-line{
-  font-size:15px;
-  font-weight:500;
-  color:var(--ink);
-  letter-spacing:-.02em;
-  line-height:1.45;
-  text-align:center;
-  max-width:28rem;
-  margin-left:auto;
-  margin-right:auto;
-}
-.beta-cta .hero-note{margin-top:12px;text-align:center}
-
-/* Integrations */
-.integrations{
-  border-top:1px solid var(--line);
-  border-bottom:1px solid var(--line);
-  background:rgba(255,255,255,.65);
-  padding:clamp(36px, 5vw, 56px) 0;
-}
-.integrations-head{
-  text-align:center;
-  margin-bottom:28px;
-}
-.integrations-head h2{
-  font-size:clamp(1.75rem, 4vw, 2.5rem);
-  font-weight:700;
-}
-.integrations-head p{
-  margin-top:12px;
-  color:var(--ink-dim);
-  font-size:15px;
-  max-width:36rem;
-  margin-left:auto;margin-right:auto;
-}
-/* Integration sync stage (hub + orbit, Kinso/Akiflow-inspired) */
-.integration-stage-wrap{
-  margin:0 auto;
-  max-width:520px;
-}
-.integration-stage{
-  position:relative;
-  width:min(360px, 88vw);
-  aspect-ratio:1;
-  margin:0 auto 20px;
-}
-.sync-ring{
-  position:absolute;inset:12%;
-  border:1px dashed var(--line-strong);
-  border-radius:50%;
-  animation:sync-ring-spin 48s linear infinite;
-}
-.sync-ring::before{
-  content:"";
-  position:absolute;inset:-1px;
-  border-radius:50%;
-  background:conic-gradient(from 0deg, transparent 0deg, rgba(65,101,229,.12) 60deg, transparent 120deg);
-  animation:sync-ring-spin 8s linear infinite reverse;
-}
-@keyframes sync-ring-spin{to{transform:rotate(360deg)}}
-.sync-svg{
-  position:absolute;inset:0;
-  width:100%;height:100%;
-  pointer-events:none;
-}
-.sync-path{
-  fill:none;
-  stroke:var(--line-strong);
-  stroke-width:1.5;
-  stroke-dasharray:6 8;
-  opacity:.55;
-  transition:stroke .4s ease, opacity .4s ease;
-}
-.sync-path.is-active{
-  stroke:url(#syncGrad);
-  stroke-width:2;
-  opacity:1;
-  animation:sync-dash 1.2s linear infinite;
-}
-@keyframes sync-dash{to{stroke-dashoffset:-28}}
-.sync-packet{
-  position:absolute;
-  width:8px;height:8px;
-  border-radius:50%;
-  background:var(--accent);
-  box-shadow:0 0 12px var(--accent);
-  opacity:0;
-  pointer-events:none;
-}
-.sync-packet.run{
-  opacity:1;
-  animation:sync-travel 1.35s ease-in forwards;
-}
-@keyframes sync-travel{
-  0%{offset-distance:0%;opacity:0;transform:scale(.6)}
-  8%{opacity:1}
-  92%{opacity:1}
-  100%{offset-distance:100%;opacity:0;transform:scale(.35)}
-}
-.sync-hub{
-  position:absolute;left:50%;top:50%;
-  transform:translate(-50%,-50%);
-  width:88px;height:88px;
-  border-radius:22px;
-  background:var(--bg-elevated);
-  border:1px solid var(--line);
-  box-shadow:0 8px 32px rgba(65,101,229,.14), 0 2px 8px rgba(0,0,0,.06);
-  display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  gap:4px;
-  z-index:3;
-}
-.sync-hub::before{
-  content:"";
-  position:absolute;inset:-8px;
-  border-radius:26px;
-  border:1px solid rgba(65,101,229,.25);
-  animation:hub-pulse 2.8s ease-out infinite;
-}
-@keyframes hub-pulse{
-  0%{transform:scale(.92);opacity:.7}
-  70%{transform:scale(1.08);opacity:0}
-  100%{transform:scale(1.08);opacity:0}
-}
-.sync-hub svg{width:36px;height:36px}
-.sync-hub span{
-  font-size:11px;font-weight:700;
-  letter-spacing:-.03em;
-  color:var(--ink);
-}
-.sync-orbit{
-  position:absolute;inset:0;
-  animation:sync-orbit-tilt 10s ease-in-out infinite alternate;
-}
-@keyframes sync-orbit-tilt{
-  0%{transform:rotate(-2deg)}
-  100%{transform:rotate(2deg)}
-}
-.sync-satellite{
-  --float-delay:0s;
-  position:absolute;
-  left:var(--x);
-  top:var(--y);
-  transform:translate(-50%,-50%);
-  z-index:2;
-  animation:sync-float 4.5s ease-in-out infinite;
-  animation-delay:var(--float-delay);
-}
-@keyframes sync-float{
-  0%,100%{transform:translate(-50%,-50%) translateY(0)}
-  50%{transform:translate(-50%,-50%) translateY(-7px)}
-}
-.sync-satellite.is-active .sync-node{
-  border-color:var(--accent);
-  box-shadow:0 12px 28px rgba(65,101,229,.22);
-  transform:scale(1.06);
-}
-.sync-node{
-  width:72px;height:72px;
-  border-radius:16px;
-  background:var(--bg-elevated);
-  border:1px solid var(--line);
-  display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  gap:6px;
-  transition:border-color .35s ease, box-shadow .35s ease, transform .35s ease;
-  box-shadow:0 4px 14px rgba(0,0,0,.06);
-}
-.sync-node img{
-  width:32px;height:32px;
-  object-fit:contain;
-}
-.sync-node span{
-  font-size:10px;font-weight:600;
-  color:var(--ink-dim);
-  letter-spacing:-.02em;
-}
-.sync-satellite.is-active .sync-node span{color:var(--accent)}
-.sync-status{
-  text-align:center;
-  font-size:14px;
-  font-weight:500;
-  color:var(--ink-dim);
-  min-height:1.5em;
-  letter-spacing:-.02em;
-  transition:opacity .25s ease;
-}
-.sync-status.is-changing{opacity:.4}
-.integration-marquee{
-  margin-top:28px;
-  overflow:hidden;
-  mask-image:linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
-  -webkit-mask-image:linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
-}
-.integration-marquee-track{
-  display:flex;
-  gap:12px;
-  width:max-content;
-  animation:marquee-slide 28s linear infinite;
-}
-@keyframes marquee-slide{
-  0%{transform:translateX(0)}
-  100%{transform:translateX(-50%)}
-}
-.marquee-chip{
-  display:inline-flex;align-items:center;gap:8px;
-  padding:8px 14px;
-  border-radius:100px;
-  border:1px solid var(--line);
-  background:var(--bg-elevated);
-  font-size:12px;font-weight:500;
-  color:var(--ink-soft);
-  white-space:nowrap;
-}
-.marquee-chip img{width:18px;height:18px;object-fit:contain}
-@media(max-width:400px){
-  .sync-node{width:64px;height:64px}
-  .sync-node img{width:28px;height:28px}
-  .sync-hub{width:76px;height:76px}
-}
-@media(prefers-reduced-motion:reduce){
-  .sync-ring,.sync-ring::before,.sync-orbit,.sync-satellite,.integration-marquee-track,.sync-hub::before{animation:none}
-  .sync-path.is-active{animation:none}
-  .sync-packet.run{display:none}
-}
-
-/* Beta CTA */
-.beta-cta{
-  text-align:center;
-}
-.beta-cta h2{
-  font-size:clamp(1.75rem, 4vw, 2.75rem);
-  font-weight:700;
-  margin-bottom:12px;
-}
-.beta-cta .waitlist-block{margin-top:8px}
-
-/* Footer */
-footer{
-  border-top:1px solid var(--line);
-  background:var(--bg-elevated);
-  padding:40px var(--pad) max(32px, env(safe-area-inset-bottom));
-}
-.foot{
-  max-width:var(--max);margin:0 auto;
-  display:flex;flex-wrap:wrap;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  gap:24px;
-  text-align:center;
-}
-.foot-brand{
-  display:flex;align-items:center;justify-content:center;gap:10px;
-  font-weight:600;font-size:18px;
-  margin-bottom:8px;
-}
-.foot-tag{
-  font-size:14px;color:var(--ink-dim);
-  max-width:28rem;
-}
-.foot-links{
-  display:flex;flex-wrap:wrap;justify-content:center;gap:20px;
-  font-size:13px;color:var(--ink-dim);
-}
-.foot-links a:hover{color:var(--ink)}
-.foot-bottom{
-  max-width:var(--max);margin:28px auto 0;
-  padding-top:20px;border-top:1px solid var(--line);
-  font-size:12px;color:var(--ink-dim);
-  display:flex;flex-wrap:wrap;justify-content:center;gap:8px 20px;
-  text-align:center;
-}
-:is(.dark, .theme-dark, .dark-surface, .on-dark, [data-theme="dark"], [data-surface="dark"]) :is(.partner-label, .sync-status, .foot-tag),
-:is(.partner-label, .sync-status, .foot-tag).on-dark{
-  color:var(--ink-dim-on-dark);
-}
-
-/* Tablet: compact nav */
-@media (max-width:919px){
-  .nav-links{display:none}
-  .nav-cta{display:none}
-}
-
-/* Mobile */
-@media (max-width:759px){
-  :root{--pad:clamp(16px, 4.5vw, 24px)}
-  .hero{padding-top:clamp(32px, 6vw, 56px)}
-  .hero-grid{gap:36px}
-  .proof-strip .wrap{
-    flex-direction:column;
-    align-items:center;
-    gap:10px;
+  html{scroll-behavior:auto}
+  *,*::before,*::after{
+    animation-duration:.001ms!important;animation-iteration-count:1!important;
+    transition-duration:.001ms!important;scroll-behavior:auto!important;
   }
-  .logo-strip{
-    width:100%;
-    margin-top:14px;
-    padding-top:14px;
-  }
-  .contrast-col{padding:18px 16px}
-  .pricing-card{padding:24px 20px}
-  .integration-stage{width:min(320px, 92vw)}
-  .sync-node{width:60px;height:60px}
-  .sync-node img{width:26px;height:26px}
-  .sync-node span{font-size:9px}
-  .waitlist-input{font-size:16px}
-  .btn-label{font-size:14px}
-}
-
-/* Small phones */
-@media (max-width:380px){
-  .logo{font-size:18px}
-  .logo-icon{width:30px;height:30px}
-  .hero h1{font-size:2rem}
-  .hero-lead{font-size:1.0625rem}
-  .marquee-chip{font-size:11px;padding:7px 12px}
-}
-
-/* Laptops and desktops */
-@media (min-width:920px){
-  .hero-device{width:min(300px, 42vw)}
-  .waitlist-block{max-width:100%}
-}
-
-@media (min-width:1200px){
-  :root{--max:1120px}
-  .nav-links{gap:32px}
-  .hero-grid{gap:64px}
-}
-
-@media (min-width:1440px){
-  :root{--max:1160px;--pad:clamp(32px, 4vw, 56px)}
-}
-
-/* Coarse pointer: no hover-only layout breaks */
-@media (hover:none){
-  .panel-card:hover{transform:none}
-  .hero-secondary:hover{transform:none}
-}
-/* Keep horizontal clipping but never overflow:hidden the whole body while the
-   mobile menu is open — that makes <body> the scroll container and breaks the
-   sticky nav (it jumps to the top of the document). */
-body.nav-open{overflow-x:clip}
-
-/* Premium polish: scroll progress, scroll-spy, screen glare, micro-interactions */
-.scroll-progress{
-  position:fixed;
-  top:0;left:0;right:0;
-  height:2px;
-  z-index:200;
-  transform:scaleX(0);
-  transform-origin:0 50%;
-  background:linear-gradient(90deg, var(--accent), var(--accent-4) 60%, var(--accent-2));
-  box-shadow:0 0 12px rgba(65,101,229,.45);
-  pointer-events:none;
-  will-change:transform;
-}
-.nav-links a.is-active{color:var(--ink)}
-.nav-links a.is-active::after{transform:scaleX(1)}
-.nav-cta{position:relative;overflow:hidden}
-.nav-cta::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:linear-gradient(105deg, transparent 40%, rgba(255,255,255,.22) 50%, transparent 60%);
-  transform:translateX(-130%);
-  transition:transform .6s var(--ease-premium);
-  pointer-events:none;
-}
-.nav-cta:hover::after{transform:translateX(130%)}
-.device-glare{
-  position:absolute;
-  z-index:2;
-  inset:var(--phone-pad-y) var(--phone-pad-x) var(--phone-pad-b);
-  border-radius:var(--phone-screen-r);
-  overflow:hidden;
-  pointer-events:none;
-}
-.device-glare::before{
-  content:"";
-  position:absolute;
-  top:-30%;
-  left:-70%;
-  width:55%;
-  height:160%;
-  background:linear-gradient(100deg, transparent, rgba(255,255,255,.22), transparent);
-  transform:translateX(0) rotate(8deg);
-  animation:device-glare-sweep 7.5s ease-in-out infinite;
-}
-@keyframes device-glare-sweep{
-  0%,62%{transform:translateX(0) rotate(8deg);opacity:0}
-  70%{opacity:1}
-  100%{transform:translateX(420%) rotate(8deg);opacity:0}
-}
-.panel-icon{transition:transform .55s var(--ease-premium) .15s, background .25s ease, color .25s ease}
-.panel-card.reveal-scale .panel-icon{transform:scale(.65)}
-.panel-card.reveal-scale.is-in .panel-icon{transform:scale(1)}
-@media (hover:hover){
-  .panel-card:hover .panel-icon{transform:scale(1.08) rotate(-3deg)}
-}
-@media(prefers-reduced-motion:reduce){
-  .scroll-progress,
-  .device-glare{display:none}
-  .nav-cta::after{display:none}
-  .panel-card.reveal-scale .panel-icon,
-  .panel-card.reveal-scale.is-in .panel-icon{transform:none}
+  .reveal{opacity:1;transform:none}
+  .tour-screens img{transition:none}
 }
 </style>
 </head>
 <body>
 
-<div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+<a class="skip" href="#main">Skip to content</a>
 
-<!-- Netlify form detection -->
+<!-- Netlify form detection stubs -->
 <form name="waitlist-hero" data-netlify="true" netlify-honeypot="bot-field" hidden>
-  <input type="hidden" name="form-name" value="waitlist-hero" aria-label="Form name" />
-  <input name="bot-field" aria-label="Leave blank" />
-  <input type="email" name="email" aria-label="Email address to join the beta waitlist" />
+  <input type="email" name="email" /><input name="bot-field" />
+</form>
+<form name="waitlist-cta" data-netlify="true" netlify-honeypot="bot-field-cta" hidden>
+  <input type="email" name="email" /><input name="bot-field-cta" />
 </form>
 
-<nav id="nav">
-  <a href="#top" class="logo">
-    <svg class="logo-icon" width="34" height="34" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <rect x="0" y="0" width="16" height="16" rx="3.5" fill="var(--ink)"/>
-      <rect x="20" y="0" width="16" height="16" rx="3.5" fill="#4165e5"/>
-      <rect x="0" y="20" width="16" height="16" rx="3.5" fill="#b0c4f5"/>
-      <path d="M28 20C28 24.4 31.6 28 36 28C31.6 28 28 31.6 28 36C28 31.6 24.4 28 20 28C24.4 28 28 24.4 28 20Z" fill="#4165e5"/>
-    </svg>
-    Tempo
-  </a>
-  <div class="nav-links">
-    <a href="#how">How it works</a>
-    <a href="#integrations">Integrations</a>
-    <a href="#preview">The app</a>
-    <a href="#pricing">Pricing</a>
-    <a href="#faq">FAQ</a>
-    <a href="#waitlist">Beta</a>
-  </div>
-  <a href="#waitlist" class="nav-cta">Join the Beta</a>
-  <button type="button" class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navMobile" aria-label="Open menu">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
-  </button>
-  <div class="nav-mobile" id="navMobile">
-    <a href="#how">How it works</a>
-    <a href="#integrations">Integrations</a>
-    <a href="#preview">The app</a>
-    <a href="#pricing">Pricing</a>
-    <a href="#faq">FAQ</a>
-    <a href="#waitlist" class="nav-mobile-cta">Join the Beta</a>
-  </div>
-</nav>
-
-<header class="hero" id="top">
-  <div class="hero-inner hero-grid">
-    <div class="hero-copy">
-      <h1>
-        <span class="hero-line" data-hero-enter>Your week, clear.</span>
-        <span class="hero-line" data-hero-enter>Your personal AI assistant.</span>
-      </h1>
-      <p class="hero-definition" data-hero-enter>
-        <strong>Tempo is a native iOS assistant with a competitive AI engine that plans your calendar, drafts your inbox, and puts your day on a home screen widget, so you stop jumping between apps.</strong>
-      </p>
-      <p class="hero-lead" data-hero-enter>
-        Built for young adults and busy people. You approve every send and every schedule change.
-      </p>
-
-      <div class="waitlist-block" data-hero-enter>
-        <p class="waitlist-count"><strong>120+</strong> on the waitlist</p>
-        <div class="hero-actions">
-          <div class="waitlist-slot">
-            <form
-              class="waitlist-form"
-              id="waitlistHeroForm"
-              name="waitlist-hero"
-              method="POST"
-              data-netlify="true"
-              netlify-honeypot="bot-field"
-              novalidate
-            >
-              <input type="hidden" name="form-name" value="waitlist-hero" aria-label="Form name" />
-              <p hidden>
-                <label>Don't fill this out: <input name="bot-field" aria-label="Leave blank" tabindex="-1" autocomplete="off" /></label>
-              </p>
-              <input
-                type="email"
-                name="email"
-                class="waitlist-input"
-                id="waitlistEmail"
-                aria-label="Email address to join the beta waitlist"
-                placeholder="Enter your email to join the beta"
-                autocomplete="email"
-                required
-              />
-              <button type="submit" class="waitlist-submit">
-                <span class="btn-label">Join the Waitlist</span>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-              </button>
-            </form>
-            <div class="waitlist-success" id="waitlistHeroSuccess" role="status" aria-live="polite">
-              <span class="success-check" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
-              </span>
-              <span class="success-text">
-                <strong>You're in!</strong>
-                <span>Thanks for joining. We'll email you soon.</span>
-              </span>
-            </div>
-          </div>
-          <a href="#preview" class="hero-secondary">See the app</a>
-        </div>
-        <p class="hero-note">Free waitlist, no card. <a href="#pricing">Pricing</a></p>
-        <p class="trust-row">
-          <a href="privacy.html">Privacy</a>
-          <a href="terms.html">Terms</a>
-        </p>
+<div class="nav-scrim" id="navScrim" hidden></div>
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a class="brand" href="#top"><img src="assets/logo.png" alt="" width="26" height="26" /> Tempo</a>
+    <nav class="nav-menu" id="navMenu" aria-label="Main">
+      <div class="nav-links">
+        <a href="#talk">How it works</a>
+        <a href="#widgets">Widgets</a>
+        <a href="#tour">The app</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#faq">FAQ</a>
       </div>
-    </div>
-
-    <div class="hero-device-wrap" data-hero-enter>
-      <div class="hero-device">
-        <img
-          src="assets/app-screenshot.png"
-          alt="Tempo AI assistant on iPhone showing Friday 5 June with gym, team meeting, study, and tutor blocks"
-          width="470"
-          height="1024"
-          fetchpriority="high"
-          decoding="sync"
-        />
-        <span class="device-glare" aria-hidden="true"></span>
-      </div>
-      <p class="hero-badge">Get unbusy. <em>Catch your tempo.</em></p>
+    </nav>
+    <div class="nav-right">
+      <a class="nav-cta" href="#waitlist">Get access</a>
+      <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-label="Open menu" aria-controls="navMenu"><span></span></button>
     </div>
   </div>
 </header>
 
-<section class="proof-strip" aria-label="Beta highlights">
+<main id="main">
+
+<!-- ══════════════ HERO ══════════════ -->
+<section class="hero dotted" id="top">
+  <div class="hero-ribbon" aria-hidden="true">
+    <img src="assets/background1.webp" alt="" width="1050" height="700" decoding="async" />
+  </div>
   <div class="wrap">
-    <span class="proof-item reveal" data-reveal-delay="0"><strong>120+</strong> on the waitlist</span>
-    <span class="proof-item reveal" data-reveal-delay="80"><strong>Native iOS</strong> with home screen widgets</span>
-    <span class="proof-item reveal" data-reveal-delay="160"><strong>Built in Brisbane</strong> shipping weekly</span>
-    <span class="proof-item reveal" data-reveal-delay="240"><strong>Beta feedback</strong> helps decide what we ship</span>
-    <div class="logo-strip reveal" data-reveal-delay="320" aria-label="Connects to Gmail, Google Calendar, Notion, and Outlook">
-      <img src="assets/gmail.svg" alt="Gmail" width="22" height="22" loading="lazy" decoding="async" />
-      <img src="assets/google-calendar.svg" alt="Google Calendar" width="22" height="22" loading="lazy" decoding="async" />
-      <img src="assets/notion.svg" alt="Notion" width="22" height="22" loading="lazy" decoding="async" />
-      <img src="assets/outlook.png" alt="Outlook" width="22" height="22" loading="lazy" decoding="async" />
-    </div>
-    <div class="partner-strip reveal" data-reveal-delay="400">
-      <span class="partner-label">Supported by</span>
-      <a
-        class="partner-link"
-        href="https://ventures.uq.edu.au/"
-        target="_blank"
-        rel="noopener noreferrer"
-      >UQ Ventures</a>
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <span class="eyebrow reveal">iPhone &amp; desktop</span>
+        <h1 class="reveal" style="--d:60ms">An assistant that <br />actually <span class="grad-text">knows you</span>.</h1>
+        <p class="hero-sub reveal" style="--d:120ms">
+          Most AI starts from a blank page. Tempo starts from your calendar,
+          your inbox, your notes and your week, then plans around the life you
+          already have.
+        </p>
+
+        <div class="hero-form-block reveal" style="--d:180ms">
+          <div class="waitlist-slot">
+            <form class="waitlist-form" id="waitlistHeroForm" name="waitlist-hero" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate>
+              <input type="hidden" name="form-name" value="waitlist-hero" />
+              <p hidden><label>Don't fill this out: <input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
+              <input type="email" name="email" class="waitlist-input" id="waitlistEmail" aria-label="Email address to get Tempo access" placeholder="you@email.com" autocomplete="email" required />
+              <button type="submit" class="waitlist-submit">
+                Get access
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+              </button>
+            </form>
+            <div class="waitlist-success" id="waitlistHeroSuccess" role="status" aria-live="polite">
+              <span class="success-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>
+              <span class="success-text"><strong>You're on the list.</strong><span>We'll email your access link soon.</span></span>
+            </div>
+          </div>
+          <p class="form-note">
+            Tempo isn't on the App Store yet, so the list is how you get in.
+            Free, no card. <a href="#pricing">Pricing</a>
+          </p>
+        </div>
+
+        <div class="hero-chips reveal" style="--d:240ms">
+          <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Nothing sends without your OK</span>
+          <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="3"/><path d="M16 2v4M8 2v4M3 10h18"/></svg> Home screen widgets</span>
+        </div>
+      </div>
+
+      <div class="hero-visual reveal" style="--d:140ms">
+        <div class="phone">
+          <img src="assets/app-briefing.webp" alt="Tempo's daily briefing on iPhone: a good-afternoon summary naming the next event and the email that needs attention, above a Gmail inbox with reply drafts ready." width="660" height="1434" fetchpriority="high" />
+        </div>
+        <div class="hero-float float-widget">
+          <img src="assets/widget-nextup.webp" alt="Tempo home screen widget showing the next event at 7:00pm, six events today and 7.3 hours booked." width="540" height="541" loading="lazy" />
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<section class="quotes" aria-label="Beta feedback">
+<!-- ══════════════ TRUST ══════════════ -->
+<div class="trust">
   <div class="wrap">
-    <p class="section-label reveal">From testers</p>
-    <h2 class="reveal" data-reveal-delay="40">From early testers</h2>
+    <span class="trust-item"><span class="trust-dot"></span> <b>120+</b> already on the list</span>
+    <span class="trust-item">iPhone app running today</span>
+    <span class="trust-item">Desktop in beta</span>
+    <span class="trust-item">Built in Brisbane</span>
+  </div>
+</div>
+
+<!-- ══════════════ TALK TO IT ══════════════ -->
+<section class="section talk dotted" id="talk">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Just say it</span>
+      <h2 class="talk-quote">Ask like you'd ask a friend.</h2>
+      <p class="lede">
+        No commands, no rigid syntax, no setting up rules. Tempo already has
+        your context, so one scrappy sentence is enough, and it can handle two
+        unrelated things at once.
+      </p>
+    </div>
+
+    <div class="talk-grid">
+      <div class="talk-card reveal">
+        <div class="phone">
+          <img src="assets/app-chat-answer.webp" alt="Tempo chat: the user asks to schedule a gym session around 7pm and how their internship emails look. Tempo books 7:00 to 7:50pm and lists each internship email with sender and date." width="660" height="1434" loading="lazy" />
+        </div>
+        <div class="talk-caption">
+          <span class="step">One message, two jobs</span>
+          <h3>"Schedule a gym sesh around 7, and how are my internship emails looking?"</h3>
+          <p>
+            Tempo books the session in a real gap, then reads back every
+            internship thread by sender and date. Your calendar and your inbox,
+            answered together, because it can see both.
+          </p>
+        </div>
+      </div>
+
+      <div class="talk-card reveal" style="--d:120ms">
+        <div class="phone">
+          <img src="assets/app-chat-sent.webp" alt="Tempo drafts a thank-you reply to Axel, shows the subject and body for review, and after the user confirms displays a Done, one change made receipt naming the recipient." width="660" height="1434" loading="lazy" />
+        </div>
+        <div class="talk-caption">
+          <span class="step">You stay in the loop</span>
+          <h3>It drafts. You approve. Then it acts.</h3>
+          <p>
+            Tempo writes the reply in your tone and shows it to you first.
+            Nothing leaves your account until you say go, and every action ends
+            with a plain receipt of exactly what happened.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ CONTEXT ══════════════ -->
+<section class="section context" id="context">
+  <div class="wrap">
+    <div class="section-head center reveal">
+      <span class="eyebrow">What it reads</span>
+      <h2>It already knows your week.</h2>
+      <p class="lede">
+        A chatbot needs you to explain your life every single time you open it.
+        Tempo connects to the four places your week actually lives, so the
+        answers are about you rather than about productivity in general.
+      </p>
+    </div>
+
+    <div class="ctx-grid">
+      <div class="ctx-card reveal">
+        <span class="ctx-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="3"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span>
+        <h3>Your actual calendar</h3>
+        <p>Classes, shifts, meetings and the gaps between them. It plans into real free time, not imaginary time.</p>
+      </div>
+      <div class="ctx-card reveal" style="--d:70ms">
+        <span class="ctx-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="m2 7 10 6 10-6"/></svg></span>
+        <h3>Your inbox, sorted by who needs you</h3>
+        <p>Not 25 unread. Twenty-five that need a reply, from sixteen senders, with drafts already written.</p>
+      </div>
+      <div class="ctx-card reveal" style="--d:140ms">
+        <span class="ctx-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M9 8h6M9 12h6M9 16h4"/></svg></span>
+        <h3>Your notes and courses</h3>
+        <p>Notion pages and course load come along for the ride, so deadlines land where they actually fit.</p>
+      </div>
+      <div class="ctx-card reveal" style="--d:210ms">
+        <span class="ctx-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg></span>
+        <h3>Who's actually free</h3>
+        <p>See which friends have a real gap right now. Tap one, send an invite, and it lands on both calendars.</p>
+      </div>
+
+      <div class="ctx-card is-wide reveal" style="--d:70ms">
+        <span class="ctx-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
+        <h3>Context stays yours</h3>
+        <p>
+          Tempo reads your accounts to run your assistant. That's it. Your data
+          isn't sold, and it isn't used to train public models. Read the
+          <a href="privacy.html" style="color:#8fb0ff">Privacy Policy</a> if you
+          want the specifics.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ WIDGETS ══════════════ -->
+<section class="section widgets dotted" id="widgets">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Home screen</span>
+      <h2>Your day, before you open anything.</h2>
+      <p class="lede">
+        The best assistant is one you don't have to launch. Tempo's native iOS
+        widgets put the briefing and the next block right on your home screen,
+        so a glance replaces opening three apps.
+      </p>
+    </div>
+
+    <div class="wid-stage">
+      <div class="wid-shots reveal">
+        <div class="wid-shot">
+          <img src="assets/widget-briefing.webp" alt="Large Tempo widget reading Good afternoon, Nick, naming the next lecture at 2:00pm and a club that still needs a reply, with four blocks today." width="900" height="926" loading="lazy" />
+        </div>
+        <div class="wid-shot is-small">
+          <img src="assets/widget-nextup.webp" alt="Small Tempo widget showing Next Up at 7:00pm, Gym Session, six events today totalling 7.3 hours." width="540" height="541" loading="lazy" />
+        </div>
+      </div>
+
+      <div class="wid-list">
+        <div class="wid-item reveal">
+          <span class="wid-num">1</span>
+          <div>
+            <h3>The briefing, in a glance</h3>
+            <p>What's next, and the one thing still waiting on you, written in a sentence rather than a list of notifications.</p>
+          </div>
+        </div>
+        <div class="wid-item reveal" style="--d:80ms">
+          <span class="wid-num">2</span>
+          <div>
+            <h3>Next up, always current</h3>
+            <p>The next block, how many you have today, and total hours booked. It updates itself as your day moves.</p>
+          </div>
+        </div>
+        <div class="wid-item reveal" style="--d:160ms">
+          <span class="wid-num">3</span>
+          <div>
+            <h3>Sizes that fit your setup</h3>
+            <p>Small for a corner of the grid, large when you want the full picture. Native iOS, so it feels like it shipped with the phone.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ APP TOUR ══════════════ -->
+<section class="section tour" id="tour">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">The app</span>
+      <h2>Six screens. One place your day lives.</h2>
+      <p class="lede">It plays through on its own, or jump to whichever one you want.</p>
+    </div>
+
+    <div class="tour-tabs" id="tourTabs" role="tablist" aria-label="Tempo app screens">
+      <button class="tour-tab" type="button" role="tab" id="tab-calendar" data-step="calendar" aria-selected="true" aria-controls="panel-calendar">
+        <span class="tt-label">Calendar</span><span class="tt-bar"><i></i></span>
+      </button>
+      <button class="tour-tab" type="button" role="tab" id="tab-briefing" data-step="briefing" aria-selected="false" aria-controls="panel-briefing" tabindex="-1">
+        <span class="tt-label">Briefing</span><span class="tt-bar"><i></i></span>
+      </button>
+      <button class="tour-tab" type="button" role="tab" id="tab-assistant" data-step="assistant" aria-selected="false" aria-controls="panel-assistant" tabindex="-1">
+        <span class="tt-label">Assistant</span><span class="tt-bar"><i></i></span>
+      </button>
+      <button class="tour-tab" type="button" role="tab" id="tab-focus" data-step="focus" aria-selected="false" aria-controls="panel-focus" tabindex="-1">
+        <span class="tt-label">Focus</span><span class="tt-bar"><i></i></span>
+      </button>
+      <button class="tour-tab" type="button" role="tab" id="tab-social" data-step="social" aria-selected="false" aria-controls="panel-social" tabindex="-1">
+        <span class="tt-label">Social</span><span class="tt-bar"><i></i></span>
+      </button>
+      <button class="tour-tab" type="button" role="tab" id="tab-tasks" data-step="tasks" aria-selected="false" aria-controls="panel-tasks" tabindex="-1">
+        <span class="tt-label">Tasks</span><span class="tt-bar"><i></i></span>
+      </button>
+    </div>
+
+    <div class="tour-stage">
+      <div class="tour-phone">
+          <div class="phone">
+            <div class="tour-screens" id="tourScreens">
+              <img data-screen="calendar" class="is-active" src="assets/app-calendar.webp" alt="Tempo calendar day view for Thursday 20 August with colour-coded blocks for Social, Study, Personal, Health and a meeting, completed ones ticked off." width="660" height="1434" loading="lazy" />
+              <img data-screen="briefing" src="assets/app-briefing.webp" alt="Tempo Updates tab with the daily briefing, a Notion section and a Gmail inbox where 25 emails need a reply." width="660" height="1434" loading="lazy" />
+              <img data-screen="assistant" src="assets/app-assistant-home.webp" alt="Tempo assistant sheet reading Plans are taking shape, with a Plan remaining time button plus Free slots and Reschedule shortcuts." width="660" height="1434" loading="lazy" />
+              <img data-screen="focus" src="assets/app-focus.webp" alt="Tempo focus timer showing 50 minutes remaining in a deep work session, with 25/5, 50/10 and 90/15 presets." width="660" height="1434" loading="lazy" />
+              <img data-screen="social" src="assets/app-social-friends.webp" alt="Tempo social tab showing three friends currently free with their avatars and an invite button." width="660" height="1434" loading="lazy" />
+              <img data-screen="tasks" src="assets/app-tasks-clear.webp" alt="Tempo tasks view with smart deadlines auto-sorted by urgency, showing counts for overdue, this week, and minutes planned." width="660" height="1434" loading="lazy" />
+            </div>
+          </div>
+      </div>
+
+      <div class="tour-panels" id="tourPanels">
+        <div class="tour-panel is-active" id="panel-calendar" role="tabpanel" aria-labelledby="tab-calendar" data-step="calendar">
+          <span class="p-count">01 · Calendar</span>
+          <h3>Your day, readable at a glance</h3>
+          <p>Coloured blocks for study, social, health and personal, with everything you've finished ticked off. Week strip up top, and three layouts to switch between.</p>
+        </div>
+        <div class="tour-panel" id="panel-briefing" role="tabpanel" aria-labelledby="tab-briefing" data-step="briefing">
+          <span class="p-count">02 · Briefing</span>
+          <h3>A briefing, not a notification pile</h3>
+          <p>One short read on what actually needs you today, pulled from your calendar and inbox together. Play it out loud when your hands are busy.</p>
+        </div>
+        <div class="tour-panel" id="panel-assistant" role="tabpanel" aria-labelledby="tab-assistant" data-step="assistant">
+          <span class="p-count">03 · Assistant</span>
+          <h3>It plans the rest of today for you</h3>
+          <p>Ask it anything in plain English, or tap "Plan remaining time" and let it build realistic blocks around whatever is already booked.</p>
+        </div>
+        <div class="tour-panel" id="panel-focus" role="tabpanel" aria-labelledby="tab-focus" data-step="focus">
+          <span class="p-count">04 · Focus</span>
+          <h3>Focus that's tied to real work</h3>
+          <p>Pick the task, pick a rhythm (25/5, 50/10 or 90/15) and start. Sessions attach to the actual assignment instead of floating free.</p>
+        </div>
+        <div class="tour-panel" id="panel-social" role="tabpanel" aria-labelledby="tab-social" data-step="social">
+          <span class="p-count">05 · Social</span>
+          <h3>See who's genuinely free</h3>
+          <p>Tempo compares calendars so you can stop sending "you around?" texts. Tap a friend who's free, send an invite, and it lands on both calendars.</p>
+        </div>
+      <div class="tour-panel" id="panel-tasks" role="tabpanel" aria-labelledby="tab-tasks" data-step="tasks">
+          <span class="p-count">06 · Tasks</span>
+          <h3>Tasks that turn into real time</h3>
+          <p>Capture what you owe yourself: gym, errands, an assignment. Tempo blocks the time for it. Sorted by urgency, not by when you typed it.</p>
+        </div>
+        </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ INTEGRATIONS ══════════════ -->
+<section class="section integrations" id="integrations">
+  <div class="wrap">
+    <div class="section-head center reveal">
+      <span class="eyebrow">Connects to</span>
+      <h2>The tools you already live in.</h2>
+      <p class="lede">Connect once. Tempo reads them to understand your day, and only writes when you approve.</p>
+    </div>
+    <div class="int-row reveal">
+      <span class="int-node"><img src="assets/gmail.svg" alt="" width="26" height="26" loading="lazy" /> Gmail</span>
+      <span class="int-node"><img src="assets/google-calendar.svg" alt="" width="26" height="26" loading="lazy" /> Google Calendar</span>
+      <span class="int-node"><img src="assets/outlook.png" alt="" width="26" height="26" loading="lazy" /> Outlook</span>
+      <span class="int-node"><img src="assets/notion.svg" alt="" width="26" height="26" loading="lazy" /> Notion</span>
+    </div>
+    <p class="int-note reveal">Apple Calendar and more on the way.</p>
+  </div>
+</section>
+
+<!-- ══════════════ TESTIMONIALS ══════════════ -->
+<section class="section quotes" id="testers" aria-label="Beta feedback">
+  <div class="wrap">
+    <div class="section-head center reveal">
+      <span class="eyebrow">From early testers</span>
+      <h2>People already using it.</h2>
+    </div>
     <div class="quote-grid">
-      <blockquote class="quote-card reveal-scale" data-reveal-delay="80">
+      <blockquote class="quote-card reveal">
         <p>The tool that means you never have to hold your calendar in your head.</p>
         <footer>
-          <span class="quote-avatar quote-avatar--photo" aria-hidden="true">
-            <img src="assets/memoji-colin.png" alt="" width="54" height="54" loading="lazy" decoding="async" />
+          <span class="quote-avatar" aria-hidden="true">
+            <img src="assets/memoji-colin.png" alt="" width="46" height="46" loading="lazy" decoding="async" />
           </span>
           <span class="quote-meta">
             <span class="quote-name">Colin</span>
-            <span class="quote-role">Mechanical Engineering Student</span>
+            <span class="quote-role">Mechanical Engineering student</span>
           </span>
         </footer>
       </blockquote>
-      <blockquote class="quote-card reveal-scale" data-reveal-delay="180">
+      <blockquote class="quote-card reveal" style="--d:90ms">
         <p>I was about to subscribe to Motion. Then I saw $34 a month and backed off. Tempo does similar AI scheduling for a fraction of that. I was sold.</p>
         <footer>
-          <span class="quote-avatar quote-avatar--photo" aria-hidden="true">
-            <img src="assets/memoji-ari.png" alt="" width="54" height="54" loading="lazy" decoding="async" />
+          <span class="quote-avatar" aria-hidden="true">
+            <img src="assets/memoji-ari.png" alt="" width="46" height="46" loading="lazy" decoding="async" />
           </span>
           <span class="quote-meta">
             <span class="quote-name">Ari</span>
-            <span class="quote-role">Content Creator</span>
+            <span class="quote-role">Content creator</span>
           </span>
         </footer>
       </blockquote>
-      <blockquote class="quote-card reveal-scale" data-reveal-delay="280">
+      <blockquote class="quote-card reveal" style="--d:180ms">
         <p>I spend more on energy drinks in a day than Tempo costs for a month. Of course I'd subscribe.</p>
         <footer>
-          <span class="quote-avatar quote-avatar--photo" aria-hidden="true">
-            <img src="assets/memoji-tom.png" alt="" width="54" height="54" loading="lazy" decoding="async" />
+          <span class="quote-avatar" aria-hidden="true">
+            <img src="assets/memoji-tom.png" alt="" width="46" height="46" loading="lazy" decoding="async" />
           </span>
           <span class="quote-meta">
             <span class="quote-name">Tom</span>
-            <span class="quote-role">Mathematics Student</span>
+            <span class="quote-role">Mathematics student</span>
           </span>
         </footer>
       </blockquote>
@@ -2482,832 +1516,503 @@ body.nav-open{overflow-x:clip}
   </div>
 </section>
 
-<section class="contrast" id="problem">
-  <div class="wrap contrast-grid">
-    <div class="contrast-col contrast-before reveal" data-reveal-delay="0">
-      <p class="section-label">The problem</p>
-      <h2>Your day is split across apps</h2>
-      <p class="section-answer">You lose time switching between calendar, inbox, and notes.</p>
-      <p>Calendar here, inbox there, notes somewhere else. You rewrite the same context every time you hop tabs.</p>
-    </div>
-    <div class="contrast-col contrast-after reveal" data-reveal-delay="120">
-      <p class="section-label">With Tempo</p>
-      <h2>Your day in one place</h2>
-      <p class="section-answer">Tempo keeps schedule, inbox, and notes in one assistant, with widgets on your home screen.</p>
-      <p>Your schedule, inbox, and notes stay in context so Tempo can plan and draft with you.</p>
-    </div>
-  </div>
-</section>
-
-<section class="how-it-works" id="how">
+<!-- ══════════════ PRICING ══════════════ -->
+<section class="section pricing" id="pricing">
   <div class="wrap">
-    <p class="section-label reveal">Setup</p>
-    <h2 class="reveal" data-reveal-delay="60">How it works</h2>
-    <p class="section-answer reveal" data-reveal-delay="80">Connect your tools once, then Tempo plans and drafts while you stay in control.</p>
-    <div class="steps panel-row">
-      <article class="panel-card reveal-scale" data-reveal-delay="0">
-        <div class="panel-mark">
-          <span class="panel-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-          </span>
-          <span class="panel-num">Step 1</span>
-        </div>
-        <h3>Connect your apps</h3>
-        <p>One-time setup on iPhone. Your apps sync in the background.</p>
-      </article>
-      <article class="panel-card reveal-scale" data-reveal-delay="100">
-        <div class="panel-mark">
-          <span class="panel-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="3"/><path d="M3 10h18M8 2v4M16 2v4"/></svg>
-          </span>
-          <span class="panel-num">Step 2</span>
-        </div>
-        <h3>Tempo builds context</h3>
-        <p>Your week, threads, and notes feed into every suggestion.</p>
-      </article>
-      <article class="panel-card reveal-scale" data-reveal-delay="200">
-        <div class="panel-mark">
-          <span class="panel-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-          </span>
-          <span class="panel-num">Step 3</span>
-        </div>
-        <h3>You confirm, then act</h3>
-        <p>Review drafts and schedule changes. Nothing moves until you say so.</p>
-      </article>
+    <div class="section-head center reveal">
+      <span class="eyebrow">Pricing</span>
+      <h2>One price. No tiers to decode.</h2>
     </div>
-  </div>
-</section>
-
-<section class="integrations section-spotlight" id="integrations">
-  <div class="wrap">
-    <div class="integrations-head">
-      <p class="section-label reveal">Integrations</p>
-      <h2 class="reveal" data-reveal-delay="60">Connect the tools you use</h2>
-      <p class="section-answer reveal" data-reveal-delay="80">Tempo syncs Gmail, Google Calendar, Notion, and Outlook so suggestions use live context.</p>
-    </div>
-
-    <div class="integration-stage-wrap reveal-scale" data-reveal-delay="120">
-      <div class="integration-stage" id="integrationStage" aria-label="Tempo connects Gmail, Google Calendar, Notion, and Outlook">
-        <div class="sync-ring" aria-hidden="true"></div>
-        <svg class="sync-svg" viewBox="0 0 360 360" aria-hidden="true">
-          <defs>
-            <linearGradient id="syncGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#b0c4f5"/>
-              <stop offset="50%" stop-color="#4165e5"/>
-              <stop offset="100%" stop-color="#b0c4f5"/>
-            </linearGradient>
-          </defs>
-          <path id="pathGmail" class="sync-path" d="M180 58 C180 110 180 130 180 152"/>
-          <path id="pathCalendar" class="sync-path" d="M302 180 C250 180 210 180 180 180"/>
-          <path id="pathNotion" class="sync-path" d="M180 302 C180 250 180 210 180 188"/>
-          <path id="pathOutlook" class="sync-path" d="M58 180 C110 180 150 180 180 180"/>
-        </svg>
-
-        <div class="sync-hub">
-          <svg width="36" height="36" viewBox="0 0 36 36" fill="none" aria-hidden="true">
-            <rect x="0" y="0" width="16" height="16" rx="3.5" fill="#12141c"/>
-            <rect x="20" y="0" width="16" height="16" rx="3.5" fill="#4165e5"/>
-            <rect x="0" y="20" width="16" height="16" rx="3.5" fill="#b0c4f5"/>
-            <path d="M28 20C28 24.4 31.6 28 36 28C31.6 28 28 31.6 28 36C28 31.6 24.4 28 20 28C24.4 28 28 24.4 28 20Z" fill="#4165e5"/>
-          </svg>
-          <span>Tempo</span>
-        </div>
-
-        <div class="sync-orbit">
-          <div class="sync-satellite is-active" data-sync="gmail" style="--x:50%;--y:16%;--float-delay:0s">
-            <div class="sync-node">
-              <img src="assets/gmail.svg" alt="" width="32" height="32" loading="lazy" decoding="async" />
-              <span>Gmail</span>
-            </div>
-          </div>
-          <div class="sync-satellite" data-sync="calendar" style="--x:84%;--y:50%;--float-delay:.6s">
-            <div class="sync-node">
-              <img src="assets/google-calendar.svg" alt="" width="32" height="32" loading="lazy" decoding="async" />
-              <span>Calendar</span>
-            </div>
-          </div>
-          <div class="sync-satellite" data-sync="notion" style="--x:50%;--y:84%;--float-delay:1.2s">
-            <div class="sync-node">
-              <img src="assets/notion.svg" alt="" width="32" height="32" loading="lazy" decoding="async" />
-              <span>Notion</span>
-            </div>
-          </div>
-          <div class="sync-satellite" data-sync="outlook" style="--x:16%;--y:50%;--float-delay:1.8s">
-            <div class="sync-node">
-              <img src="assets/outlook.png" alt="" width="32" height="32" loading="lazy" decoding="async" />
-              <span>Outlook</span>
-            </div>
-          </div>
-        </div>
+    <div class="price-card reveal">
+      <span class="eyebrow">When we launch</span>
+      <div class="price-tag">
+        <span class="amount">$7.99</span>
+        <span class="per">AUD / month</span>
       </div>
-
-      <p class="sync-status" id="syncStatus" aria-live="polite">Checking inbox...</p>
-
-      <div class="integration-marquee" aria-hidden="true">
-        <div class="integration-marquee-track">
-          <span class="marquee-chip"><img src="assets/gmail.svg" alt="" loading="lazy" decoding="async" />Email draft ready</span>
-          <span class="marquee-chip"><img src="assets/google-calendar.svg" alt="" loading="lazy" decoding="async" />Meeting in 2h</span>
-          <span class="marquee-chip"><img src="assets/notion.svg" alt="" loading="lazy" decoding="async" />Sprint notes linked</span>
-          <span class="marquee-chip"><img src="assets/outlook.png" alt="" loading="lazy" decoding="async" />Follow-up queued</span>
-          <span class="marquee-chip"><img src="assets/gmail.svg" alt="" loading="lazy" decoding="async" />Inbox prioritized</span>
-          <span class="marquee-chip"><img src="assets/google-calendar.svg" alt="" loading="lazy" decoding="async" />Focus block placed</span>
-          <span class="marquee-chip"><img src="assets/gmail.svg" alt="" loading="lazy" decoding="async" />Email draft ready</span>
-          <span class="marquee-chip"><img src="assets/google-calendar.svg" alt="" loading="lazy" decoding="async" />Meeting in 2h</span>
-          <span class="marquee-chip"><img src="assets/notion.svg" alt="" loading="lazy" decoding="async" />Sprint notes linked</span>
-          <span class="marquee-chip"><img src="assets/outlook.png" alt="" loading="lazy" decoding="async" />Follow-up queued</span>
-          <span class="marquee-chip"><img src="assets/gmail.svg" alt="" loading="lazy" decoding="async" />Inbox prioritized</span>
-          <span class="marquee-chip"><img src="assets/google-calendar.svg" alt="" loading="lazy" decoding="async" />Focus block placed</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="showcase section-spotlight" id="preview">
-  <div class="wrap">
-    <div class="showcase-intro">
-      <p class="section-label reveal">Inside the app</p>
-      <h2 class="reveal" data-reveal-delay="60">Three things you'll use every day</h2>
-      <p class="section-answer reveal" data-reveal-delay="80">Plan the week, ask Tempo for help, and start from a short briefing, with widgets on your home screen.</p>
-    </div>
-
-    <article class="feature-block" data-layout="image-right">
-      <div class="feature-copy" data-align="left">
-        <span class="feature-tag">Plan</span>
-        <h3>See the whole week</h3>
-        <p class="section-answer">Events, focus blocks, and deadlines on one timeline, plus home screen widgets for a glanceable day.</p>
-        <p>Drag, resize, and pin blocks without leaving the app.</p>
-        <ul class="feature-points">
-          <li>Drag, resize, and pin blocks</li>
-          <li>Conflict warnings before they become a problem</li>
-          <li>Native iOS home screen widgets</li>
-          <li>Add by voice or text</li>
-        </ul>
-      </div>
-      <div class="feature-visual">
-        <div class="app-screen is-tilt-left">
-          <img
-            src="assets/app-screenshot.png"
-            alt="Tempo day view with color-coded events across gym, uni, study, and work"
-            width="470" height="1024"
-            loading="lazy" decoding="async"
-          />
-        </div>
-        <span class="feature-chip top-right">
-          <span class="dot"></span>
-          2 suggestions ready
-        </span>
-        <span class="feature-chip bottom-left">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="3"/><path d="M3 10h18M8 2v4M16 2v4"/></svg>
-          Friday cleared
-        </span>
-      </div>
-    </article>
-
-    <article class="feature-block" data-layout="image-left">
-      <div class="feature-copy" data-align="left">
-        <span class="feature-tag">Act</span>
-        <h3>Ask Tempo for help</h3>
-        <p class="section-answer">Type what you need. Tempo uses your connected apps as context.</p>
-        <ul class="feature-points">
-          <li>Block focus around real commitments</li>
-          <li>Find open slots without scrolling</li>
-          <li>Reschedule meetings that are about to clash</li>
-        </ul>
-      </div>
-      <div class="feature-visual">
-        <div class="app-screen is-tilt-right">
-          <img
-            src="assets/app-assistant.png?v=2"
-            alt="Talk to Tempo with shortcuts to block focus time, find free slots, reschedule, and get a week summary"
-            width="470" height="1024"
-            loading="lazy" decoding="async"
-          />
-        </div>
-        <span class="feature-chip top-left">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-          Block focus time
-        </span>
-        <span class="feature-chip bottom-right">
-          <span class="dot"></span>
-          Knows your week
-        </span>
-      </div>
-    </article>
-
-    <article class="feature-block" data-layout="image-right">
-      <div class="feature-copy" data-align="left">
-        <span class="feature-tag">Catch up</span>
-        <h3>Start with a short briefing</h3>
-        <p class="section-answer">A short summary of what needs you today from your inbox and notifications.</p>
-        <ul class="feature-points">
-          <li>Morning summary, not a wall of mail</li>
-          <li>Reply drafts in your tone, ready to review</li>
-          <li>Open the full thread only when you need it</li>
-        </ul>
-      </div>
-      <div class="feature-visual">
-        <div class="app-screen is-tilt-left">
-          <img
-            src="assets/app-updates.png?v=2"
-            alt="Tempo updates with an afternoon briefing and inbox items ready for draft replies"
-            width="470" height="1024"
-            loading="lazy" decoding="async"
-          />
-        </div>
-        <span class="feature-chip top-right">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v12H5.17L4 17.17V4z"/></svg>
-          2 drafts ready
-        </span>
-        <span class="feature-chip bottom-left">
-          <span class="dot"></span>
-          Briefing for today
-        </span>
-      </div>
-    </article>
-
-    <div class="more-features">
-      <h3 class="reveal">Also in the app</h3>
-      <p class="section-answer reveal">Including social planning, quick add, focus timers, tasks, and native iOS home screen widgets.</p>
-      <!-- TODO(nick): add a real home-screen widgets screenshot asset when available -->
-      <div class="more-grid">
-        <figure class="more-card reveal-scale" data-reveal-delay="0">
-          <div class="app-screen">
-            <img src="assets/app-social.png?v=2" alt="Tempo Social tab showing friends and quick invite to plan together" width="470" height="1024" loading="lazy" decoding="async" />
-          </div>
-          <span>Social</span>
-        </figure>
-        <figure class="more-card reveal-scale" data-reveal-delay="80">
-          <div class="app-screen">
-            <img src="assets/app-quickadd.png?v=1" alt="Tempo quick add. Type several events in one line, like Coffee with Sam tomorrow 3-4pm" width="470" height="1024" loading="lazy" decoding="async" />
-          </div>
-          <span>Quick Add Multiple Events</span>
-        </figure>
-        <figure class="more-card reveal-scale" data-reveal-delay="160">
-          <div class="app-screen">
-            <img src="assets/app-study.png" alt="Tempo focus timer with 25/5, 50/10, and 90/15 session presets" width="470" height="1024" loading="lazy" decoding="async" />
-          </div>
-          <span>Focus</span>
-        </figure>
-        <figure class="more-card reveal-scale" data-reveal-delay="240">
-          <div class="app-screen">
-            <img src="assets/app-tasks.png?v=2" alt="Tempo Study tab with tasks and deadlines auto-sorted by urgency" width="470" height="1024" loading="lazy" decoding="async" />
-          </div>
-          <span>Tasks &amp; deadlines</span>
-        </figure>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="pricing section-spotlight" id="pricing">
-  <div class="wrap">
-    <p class="section-label reveal">Pricing</p>
-    <h2 class="reveal" data-reveal-delay="60">Simple pricing</h2>
-    <p class="section-answer reveal" data-reveal-delay="80">Join the free waitlist now. Tempo will be $7.99 AUD per month when we launch.</p>
-    <p class="reveal" data-reveal-delay="100">Payment is not open yet. Joining the waitlist reserves your spot. Cancel anytime once billing starts.</p>
-    <div class="pricing-card pricing-card--waitlist reveal-scale" data-reveal-delay="140">
-      <p class="pricing-plan">When we launch</p>
-      <p class="pricing-price">$7.99 <span>AUD / month</span></p>
-      <p>One flat monthly price. Join the waitlist free today.</p>
-      <ul class="pricing-list">
-        <li>Full native calendar, inbox drafts, and briefings</li>
-        <li>Home screen widgets on iOS</li>
-        <li>Gmail, Google Calendar, Notion, and Outlook</li>
-        <li>No payment until checkout opens after launch</li>
+      <p class="price-sub">Joining the list is free today, and reserves your spot for when checkout opens.</p>
+      <ul class="price-list">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> The full assistant: planning, briefings, inbox drafts</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Native iOS home screen widgets</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Gmail, Google Calendar, Outlook and Notion</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> No payment until checkout opens after launch</li>
       </ul>
-      <a class="pricing-ghost-btn" href="#waitlist">Join the waitlist</a>
+      <a class="btn btn-primary" href="#waitlist">Get access</a>
     </div>
   </div>
 </section>
 
-<section class="faq" id="faq">
+<!-- ══════════════ FAQ ══════════════ -->
+<section class="section faq" id="faq">
   <div class="wrap">
-    <p class="section-label reveal">FAQ</p>
-    <h2 class="reveal" data-reveal-delay="60">Common questions</h2>
+    <div class="section-head center reveal">
+      <span class="eyebrow">FAQ</span>
+      <h2>Common questions</h2>
+    </div>
     <div class="faq-list">
-      <details class="faq-item reveal" data-reveal-delay="0">
-        <summary>Which platforms is Tempo on?</summary>
-        <p>Tempo is currently a native iPhone app in private beta. When it publicly releases, Tempo will also be available on desktop and Android.</p>
+      <details class="faq-item reveal">
+        <summary>Which platforms is Tempo on?<span class="faq-plus" aria-hidden="true"></span></summary>
+        <div class="faq-answer">iPhone and desktop. The iPhone app is built and running today. It just isn't on the App Store yet, which is why the waitlist exists. The desktop app is currently in beta.</div>
       </details>
-      <details class="faq-item reveal" data-reveal-delay="80">
-        <summary>How much does Tempo cost?</summary>
-        <p>Tempo will be $7.99 AUD per month. Payment isn't open yet, joining the waitlist is free and reserves your spot for when access opens.</p>
+      <details class="faq-item reveal">
+        <summary>How do I actually get it?<span class="faq-plus" aria-hidden="true"></span></summary>
+        <div class="faq-answer">Drop your email in the box above. We send access out in batches so we can support every new user properly, rather than opening the doors and disappearing.</div>
       </details>
-      <details class="faq-item reveal" data-reveal-delay="120">
-        <summary>When will I get access?</summary>
-        <p>Usually within 48 hours by email. Check spam if you do not see TestFlight.</p>
+      <details class="faq-item reveal">
+        <summary>What makes Tempo different from a normal calendar app?<span class="faq-plus" aria-hidden="true"></span></summary>
+        <div class="faq-answer">A normal calendar shows your events. Tempo also drafts inbox replies, proposes schedule changes, delivers a short daily briefing, and puts your day on a native iOS home screen widget. Nothing sends or moves until you approve it.</div>
       </details>
-      <details class="faq-item reveal" data-reveal-delay="160">
-        <summary>Does Tempo send or reschedule without asking?</summary>
-        <p>No. Tempo suggests drafts and calendar changes. The user reviews and approves before anything goes out or moves.</p>
+      <details class="faq-item reveal">
+        <summary>How is Tempo different from Motion or Reclaim?<span class="faq-plus" aria-hidden="true"></span></summary>
+        <div class="faq-answer">Motion and Reclaim auto-place blocks into a calendar you already use. Tempo is a full native calendar app with inbox drafting, daily briefings and home screen widgets built in, at a fraction of the price.</div>
       </details>
-      <details class="faq-item reveal" data-reveal-delay="200">
-        <summary>How is my data used?</summary>
-        <p>We use your data to run the assistant features you enable. We do not sell your personal information. See our <a href="privacy.html">Privacy Policy</a> for full details.</p>
+      <details class="faq-item reveal">
+        <summary>Is Tempo only for students?<span class="faq-plus" aria-hidden="true"></span></summary>
+        <div class="faq-answer">No. Tempo is built for young adults and busy people generally. It happens to work especially well for students, but the AI engine, integrations and widgets are designed for anyone juggling a full calendar and inbox.</div>
       </details>
-      <details class="faq-item reveal" data-reveal-delay="240">
-        <summary>How is Tempo different from Motion or Reclaim?</summary>
-        <p>Motion and Reclaim auto-place blocks in a calendar you already use. Tempo is a full native calendar app with inbox drafting, daily briefings, and home screen widgets built in.</p>
-        <div class="compare-wrap">
-          <p>Side by side:</p>
-          <div class="compare-scroll">
-            <table class="compare-table">
-              <thead>
-                <tr>
-                  <th scope="col">Feature</th>
-                  <th scope="col">Tempo</th>
-                  <th scope="col">Motion</th>
-                  <th scope="col">Reclaim</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Product shape</td>
-                  <td class="tempo-col">Full native calendar app</td>
-                  <td>AI scheduling app (mobile companion to web/desktop)</td>
-                  <td>Calendar overlay on Google/Outlook (no native mobile app)</td>
-                </tr>
-                <tr>
-                  <td>Inbox drafting</td>
-                  <td class="tempo-col">Built in</td>
-                  <td>Scheduling and tasks focused</td>
-                  <td>Scheduling focused</td>
-                </tr>
-                <tr>
-                  <td>Home screen widgets</td>
-                  <td class="tempo-col">Yes (native iOS)</td>
-                  <td>Yes (iOS)</td>
-                  <td>No native app widgets</td>
-                </tr>
-                <tr>
-                  <td>Approval before send/move</td>
-                  <td class="tempo-col">Required</td>
-                  <td>Auto-places blocks</td>
-                  <td>Auto-places blocks</td>
-                </tr>
-                <tr>
-                  <td>Price</td>
-                  <td class="tempo-col">$7.99 AUD/mo when we launch</td>
-                  <td>From about US$19 to $29 per seat per month</td>
-                  <td>Free Lite; paid from about US$10/seat/mo</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <p class="compare-note">Competitor widget and pricing details checked August 2026. Confirm live pricing on each vendor's site before buying.</p>
-          <!-- TODO(nick): re-verify Motion/Reclaim pricing and widget claims before major launches -->
-        </div>
+      <details class="faq-item reveal">
+        <summary>Does Tempo send or reschedule without asking?<span class="faq-plus" aria-hidden="true"></span></summary>
+        <div class="faq-answer">No. It drafts and proposes, then waits. Every send and every schedule change shows you a confirmation first, and gives you a receipt of what it did afterwards.</div>
       </details>
-      <details class="faq-item reveal" data-reveal-delay="280">
-        <summary>Is Tempo only for students?</summary>
-        <p>No. Tempo is built for young adults and busy individuals generally. It happens to work especially well for students, but the AI engine, integrations, and widgets are designed for anyone juggling a full calendar and inbox.</p>
+      <details class="faq-item reveal">
+        <summary>How much does it cost?<span class="faq-plus" aria-hidden="true"></span></summary>
+        <div class="faq-answer">$7.99 AUD per month once checkout opens. Payment isn't open yet, and joining the list is free. No card, and no trial countdown running in the background.</div>
       </details>
-      <details class="faq-item reveal" data-reveal-delay="320">
-        <summary>What makes Tempo different from a normal calendar app?</summary>
-        <p>A normal calendar shows your events. Tempo is an AI assistant that also drafts inbox replies, proposes schedule changes, delivers a short daily briefing, and puts your day on a native iOS home screen widget. Nothing sends or moves until you approve it.</p>
+      <details class="faq-item reveal">
+        <summary>How is my data used?<span class="faq-plus" aria-hidden="true"></span></summary>
+        <div class="faq-answer">To run your assistant, and nothing else. We don't sell your data and we don't use it to train public models. The <a href="privacy.html">Privacy Policy</a> spells out exactly what's read and stored.</div>
+      </details>
+      <details class="faq-item reveal">
+        <summary>What does Tempo connect to?<span class="faq-plus" aria-hidden="true"></span></summary>
+        <div class="faq-answer">Gmail, Google Calendar, Outlook and Notion. Tempo reads them to understand your day, and only writes when you approve an action.</div>
       </details>
     </div>
   </div>
 </section>
 
-<section class="beta-cta section-spotlight" id="waitlist">
+<!-- ══════════════ FOUNDERS ══════════════ -->
+<section class="section founders" id="founders">
   <div class="wrap">
-    <h2 class="reveal">Get on the list</h2>
-
-    <div class="waitlist-block reveal-scale" data-reveal-delay="100">
-      <p class="waitlist-count"><strong>120+</strong> on the waitlist</p>
-      <div class="waitlist-slot">
-        <form
-          class="waitlist-form"
-          id="waitlistCtaForm"
-          name="waitlist-cta"
-          method="POST"
-          data-netlify="true"
-          netlify-honeypot="bot-field-cta"
-          novalidate
-        >
-          <input type="hidden" name="form-name" value="waitlist-cta" aria-label="Form name" />
-          <p hidden>
-            <label>Don't fill this out: <input name="bot-field-cta" aria-label="Leave blank" tabindex="-1" autocomplete="off" /></label>
-          </p>
-          <input
-            type="email"
-            name="email"
-            class="waitlist-input"
-            id="waitlistCtaEmail"
-            aria-label="Email address to join the beta waitlist"
-            placeholder="Enter your email to join the beta"
-            autocomplete="email"
-            required
-          />
-          <button type="submit" class="waitlist-submit">
-            <span class="btn-label">Join the Waitlist</span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-          </button>
-        </form>
-        <div class="waitlist-success" id="waitlistCtaSuccess" role="status" aria-live="polite">
-          <span class="success-check" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
-          </span>
-          <span class="success-text">
-            <strong>You're in!</strong>
-            <span>Thanks for joining. We'll email you soon.</span>
-          </span>
-        </div>
-      </div>
-      <p class="trust-row">
-        <a href="privacy.html">Privacy</a>
-        <a href="terms.html">Terms</a>
+    <div class="section-head center reveal">
+      <span class="eyebrow">Who's building it</span>
+      <h2>Two engineering students who kept dropping things.</h2>
+      <p class="lede">
+        We're Axel and Nick, engineering students at the University of
+        Queensland. We built Tempo because we were the problem: classes in one
+        app, deadlines in another, an inbox we kept meaning to get to. Every
+        assistant we tried wanted us to explain our week before it could help,
+        so we started building one that already knew it.
       </p>
     </div>
+
+    <div class="founder-grid">
+      <article class="founder-card reveal">
+        <img src="assets/founder-axel.webp" alt="Axel García Ferreira, co-founder of Tempo" width="104" height="104" loading="lazy" decoding="async" />
+        <h3>Axel García Ferreira</h3>
+        <p class="founder-role">Co-founder · Engineering, UQ</p>
+        <a class="founder-link" href="https://www.linkedin.com/in/axel-garcia-ferreira/" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.05A4.2 4.2 0 0 1 16.6 8.7c4 0 4.4 2.4 4.4 5.6V21h-4v-5.7c0-1.4 0-3.2-2-3.2s-2.3 1.5-2.3 3.1V21H9z"/></svg>
+          LinkedIn
+        </a>
+      </article>
+
+      <article class="founder-card reveal" style="--d:90ms">
+        <img src="assets/founder-nick.webp" alt="Nick Svetlov, co-founder of Tempo" width="104" height="104" loading="lazy" decoding="async" />
+        <h3>Nick Svetlov</h3>
+        <p class="founder-role">Co-founder · Engineering, UQ</p>
+        <a class="founder-link" href="https://www.linkedin.com/in/nick-svetlov/" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.05A4.2 4.2 0 0 1 16.6 8.7c4 0 4.4 2.4 4.4 5.6V21h-4v-5.7c0-1.4 0-3.2-2-3.2s-2.3 1.5-2.3 3.1V21H9z"/></svg>
+          LinkedIn
+        </a>
+      </article>
+    </div>
+
+    <p class="founder-backing reveal">
+      Supported by <strong>UQ Ventures</strong> ·
+      <a href="https://www.linkedin.com/company/tempoassistant/" target="_blank" rel="noopener noreferrer">Tempo on LinkedIn</a>
+    </p>
   </div>
 </section>
 
-<footer>
-  <div class="foot">
-    <div>
-      <div class="foot-brand">
-        <svg width="26" height="26" viewBox="0 0 36 36" fill="none" aria-hidden="true">
-          <rect x="0" y="0" width="16" height="16" rx="3.5" fill="var(--ink)"/>
-          <rect x="20" y="0" width="16" height="16" rx="3.5" fill="#4165e5"/>
-          <rect x="0" y="20" width="16" height="16" rx="3.5" fill="#b0c4f5"/>
-          <path d="M28 20C28 24.4 31.6 28 36 28C31.6 28 28 31.6 28 36C28 31.6 24.4 28 20 28C24.4 28 28 24.4 28 20Z" fill="#4165e5"/>
-        </svg>
-        Tempo
+<!-- ══════════════ FINAL CTA ══════════════ -->
+<section class="section cta dotted" id="waitlist">
+  <div class="cta-ribbon" aria-hidden="true">
+    <img src="assets/background2.webp" alt="" width="541" height="361" decoding="async" />
+  </div>
+  <div class="wrap">
+    <span class="eyebrow reveal">Get access</span>
+    <h2 class="reveal" style="--d:60ms">Stop explaining your week to a chatbot.</h2>
+    <p class="lede reveal" style="--d:120ms">
+      Join the list and we'll send your access link. Free, no card, and you can
+      leave any time.
+    </p>
+
+    <div class="waitlist-slot reveal" style="--d:180ms">
+      <form class="waitlist-form" id="waitlistCtaForm" name="waitlist-cta" method="POST" data-netlify="true" netlify-honeypot="bot-field-cta" novalidate>
+        <input type="hidden" name="form-name" value="waitlist-cta" />
+        <p hidden><label>Don't fill this out: <input name="bot-field-cta" tabindex="-1" autocomplete="off" /></label></p>
+        <input type="email" name="email" class="waitlist-input" id="waitlistCtaEmail" aria-label="Email address to get Tempo access" placeholder="you@email.com" autocomplete="email" required />
+        <button type="submit" class="waitlist-submit">
+          Get access
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </button>
+      </form>
+      <div class="waitlist-success" id="waitlistCtaSuccess" role="status" aria-live="polite">
+        <span class="success-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>
+        <span class="success-text"><strong>You're on the list.</strong><span>We'll email your access link soon.</span></span>
       </div>
-      <p class="foot-tag">AI assistant for iOS. Built in Brisbane for young adults and busy people.</p>
-    </div>
-    <div class="foot-links">
-      <a href="support.html">Support</a>
-      <a href="privacy.html">Privacy</a>
-      <a href="terms.html">Terms</a>
-      <a href="mailto:tempo.calendar.ai@gmail.com">Contact</a>
+      <p class="form-note">120+ people already waiting. <a href="terms.html">Terms</a></p>
     </div>
   </div>
-  <div class="foot-bottom">
-    <span>© 2026 Tempo Software Pty Ltd</span>
-    <span class="foot-updated">Last updated 12 August 2026</span>
-    <span>Made in Brisbane</span>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <span>&copy; <span id="year">2026</span> Tempo Software Pty Ltd · ABN 85 701 184 358</span>
+    <span class="footer-legal">
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+      <a href="support.html">Support</a>
+    </span>
   </div>
 </footer>
 
-<div class="sticky-waitlist" id="stickyWaitlist" hidden>
-  <a href="#waitlist" class="sticky-waitlist-btn">Join the Waitlist</a>
+<div class="sticky-cta" id="stickyCta">
+  <a class="btn btn-primary" href="#waitlist">Get access</a>
 </div>
 
 <script>
-const nav = document.getElementById('nav');
-const heroEl = document.querySelector('.hero');
-window.addEventListener('scroll', () => {
-  if (!nav) return;
-  nav.classList.toggle('scrolled', window.scrollY > 8);
-  if (heroEl) {
-    nav.classList.toggle('nav-past-hero', window.scrollY > heroEl.offsetHeight * 0.55);
-  }
-}, { passive: true });
+(function () {
+  'use strict';
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-(function initNavMobile() {
-  const toggle = document.getElementById('navToggle');
-  const menu = document.getElementById('navMobile');
-  if (!toggle || !menu) return;
-  const desktopMq = window.matchMedia('(min-width: 920px)');
-  function setMenuOpen(open) {
-    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-    toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
-    menu.classList.toggle('is-open', open);
-    document.body.classList.toggle('nav-open', open);
-  }
-  toggle.addEventListener('click', () => {
-    setMenuOpen(toggle.getAttribute('aria-expanded') !== 'true');
-  });
-  menu.querySelectorAll('a').forEach((a) => {
-    a.addEventListener('click', () => setMenuOpen(false));
-  });
-  desktopMq.addEventListener('change', (e) => {
-    if (e.matches) setMenuOpen(false);
-  });
-})();
+  /* ---------- year ---------- */
+  var y = document.getElementById('year');
+  if (y) y.textContent = new Date().getFullYear();
 
-async function submitNetlifyForm(form) {
-  const body = new URLSearchParams(new FormData(form)).toString();
-  const res = await fetch('/', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body,
-  });
-  if (!res.ok) throw new Error('netlify');
-}
-
-function bindWaitlist(formId, emailId, successId) {
-  const form = document.getElementById(formId);
-  const successEl = successId ? document.getElementById(successId) : null;
-  if (!form) return;
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const inp = document.getElementById(emailId);
-    const email = (inp && inp.value.trim()) || '';
-    if (!email || !email.includes('@')) {
-      if (inp) {
-        inp.style.color = '#ff6b6b';
-        setTimeout(() => { inp.style.color = ''; }, 600);
-      }
-      return;
-    }
-    try {
-      await submitNetlifyForm(form);
-      form.classList.add('is-exiting');
-      window.setTimeout(() => {
-        form.classList.add('submitted');
-        if (successEl) successEl.classList.add('is-visible');
-      }, 280);
-    } catch {
-      alert('Could not send just now. Check your connection and try again.');
-    }
-  });
-}
-
-bindWaitlist('waitlistHeroForm', 'waitlistEmail', 'waitlistHeroSuccess');
-bindWaitlist('waitlistCtaForm', 'waitlistCtaEmail', 'waitlistCtaSuccess');
-
-(function initStickyWaitlist() {
-  const bar = document.getElementById('stickyWaitlist');
-  const hero = document.querySelector('.hero');
-  if (!bar || !hero) return;
-  const mq = window.matchMedia('(max-width: 759px)');
-  const io = new IntersectionObserver(([entry]) => {
-    if (!mq.matches) {
-      bar.hidden = true;
-      bar.classList.remove('is-visible');
-      document.body.classList.remove('sticky-waitlist-on');
-      return;
-    }
-    const show = !entry.isIntersecting;
-    bar.hidden = !show;
-    bar.classList.toggle('is-visible', show);
-    document.body.classList.toggle('sticky-waitlist-on', show);
-  }, { threshold: 0, rootMargin: '0px 0px -40px 0px' });
-  io.observe(hero);
-  mq.addEventListener('change', () => {
-    if (!mq.matches) {
-      bar.hidden = true;
-      bar.classList.remove('is-visible');
-      document.body.classList.remove('sticky-waitlist-on');
-    }
-  });
-})();
-
-document.querySelectorAll('a[href="#waitlist"]').forEach((a) => {
-  a.addEventListener('click', (e) => {
-    const target = document.getElementById('waitlist');
-    if (!target) return;
-    e.preventDefault();
-    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    const inp = document.getElementById('waitlistCtaEmail');
-    if (inp) setTimeout(() => inp.focus({ preventScroll: true }), 400);
-  });
-});
-
-(function initIntegrationSync() {
-  const stage = document.getElementById('integrationStage');
-  const statusEl = document.getElementById('syncStatus');
-  if (!stage || !statusEl) return;
-
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const satellites = [...stage.querySelectorAll('.sync-satellite')];
-  const paths = {
-    gmail: document.getElementById('pathGmail'),
-    calendar: document.getElementById('pathCalendar'),
-    notion: document.getElementById('pathNotion'),
-    outlook: document.getElementById('pathOutlook'),
+  /* ---------- nav shadow ---------- */
+  var nav = document.getElementById('nav');
+  var onScroll = function () {
+    if (nav) nav.classList.toggle('is-stuck', window.scrollY > 8);
   };
-  const messages = {
-    gmail: 'Checking inbox...',
-    calendar: 'Reading your week...',
-    notion: 'Opening Notion pages...',
-    outlook: 'Checking Outlook...',
-  };
-  let index = 0;
-  let timer;
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
 
-  function spawnPacket(pathEl) {
-    if (reduce || !pathEl || !window.CSS || !CSS.supports('offset-path', 'path("M0 0")')) return;
-    const packet = document.createElement('span');
-    packet.className = 'sync-packet run';
-    packet.style.offsetPath = `path('${pathEl.getAttribute('d')}')`;
-    stage.appendChild(packet);
-    packet.addEventListener('animationend', () => packet.remove(), { once: true });
+  /* ---------- mobile menu ---------- */
+  var toggle = document.getElementById('navToggle');
+  var menu = document.getElementById('navMenu');
+  if (toggle && menu) {
+    var scrim = document.getElementById('navScrim');
+    var setOpen = function (open) {
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      menu.classList.toggle('is-open', open);
+      document.body.classList.toggle('nav-open', open);
+      if (scrim) {
+        if (open) scrim.removeAttribute('hidden');
+        scrim.classList.toggle('is-open', open);
+        if (!open) setTimeout(function () {
+          if (!menu.classList.contains('is-open')) scrim.setAttribute('hidden', '');
+        }, 320);
+      }
+    };
+    if (document.getElementById('navScrim')) {
+      document.getElementById('navScrim').addEventListener('click', function () { setOpen(false); });
+    }
+    toggle.addEventListener('click', function () {
+      setOpen(toggle.getAttribute('aria-expanded') !== 'true');
+    });
+    menu.addEventListener('click', function (e) {
+      if (e.target.closest('a')) setOpen(false);
+    });
+    window.matchMedia('(min-width: 920px)').addEventListener('change', function (e) {
+      if (e.matches) setOpen(false);
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') setOpen(false);
+    });
   }
 
-  function setActive(i) {
-    const sat = satellites[i];
-    if (!sat) return;
-    const key = sat.dataset.sync;
-    satellites.forEach((s) => s.classList.toggle('is-active', s === sat));
-    Object.values(paths).forEach((p) => p && p.classList.remove('is-active'));
-    if (paths[key]) paths[key].classList.add('is-active');
-    statusEl.classList.add('is-changing');
-    statusEl.textContent = messages[key] || 'Connected to Tempo.';
-    requestAnimationFrame(() => statusEl.classList.remove('is-changing'));
-    spawnPacket(paths[key]);
+  /* ---------- eased in-page navigation ---------- */
+  (function initSmoothAnchors() {
+    var navEl = document.getElementById('nav');
+
+    // clear the floating nav card, whatever height it currently is
+    function navOffset() {
+      var card = navEl && navEl.querySelector('.wrap');
+      return (card ? card.getBoundingClientRect().height : 62) + 26;
+    }
+
+    function easeInOutCubic(t) {
+      return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    }
+
+    function glideTo(targetY, done) {
+      var startY = window.scrollY;
+      var dist = targetY - startY;
+      if (Math.abs(dist) < 2) { if (done) done(); return; }
+
+      // No animation frames available (or the user asked for less motion):
+      // land on the target rather than doing nothing at all.
+      if (reduced || typeof window.requestAnimationFrame !== 'function') {
+        window.scrollTo({ top: targetY, behavior: 'auto' });
+        if (done) done();
+        return;
+      }
+
+      // longer jumps travel longer, clamped so short hops aren't sluggish
+      // and full-page hops don't drag
+      var dur = Math.min(1600, Math.max(750, Math.abs(dist) * 0.6));
+      var t0 = performance.now();
+
+      (function step(now) {
+        var p = Math.min(1, (now - t0) / dur);
+        // behavior:'auto' so the CSS scroll-behavior:smooth fallback, which
+        // is there for the no-JS case, can't fight each frame of this
+        window.scrollTo({ top: startY + dist * easeInOutCubic(p), behavior: 'auto' });
+        if (p < 1) requestAnimationFrame(step);
+        else if (done) done();
+      })(t0);
+    }
+
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest && e.target.closest('a[href^="#"]');
+      if (!a || a.hasAttribute('download') || a.target === '_blank') return;
+      var id = a.getAttribute('href');
+      if (!id || id.length < 2) return;
+      var el = document.getElementById(id.slice(1));
+      if (!el) return;
+
+      e.preventDefault();
+      var y = Math.max(0, el.getBoundingClientRect().top + window.scrollY - navOffset());
+      glideTo(y, function () {
+        if (history.replaceState) history.replaceState(null, '', id);
+        // hand focus over for keyboard and screen-reader users, without
+        // letting the browser re-jump to the element
+        if (!el.hasAttribute('tabindex')) el.setAttribute('tabindex', '-1');
+        el.focus({ preventScroll: true });
+      });
+    });
+  })();
+
+  /* ---------- reveal on scroll ---------- */
+  var reveals = document.querySelectorAll('.reveal');
+  if (reduced || !('IntersectionObserver' in window)) {
+    reveals.forEach(function (el) { el.classList.add('is-in'); });
+  } else {
+    var ro = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-in');
+          ro.unobserve(entry.target);
+        }
+      });
+    }, { rootMargin: '0px 0px -12% 0px', threshold: 0.08 });
+    reveals.forEach(function (el) { ro.observe(el); });
   }
 
-  function tick() {
-    setActive(index);
-    index = (index + 1) % satellites.length;
-  }
+  /* ---------- hero ribbon drifts slower than the page ---------- */
+  (function initRibbonParallax() {
+    var rib = document.querySelector('.hero-ribbon');
+    var hero = document.querySelector('.hero');
+    if (!rib || !hero || reduced) return;
 
-  function startCycle() {
-    if (reduce || timer) return;
-    timer = setInterval(tick, 2800);
-  }
-  function stopCycle() {
-    if (!timer) return;
-    clearInterval(timer);
-    timer = null;
-  }
+    var RATE = 0.34;          // fraction of scroll distance the ribbon travels
+    var limit = 0;
 
-  tick();
-  startCycle();
+    function measure() { limit = hero.offsetHeight + 300; }
 
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach((e) => (e.isIntersecting ? startCycle() : stopCycle()));
-  }, { threshold: 0.15 });
-  io.observe(stage);
-})();
+    function update() {
+      var y = window.scrollY;
+      if (y > limit) return;  // hero is long gone; stop touching the DOM
+      rib.style.transform = 'translate3d(0,' + (y * RATE).toFixed(1) + 'px,0)';
+    }
 
-(function initShowcaseReveal() {
-  const blocks = document.querySelectorAll('.feature-block');
-  if (!blocks.length) return;
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (reduce) {
-    blocks.forEach((b) => b.classList.add('is-visible'));
-    return;
-  }
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach((e) => {
-      if (e.isIntersecting) {
-        e.target.classList.add('is-visible');
-        io.unobserve(e.target);
+    // Deliberately not rAF-driven. Scroll events are already throttled to
+    // roughly frame rate, and a single translate3d write is cheap and
+    // GPU-composited. Routing through requestAnimationFrame adds a dependency
+    // that silently kills the effect wherever frames aren't being served.
+    measure();
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', function () { measure(); update(); }, { passive: true });
+  })();
+
+  /* ---------- app tour: auto-advancing showcase ---------- */
+  (function initTour() {
+    var rail = document.getElementById('tourTabs');
+    var tabs = [].slice.call(document.querySelectorAll('.tour-tab'));
+    var screens = [].slice.call(document.querySelectorAll('#tourScreens img'));
+    var panels = [].slice.call(document.querySelectorAll('.tour-panel'));
+    var section = document.getElementById('tour');
+    if (!rail || !tabs.length) return;
+
+    var DWELL = 6200;
+    var idx = 0, timer = null, inView = false;
+
+    function centreTab(tab) {
+      // scroll the rail horizontally only, never the page
+      var want = tab.offsetLeft - (rail.clientWidth - tab.offsetWidth) / 2;
+      var max = rail.scrollWidth - rail.clientWidth;
+      rail.scrollTo({
+        left: Math.max(0, Math.min(want, max)),
+        behavior: reduced ? 'auto' : 'smooth'
+      });
+    }
+
+    function render() {
+      tabs.forEach(function (t, n) {
+        var on = n === idx;
+        t.setAttribute('aria-selected', on ? 'true' : 'false');
+        t.tabIndex = on ? 0 : -1;
+        t.classList.remove('is-paused');
+      });
+      screens.forEach(function (s, n) { s.classList.toggle('is-active', n === idx); });
+      panels.forEach(function (p, n) {
+        p.classList.toggle('is-active', n === idx);
+        // aria-hidden (not [hidden]) so the crossfade still renders
+        p.setAttribute('aria-hidden', n === idx ? 'false' : 'true');
+      });
+      centreTab(tabs[idx]);
+    }
+
+    // Checked at fire time rather than tracked as state: enter/leave events
+    // can latch a stuck "paused" flag (a rail scroll under a stationary
+    // cursor fires pointerenter), which stalls the tour for good.
+    function userIsHolding() {
+      var a = document.activeElement;
+      try {
+        if (rail.matches(':hover')) return true;
+        if (a && rail.contains(a) && a.matches(':focus-visible')) return true;
+      } catch (e) {
+        if (a && rail.contains(a)) return true;
+      }
+      return false;
+    }
+
+    function schedule() {
+      clearTimeout(timer);
+      if (reduced || !inView) return;
+      timer = setTimeout(function () {
+        if (userIsHolding()) {
+          tabs[idx].classList.add('is-paused');
+          schedule();               // keep waiting, don't advance
+          return;
+        }
+        idx = (idx + 1) % tabs.length;
+        render();
+        schedule();
+      }, DWELL);
+    }
+
+    function select(n) {
+      idx = n;
+      render();
+      schedule();
+    }
+
+    tabs.forEach(function (t, n) {
+      t.addEventListener('click', function () { select(n); });
+    });
+
+    // roving-tabindex keyboard support
+    rail.addEventListener('keydown', function (e) {
+      var d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+      if (d) {
+        e.preventDefault();
+        select((idx + d + tabs.length) % tabs.length);
+        tabs[idx].focus();
+      } else if (e.key === 'Home') {
+        e.preventDefault(); select(0); tabs[0].focus();
+      } else if (e.key === 'End') {
+        e.preventDefault(); select(tabs.length - 1); tabs[idx].focus();
       }
     });
-  }, { threshold: 0.18, rootMargin: '0px 0px -10% 0px' });
-  blocks.forEach((b) => io.observe(b));
-})();
 
-(function initHeroEntrance() {
-  const hero = document.querySelector('.hero');
-  if (!hero) return;
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const els = [...hero.querySelectorAll('[data-hero-enter]')];
-  hero.classList.add('is-ready');
-  if (reduce) {
-    els.forEach((el) => el.classList.add('is-in'));
-    return;
-  }
-  els.forEach((el, i) => {
-    setTimeout(() => el.classList.add('is-in'), 90 + i * 95);
-  });
-})();
-
-(function initScrollReveal() {
-  const items = document.querySelectorAll('.reveal, .reveal-scale');
-  if (!items.length) return;
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (reduce) {
-    items.forEach((el) => el.classList.add('is-in'));
-    return;
-  }
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting) return;
-      const el = entry.target;
-      const delay = Number(el.dataset.revealDelay || 0);
-      setTimeout(() => el.classList.add('is-in'), delay);
-      io.unobserve(el);
+    // Leaving the rail clears the paused styling and resumes the countdown.
+    rail.addEventListener('pointerleave', function () {
+      if (!userIsHolding()) { tabs[idx].classList.remove('is-paused'); schedule(); }
     });
-  }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
-  items.forEach((el) => io.observe(el));
-})();
+    // No visibilitychange handling on purpose: browsers already throttle
+    // timers in background tabs, and some embedded browsers emit the event
+    // spuriously, which stalls a countdown that restarts on every event.
 
-(function initSectionSpotlight() {
-  const sections = document.querySelectorAll('.section-spotlight');
-  if (!sections.length) return;
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (reduce) {
-    sections.forEach((s) => s.classList.add('is-lit'));
-    return;
-  }
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach((e) => {
-      e.target.classList.toggle('is-lit', e.isIntersecting);
+    // only run while the section is actually on screen
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (en) {
+        var now = en[0].isIntersecting;
+        if (now === inView) return;
+        inView = now;
+        if (inView) { schedule(); } else { clearTimeout(timer); }
+      }, { threshold: 0 }).observe(section);
+    } else {
+      inView = true; schedule();
+    }
+
+    render();
+  })();
+
+  /* ---------- waitlist (Netlify Forms) ---------- */
+  function submitNetlifyForm(form) {
+    var body = new URLSearchParams(new FormData(form)).toString();
+    return fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: body
+    }).then(function (res) {
+      if (!res.ok) throw new Error('netlify');
     });
-  }, { threshold: 0.15, rootMargin: '-8% 0px -8% 0px' });
-  sections.forEach((s) => io.observe(s));
-})();
-
-(function initHeroScrollParallax() {
-  const wrap = document.querySelector('.hero-device-wrap');
-  const hero = document.querySelector('.hero');
-  if (!wrap || !hero) return;
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (reduce) return;
-
-  let ticking = false;
-  function update() {
-    ticking = false;
-    const rect = hero.getBoundingClientRect();
-    const progress = Math.min(1, Math.max(0, -rect.top / (rect.height * 0.9)));
-    wrap.style.opacity = String(1 - progress * 0.2);
   }
-  window.addEventListener('scroll', () => {
-    if (!ticking) {
-      ticking = true;
-      requestAnimationFrame(update);
+
+  function bindWaitlist(formId, emailId, successId) {
+    var form = document.getElementById(formId);
+    var successEl = successId ? document.getElementById(successId) : null;
+    if (!form) return;
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var inp = document.getElementById(emailId);
+      var email = (inp && inp.value.trim()) || '';
+      if (!email || email.indexOf('@') === -1) {
+        if (inp) {
+          inp.style.color = '#e5484d';
+          inp.focus();
+          setTimeout(function () { inp.style.color = ''; }, 700);
+        }
+        return;
+      }
+      submitNetlifyForm(form).then(function () {
+        form.classList.add('is-exiting');
+        setTimeout(function () {
+          form.classList.add('submitted');
+          if (successEl) successEl.classList.add('is-visible');
+        }, 280);
+      }).catch(function () {
+        alert('Could not send just now. Check your connection and try again.');
+      });
+    });
+  }
+  bindWaitlist('waitlistHeroForm', 'waitlistEmail', 'waitlistHeroSuccess');
+  bindWaitlist('waitlistCtaForm', 'waitlistCtaEmail', 'waitlistCtaSuccess');
+
+  /* ---------- sticky mobile CTA ---------- */
+  var bar = document.getElementById('stickyCta');
+  var hero = document.querySelector('.hero');
+  var cta = document.getElementById('waitlist');
+  if (bar && hero && 'IntersectionObserver' in window) {
+    var pastHero = false, inCta = false;
+    var sync = function () { bar.classList.toggle('is-visible', pastHero && !inCta); };
+    new IntersectionObserver(function (en) {
+      pastHero = !en[0].isIntersecting;
+      sync();
+    }, { threshold: 0 }).observe(hero);
+    if (cta) {
+      new IntersectionObserver(function (en) {
+        inCta = en[0].isIntersecting;
+        sync();
+      }, { threshold: 0 }).observe(cta);
     }
-  }, { passive: true });
-  update();
-})();
-
-(function initHeroPhoneTilt() {
-  const wrap = document.querySelector('.hero-device-wrap');
-  const phone = document.querySelector('.hero-device');
-  if (!wrap || !phone) return;
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const desktop = window.matchMedia('(min-width: 920px)');
-  if (reduce) return;
-
-  function resetTilt() {
-    phone.style.transform = '';
   }
-
-  function onMove(e) {
-    if (!desktop.matches) return;
-    const rect = wrap.getBoundingClientRect();
-    const dx = (e.clientX - (rect.left + rect.width / 2)) / rect.width;
-    const dy = (e.clientY - (rect.top + rect.height / 2)) / rect.height;
-    const rotateY = Math.max(-10, Math.min(10, dx * 14));
-    const rotateX = Math.max(-8, Math.min(8, -dy * 10));
-    phone.style.transform =
-      `rotateX(${rotateX}deg) rotateY(${rotateY}deg) rotate(-1.5deg)`;
-  }
-
-  wrap.addEventListener('mousemove', onMove, { passive: true });
-  wrap.addEventListener('mouseleave', resetTilt);
-  desktop.addEventListener('change', (e) => {
-    if (!e.matches) resetTilt();
-  });
-})();
-
-(function initScrollProgress() {
-  const bar = document.getElementById('scrollProgress');
-  if (!bar) return;
-  let ticking = false;
-  function update() {
-    ticking = false;
-    const doc = document.documentElement;
-    const max = doc.scrollHeight - doc.clientHeight;
-    const p = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
-    bar.style.transform = `scaleX(${p})`;
-  }
-  window.addEventListener('scroll', () => {
-    if (!ticking) {
-      ticking = true;
-      requestAnimationFrame(update);
-    }
-  }, { passive: true });
-  window.addEventListener('resize', update, { passive: true });
-  update();
-})();
-
-(function initScrollSpy() {
-  const links = [...document.querySelectorAll('.nav-links a[href^="#"]')];
-  if (!links.length) return;
-  const map = new Map();
-  links.forEach((link) => {
-    const id = link.getAttribute('href').slice(1);
-    const section = document.getElementById(id);
-    if (section) map.set(section, link);
-  });
-  if (!map.size) return;
-
-  let current = null;
-  function setActive(link) {
-    if (link === current) return;
-    if (current) current.classList.remove('is-active');
-    if (link) link.classList.add('is-active');
-    current = link;
-  }
-
-  const io = new IntersectionObserver((entries) => {
-    const visible = entries
-      .filter((e) => e.isIntersecting)
-      .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-    if (visible.length) setActive(map.get(visible[0].target));
-  }, { rootMargin: '-45% 0px -45% 0px', threshold: [0, 0.25, 0.5, 1] });
-
-  map.forEach((_, section) => io.observe(section));
 })();
 </script>
 </body>

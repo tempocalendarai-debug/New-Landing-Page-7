@@ -15,5 +15,13 @@ Allow: /
 
 User-agent: *
 Allow: /
+Disallow: /index_old.html
+Disallow: /index_old_2.html
+Disallow: /index_old_3.html
+Disallow: /index.backup-pre-8changes.html
+Disallow: /index.backup-pre-recommendations.html
+Disallow: /index.backup-pre-shorten.html
+Disallow: /index.backup-pre-revamp.html
+Disallow: /welcome-email.html
 
 Sitemap: https://tempoassistant.com/sitemap.xml
