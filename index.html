@@ -557,6 +557,14 @@ p{margin:0}
 .hero-ribbon img{
   width:100%;height:100%;display:block;
   object-fit:contain;object-position:right top;
+  /* The bitmap's colour runs to its own x=0, so on narrow screens the band
+     ends on a hard vertical cut. Fading the image separately from the
+     container multiplies the two masks without needing mask-composite,
+     which older Safari doesn't support. */
+  -webkit-mask-image:linear-gradient(90deg,
+    transparent 0%, rgba(0,0,0,.18) 10%, rgba(0,0,0,.62) 22%, #000 36%);
+  mask-image:linear-gradient(90deg,
+    transparent 0%, rgba(0,0,0,.18) 10%, rgba(0,0,0,.62) 22%, #000 36%);
 }
 
 /* softer wave on the dark closing panel */
