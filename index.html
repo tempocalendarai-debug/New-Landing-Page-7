@@ -637,6 +637,12 @@ p{margin:0}
 .hero-float img{
   width:100%;display:block;
   border-radius:14.4%;
+}
+/* The shadow is held back until the bitmap has actually decoded. drop-shadow
+   sits directly on this <img>, and while it is still empty the filter has
+   only the element box to trace, which paints a hard square. Gating on a
+   class means no-JS degrades to a flat widget rather than an invisible one. */
+.hero-float img.is-loaded{
   filter:
     drop-shadow(0 1px 1px rgba(10,20,50,.10))
     drop-shadow(0 8px 14px rgba(10,20,50,.12))
@@ -1819,6 +1825,15 @@ p{margin:0}
     }, { rootMargin: '0px 0px -12% 0px', threshold: 0.08 });
     reveals.forEach(function (el) { ro.observe(el); });
   }
+
+  /* ---------- hold the widget's shadow until its bitmap decodes ---------- */
+  (function initFloatWidget() {
+    var img = document.querySelector('.hero-float img');
+    if (!img) return;
+    function ready() { img.classList.add('is-loaded'); }
+    if (img.complete && img.naturalWidth > 0) ready();
+    else img.addEventListener('load', ready, { once: true });
+  })();
 
   /* ---------- hero ribbon drifts slower than the page ---------- */
   (function initRibbonParallax() {
