@@ -1,6 +1,12 @@
 [build]
-  publish = "."
-  functions = "netlify/functions"
+  command = "npm run brand:check && npm run build"
+  publish = "out"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# Next's static export writes privacy.html, terms.html and so on. These keep
+# the clean URLs explicit rather than relying on Netlify's Pretty URLs setting.
 
 [[redirects]]
   from = "/privacy"
@@ -15,4 +21,9 @@
 [[redirects]]
   from = "/support"
   to = "/support.html"
+  status = 200
+
+[[redirects]]
+  from = "/contact"
+  to = "/contact.html"
   status = 200

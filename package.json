@@ -1,0 +1,23 @@
+{
+  "name": "tempo-landing",
+  "version": "0.2.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "brand:sync": "node scripts/sync-brand.mjs",
+    "brand:check": "node scripts/sync-brand.mjs --check",
+    "preview": "node scripts/preview.mjs"
+  },
+  "dependencies": {
+    "next": "16.2.12",
+    "react": "19.2.4",
+    "react-dom": "19.2.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "typescript": "^5"
+  }
+}

@@ -1,0 +1,1484 @@
+/*
+ * Tempo landing — ink on paper.
+ *
+ * Two surfaces, one ink, one accent. The --ink-* and --tempo-* names are the
+ * brand kit's own variables (src/components/brand), so InkCard, TempoAgent and
+ * TempoText pick up the palette with no props.
+ *
+ * Light only, on purpose: the site stays on paper whatever the visitor's system
+ * theme is. color-scheme below keeps form controls and scrollbars light too.
+ *
+ * Hard nos from the brief, enforced here by omission: no gradients, no shadows,
+ * no blur, no paper texture, no second accent, no pure black or white.
+ */
+
+:root {
+  --ink-paper: #f7f4ed;
+  --ink-card: #fffdf8;
+  --ink-line: #1b1b19;
+  --ink-muted: #9a9186;
+  --ink-rule: #ddd4c4;
+  --ink-tape: #d9cfbe;
+  --ink-fluoro: #f27e63;
+  --ink-fluoro-wash: 0.5;
+  /* Same ink, thinned toward paper. Secondary text needs to pass contrast;
+     --ink-muted alone does not, so it is kept for placeholders and strokes. */
+  --ink-soft: color-mix(in srgb, var(--ink-line) 72%, var(--ink-paper));
+
+  --tempo-paper: var(--ink-paper);
+  --tempo-weight: 1;
+
+  --font-sans: var(--font-jakarta), -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  --font-heading: var(--font-sans);
+
+  --page: 1120px;
+  --gutter: clamp(20px, 5vw, 56px);
+
+  color-scheme: light;
+}
+
+/* ------------------------------------------------------------------ */
+/* Base                                                                */
+/* ------------------------------------------------------------------ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-padding-top: 96px;
+  background: var(--ink-paper);
+}
+
+body {
+  margin: 0;
+  background: var(--ink-paper);
+  color: var(--ink-line);
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+p,
+figure {
+  margin: 0;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: inherit;
+}
+
+button,
+input {
+  font: inherit;
+  color: inherit;
+}
+
+::selection {
+  background: var(--ink-rule);
+  color: var(--ink-line);
+}
+
+:focus-visible {
+  outline: 2px solid var(--ink-line);
+  outline-offset: 4px;
+  border-radius: 8px;
+}
+
+/* The brand kit was written against Tailwind; this is the one utility it uses. */
+.block {
+  display: block;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ------------------------------------------------------------------ */
+/* Layout and type                                                     */
+/* ------------------------------------------------------------------ */
+
+.wrap {
+  width: 100%;
+  max-width: var(--page);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.section {
+  padding-block: clamp(88px, 11vw, 150px);
+}
+
+.lead {
+  font-size: clamp(18px, 0.9vw + 14px, 21px);
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
+
+.body {
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--ink-soft);
+  max-width: 31rem;
+}
+
+.small {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+
+.center {
+  text-align: center;
+  margin-inline: auto;
+}
+
+.split {
+  display: grid;
+  gap: clamp(56px, 7vw, 96px);
+  align-items: center;
+}
+
+.split__text .body {
+  margin-top: 22px;
+}
+
+.split__text .body + .body {
+  margin-top: 14px;
+}
+
+@media (min-width: 900px) {
+  .split {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+  .split--flip .split__text {
+    order: 2;
+  }
+}
+
+.center-head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+  max-width: 40rem;
+  margin: 0 auto clamp(52px, 6vw, 76px);
+  text-align: center;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.step__num {
+  display: inline-flex;
+  color: var(--ink-line);
+}
+
+/* ------------------------------------------------------------------ */
+/* Drawn lines — the only entry animation                              */
+/* ------------------------------------------------------------------ */
+
+/* Dash 1, gap 2: at offset 1 the whole path sits inside the gap, so no dash
+   boundary lands on the path and no stray round cap shows mid-draw. */
+.draw {
+  stroke-dasharray: 1 2;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset var(--draw-duration, 0.9s) cubic-bezier(0.45, 0, 0.2, 1) var(--draw-delay, 0s);
+}
+
+/* A zero-length dash still paints its round cap, so hide until drawing starts. */
+[data-drawn="false"] .draw {
+  visibility: hidden;
+}
+
+[data-drawn="true"] .draw {
+  stroke-dashoffset: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .draw {
+    transition: none;
+    stroke-dashoffset: 0;
+  }
+  [data-drawn="false"] .draw {
+    visibility: visible;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Hand-lettered headings                                              */
+/* ------------------------------------------------------------------ */
+
+.hand-heading {
+  margin: 0;
+  font-size: inherit;
+  font-weight: inherit;
+  color: var(--ink-line);
+}
+
+.hand-heading__lines {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.hand-heading[data-align="center"] .hand-heading__lines {
+  align-items: center;
+  margin-inline: auto;
+}
+
+.hand-heading__line {
+  display: block;
+}
+
+/* ------------------------------------------------------------------ */
+/* Fluoro swipe                                                        */
+/* ------------------------------------------------------------------ */
+
+.highlight__box {
+  position: relative;
+  display: inline-block;
+}
+
+.highlight__swipe {
+  position: absolute;
+  left: 0;
+  top: 0;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.highlight__swipe path {
+  fill: none;
+  stroke: var(--ink-fluoro);
+  stroke-opacity: var(--ink-fluoro-wash);
+  stroke-linecap: round;
+  --draw-duration: 0.55s;
+}
+
+.highlight__text {
+  position: relative;
+}
+
+/* ------------------------------------------------------------------ */
+/* Buttons, fields, glyphs                                             */
+/* ------------------------------------------------------------------ */
+
+.ink-border {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.ink-border svg {
+  position: absolute;
+  inset: 0;
+  overflow: visible;
+}
+
+.ink-border path {
+  fill: var(--ink-card);
+  stroke: var(--ink-line);
+  stroke-width: calc(1.8px * var(--tempo-weight));
+  stroke-linejoin: round;
+}
+
+.ink-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding: 0 24px;
+  border: 0;
+  background: transparent;
+  color: var(--ink-line);
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.ink-button--sm {
+  min-height: 42px;
+  padding: 0 16px;
+  font-size: 14.5px;
+}
+
+.ink-button__label {
+  position: relative;
+}
+
+/* Pressing harder with the pen, not a shadow. */
+.ink-button:hover .ink-border path,
+.ink-field:focus-within .ink-border path {
+  stroke-width: calc(2.7px * var(--tempo-weight));
+}
+
+.ink-button:active .ink-border path {
+  fill: var(--ink-paper);
+}
+
+/*
+ * Press: the button sinks a touch, like pressing paper with a fingertip, and
+ * springs back on release. Transform only, no shadow. Quick down, slower up,
+ * so the press feels immediate and the release is visible. The same press
+ * applies to the app's own draft-sheet buttons, the FAQ rows and the topic cards.
+ */
+.ink-button,
+.inbox button,
+.faq__item summary,
+.topic,
+.contact__reason-links a {
+  transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.ink-button:active,
+.inbox button:active,
+.topic:active,
+.contact__reason-links a:active {
+  transform: scale(0.96) translateY(1px);
+  transition-duration: 0.08s;
+  transition-timing-function: ease-out;
+}
+
+.faq__item summary:active {
+  transform: translateY(1px);
+  transition-duration: 0.08s;
+  transition-timing-function: ease-out;
+}
+
+.contact__reason-links a {
+  align-self: flex-start;
+}
+
+/* Reduced motion: keep the pressed state as feedback, drop the movement between. */
+@media (prefers-reduced-motion: reduce) {
+  .ink-button,
+  .inbox button,
+  .faq__item summary,
+  .topic,
+  .contact__reason-links a {
+    transition: none;
+  }
+}
+
+.ink-button:disabled {
+  cursor: progress;
+}
+
+.ink-button:focus-visible {
+  outline-offset: 3px;
+  border-radius: 14px;
+}
+
+.ink-field {
+  position: relative;
+  display: flex;
+  min-width: 0;
+}
+
+.glyph {
+  flex-shrink: 0;
+}
+
+.glyph path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: calc(2px * var(--tempo-weight));
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ------------------------------------------------------------------ */
+/* Nav                                                                 */
+/* ------------------------------------------------------------------ */
+
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--ink-paper);
+  border-bottom: 1px solid transparent;
+}
+
+.nav[data-scrolled="true"] {
+  border-bottom-color: var(--ink-rule);
+}
+
+.nav__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  min-height: 72px;
+}
+
+.nav__brand {
+  display: inline-flex;
+  color: var(--ink-line);
+}
+
+.nav__links {
+  display: none;
+  gap: 34px;
+  margin-left: auto;
+  margin-right: 12px;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.nav__links a,
+.footer__links a {
+  color: var(--ink-soft);
+  text-decoration: none;
+}
+
+.nav__links a:hover,
+.footer__links a:hover {
+  color: var(--ink-line);
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 6px;
+}
+
+@media (min-width: 860px) {
+  .nav__links {
+    display: flex;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Waitlist                                                            */
+/* ------------------------------------------------------------------ */
+
+.waitlist {
+  width: 100%;
+  max-width: 520px;
+}
+
+.waitlist__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.waitlist__row .ink-field {
+  flex: 1 1 240px;
+}
+
+.waitlist__input {
+  position: relative;
+  width: 100%;
+  min-height: 52px;
+  padding: 0 18px;
+  border: 0;
+  background: transparent;
+  font-size: 16px;
+  color: var(--ink-line);
+  outline: none;
+}
+
+.waitlist__input::placeholder {
+  color: var(--ink-muted);
+}
+
+@media (max-width: 520px) {
+  .waitlist__row .ink-button {
+    flex: 1 1 100%;
+  }
+}
+
+.waitlist__msg {
+  margin-top: 12px;
+  font-size: 14.5px;
+  color: var(--ink-line);
+}
+
+.waitlist-done {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  text-align: left;
+}
+
+.waitlist-done__title {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.waitlist-done__body {
+  font-size: 15px;
+  color: var(--ink-soft);
+}
+
+/* ------------------------------------------------------------------ */
+/* Hero                                                                */
+/* ------------------------------------------------------------------ */
+
+.hero {
+  padding-block: clamp(36px, 5vw, 72px) clamp(88px, 11vw, 150px);
+}
+
+.hero__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* The head sits left of centre in the agent's viewBox (room for notes on the
+   right), so nudge it until the face, not the box, is centred. */
+.hero__agent {
+  margin-bottom: clamp(18px, 3vw, 30px);
+  translate: 6% 0;
+}
+
+.hero__lead {
+  max-width: 33rem;
+  margin-top: clamp(26px, 3vw, 36px);
+}
+
+.hero .waitlist,
+.hero .waitlist-done {
+  margin-top: clamp(28px, 3.5vw, 40px);
+}
+
+.hero .waitlist__row,
+.cta .waitlist__row {
+  justify-content: center;
+}
+
+.hero .waitlist-done,
+.cta .waitlist-done {
+  justify-content: center;
+}
+
+.hero__note {
+  margin-top: 16px;
+}
+
+/* ------------------------------------------------------------------ */
+/* Catch up thread                                                     */
+/* ------------------------------------------------------------------ */
+
+.thread {
+  width: 100%;
+  max-width: 420px;
+  margin-inline: auto;
+}
+
+.thread__list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.thread__item {
+  max-width: 80%;
+}
+
+.thread__item--you {
+  align-self: flex-end;
+}
+
+.thread__who {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+
+.thread__text {
+  margin-top: 1px;
+  font-size: 16px;
+  line-height: 1.45;
+}
+
+.thread__seen {
+  margin-top: 14px;
+  text-align: right;
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+
+/* ------------------------------------------------------------------ */
+/* Context notes                                                       */
+/* ------------------------------------------------------------------ */
+
+.notes {
+  width: 100%;
+  max-width: 520px;
+  margin-inline: auto;
+}
+
+.notes__agent {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 18px;
+  padding-right: 8px;
+}
+
+.notes__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 30px 20px;
+}
+
+@media (max-width: 540px) {
+  .notes__grid {
+    gap: 24px 14px;
+  }
+  .notes__grid .note__body {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 340px) {
+  .notes__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.note__body {
+  margin-top: 12px;
+  font-size: 16px;
+  line-height: 1.45;
+}
+
+.note__meta {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 14px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+
+/* ------------------------------------------------------------------ */
+/* Tempos talking                                                      */
+/* ------------------------------------------------------------------ */
+
+.stage {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: clamp(8px, 2vw, 24px);
+  max-width: 980px;
+  margin-inline: auto;
+}
+
+.stage__agent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.stage__agent figcaption {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+
+.mirror {
+  display: inline-flex;
+  transform: scaleX(-1);
+}
+
+.stage__middle {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 120px;
+}
+
+.stage__wire {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 100%;
+  height: 60px;
+  translate: 0 -50%;
+}
+
+.wire__box {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.wire__box svg {
+  overflow: visible;
+}
+
+.stage__wire path {
+  fill: none;
+  stroke: var(--ink-line);
+  stroke-width: calc(1.8px * var(--tempo-weight));
+  stroke-linecap: round;
+  --draw-duration: 1.3s;
+}
+
+.stage__ask {
+  max-width: 250px;
+}
+
+.stage__ask-label {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+
+.stage__ask-text {
+  margin-top: 2px;
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+@media (max-width: 720px) {
+  .stage {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    row-gap: 30px;
+  }
+  .stage__agent svg {
+    width: min(100%, 170px);
+    height: auto;
+  }
+  .stage__middle {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    min-height: 0;
+  }
+  .stage__wire {
+    display: none;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Booked                                                              */
+/* ------------------------------------------------------------------ */
+
+.booked {
+  width: 100%;
+  max-width: 440px;
+  margin-inline: auto;
+}
+
+.booked__agent {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: -4px;
+  padding-right: 18px;
+}
+
+.booked__eyebrow {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+
+.booked__title {
+  margin-top: 10px;
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.booked__when {
+  margin-top: 12px;
+  font-size: 19px;
+  font-weight: 600;
+}
+
+.booked__where {
+  margin-top: 2px;
+  font-size: 16px;
+  color: var(--ink-soft);
+}
+
+.booked__why {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--ink-rule);
+}
+
+.booked__why-label {
+  margin-bottom: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+
+.booked__why-text {
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+.booked__status {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 22px;
+  margin-top: 18px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.booked__status li {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ------------------------------------------------------------------ */
+/* People                                                              */
+/* ------------------------------------------------------------------ */
+
+.people {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 40px 24px;
+  max-width: 980px;
+  margin-inline: auto;
+  padding-top: 10px;
+}
+
+@media (min-width: 760px) {
+  .people {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.people__body {
+  margin-top: 14px;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+/* ------------------------------------------------------------------ */
+/* FAQ                                                                 */
+/* ------------------------------------------------------------------ */
+
+.faq {
+  display: grid;
+  gap: clamp(36px, 5vw, 64px);
+}
+
+@media (min-width: 900px) {
+  .faq {
+    grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
+    align-items: start;
+  }
+}
+
+.faq__list {
+  border-top: 1px solid var(--ink-rule);
+}
+
+.faq__item {
+  border-bottom: 1px solid var(--ink-rule);
+}
+
+.faq__item summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 22px 2px;
+  font-size: 17.5px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  list-style: none;
+  cursor: pointer;
+}
+
+.faq__item summary::-webkit-details-marker {
+  display: none;
+}
+
+/*
+ * Expand and collapse. The answer folds on grid rows; the icon is a drawn plus
+ * whose upright stroke retracts into a minus. States come from FaqItem:
+ * [open] alone = open, data-state="opening" = open but still folded for one
+ * frame, data-state="closing" = folding away before [open] is removed.
+ */
+.faq__icon {
+  flex-shrink: 0;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.faq__icon path {
+  stroke: currentColor;
+  stroke-width: calc(2px * var(--tempo-weight));
+  stroke-linecap: round;
+}
+
+/* Dash 1, gap 2, same as .draw: at offset 1 the stroke sits wholly in the gap. */
+.faq__icon-upright {
+  stroke-dasharray: 1 2;
+  stroke-dashoffset: 0;
+  transition:
+    stroke-dashoffset 0.26s cubic-bezier(0.45, 0, 0.2, 1),
+    visibility 0s linear 0s;
+}
+
+.faq__item[open]:not([data-state]) .faq__icon {
+  transform: rotate(180deg);
+}
+
+.faq__item[open]:not([data-state]) .faq__icon-upright {
+  stroke-dashoffset: 1;
+  /* A zero-length dash still paints a round cap; hide it once retracted. */
+  visibility: hidden;
+  transition:
+    stroke-dashoffset 0.26s cubic-bezier(0.45, 0, 0.2, 1),
+    visibility 0s linear 0.26s;
+}
+
+.faq__panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.faq__panel > div {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.faq__item[open]:not([data-state]) .faq__panel {
+  grid-template-rows: 1fr;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .faq__icon,
+  .faq__icon-upright,
+  .faq__item[open]:not([data-state]) .faq__icon-upright,
+  .faq__panel {
+    transition: none;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Final CTA                                                           */
+/* ------------------------------------------------------------------ */
+
+.section--cta {
+  padding-top: clamp(120px, 14vw, 180px);
+}
+
+.cta {
+  position: relative;
+  max-width: 760px;
+  margin-inline: auto;
+}
+
+.cta__peek {
+  z-index: 2;
+}
+
+.cta__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+  text-align: center;
+}
+
+/* ------------------------------------------------------------------ */
+/* Footer                                                              */
+/* ------------------------------------------------------------------ */
+
+.footer {
+  border-top: 1px solid var(--ink-rule);
+  padding-block: 40px 48px;
+}
+
+.footer__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px 32px;
+}
+
+.footer__brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.footer__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  font-size: 15px;
+}
+
+.footer__legal {
+  width: 100%;
+  font-size: 13.5px;
+  color: var(--ink-soft);
+}
+
+/* ------------------------------------------------------------------ */
+/* Your week: the briefing                                             */
+/* ------------------------------------------------------------------ */
+
+.brief {
+  width: 100%;
+  max-width: 460px;
+  margin-inline: auto;
+}
+
+.brief__agent {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: -4px;
+  padding-right: 18px;
+}
+
+.brief__eyebrow {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+
+.brief__title {
+  margin-top: 8px;
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+
+.brief__list {
+  display: grid;
+  gap: 18px;
+  margin-top: 22px;
+}
+
+.brief__label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+  color: var(--ink-line);
+}
+
+.brief__line {
+  font-size: 15.5px;
+  line-height: 1.5;
+  padding-left: 28px;
+}
+
+.brief__moved {
+  margin-top: 22px;
+  padding-top: 16px;
+  border-top: 1px solid var(--ink-rule);
+}
+
+.brief__moved-label {
+  margin-bottom: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+
+.brief__moved-line {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.brief__moved-line + .brief__moved-line {
+  margin-top: 6px;
+}
+
+.brief__moved-line .glyph {
+  margin-top: 3px;
+}
+
+/* ------------------------------------------------------------------ */
+/* Inbox demo                                                          */
+/* ------------------------------------------------------------------ */
+
+.inbox {
+  width: 100%;
+  max-width: 500px;
+  margin-inline: auto;
+}
+
+.inbox__outcome {
+  min-height: 1.5em;
+  margin-top: 14px;
+  font-size: 14px;
+  color: var(--ink-soft);
+}
+
+/* ------------------------------------------------------------------ */
+/* Sub pages: Support, Contact, Privacy, Terms                         */
+/* ------------------------------------------------------------------ */
+
+.sub {
+  padding-bottom: clamp(88px, 11vw, 140px);
+}
+
+.sub__head {
+  padding-block: clamp(40px, 6vw, 80px) clamp(36px, 5vw, 56px);
+}
+
+.sub__agent {
+  margin-bottom: 18px;
+}
+
+.sub__eyebrow {
+  margin-bottom: 14px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.sub__intro {
+  max-width: 36rem;
+  margin-top: 22px;
+}
+
+.sub__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: clamp(56px, 7vw, 88px);
+}
+
+/* Legal documents: sans throughout, set for reading, not for show. */
+.doc__meta {
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: var(--ink-soft);
+}
+
+.doc {
+  max-width: 44rem;
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.doc h2 {
+  margin: 48px 0 12px;
+  font-size: 21px;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+}
+
+.doc h3 {
+  margin: 26px 0 8px;
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.doc p,
+.doc li {
+  color: var(--ink-soft);
+}
+
+.doc p + p {
+  margin-top: 12px;
+}
+
+.doc strong {
+  color: var(--ink-line);
+  font-weight: 600;
+}
+
+.doc ul {
+  margin: 10px 0 14px;
+  padding-left: 1.3em;
+  list-style: disc;
+}
+
+.doc li + li {
+  margin-top: 6px;
+}
+
+.doc a,
+.faq__answer a,
+.contact__reason-links a,
+.support-cta__email a,
+.contact__email a {
+  color: var(--ink-line);
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+  overflow-wrap: anywhere;
+}
+
+/* Support */
+.topics {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  max-width: 980px;
+}
+
+@media (min-width: 860px) {
+  .topics {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
+  }
+}
+
+@media (max-width: 420px) {
+  .topics {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.topic {
+  display: block;
+  height: 100%;
+  color: var(--ink-line);
+  text-decoration: none;
+}
+
+.topic > div {
+  height: 100%;
+}
+
+.topic:hover .topic__body {
+  color: var(--ink-line);
+}
+
+.topic__body {
+  margin-top: 10px;
+  font-size: 14.5px;
+  line-height: 1.45;
+  color: var(--ink-soft);
+}
+
+.help {
+  display: grid;
+  gap: clamp(48px, 6vw, 72px);
+  max-width: 48rem;
+  margin-top: clamp(64px, 8vw, 104px);
+}
+
+.help__group {
+  scroll-margin-top: 96px;
+}
+
+.help__title {
+  margin: 0 0 8px;
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+
+.faq__answer {
+  max-width: 40rem;
+  padding: 0 2px 24px;
+  color: var(--ink-soft);
+}
+
+.faq__answer p + p,
+.faq__answer ol + p,
+.faq__answer p + ol {
+  margin-top: 10px;
+}
+
+.faq__answer ol {
+  margin: 0;
+  padding-left: 1.3em;
+  list-style: decimal;
+}
+
+.faq__answer li + li {
+  margin-top: 4px;
+}
+
+.support-cta {
+  max-width: 760px;
+  margin: clamp(88px, 10vw, 130px) auto 0;
+}
+
+.support-cta__email {
+  font-size: 17px;
+  font-weight: 600;
+}
+
+/* Contact */
+.contact {
+  display: grid;
+  gap: clamp(48px, 6vw, 72px);
+}
+
+.contact > div:first-child {
+  max-width: 760px;
+}
+
+.contact__label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+
+.contact__email {
+  margin-top: 4px;
+  font-size: clamp(20px, 3.4vw, 30px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}
+
+.contact__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 26px;
+}
+
+.contact__meta {
+  display: grid;
+  gap: 16px 32px;
+  margin: 30px 0 0;
+  padding-top: 22px;
+  border-top: 1px solid var(--ink-rule);
+}
+
+@media (min-width: 700px) {
+  .contact__meta {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.contact__meta dt {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+
+.contact__meta dd {
+  margin: 2px 0 0;
+  font-size: 15px;
+}
+
+.contact__reasons {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 40px 24px;
+  max-width: 980px;
+}
+
+@media (min-width: 760px) {
+  .contact__reasons {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.contact__reason-body {
+  margin-top: 14px;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.contact__reason-links {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 16px;
+  font-size: 14.5px;
+  font-weight: 500;
+}
+
+/* ------------------------------------------------------------------ */
+/* Hero eyebrow and features                                           */
+/* ------------------------------------------------------------------ */
+
+.hero__eyebrow {
+  margin-bottom: 18px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.features {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 20px;
+  max-width: 980px;
+  margin-inline: auto;
+}
+
+@media (min-width: 600px) {
+  .features {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 900px) {
+  .features {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.features li,
+.features li > div {
+  height: 100%;
+}
+
+.features__label {
+  display: block;
+  color: var(--ink-line);
+}
+
+.features__title {
+  margin: 14px 0 0;
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+.features__body {
+  margin-top: 6px;
+  font-size: 15.5px;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}

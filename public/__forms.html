@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<!-- Netlify detects forms by parsing static HTML at deploy time. The landing page
+     renders its forms with React, so these stubs register both waitlist forms and
+     give the client something to POST to. Keep the names in sync with
+     src/components/landing/waitlist-form.tsx. Existing submissions live under these names. -->
+<html><body>
+<form name="waitlist-hero" data-netlify="true" netlify-honeypot="bot-field" hidden>
+  <input type="hidden" name="form-name" value="waitlist-hero" />
+  <input name="bot-field" />
+  <input type="email" name="email" />
+</form>
+<form name="waitlist-cta" data-netlify="true" netlify-honeypot="bot-field-cta" hidden>
+  <input type="hidden" name="form-name" value="waitlist-cta" />
+  <input name="bot-field-cta" />
+  <input type="email" name="email" />
+</form>
+</body></html>

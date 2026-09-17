@@ -1,0 +1,15 @@
+{
+  "source": "axelgf519-gif/Tempo-Nodejs",
+  "path": "src/components/brand",
+  "commit": "94b4ca67c409995af65790211d09b10ef6205bde",
+  "files": {
+    "connection-wiring.tsx": "a38d27740e44b8b968fc5b94a6fe8c84bd39965ba6c5b976c171fa48d6e75215",
+    "context-note.tsx": "9b53e3117203eb6dedc93999e07eb761bdc12c518dcd32e9a4e31c18bfbbb4b2",
+    "draft-reply-sheet.tsx": "8d17f9dce8aa03b0ae7b6ad815d12e357e1cc4ba17be3e0d6ce5a231da8de1c0",
+    "ink.tsx": "c304ad43153ee725b23b3a765a4c1f122e7eb81cb76f68975f19e533f7b9c657",
+    "tempo-agent.tsx": "8b93cc5083eebf7cfafe084f4f17c939f225af9043f76c7e2457b4934334f88a",
+    "tempo-peek.tsx": "bcd5f1370445e15e21ece177841e400387bee5371b31a83adde650efbeb5793a",
+    "tempo-type.tsx": "b0bed12acaa52e78a6f14d094a3cd08345222300a24553c11837f32baa77a580",
+    "updates-feed.tsx": "264abd09d4d92456c2e3a1028dae5a20ffe60aaf68c508780cd28d2633df0fff"
+  }
+}
