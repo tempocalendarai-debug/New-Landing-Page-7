@@ -1,25 +1,21 @@
-User-agent: *
-Allow: /
-
-User-agent: GPTBot
+User-agent: OAI-SearchBot
 Allow: /
 
 User-agent: ChatGPT-User
 Allow: /
 
-User-agent: ClaudeBot
-Allow: /
-
-User-agent: Claude-User
+User-agent: GPTBot
 Allow: /
 
 User-agent: PerplexityBot
 Allow: /
 
-User-agent: Google-Extended
+User-agent: ClaudeBot
 Allow: /
 
-User-agent: Applebot-Extended
+User-agent: *
 Allow: /
+Disallow: /welcome-email.html
+Disallow: /__forms.html
 
 Sitemap: https://tempoassistant.com/sitemap.xml
