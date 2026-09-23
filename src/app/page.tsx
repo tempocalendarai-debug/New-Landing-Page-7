@@ -106,8 +106,8 @@ export default function Home() {
         <PlansCounter />
         <Features />
         <Founders />
-        <Faq />
         <FoundingSection />
+        <Faq />
         <FinalCta />
       </main>
       <SiteFooter />

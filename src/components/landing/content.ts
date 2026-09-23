@@ -129,7 +129,7 @@ export const FAQS: Faq[] = [
   },
   {
     q: "How do I make plans with friends using Tempo?",
-    a: "Tell your Tempo who you want to see and roughly what, like \"dinner with Mia next week, somewhere with pasta\". Your Tempo checks with Mia's Tempo, looks at both calendars and what you both like, and suggests a time with the reason behind it. Once you've both said yes, it's in both calendars.",
+    a: "Tell your Tempo who you want to see and roughly what, like \"hike with Jack and Mia this weekend, somewhere with a view\". Your Tempo checks with Jack's and Mia's Tempos, looks at everyone's calendars and what you all like, and suggests a time with the reason behind it. Once everyone's said yes, it's in all your calendars.",
   },
   {
     q: "Who is Tempo for?",

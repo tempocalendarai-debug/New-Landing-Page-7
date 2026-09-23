@@ -2820,3 +2820,10 @@ input {
 .backers__list a:focus-visible {
   text-decoration: underline;
 }
+
+/* Talk: Jack's and Mia's Tempos stacked on the right */
+.stage__friends {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}

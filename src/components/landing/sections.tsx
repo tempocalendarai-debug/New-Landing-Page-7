@@ -176,8 +176,8 @@ export function Talk() {
             align="center"
           />
           <p className="body center">
-            Say who you want to see and roughly what. Your Tempo takes it to their Tempo, checks
-            both calendars and both sets of notes, and settles on a time that suits you both.
+            Say who you want to see and roughly what. Your Tempo takes it to Jack&rsquo;s and Mia&rsquo;s
+            Tempos, checks everyone&rsquo;s calendars and notes, and settles on a time that suits all three of you.
           </p>
         </div>
 
@@ -193,16 +193,24 @@ export function Talk() {
             <DrawnWire className="stage__wire" />
             <InkCard seed="stage-ask" padding="14px 18px 15px" radius={12} className="stage__ask ink-pop">
               <p className="stage__ask-label">You said</p>
-              <p className="stage__ask-text">dinner with mia next week, somewhere with pasta</p>
+              <p className="stage__ask-text">hike with jack and mia this weekend, somewhere with a view</p>
             </InkCard>
           </div>
 
-          <figure className="stage__agent">
-            <span className="mirror">
-              <TempoAgent state="listening" size={112} />
-            </span>
-            <figcaption>Mia&rsquo;s Tempo</figcaption>
-          </figure>
+          <div className="stage__friends">
+            <figure className="stage__agent">
+              <span className="mirror">
+                <TempoAgent state="listening" size={84} />
+              </span>
+              <figcaption>Jack&rsquo;s Tempo</figcaption>
+            </figure>
+            <figure className="stage__agent">
+              <span className="mirror">
+                <TempoAgent state="thinking" size={84} />
+              </span>
+              <figcaption>Mia&rsquo;s Tempo</figcaption>
+            </figure>
+          </div>
         </div>
       </div>
     </section>
@@ -216,10 +224,10 @@ export function Booked() {
     <section className="section" aria-labelledby="booked-title">
       <div className="wrap split">
         <div className="split__text">
-          <StepHeading id="booked-title" n="3" lines={["ON BOTH", "CALENDARS"]} label="On both calendars" />
+          <StepHeading id="booked-title" n="3" lines={["IN EVERYONE'S", "CALENDAR"]} label="In everyone's calendar" />
           <p className="body">
-            You get the plan and the reason behind it. Mia gets a quick yes or no from her Tempo.
-            Once she&rsquo;s in, it lands in both calendars and nobody had to chase anybody.
+            You get the plan and the reason behind it. Jack and Mia each get a quick yes or no from
+            their Tempo. Once they&rsquo;re in, it lands in all three calendars and nobody had to chase anybody.
           </p>
           <p className="body">Nothing starts until you say send.</p>
         </div>
@@ -230,22 +238,26 @@ export function Booked() {
           </div>
           <InkCard seed="booked-card" padding="24px 24px 20px" radius={14}>
             <p className="booked__eyebrow">Planned by your Tempo</p>
-            <p className="booked__title">Dinner with Mia</p>
+            <p className="booked__title">Hike with Jack and Mia</p>
             <p className="booked__when">
-              <Highlight seed="booked-when">Thursday, 7:00 pm</Highlight>
+              <Highlight seed="booked-when">Saturday, 7:00 am</Highlight>
             </p>
-            <p className="booked__where">Nonna&rsquo;s, Paddington</p>
+            <p className="booked__where">Mt Coot-tha summit track</p>
             <div className="booked__why">
               <p className="booked__why-label">Why this time</p>
               <p className="booked__why-text">
-                You&rsquo;re both free after 6 on Thursday. Mia&rsquo;s been after pasta, and you&rsquo;d
-                rather not have a late one before your 9am.
+                You&rsquo;re all free Saturday morning. Jack&rsquo;s been after a sunrise view, and Mia&rsquo;s
+                got lunch at 12, so an early start works for everyone.
               </p>
             </div>
             <ul className="booked__status">
               <li>
                 <Glyph name="check" size={17} />
                 You said yes
+              </li>
+              <li>
+                <Glyph name="check" size={17} />
+                Jack said yes
               </li>
               <li>
                 <Glyph name="check" size={17} />
