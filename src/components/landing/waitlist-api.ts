@@ -90,7 +90,10 @@ export async function register(email: string, handle?: string): Promise<Signup> 
     { method: "POST", body: JSON.stringify(handle === undefined ? { email } : { email, handle }) },
     () => {
       const d = demo();
-      const key = email.trim().toLowerCase();
+      const [local, domain = ""] = email.trim().toLowerCase().split("@");
+      let user = local.split("+")[0];
+      if (domain === "gmail.com" || domain === "googlemail.com") user = user.replace(/\./g, "");
+      const key = `${user}@${domain === "googlemail.com" ? "gmail.com" : domain}`;
       let s = d.signups[key];
       if (!s) {
         d.n += 1;
@@ -100,7 +103,7 @@ export async function register(email: string, handle?: string): Promise<Signup> 
         const h = handle.trim().replace(/^@/, "").toLowerCase();
         const problem = handleProblem(h);
         if (problem) throw Object.assign(new Error(problem), { api: true });
-        if (s.handle) throw Object.assign(new Error(`You've already claimed @${s.handle}.`), { api: true });
+        if (s.handle) throw Object.assign(new Error(`You've already claimed @${s.handle}. It's one handle per email.`), { api: true });
         if (d.handles.includes(h)) throw Object.assign(new Error("Taken. Try another."), { api: true });
         d.handles.push(h);
         s.handle = h;

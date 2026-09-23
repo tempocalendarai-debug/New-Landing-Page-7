@@ -45,8 +45,19 @@ export function checkHandleShape(h: string): string | null {
   return null;
 }
 
+/**
+ * One person, one signup, one handle. nick+2@gmail.com and n.i.c.k@gmail.com
+ * are the same inbox as nick@gmail.com, so they count as the same person.
+ */
+export function normaliseEmail(email: string) {
+  const [local, domain = ""] = email.trim().toLowerCase().split("@");
+  let user = local.split("+")[0];
+  if (domain === "gmail.com" || domain === "googlemail.com") user = user.replace(/\./g, "");
+  return `${user}@${domain === "googlemail.com" ? "gmail.com" : domain}`;
+}
+
 async function hashEmail(email: string) {
-  const bytes = new TextEncoder().encode(email.trim().toLowerCase());
+  const bytes = new TextEncoder().encode(normaliseEmail(email));
   const digest = await crypto.subtle.digest("SHA-256", bytes);
   return Array.from(new Uint8Array(digest), (b) => b.toString(16).padStart(2, "0")).join("");
 }
@@ -123,7 +134,8 @@ export async function handle(req: Request, store: Store, env: Record<string, str
     const h = cleanHandle(String(body.handle));
     const reason = checkHandleShape(h);
     if (reason) return json({ error: reason }, 400);
-    if (signup.handle) return json({ error: `You've already claimed @${signup.handle}.` }, 409);
+    // One handle per email, for good.
+    if (signup.handle) return json({ error: `You've already claimed @${signup.handle}. It's one handle per email.` }, 409);
     const res = await store.setJSON(`handle/${h}`, { signup: key }, { onlyIfNew: true });
     if (!res.modified) return json({ error: "Taken. Try another." }, 409);
     signup = { ...signup, handle: h };

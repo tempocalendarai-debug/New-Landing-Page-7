@@ -184,9 +184,7 @@ function Confetti() {
 function ThankYou({ formName, email, initial }: { formName: FormName; email: string; initial: Signup | null }) {
   const [signup, setSignup] = useState<Signup | null>(initial);
   const [handle, setHandle] = useState<string | null>(initial?.handle ?? null);
-  const [stage, setStage] = useState<"claim" | "claimed" | "requested" | "skipped">(
-    initial?.handle ? "claimed" : "claim",
-  );
+  const [stage, setStage] = useState<"claim" | "claimed" | "skipped">(initial?.handle ? "claimed" : "claim");
   const [copied, setCopied] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -240,30 +238,28 @@ function ThankYou({ formName, email, initial }: { formName: FormName; email: str
             )}
           </p>
 
-          {stage === "claim" && (
+          {/* One handle per email: the claim only shows when the live check can
+              enforce that. Signed up before? Your existing handle shows instead. */}
+          {signup && stage === "claim" && (
             <ClaimHandle
               email={email}
-              onClaimed={(h, s, confirmed) => {
-                if (s) setSignup(s);
+              onClaimed={(h, s) => {
+                setSignup(s);
                 setHandle(h);
-                setStage(confirmed ? "claimed" : "requested");
+                setStage("claimed");
               }}
               onSkip={() => setStage("skipped")}
             />
           )}
 
-          {handle && (stage === "claimed" || stage === "requested") && (
+          {handle && stage === "claimed" && (
             <div className="thanks__profile">
               <ProfileAvatar size={52} handle={handle} badge={false} />
               <p>
                 <span className="thanks__claimed">
-                  <strong>@{handle}</strong> {stage === "claimed" ? "is yours." : "is saved."}
+                  <strong>@{handle}</strong> is yours.
                 </span>
-                <span>
-                  {stage === "claimed"
-                    ? "Nobody else can take it now."
-                    : "We'll confirm it's yours when your invite goes out."}
-                </span>
+                <span>Nobody else can take it now. It&rsquo;s one handle per email.</span>
               </p>
             </div>
           )}
@@ -320,8 +316,7 @@ function ClaimHandle({
   onSkip,
 }: {
   email: string;
-  /** confirmed = the live check reserved it. False only if that check was unreachable. */
-  onClaimed: (handle: string, signup: Signup | null, confirmed: boolean) => void;
+  onClaimed: (handle: string, signup: Signup) => void;
   onSkip: () => void;
 }) {
   const [value, setValue] = useState("");
@@ -349,32 +344,30 @@ function ClaimHandle({
     if (!clean || local) return;
     setBusy(true);
 
-    // 1. Is it free? Reserve it. "Taken" stops here, nothing is sent to Netlify.
-    let signup: Signup | null = null;
-    let confirmed = true;
+    // 1. Reserve it. Taken, or this email already has a handle? Stop here,
+    //    nothing is sent to Netlify.
+    let signup: Signup;
     try {
       signup = await register(email, clean);
     } catch (err) {
-      if ((err as { api?: boolean }).api) {
-        setError(err instanceof Error ? err.message : "Taken. Try another.");
-        setBusy(false);
-        return;
-      }
-      confirmed = false; // live check unreachable: still record the request
+      setError(
+        (err as { api?: boolean }).api && err instanceof Error
+          ? err.message
+          : "Couldn't check that handle right now. Try again in a sec.",
+      );
+      setBusy(false);
+      return;
     }
 
-    // 2. Record it in the "waitlist-handle" Netlify form.
+    // 2. Record it in the "waitlist-handle" Netlify form. It's already
+    //    reserved, so a hiccup here doesn't undo the claim.
     try {
       await postHandleToNetlify(email, clean);
-    } catch {
-      if (process.env.NODE_ENV !== "development" && !confirmed) {
-        setError("That didn't go through. Try again.");
-        setBusy(false);
-        return;
-      }
+    } catch (err) {
+      console.warn("[waitlist] waitlist-handle post failed", err);
     }
 
-    onClaimed(clean, signup, confirmed);
+    onClaimed(clean, signup);
   }
 
   const hint = error ?? local ?? (check && check.handle === clean ? (check.available ? "Available" : check.reason) : null);
@@ -411,7 +404,7 @@ function ClaimHandle({
         </InkButton>
       </div>
       <p id="claim-hint" className="claim__hint" data-good={good || undefined} aria-live="polite">
-        {hint ?? "3 to 20 characters. Letters, numbers, dots and underscores."}
+        {hint ?? "One per email. 3 to 20 characters: letters, numbers, dots and underscores."}
       </p>
       <button type="button" className="claim__skip" onClick={onSkip}>
         Skip for now
