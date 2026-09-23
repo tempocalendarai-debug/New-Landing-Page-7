@@ -13,6 +13,7 @@
 
 import { InkCard, InkGlyph } from "@/components/brand/ink";
 import { TempoAgent } from "@/components/brand/tempo-agent";
+import { FoundingStrip } from "./founding";
 import { TempoPeek } from "@/components/brand/tempo-peek";
 import { TempoText } from "@/components/brand/tempo-type";
 import { FAQS, FEATURES } from "./content";
@@ -56,6 +57,7 @@ export function Hero() {
           Tempo talks to theirs, finds a time you&rsquo;re both free and puts it in both calendars.
         </p>
         <WaitlistForm name="waitlist-hero" honeypot="bot-field" highlight />
+        <FoundingStrip />
         <p className="small hero__note">
           Free to join. Private beta on iPhone.{" "}
           <a className="hero__more" href="#familiar">
