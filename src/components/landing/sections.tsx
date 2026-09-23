@@ -41,7 +41,7 @@ export function Hero() {
         <div className="hero__agent">
           <TempoAgent state="idle" size={132} />
         </div>
-        <p className="hero__eyebrow">Tempo, the AI assistant for making plans</p>
+        <p className="hero__eyebrow">Together, not apart</p>
         <HandHeading
           id="hero-title"
           as="h1"
@@ -52,12 +52,16 @@ export function Hero() {
           align="center"
         />
         <p className="lead hero__lead">
-          So you don&rsquo;t have to. Tell Tempo what you love, what you&rsquo;d rather skip and when
-          you&rsquo;re free. It works out the plan with the other person&rsquo;s Tempo and puts it in
-          both calendars.
+          Life gets busy, and time with your people goes first. Tempo makes the plan for you: your
+          Tempo talks to theirs, finds a time you&rsquo;re both free and puts it in both calendars.
         </p>
         <WaitlistForm name="waitlist-hero" honeypot="bot-field" highlight />
-        <p className="small hero__note">Free to join. Private beta on iPhone.</p>
+        <p className="small hero__note">
+          Free to join. Private beta on iPhone.{" "}
+          <a className="hero__more" href="#familiar">
+            Sound familiar? &darr;
+          </a>
+        </p>
       </div>
     </section>
   );
@@ -405,8 +409,8 @@ export function Features() {
             align="center"
           />
           <p className="body center">
-            Tempo is an AI assistant for making plans with the people you care about, and for
-            keeping your own week on track while it&rsquo;s at it.
+            Tempo makes plans with the people you care about, and keeps your own week on track
+            while it&rsquo;s at it.
           </p>
         </div>
         <ul className="features">
@@ -450,13 +454,14 @@ export function Faq() {
 
 export function FinalCta() {
   return (
-    <section id="waitlist" className="section section--cta" aria-labelledby="cta-title">
+    <section id="waitlist" className="section section--cta section--burgundy" aria-labelledby="cta-title">
       <div className="wrap">
         <div className="cta">
           <TempoPeek edge="top" at="76%" size={96} className="cta__peek" />
           <InkCard seed="cta-card" padding="clamp(44px, 7vw, 76px) clamp(20px, 5vw, 64px)" radius={18}>
             <div className="cta__inner">
               <HandHeading id="cta-title" lines={["GET ON", "THE LIST"]} label="Get on the list" boil align="center" />
+              <p className="cta__rally">Together, not apart.</p>
               <p className="body center">
                 Tempo is in private beta on iPhone. Join the waitlist and we&rsquo;ll email your invite.
               </p>

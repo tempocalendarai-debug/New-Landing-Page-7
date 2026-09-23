@@ -19,11 +19,14 @@
 export const SITE_URL = "https://tempoassistant.com";
 export const CONTACT_EMAIL = "tempo.calendar.ai@gmail.com";
 
+/** Plans made on Tempo so far. Shown in the counter section; update as it grows. */
+export const PLANS_MADE = 239;
+
 export const TITLE = "Tempo. Make plans, Skip the Back-And-Forth";
 export const DESCRIPTION =
-  "Tempo is an AI assistant that makes plans with your friends, family and partner. Your Tempo talks to theirs, finds a time that suits you both and puts it in both calendars.";
+  "Tempo makes plans with your friends, family and partner. Your Tempo talks to theirs, finds a time that suits you both and puts it in both calendars.";
 
-export const OG_ALT = "Tempo, the AI assistant that makes plans with your people";
+export const OG_ALT = "Tempo, the app that makes plans with your people";
 
 /** Names people search for us by. Used in structured data, not stuffed into copy. */
 export const ALT_NAMES = ["Tempo AI", "Tempo Assistant", "Tempo AI Assistant", "Tempo App"];
@@ -111,7 +114,7 @@ export type Faq = { q: string; a: string };
 export const FAQS: Faq[] = [
   {
     q: "What is Tempo?",
-    a: "Tempo is an AI assistant for making plans with the people in your life. Your Tempo talks to your friend's, family member's or partner's Tempo, finds a time that suits you both and puts it in both calendars. It also gives you a daily briefing, helps with your calendar and email, and takes notes. Tempo is made by Tempo Software Pty Ltd in Brisbane, Australia, and is in private beta on iPhone.",
+    a: "Tempo makes plans with the people in your life. Your Tempo talks to your friend's, family member's or partner's Tempo, finds a time that suits you both and puts it in both calendars. It also gives you a daily briefing, helps with your calendar and email, and takes notes. Tempo is made by Tempo Software Pty Ltd in Brisbane, Australia, and is in private beta on iPhone.",
   },
   {
     q: "How do I make plans with friends using Tempo?",
@@ -134,8 +137,8 @@ export const FAQS: Faq[] = [
     a: "Every note is yours to add, edit or delete, and each one is either shared or private. Shared notes help other Tempos plan with you. Private notes can't be read by anyone else's account, and you can preview exactly what another Tempo would see.",
   },
   {
-    q: "How is Tempo different from other AI assistants?",
-    a: "Most AI assistants work for one person. Every Tempo can talk to other Tempos, so when you want to see someone, your Tempos sort out the plan between them and nobody has to chase anybody through a group chat.",
+    q: "How is Tempo different from other planning apps?",
+    a: "Most planning apps only work for one person. Every Tempo can talk to other Tempos, so when you want to see someone, your Tempos sort out the plan between them and nobody has to chase anybody through a group chat.",
   },
   {
     q: "What else can Tempo do?",

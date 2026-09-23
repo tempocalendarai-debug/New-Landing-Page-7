@@ -158,8 +158,9 @@ export function Highlight({ seed, children }: { seed: string; children: React.Re
   const [drawRef, drawn] = useDrawn<HTMLSpanElement>(0.6);
   const [boxRef, size] = useSize<HTMLSpanElement>();
 
-  const sw = Math.max(10, size.h * 0.62);
-  const y = size.h * 0.6;
+  // Solid marker behind the whole word, so the text can sit on it in paper colour.
+  const sw = Math.max(14, size.h * 1.18);
+  const y = size.h * 0.52;
   const d = size.w
     ? `M${-5 + sw / 2} ${y + wob(n, 1, 1.2)} C${size.w * 0.32} ${y + wob(n, 2, 2.4)} ${size.w * 0.68} ${
         y + wob(n, 3, 2.4)

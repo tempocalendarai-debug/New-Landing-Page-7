@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { TempoWordmark } from "@/components/brand/tempo-agent";
+import { TempoMark, TempoWordmark } from "@/components/brand/tempo-agent";
 import { InkButton } from "./ink-primitives";
 
 /**
@@ -11,6 +11,7 @@ import { InkButton } from "./ink-primitives";
  */
 export function SiteNav({ home = false }: { home?: boolean }) {
   const [scrolled, setScrolled] = useState(false);
+  const [hover, setHover] = useState(false);
 
   useEffect(() => {
     const update = () => setScrolled(window.scrollY > 8);
@@ -29,8 +30,21 @@ export function SiteNav({ home = false }: { home?: boolean }) {
   return (
     <header className="nav" data-scrolled={scrolled}>
       <div className="wrap nav__inner">
-        <a href={home ? "#top" : "/"} className="nav__brand" aria-label={home ? "Tempo, back to top" : "Tempo home"}>
-          <TempoWordmark height={24} />
+        <a
+          href={home ? "#top" : "/"}
+          className="nav__brand"
+          data-hover={hover}
+          aria-label={home ? "Tempo, back to top" : "Tempo home"}
+          onMouseEnter={() => setHover(true)}
+          onMouseLeave={() => setHover(false)}
+          onFocus={() => setHover(true)}
+          onBlur={() => setHover(false)}
+        >
+          {/* Hover turns the hourglass over and sets the wordmark boiling. */}
+          <span className="nav__mark" aria-hidden="true">
+            <TempoMark size={28} />
+          </span>
+          <TempoWordmark height={24} boil={hover} />
         </a>
         <nav className="nav__links" aria-label="Primary">
           <a href="/#how">How it works</a>

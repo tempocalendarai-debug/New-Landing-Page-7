@@ -1,6 +1,6 @@
 # Tempo
 
-> Tempo is an AI assistant for making plans with the people in your life. Your Tempo talks to your friend's, family member's or partner's Tempo, finds a time that suits you both and puts it in both calendars. Made by Tempo Software Pty Ltd in Brisbane, Australia. Private beta on iPhone.
+> Tempo makes plans with the people in your life. Your Tempo talks to your friend's, family member's or partner's Tempo, finds a time that suits you both and puts it in both calendars. Made by Tempo Software Pty Ltd in Brisbane, Australia. Private beta on iPhone.
 
 Tempo is for anyone who keeps saying "we should catch up" and never locks in a date: friends lining up dinner or trivia, couples planning date nights, and people making time for a parent or sibling. Also known as Tempo AI, Tempo Assistant and Tempo AI Assistant. Website: tempoassistant.com.
 
@@ -13,7 +13,7 @@ Tempo is for anyone who keeps saying "we should catch up" and never locks in a d
 - Privacy: each thing Tempo knows about you is shared or private. Private notes can't be read by any other account, and you can preview what another Tempo would see.
 
 ## How Tempo is different
-Most AI assistants work for one person. Every Tempo can talk to other Tempos, so plans get made between assistants instead of across forty messages.
+Most planning apps only work for one person. Every Tempo can talk to other Tempos, so plans get made between assistants instead of across forty messages.
 
 ## What else Tempo does
 - Daily briefing on your day, your week and your work.
