@@ -11,6 +11,10 @@
  * After the email lands, the form turns into the thank-you card: Tempo
  * celebrating, your place in line, claim your @handle, what happens next,
  * and a share button.
+ *
+ * Handles: the live API (netlify/functions/waitlist.mts) checks nobody else
+ * has it and reserves it, then the email + handle go to their own Netlify
+ * form, "waitlist-handle", so every claimed handle is in the Forms dashboard.
  */
 
 import React, { useEffect, useRef, useState } from "react";
@@ -31,6 +35,17 @@ const SITE = "https://tempoassistant.com";
 async function postToNetlify(form: HTMLFormElement) {
   const body = new URLSearchParams();
   new FormData(form).forEach((value, key) => body.append(key, String(value)));
+  await sendForm(body);
+}
+
+/** The claimed handle goes to its own Netlify form, "waitlist-handle". */
+async function postHandleToNetlify(email: string, handle: string) {
+  await sendForm(
+    new URLSearchParams({ "form-name": "waitlist-handle", "bot-field-handle": "", email, handle }),
+  );
+}
+
+async function sendForm(body: URLSearchParams) {
   const res = await fetch("/__forms.html", {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -168,7 +183,10 @@ function Confetti() {
 
 function ThankYou({ formName, email, initial }: { formName: FormName; email: string; initial: Signup | null }) {
   const [signup, setSignup] = useState<Signup | null>(initial);
-  const [stage, setStage] = useState<"claim" | "claimed" | "skipped">(initial?.handle ? "claimed" : "claim");
+  const [handle, setHandle] = useState<string | null>(initial?.handle ?? null);
+  const [stage, setStage] = useState<"claim" | "claimed" | "requested" | "skipped">(
+    initial?.handle ? "claimed" : "claim",
+  );
   const [copied, setCopied] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -222,25 +240,30 @@ function ThankYou({ formName, email, initial }: { formName: FormName; email: str
             )}
           </p>
 
-          {signup && stage === "claim" && (
+          {stage === "claim" && (
             <ClaimHandle
               email={email}
-              onClaimed={(s) => {
-                setSignup(s);
-                setStage("claimed");
+              onClaimed={(h, s, confirmed) => {
+                if (s) setSignup(s);
+                setHandle(h);
+                setStage(confirmed ? "claimed" : "requested");
               }}
               onSkip={() => setStage("skipped")}
             />
           )}
 
-          {signup?.handle && stage === "claimed" && (
+          {handle && (stage === "claimed" || stage === "requested") && (
             <div className="thanks__profile">
-              <ProfileAvatar size={52} handle={signup.handle} badge={false} />
+              <ProfileAvatar size={52} handle={handle} badge={false} />
               <p>
                 <span className="thanks__claimed">
-                  <strong>@{signup.handle}</strong> is yours.
+                  <strong>@{handle}</strong> {stage === "claimed" ? "is yours." : "is saved."}
                 </span>
-                <span>Nobody else can take it now.</span>
+                <span>
+                  {stage === "claimed"
+                    ? "Nobody else can take it now."
+                    : "We'll confirm it's yours when your invite goes out."}
+                </span>
               </p>
             </div>
           )}
@@ -297,7 +320,8 @@ function ClaimHandle({
   onSkip,
 }: {
   email: string;
-  onClaimed: (s: Signup) => void;
+  /** confirmed = the live check reserved it. False only if that check was unreachable. */
+  onClaimed: (handle: string, signup: Signup | null, confirmed: boolean) => void;
   onSkip: () => void;
 }) {
   const [value, setValue] = useState("");
@@ -324,12 +348,33 @@ function ClaimHandle({
     event.preventDefault();
     if (!clean || local) return;
     setBusy(true);
+
+    // 1. Is it free? Reserve it. "Taken" stops here, nothing is sent to Netlify.
+    let signup: Signup | null = null;
+    let confirmed = true;
     try {
-      onClaimed(await register(email, clean));
+      signup = await register(email, clean);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "That didn't go through. Try again.");
-      setBusy(false);
+      if ((err as { api?: boolean }).api) {
+        setError(err instanceof Error ? err.message : "Taken. Try another.");
+        setBusy(false);
+        return;
+      }
+      confirmed = false; // live check unreachable: still record the request
     }
+
+    // 2. Record it in the "waitlist-handle" Netlify form.
+    try {
+      await postHandleToNetlify(email, clean);
+    } catch {
+      if (process.env.NODE_ENV !== "development" && !confirmed) {
+        setError("That didn't go through. Try again.");
+        setBusy(false);
+        return;
+      }
+    }
+
+    onClaimed(clean, signup, confirmed);
   }
 
   const hint = error ?? local ?? (check && check.handle === clean ? (check.available ? "Available" : check.reason) : null);
