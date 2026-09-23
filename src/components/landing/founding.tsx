@@ -86,9 +86,7 @@ export function FoundingSection() {
       <div className="wrap founding">
         <div className="founding__preview">
           <ProfileAvatar size={180} />
-          <p className="founding__name">
-            you <FoundingBadge size={18} />
-          </p>
+          <p className="founding__name">you</p>
           <p className="founding__role">Founding member</p>
         </div>
         <div className="founding__text">
@@ -117,5 +115,25 @@ export function FoundingSection() {
         </div>
       </div>
     </section>
+  );
+}
+
+/** Slim bar across the very top of the home page: founding badges handed out so far. */
+export function FoundingBar() {
+  const claimed = Math.min(FOUNDING_GIVEN, FOUNDING_TOTAL);
+  const left = FOUNDING_TOTAL - claimed;
+  return (
+    <a className="fbar" href="#founding" aria-label={`${claimed} of ${FOUNDING_TOTAL} founding badges claimed. ${left} left.`}>
+      <span className="fbar__inner">
+        <FoundingBadge size={16} />
+        <span className="fbar__text">
+          <strong>{claimed}</strong> of {FOUNDING_TOTAL} founding badges claimed
+        </span>
+        <span className="fbar__track" aria-hidden="true">
+          <span style={{ width: `${(claimed / FOUNDING_TOTAL) * 100}%` }} />
+        </span>
+        <span className="fbar__left">{left > 0 ? `${left} left` : "All gone"} &rarr;</span>
+      </span>
+    </a>
   );
 }

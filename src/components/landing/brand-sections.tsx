@@ -22,9 +22,17 @@ export function Backers() {
       <div className="wrap backers__inner">
         <p className="backers__label">Supported by</p>
         <ul className="backers__list">
-          <li>UQ iLab Accelerator</li>
+          <li>
+            <a href="https://ventures.uq.edu.au/programs/ilab-accelerator" target="_blank" rel="noopener noreferrer">
+              UQ iLab Accelerator
+            </a>
+          </li>
           <li aria-hidden="true" className="backers__sep" />
-          <li>UQ Ventures</li>
+          <li>
+            <a href="https://ventures.uq.edu.au/" target="_blank" rel="noopener noreferrer">
+              UQ Ventures
+            </a>
+          </li>
         </ul>
       </div>
     </section>

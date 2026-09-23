@@ -129,7 +129,14 @@ export function Taste() {
           <ul className="notes__grid" aria-label="What Tempo knows about you">
             {NOTES.map((note) => (
               <li key={note.id}>
-                <InkCard seed={`note-${note.id}`} tape tilt padding="24px 20px 16px" radius={12}>
+                <InkCard
+                  seed={`note-${note.id}`}
+                  tape
+                  tilt
+                  padding="24px 20px 16px"
+                  radius={12}
+                  className={note.id === NOTES[0].id ? "ink-pop" : undefined}
+                >
                   <TempoText height={20}>{note.label}</TempoText>
                   <p className="note__body">{note.body}</p>
                   <p className="note__meta">
@@ -184,7 +191,7 @@ export function Talk() {
 
           <div className="stage__middle">
             <DrawnWire className="stage__wire" />
-            <InkCard seed="stage-ask" padding="14px 18px 15px" radius={12} className="stage__ask">
+            <InkCard seed="stage-ask" padding="14px 18px 15px" radius={12} className="stage__ask ink-pop">
               <p className="stage__ask-label">You said</p>
               <p className="stage__ask-text">dinner with mia next week, somewhere with pasta</p>
             </InkCard>
@@ -273,7 +280,14 @@ export function People() {
         <ul className="people">
           {PEOPLE.map((p) => (
             <li key={p.id}>
-              <InkCard seed={`people-${p.id}`} tape tilt padding="28px 22px 24px" radius={12}>
+              <InkCard
+                seed={`people-${p.id}`}
+                tape
+                tilt
+                padding="28px 22px 24px"
+                radius={12}
+                className={p.id === "family" ? "ink-pop" : undefined}
+              >
                 <TempoText height={20}>{p.label}</TempoText>
                 <p className="people__body">{p.body}</p>
               </InkCard>

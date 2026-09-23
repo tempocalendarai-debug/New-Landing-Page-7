@@ -2242,18 +2242,17 @@ input {
 }
 
 .founding__name {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  margin-top: 16px;
-  font-size: 20px;
-  font-weight: 700;
+  margin-top: 18px;
+  font-size: clamp(28px, 2vw + 20px, 36px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
 }
 
 .founding__role {
-  font-size: 14px;
+  font-size: clamp(18px, 0.8vw + 14px, 22px);
   color: var(--brand-burgundy);
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .founding__text {
@@ -2679,4 +2678,145 @@ input {
   .thanks__confetti circle {
     animation: none;
   }
+}
+
+/* ================================================================== */
+/* Burgundy pops: step numbers, one card per section, key labels        */
+/* ================================================================== */
+
+.step__num {
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--brand-burgundy);
+  color: var(--ink-paper);
+}
+
+.center-head .step__num {
+  margin-bottom: 4px;
+}
+
+/* A card that flips to burgundy with paper ink. */
+.ink-pop {
+  --ink-card: var(--brand-burgundy);
+  --ink-line: var(--ink-paper);
+  --ink-soft: color-mix(in srgb, var(--ink-paper) 88%, var(--brand-burgundy));
+  --ink-muted: color-mix(in srgb, var(--ink-paper) 70%, var(--brand-burgundy));
+  color: var(--ink-paper);
+}
+
+.ink-pop .note__body,
+.ink-pop .people__body,
+.ink-pop .stage__ask-text {
+  color: var(--ink-paper);
+}
+
+.ink-pop .stage__ask-label,
+.ink-pop .note__meta {
+  color: var(--ink-muted);
+}
+
+.notes__grid li:not(:first-child) .note__meta,
+.booked__eyebrow,
+.booked__status .glyph {
+  color: var(--brand-burgundy);
+}
+
+.booked__status .glyph path {
+  stroke: var(--brand-burgundy);
+}
+
+.people li:not(:nth-child(2)) .tmpt,
+.notes__grid li:not(:first-child) .tmpt {
+  color: var(--brand-burgundy);
+}
+
+.stage__wire path {
+  stroke: var(--brand-burgundy);
+}
+
+.stage__agent figcaption {
+  color: var(--brand-burgundy);
+  font-weight: 600;
+}
+
+/* ================================================================== */
+/* Founding badges bar across the top                                   */
+/* ================================================================== */
+
+.fbar {
+  display: block;
+  background: var(--brand-burgundy);
+  color: var(--ink-paper);
+  text-decoration: none;
+}
+
+.fbar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+  max-width: var(--wrap, 1120px);
+  margin-inline: auto;
+  padding: 9px var(--gutter, 20px);
+  font-size: 13.5px;
+}
+
+.fbar .founding-badge path:first-child {
+  fill: var(--ink-paper);
+  stroke: var(--ink-paper);
+}
+
+.fbar .founding-badge path:last-child {
+  stroke: var(--brand-burgundy);
+}
+
+.fbar__text strong {
+  font-weight: 800;
+}
+
+.fbar__track {
+  position: relative;
+  width: clamp(80px, 14vw, 160px);
+  height: 8px;
+  border: 1.5px solid var(--ink-paper);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.fbar__track span {
+  position: absolute;
+  inset: 0 auto 0 0;
+  background: var(--ink-paper);
+  border-radius: 999px;
+}
+
+.fbar__left {
+  font-weight: 700;
+}
+
+.fbar:hover .fbar__left {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+@media (max-width: 520px) {
+  .fbar__track {
+    display: none;
+  }
+}
+
+/* Supported by: links in burgundy */
+.backers__list a {
+  color: var(--brand-burgundy);
+  text-decoration: none;
+  text-underline-offset: 4px;
+}
+
+.backers__list a:hover,
+.backers__list a:focus-visible {
+  text-decoration: underline;
 }
