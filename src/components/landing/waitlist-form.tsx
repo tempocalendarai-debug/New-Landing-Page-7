@@ -1,26 +1,50 @@
 "use client";
 
 /**
- * Waitlist signup. Posts to Netlify Forms with the same form names the old site
- * used, so every existing submission stays in one place. Netlify only learns
- * about forms from static HTML, which is why public/__forms.html exists and why
- * the POST goes there: keep the names and honeypots in sync with that file.
+ * Waitlist signup.
+ *
+ * Every signup is POSTed to Netlify Forms under the form's own name,
+ * "waitlist-hero" or "waitlist-cta", with its honeypot. Netlify only learns
+ * about forms from static HTML, which is why public/__forms.html exists and
+ * why the POST goes there: keep the names and honeypots in sync with that file.
+ *
+ * After the email lands, the form turns into the thank-you card: Tempo
+ * celebrating, your place in line, claim your @handle, what happens next,
+ * and a share button.
  */
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { InkCard } from "@/components/brand/ink";
 import { TempoAgent } from "@/components/brand/tempo-agent";
+import { TempoText } from "@/components/brand/tempo-type";
 import { ProfileAvatar } from "./founding";
 import { InkButton, InkField } from "./ink-primitives";
 import { checkHandle, handleProblem, register, type HandleCheck, type Signup } from "./waitlist-api";
 
-type Status = "idle" | "sending" | "claim" | "done" | "error" | "invalid";
+type Status = "idle" | "sending" | "thanks" | "error" | "invalid";
+type FormName = "waitlist-hero" | "waitlist-cta";
+
+const FEEDBACK_EMAIL = "tempoassistantau@gmail.com";
+const SITE = "https://tempoassistant.com";
+
+/** Sends one submission to Netlify Forms, exactly as a plain HTML form post would. */
+async function postToNetlify(form: HTMLFormElement) {
+  const body = new URLSearchParams();
+  new FormData(form).forEach((value, key) => body.append(key, String(value)));
+  const res = await fetch("/__forms.html", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: body.toString(),
+  });
+  if (!res.ok) throw new Error(`Netlify Forms ${res.status}`);
+}
 
 export function WaitlistForm({
   name,
   honeypot,
   highlight = false,
 }: {
-  name: "waitlist-hero" | "waitlist-cta";
+  name: FormName;
   honeypot: string;
   highlight?: boolean;
 }) {
@@ -31,62 +55,37 @@ export function WaitlistForm({
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const form = event.currentTarget;
-    const data = new FormData(form);
-    const email = String(data.get("email") ?? "").trim();
-    if (!/^\S+@\S+\.\S+$/.test(email)) {
+    const value = String(new FormData(form).get("email") ?? "").trim();
+    if (!/^\S+@\S+\.\S+$/.test(value)) {
       setStatus("invalid");
       return;
     }
 
     setStatus("sending");
     try {
-      // Netlify Forms keeps the actual email addresses, as before. It doesn't
-      // exist under `npm run dev`, so it's skipped locally.
+      await postToNetlify(form);
+    } catch (err) {
+      // `npm run dev` has no Netlify Forms, so a failed post there is expected.
       if (process.env.NODE_ENV !== "development") {
-        const body = new URLSearchParams();
-        data.forEach((value, key) => body.append(key, String(value)));
-        const res = await fetch("/__forms.html", {
-          method: "POST",
-          headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          body: body.toString(),
-        });
-        if (!res.ok) throw new Error(String(res.status));
+        setStatus("error");
+        return;
       }
-    } catch {
-      setStatus("error");
-      return;
+      console.info("[waitlist] Netlify Forms isn't available locally, carrying on.", err);
     }
 
-    // Live counter, founding badge and handle. If this part is down the
-    // signup still counts (it's in Netlify Forms), so just say they're in.
+    // Place in line and @handle. If this part is down the email is still safe
+    // in Netlify Forms, so the thank-you just shows without a number.
     try {
-      const s = await register(email);
-      setEmail(email);
-      setSignup(s);
-      setStatus("claim");
+      setSignup(await register(value));
     } catch {
-      setStatus("done");
+      setSignup(null);
     }
+    setEmail(value);
+    setStatus("thanks");
   }
 
-  if (status === "claim" && signup) {
-    return <ClaimHandle email={email} signup={signup} onDone={(s) => { setSignup(s); setStatus("done"); }} />;
-  }
-
-  if (status === "done" && signup) {
-    return <Welcome signup={signup} />;
-  }
-
-  if (status === "done") {
-    return (
-      <div className="waitlist-done" role="status">
-        <TempoAgent state="niceOne" size={64} />
-        <div>
-          <p className="waitlist-done__title">You&rsquo;re in.</p>
-          <p className="waitlist-done__body">Thanks for joining. Stay ready to meet Tempo.</p>
-        </div>
-      </div>
-    );
+  if (status === "thanks") {
+    return <ThankYou formName={name} email={email} initial={signup} />;
   }
 
   const fieldId = `${name}-email`;
@@ -143,10 +142,164 @@ export function WaitlistForm({
 }
 
 /* ------------------------------------------------------------------ */
-/* Step 2: claim your @handle                                          */
+/* Thank you                                                           */
 /* ------------------------------------------------------------------ */
 
-function ClaimHandle({ email, signup, onDone }: { email: string; signup: Signup; onDone: (s: Signup) => void }) {
+/** Hand-drawn confetti around Tempo: squiggles, rings, sparks. Boils like everything else. */
+function Confetti() {
+  return (
+    <svg className="thanks__confetti" viewBox="0 0 240 150" fill="none" aria-hidden="true">
+      <g className="c-ink">
+        <path d="M22 40 C28 34 34 46 40 40 C46 34 52 46 58 40" />
+        <path d="M196 26 L204 34 M204 26 L196 34" />
+        <circle cx="210" cy="92" r="4.5" />
+        <path d="M30 108 C34 102 40 104 42 110" />
+      </g>
+      <g className="c-burg">
+        <path d="M190 58 C196 52 202 64 208 58 C214 52 220 64 226 58" />
+        <path d="M14 76 L14 88 M8 82 L20 82" />
+        <circle cx="52" cy="18" r="4" />
+        <path d="M184 112 L192 104" />
+        <path d="M120 6 L120 14 M116 10 L124 10" />
+      </g>
+    </svg>
+  );
+}
+
+function ThankYou({ formName, email, initial }: { formName: FormName; email: string; initial: Signup | null }) {
+  const [signup, setSignup] = useState<Signup | null>(initial);
+  const [stage, setStage] = useState<"claim" | "claimed" | "skipped">(initial?.handle ? "claimed" : "claim");
+  const [copied, setCopied] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    ref.current?.scrollIntoView({ block: "nearest", behavior: "smooth" });
+  }, []);
+
+  async function share() {
+    const data = { title: "Tempo", text: "Get on the Tempo waitlist with me. Invites are limited.", url: SITE };
+    try {
+      if (navigator.share) return await navigator.share(data);
+    } catch {
+      return;
+    }
+    copy();
+  }
+
+  async function copy() {
+    try {
+      await navigator.clipboard.writeText(SITE);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 2200);
+    } catch {}
+  }
+
+  return (
+    <div ref={ref} className="thanks" role="status" aria-live="polite">
+      <InkCard seed={`${formName}-thanks`} tape padding="30px 24px 26px" radius={18}>
+        <div className="thanks__inner">
+          <div className="thanks__hero">
+            <Confetti />
+            <TempoAgent state={stage === "claimed" ? "wink" : "niceOne"} size={100} />
+          </div>
+
+          <div className="thanks__title" aria-label="You're on the list">
+            <TempoText height={30} boil>
+              YOU'RE ON
+            </TempoText>
+            <TempoText height={30} boil>
+              THE LIST
+            </TempoText>
+          </div>
+
+          <p className="thanks__pos">
+            {signup ? (
+              <>
+                Nice one. You&rsquo;re <strong>#{signup.position}</strong> on the waitlist.
+              </>
+            ) : (
+              <>Nice one. Your spot&rsquo;s saved.</>
+            )}
+          </p>
+
+          {signup && stage === "claim" && (
+            <ClaimHandle
+              email={email}
+              onClaimed={(s) => {
+                setSignup(s);
+                setStage("claimed");
+              }}
+              onSkip={() => setStage("skipped")}
+            />
+          )}
+
+          {signup?.handle && stage === "claimed" && (
+            <div className="thanks__profile">
+              <ProfileAvatar size={52} handle={signup.handle} badge={false} />
+              <p>
+                <span className="thanks__claimed">
+                  <strong>@{signup.handle}</strong> is yours.
+                </span>
+                <span>Nobody else can take it now.</span>
+              </p>
+            </div>
+          )}
+
+          <div className="thanks__next">
+            <p className="thanks__label">What happens next</p>
+            <ol>
+              <li>
+                <span className="thanks__num">1</span>
+                <span>
+                  <strong>Nick or Axel will send you an invite.</strong> We let people in a few at a time.
+                </span>
+              </li>
+              <li>
+                <span className="thanks__num">2</span>
+                <span>
+                  <strong>Spread it around.</strong> Invites are limited, so get your group, your family and your
+                  partner on the list.
+                </span>
+              </li>
+              <li>
+                <span className="thanks__num">3</span>
+                <span>
+                  <strong>Tell us what you think</strong> at{" "}
+                  <a href={`mailto:${FEEDBACK_EMAIL}`}>{FEEDBACK_EMAIL}</a>.
+                </span>
+              </li>
+            </ol>
+          </div>
+
+          <div className="thanks__share">
+            <InkButton seed={`${formName}-share`} onClick={share}>
+              Share with your people
+            </InkButton>
+            <button type="button" className="thanks__copy" onClick={copy}>
+              {copied ? "Link copied" : "Copy link"}
+            </button>
+          </div>
+
+          <p className="thanks__sign">Together, not apart.</p>
+        </div>
+      </InkCard>
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* Claim your @handle (inside the thank-you)                           */
+/* ------------------------------------------------------------------ */
+
+function ClaimHandle({
+  email,
+  onClaimed,
+  onSkip,
+}: {
+  email: string;
+  onClaimed: (s: Signup) => void;
+  onSkip: () => void;
+}) {
   const [value, setValue] = useState("");
   const [check, setCheck] = useState<HandleCheck | null>(null);
   const [busy, setBusy] = useState(false);
@@ -172,7 +325,7 @@ function ClaimHandle({ email, signup, onDone }: { email: string; signup: Signup;
     if (!clean || local) return;
     setBusy(true);
     try {
-      onDone(await register(email, clean));
+      onClaimed(await register(email, clean));
     } catch (err) {
       setError(err instanceof Error ? err.message : "That didn't go through. Try again.");
       setBusy(false);
@@ -184,10 +337,9 @@ function ClaimHandle({ email, signup, onDone }: { email: string; signup: Signup;
 
   return (
     <form className="claim" onSubmit={claim} noValidate>
-      <p className="claim__status" role="status">
-        You&rsquo;re <strong>#{signup.position}</strong> on the waitlist.
+      <p className="claim__title">
+        Claim your <span className="claim__accent">@handle</span> before your mates do.
       </p>
-      <p className="claim__title">Now claim your @handle before your mates do.</p>
       <div className="waitlist__row">
         <label className="sr-only" htmlFor="claim-handle">
           Your Tempo handle
@@ -216,27 +368,9 @@ function ClaimHandle({ email, signup, onDone }: { email: string; signup: Signup;
       <p id="claim-hint" className="claim__hint" data-good={good || undefined} aria-live="polite">
         {hint ?? "3 to 20 characters. Letters, numbers, dots and underscores."}
       </p>
-      <button type="button" className="claim__skip" onClick={() => onDone(signup)}>
+      <button type="button" className="claim__skip" onClick={onSkip}>
         Skip for now
       </button>
     </form>
-  );
-}
-
-/* ------------------------------------------------------------------ */
-/* Done                                                                */
-/* ------------------------------------------------------------------ */
-
-function Welcome({ signup }: { signup: Signup }) {
-  return (
-    <div className="waitlist-done welcome" role="status">
-      <ProfileAvatar size={72} handle={signup.handle} badge={false} />
-      <div>
-        <p className="waitlist-done__title">{signup.handle ? `@${signup.handle}` : "You\u2019re in."}</p>
-        <p className="waitlist-done__body">
-          You&rsquo;re #{signup.position} on the waitlist. Stay ready to meet Tempo.
-        </p>
-      </div>
-    </div>
   );
 }
