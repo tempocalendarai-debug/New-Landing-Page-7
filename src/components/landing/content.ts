@@ -28,7 +28,7 @@ export const PLANS_MADE = 239;
  * each time you add testers.
  */
 export const FOUNDING_TOTAL = 100;
-export const FOUNDING_GIVEN = 0;
+export const FOUNDING_GIVEN = 46;
 
 /** People on the waitlist before the live counter existed. The live count starts here. */
 export const WAITLIST_START = 153;

@@ -6,508 +6,213 @@
   <meta name="color-scheme" content="light only">
   <meta name="supported-color-schemes" content="light only">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Welcome to Tempo</title>
+  <title>You're on the Tempo waitlist</title>
   <!--[if mso]>
-  <noscript>
-    <xml>
-      <o:OfficeDocumentSettings>
-        <o:PixelsPerInch>96</o:PixelsPerInch>
-      </o:OfficeDocumentSettings>
-    </xml>
-  </noscript>
+  <noscript><xml><o:OfficeDocumentSettings><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml></noscript>
   <![endif]-->
+  <!--
+    Tempo welcome email. Ink on paper, burgundy as the one accent, the Tempo
+    guy as the logo. Images load from https://tempoassistant.com/assets/, so
+    they appear once the site is deployed.
+  -->
   <style>
     :root { color-scheme: light only; supported-color-schemes: light only; }
-    html, body {
-      margin: 0 !important;
-      padding: 0 !important;
-      width: 100% !important;
-      height: 100% !important;
-      -webkit-text-size-adjust: 100%;
-      -ms-text-size-adjust: 100%;
-    }
-    table, td {
-      border-collapse: collapse;
-      mso-table-lspace: 0pt;
-      mso-table-rspace: 0pt;
-    }
-    img {
-      border: 0;
-      outline: none;
-      text-decoration: none;
-      -ms-interpolation-mode: bicubic;
-      display: block;
-    }
+    html, body { margin: 0 !important; padding: 0 !important; width: 100% !important; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+    table, td { border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
+    img { border: 0; outline: none; text-decoration: none; -ms-interpolation-mode: bicubic; display: block; }
     a { text-decoration: none; }
-    /* Gmail mobile dark mode: lock text to desktop light-mode colours */
     @media (prefers-color-scheme: dark) {
-      .force-light, .force-light * { color: inherit !important; -webkit-text-fill-color: inherit !important; }
-      .c-010101, .c-010101 * { color: #010101 !important; -webkit-text-fill-color: #010101 !important; }
-      .c-5c5c5c { color: #5c5c5c !important; -webkit-text-fill-color: #5c5c5c !important; }
-      .c-9a9a9a { color: #9a9a9a !important; -webkit-text-fill-color: #9a9a9a !important; }
-      .c-4165e5 { color: #4165e5 !important; -webkit-text-fill-color: #4165e5 !important; }
-      .c-8a93a8 { color: #8a93a8 !important; -webkit-text-fill-color: #8a93a8 !important; }
-      .c-0a0a0a { color: #0a0a0a !important; -webkit-text-fill-color: #0a0a0a !important; }
-      .c-5c6373 { color: #5c6373 !important; -webkit-text-fill-color: #5c6373 !important; }
-      .c-15151a { color: #15151a !important; -webkit-text-fill-color: #15151a !important; }
-      .c-8a8f9c { color: #8a8f9c !important; -webkit-text-fill-color: #8a8f9c !important; }
-      .c-9aa3c0 { color: #9aa3c0 !important; -webkit-text-fill-color: #9aa3c0 !important; }
-      .c-8a8a8a { color: #8a8a8a !important; -webkit-text-fill-color: #8a8a8a !important; }
-      .c-1a1a1a { color: #1a1a1a !important; -webkit-text-fill-color: #1a1a1a !important; }
-      .c-b8b8b8 { color: #b8b8b8 !important; -webkit-text-fill-color: #b8b8b8 !important; }
-      .c-ffffff, .c-ffffff * { color: #ffffff !important; -webkit-text-fill-color: #ffffff !important; }
-      .c-c9cfe6 { color: #c9cfe6 !important; -webkit-text-fill-color: #c9cfe6 !important; }
-      .c-8e97b5 { color: #8e97b5 !important; -webkit-text-fill-color: #8e97b5 !important; }
-      .c-8fa8f5 { color: #8fa8f5 !important; -webkit-text-fill-color: #8fa8f5 !important; }
-      .c-6f7a99 { color: #6f7a99 !important; -webkit-text-fill-color: #6f7a99 !important; }
-      .c-22c55e { color: #22c55e !important; -webkit-text-fill-color: #22c55e !important; }
+      .ink, .ink * { color: #1B1B19 !important; -webkit-text-fill-color: #1B1B19 !important; }
+      .soft, .soft * { color: #3D3D3D !important; -webkit-text-fill-color: #3D3D3D !important; }
+      .burg, .burg * { color: #800020 !important; -webkit-text-fill-color: #800020 !important; }
+      .cream, .cream * { color: #F7F4ED !important; -webkit-text-fill-color: #F7F4ED !important; }
     }
-    u + .body .c-010101, u + .body .c-010101 * { color: #010101 !important; -webkit-text-fill-color: #010101 !important; }
-    u + .body .c-5c5c5c { color: #5c5c5c !important; -webkit-text-fill-color: #5c5c5c !important; }
-    u + .body .c-9a9a9a { color: #9a9a9a !important; -webkit-text-fill-color: #9a9a9a !important; }
-    u + .body .c-4165e5 { color: #4165e5 !important; -webkit-text-fill-color: #4165e5 !important; }
-    u + .body .c-8a93a8 { color: #8a93a8 !important; -webkit-text-fill-color: #8a93a8 !important; }
-    u + .body .c-0a0a0a { color: #0a0a0a !important; -webkit-text-fill-color: #0a0a0a !important; }
-    u + .body .c-5c6373 { color: #5c6373 !important; -webkit-text-fill-color: #5c6373 !important; }
-    u + .body .c-15151a { color: #15151a !important; -webkit-text-fill-color: #15151a !important; }
-    u + .body .c-8a8f9c { color: #8a8f9c !important; -webkit-text-fill-color: #8a8f9c !important; }
-    u + .body .c-9aa3c0 { color: #9aa3c0 !important; -webkit-text-fill-color: #9aa3c0 !important; }
-    u + .body .c-8a8a8a { color: #8a8a8a !important; -webkit-text-fill-color: #8a8a8a !important; }
-    u + .body .c-1a1a1a { color: #1a1a1a !important; -webkit-text-fill-color: #1a1a1a !important; }
-    u + .body .c-b8b8b8 { color: #b8b8b8 !important; -webkit-text-fill-color: #b8b8b8 !important; }
-    u + .body .c-ffffff, u + .body .c-ffffff * { color: #ffffff !important; -webkit-text-fill-color: #ffffff !important; }
-    u + .body .c-c9cfe6 { color: #c9cfe6 !important; -webkit-text-fill-color: #c9cfe6 !important; }
-    u + .body .c-8e97b5 { color: #8e97b5 !important; -webkit-text-fill-color: #8e97b5 !important; }
-    u + .body .c-8fa8f5 { color: #8fa8f5 !important; -webkit-text-fill-color: #8fa8f5 !important; }
-    u + .body .c-6f7a99 { color: #6f7a99 !important; -webkit-text-fill-color: #6f7a99 !important; }
-    u + .body .c-22c55e { color: #22c55e !important; -webkit-text-fill-color: #22c55e !important; }
-    [data-ogsc] .c-010101, [data-ogsc] .c-010101 * { color: #010101 !important; -webkit-text-fill-color: #010101 !important; }
-    [data-ogsc] .c-5c5c5c { color: #5c5c5c !important; -webkit-text-fill-color: #5c5c5c !important; }
-    [data-ogsc] .c-9a9a9a { color: #9a9a9a !important; -webkit-text-fill-color: #9a9a9a !important; }
-    [data-ogsc] .c-4165e5 { color: #4165e5 !important; -webkit-text-fill-color: #4165e5 !important; }
-    [data-ogsc] .c-8a93a8 { color: #8a93a8 !important; -webkit-text-fill-color: #8a93a8 !important; }
-    [data-ogsc] .c-0a0a0a { color: #0a0a0a !important; -webkit-text-fill-color: #0a0a0a !important; }
-    [data-ogsc] .c-5c6373 { color: #5c6373 !important; -webkit-text-fill-color: #5c6373 !important; }
-    [data-ogsc] .c-15151a { color: #15151a !important; -webkit-text-fill-color: #15151a !important; }
-    [data-ogsc] .c-8a8f9c { color: #8a8f9c !important; -webkit-text-fill-color: #8a8f9c !important; }
-    [data-ogsc] .c-9aa3c0 { color: #9aa3c0 !important; -webkit-text-fill-color: #9aa3c0 !important; }
-    [data-ogsc] .c-8a8a8a { color: #8a8a8a !important; -webkit-text-fill-color: #8a8a8a !important; }
-    [data-ogsc] .c-1a1a1a { color: #1a1a1a !important; -webkit-text-fill-color: #1a1a1a !important; }
-    [data-ogsc] .c-b8b8b8 { color: #b8b8b8 !important; -webkit-text-fill-color: #b8b8b8 !important; }
-    [data-ogsc] .c-ffffff, [data-ogsc] .c-ffffff * { color: #ffffff !important; -webkit-text-fill-color: #ffffff !important; }
-    [data-ogsc] .c-c9cfe6 { color: #c9cfe6 !important; -webkit-text-fill-color: #c9cfe6 !important; }
-    [data-ogsc] .c-8e97b5 { color: #8e97b5 !important; -webkit-text-fill-color: #8e97b5 !important; }
-    [data-ogsc] .c-8fa8f5 { color: #8fa8f5 !important; -webkit-text-fill-color: #8fa8f5 !important; }
-    [data-ogsc] .c-6f7a99 { color: #6f7a99 !important; -webkit-text-fill-color: #6f7a99 !important; }
-    [data-ogsc] .c-22c55e { color: #22c55e !important; -webkit-text-fill-color: #22c55e !important; }
-
-    /* Mobile: stack columns so cards match desktop proportions */
-    @media only screen and (max-width: 560px) {
-      .email-container {
-        width: 100% !important;
-        max-width: 100% !important;
-      }
-      .mobile-px {
-        padding-left: 24px !important;
-        padding-right: 24px !important;
-      }
-      .mobile-px-header {
-        padding: 30px 20px 26px !important;
-      }
-      .mobile-px-section {
-        padding-left: 20px !important;
-        padding-right: 20px !important;
-      }
-      .mobile-px-card {
-        padding: 24px 0 24px 24px !important;
-      }
-      .stack-row,
-      .stack-row tbody,
-      .stack-row tr {
-        display: block !important;
-        width: 100% !important;
-      }
-      .stack-col {
-        display: block !important;
-        width: 100% !important;
-        max-width: 100% !important;
-        box-sizing: border-box !important;
-      }
-      .stack-col-left {
-        padding-right: 0 !important;
-        padding-bottom: 14px !important;
-      }
-      .stack-col-right {
-        padding-left: 0 !important;
-      }
-      .feature-card {
-        height: auto !important;
-      }
-      .hero-title {
-        font-size: 34px !important;
-        letter-spacing: -1.2px !important;
-      }
-      .cohort-stat {
-        font-size: 52px !important;
-      }
-      .footer-meta {
-        display: block !important;
-        width: 100% !important;
-        text-align: left !important;
-        padding-top: 12px !important;
-      }
-      .footer-meta p {
-        text-align: left !important;
-      }
-      .status-pill {
-        display: inline-block !important;
-        max-width: 100% !important;
-        box-sizing: border-box !important;
-      }
+    @media only screen and (max-width: 620px) {
+      .container { width: 100% !important; }
+      .pad { padding-left: 24px !important; padding-right: 24px !important; }
+      .headline { width: 240px !important; height: auto !important; }
     }
   </style>
 </head>
-<body class="body force-light" style="margin:0;padding:0;background-color:#ffffff;color-scheme:light only;" bgcolor="#ffffff">
-  <div style="display:none;max-height:0;overflow:hidden;mso-hide:all;">
-    You're in. Your spot on the Tempo waitlist is confirmed.
+<body style="margin:0;padding:0;background-color:#F7F4ED;">
+  <!-- Preview text -->
+  <div style="display:none;max-height:0;overflow:hidden;mso-hide:all;font-size:1px;line-height:1px;color:#F7F4ED;">
+    You're on the Tempo waitlist. Here's what happens next.&#8199;&#65279;&#847;&#8199;&#65279;&#847;&#8199;&#65279;&#847;&#8199;&#65279;&#847;&#8199;&#65279;&#847;
   </div>
 
-  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" bgcolor="#ffffff" style="background-color:#ffffff;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#F7F4ED" style="background-color:#F7F4ED;">
     <tr>
-      <td align="center" bgcolor="#ffffff" style="background-color:#ffffff;padding:0;">
-        <table role="presentation" class="email-container" width="560" cellpadding="0" cellspacing="0" bgcolor="#ffffff" style="width:100%;max-width:560px;background-color:#ffffff;font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI','Helvetica Neue',Arial,sans-serif;color-scheme:light only;">
+      <td align="center" style="padding:32px 12px 40px;">
 
-          <tr>
-            <td bgcolor="#ffffff" style="background-color:#ffffff;">
-              <div style="height:4px;background:linear-gradient(90deg,#3454c4,#4165e5,#6b8aeb);border-radius:4px 4px 0 0;"></div>
-            </td>
-          </tr>
+        <table role="presentation" class="container" width="560" cellpadding="0" cellspacing="0" border="0" style="width:560px;max-width:560px;">
 
-          <!-- ===== HEADER + HERO ===== -->
+          <!-- Card -->
           <tr>
-            <td bgcolor="#ffffff" style="background-color:#ffffff;background-image:linear-gradient(#ffffff,#ffffff);">
-              <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+            <td bgcolor="#FFFDF8" style="background-color:#FFFDF8;border:2px solid #1B1B19;border-radius:18px;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+
+                <!-- Logo -->
                 <tr>
-                  <td class="mobile-px-header" bgcolor="#ffffff" style="padding:36px 28px 32px;background-color:#ffffff;background-image:linear-gradient(#ffffff,#ffffff);">
-                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:36px;">
-                      <tr>
-                        <td><img src="https://tempoassistant.com/assets/email-logo.png" alt="Tempo" width="110" height="48" style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic;" /></td>
-                        <td align="right"><font class="c-4165e5" color="#4165e5" style="font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;background:#eef2ff;padding:6px 13px;border-radius:100px;">Beta Access</font></td>
-                      </tr>
-                    </table>
-                    <h1 class="hero-title" style="margin:0 0 14px;font-size:38px;font-weight:800;letter-spacing:-1.4px;line-height:1.08;"><font class="c-010101" color="#010101">You're in.</font></h1>
-                    <p style="margin:0;font-size:16px;line-height:1.65;"><font class="c-5c5c5c" color="#5c5c5c">Your spot is locked in. We'll email you the moment your invite is ready.</font></p>
+                  <td align="center" style="padding:36px 40px 0;">
+                    <a href="https://tempoassistant.com" target="_blank">
+                      <img src="https://tempoassistant.com/assets/email-lockup.png" width="165" height="35" alt="Tempo" style="width:165px;height:auto;">
+                    </a>
                   </td>
                 </tr>
-              </table>
-            </td>
-          </tr>
 
-          <!-- ===== THE PILOT (dark card, wave-2) ===== -->
-          <tr>
-            <td bgcolor="#ffffff" style="background-color:#ffffff;background-image:linear-gradient(#ffffff,#ffffff);">
-              <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+                <!-- Headline -->
                 <tr>
-                  <td class="mobile-px-section" bgcolor="#ffffff" style="padding:8px 28px 0;background-color:#ffffff;background-image:linear-gradient(#ffffff,#ffffff);">
-                    <div style="border-radius:20px;overflow:hidden;border:1px solid #12172a;color-scheme:light only;">
-                      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" bgcolor="#0b0e1a" style="background-color:#0b0e1a;background-image:linear-gradient(#0b0e1a,#0b0e1a);">
-                        <tr>
-                          <td class="mobile-px-card" bgcolor="#0b0e1a" style="padding:30px 0 30px 30px;background-color:#0b0e1a;background-image:linear-gradient(#0b0e1a,#0b0e1a);">
-
-                            <table role="presentation" class="stack-row" width="100%" cellpadding="0" cellspacing="0">
-                              <tr>
-                                <td class="stack-col stack-col-left" width="200" valign="middle" style="vertical-align:middle;padding-right:10px;">
-                                    <table role="presentation" cellpadding="0" cellspacing="0" style="margin-bottom:16px;">
-                                      <tr>
-                                        <td valign="middle" style="padding:0;font-size:0;line-height:0;">
-                                          <table role="presentation" cellpadding="0" cellspacing="0">
-                                            <tr>
-                                              <td width="8" height="8" bgcolor="#22c55e" style="width:8px;height:8px;min-width:8px;max-width:8px;min-height:8px;max-height:8px;background-color:#22c55e;border-radius:50%;font-size:0;line-height:0;mso-line-height-rule:exactly;">&nbsp;</td>
-                                            </tr>
-                                          </table>
-                                        </td>
-                                        <td valign="middle" style="padding-left:9px;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;"><font class="c-8e97b5" color="#8e97b5">Testing now</font></td>
-                                      </tr>
-                                    </table>
-
-                                    <div class="cohort-stat" style="font-size:64px;font-weight:800;letter-spacing:-3.4px;line-height:0.92;margin-bottom:2px;"><font class="c-ffffff" color="#ffffff">30</font></div>
-                                    <div style="font-size:15px;font-weight:800;letter-spacing:-0.3px;line-height:1.3;margin-bottom:20px;"><font class="c-ffffff" color="#ffffff">people are inside<br>Tempo today</font></div>
-                                    <table role="presentation" cellpadding="0" cellspacing="0">
-                                      <tr>
-                                        <td style="padding:0 6px 6px 0;"><table role="presentation" cellpadding="0" cellspacing="0"><tr><td class="status-pill" bgcolor="#1c2340" style="background:#1c2340;background-image:linear-gradient(#1c2340,#1c2340);border-radius:100px;padding:6px 11px;font-size:11px;font-weight:600;"><font class="c-c9cfe6" color="#c9cfe6">Students</font></td></tr></table></td>
-                                        <td style="padding:0 0 6px 0;"><table role="presentation" cellpadding="0" cellspacing="0"><tr><td class="status-pill" bgcolor="#1c2340" style="background:#1c2340;background-image:linear-gradient(#1c2340,#1c2340);border-radius:100px;padding:6px 11px;font-size:11px;font-weight:600;"><font class="c-c9cfe6" color="#c9cfe6">Creators</font></td></tr></table></td>
-                                      </tr>
-                                      <tr>
-                                        <td colspan="2"><table role="presentation" cellpadding="0" cellspacing="0"><tr><td class="status-pill" bgcolor="#1c2340" style="background:#1c2340;background-image:linear-gradient(#1c2340,#1c2340);border-radius:100px;padding:6px 11px;font-size:11px;font-weight:600;"><font class="c-c9cfe6" color="#c9cfe6">Workers</font></td></tr></table></td>
-                                      </tr>
-                                    </table>
-                                </td>
-                                <td class="stack-col stack-col-right" width="274" valign="middle" align="right" style="vertical-align:middle;font-size:0;line-height:0;">
-                                  <img src="https://tempoassistant.com/assets/email-card-wave.jpg" alt="" width="274" height="210" style="display:block;width:100%;max-width:274px;height:auto;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic;" />
-                                </td>
-                              </tr>
-                            </table>
-                          </td>
-                        </tr>
-                      </table>
-                    </div>
+                  <td align="center" style="padding:34px 40px 0;">
+                    <img class="headline" src="https://tempoassistant.com/assets/email-headline.png" width="280" alt="YOU'RE ON THE LIST" style="width:280px;height:auto;">
                   </td>
                 </tr>
-              </table>
-            </td>
-          </tr>
 
-          <!-- ===== WHAT HAPPENS NEXT ===== -->
-          <tr>
-            <td bgcolor="#ffffff" style="background-color:#ffffff;background-image:linear-gradient(#ffffff,#ffffff);">
-              <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
                 <tr>
-                  <td class="mobile-px-section" bgcolor="#ffffff" style="padding:36px 28px 0;background-color:#ffffff;background-image:linear-gradient(#ffffff,#ffffff);">
-                    <p style="margin:0 0 6px;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;"><font class="c-9a9a9a" color="#9a9a9a">Next</font></p>
-                    <h2 style="margin:0 0 20px;font-size:24px;font-weight:800;letter-spacing:-0.8px;line-height:1.15;"><font class="c-010101" color="#010101">What happens next</font></h2>
+                  <td align="center" class="pad burg" style="padding:16px 40px 0;font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#800020;">
+                    Together, not apart
+                  </td>
+                </tr>
 
-                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+                <!-- Intro -->
+                <tr>
+                  <td class="pad soft" style="padding:24px 48px 0;font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:16px;line-height:1.6;color:#3D3D3D;text-align:center;">
+                    Thanks for joining the Tempo waitlist. Tempo makes the plan for you: your Tempo talks to your friends&rsquo; Tempos, finds a time you&rsquo;re all free and puts it in everyone&rsquo;s calendar. No more &ldquo;we should catch up&rdquo; that never happens.
+                  </td>
+                </tr>
+
+                <!-- Divider -->
+                <tr>
+                  <td class="pad" style="padding:32px 48px 0;">
+                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="border-top:1px solid #DDD4C4;font-size:0;line-height:0;">&nbsp;</td></tr></table>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="pad ink" style="padding:28px 48px 6px;font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#9A9186;">
+                    What happens next
+                  </td>
+                </tr>
+
+                <!-- Step 1 -->
+                <tr>
+                  <td class="pad" style="padding:14px 48px 0;">
+                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
                       <tr>
-                        <td width="42" style="vertical-align:top;">
-                          <div style="width:28px;height:28px;background:#4165e5;border-radius:50%;font-size:13px;font-weight:700;text-align:center;line-height:28px;"><font class="c-ffffff" color="#ffffff">&#10003;</font></div>
+                        <td width="44" valign="top" style="width:44px;padding-top:2px;">
+                          <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>
+                            <td align="center" valign="middle" width="30" height="30" bgcolor="#800020" class="cream" style="width:30px;height:30px;border-radius:15px;background-color:#800020;font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:14px;font-weight:800;color:#F7F4ED;">1</td>
+                          </tr></table>
                         </td>
-                        <td style="vertical-align:top;padding-top:3px;padding-bottom:16px;">
-                          <div style="font-size:13px;font-weight:700;margin-bottom:3px;"><font class="c-15151a" color="#15151a">You're on the list</font></div>
-                          <div style="font-size:12px;line-height:1.5;"><font class="c-8a8f9c" color="#8a8f9c">Nothing to do for now.</font></div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td width="42" style="vertical-align:top;">
-                          <div style="width:28px;height:28px;background:#ffffff;border:1px solid #e8e9ef;border-radius:50%;font-size:12px;font-weight:700;text-align:center;line-height:26px;"><font class="c-9aa3c0" color="#9aa3c0">2</font></div>
-                        </td>
-                        <td style="vertical-align:top;padding-top:3px;padding-bottom:16px;">
-                          <div style="font-size:13px;font-weight:700;margin-bottom:3px;"><font class="c-15151a" color="#15151a">The pool widens</font></div>
-                          <div style="font-size:12px;line-height:1.5;"><font class="c-8a8f9c" color="#8a8f9c">We're opening more spots before launch later this year, straight off this list.</font></div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td width="42" style="vertical-align:top;">
-                          <div style="width:28px;height:28px;background:#ffffff;border:1px solid #e8e9ef;border-radius:50%;font-size:12px;font-weight:700;text-align:center;line-height:26px;"><font class="c-9aa3c0" color="#9aa3c0">3</font></div>
-                        </td>
-                        <td style="vertical-align:top;padding-top:3px;">
-                          <div style="font-size:13px;font-weight:700;margin-bottom:3px;"><font class="c-15151a" color="#15151a">Connect and go</font></div>
-                          <div style="font-size:12px;line-height:1.5;"><font class="c-8a8f9c" color="#8a8f9c">Link your apps and you're set.</font></div>
+                        <td valign="top" style="font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;">
+                          <p class="ink" style="margin:0 0 4px;font-size:17px;font-weight:700;color:#1B1B19;">Nick or Axel will send you an invite</p>
+                          <p class="soft" style="margin:0;font-size:15px;line-height:1.55;color:#3D3D3D;">We&rsquo;re letting people in a few at a time. When it&rsquo;s your turn, one of us will personally send you your invite to use Tempo.</p>
                         </td>
                       </tr>
                     </table>
                   </td>
                 </tr>
-              </table>
-            </td>
-          </tr>
 
-          <!-- ===== FEATURES ===== -->
-          <tr>
-            <td bgcolor="#ffffff" style="background-color:#ffffff;background-image:linear-gradient(#ffffff,#ffffff);">
-              <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+                <!-- Step 2 -->
                 <tr>
-                  <td class="mobile-px-section" bgcolor="#ffffff" style="padding:36px 28px 0;background-color:#ffffff;background-image:linear-gradient(#ffffff,#ffffff);">
-                    <p style="margin:0 0 6px;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;"><font class="c-9a9a9a" color="#9a9a9a">Inside the app</font></p>
-                    <h2 style="margin:0 0 22px;font-size:24px;font-weight:800;letter-spacing:-0.8px;line-height:1.15;"><font class="c-010101" color="#010101">What you'll use every day</font></h2>
-
-                    <table role="presentation" class="stack-row" width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:14px;">
+                  <td class="pad" style="padding:22px 48px 0;">
+                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
                       <tr>
-                        <td class="stack-col stack-col-left" width="50%" valign="top" style="vertical-align:top;padding-right:7px;">
-                          <div style="border-radius:14px;overflow:hidden;border:1px solid #e8e9ef;">
-                            <table role="presentation" class="feature-card" width="100%" height="146" cellpadding="0" cellspacing="0" bgcolor="#fafafb" style="background-color:#fafafb;background-image:linear-gradient(#fafafb,#fafafb);">
-                              <tr>
-                                <td bgcolor="#fafafb" style="padding:20px;vertical-align:top;background-color:#fafafb;background-image:linear-gradient(#fafafb,#fafafb);">
-                                  <span style="display:inline-block;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:#eef2ff;padding:5px 10px;border-radius:100px;margin-bottom:14px;"><font class="c-4165e5" color="#4165e5">Plan</font></span>
-                                  <div style="font-size:14px;font-weight:700;margin-bottom:6px;letter-spacing:-0.2px;"><font class="c-010101" color="#010101">See the whole week</font></div>
-                                  <div style="font-size:12.5px;line-height:1.55;"><font class="c-8a8a8a" color="#8a8a8a">Drag, resize, pin. Clashes flagged early.</font></div>
-                                </td>
-                              </tr>
-                            </table>
-                          </div>
+                        <td width="44" valign="top" style="width:44px;padding-top:2px;">
+                          <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>
+                            <td align="center" valign="middle" width="30" height="30" bgcolor="#800020" class="cream" style="width:30px;height:30px;border-radius:15px;background-color:#800020;font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:14px;font-weight:800;color:#F7F4ED;">2</td>
+                          </tr></table>
                         </td>
-                        <td class="stack-col stack-col-right" width="50%" valign="top" style="vertical-align:top;padding-left:7px;">
-                          <div style="border-radius:14px;overflow:hidden;border:1px solid #e8e9ef;">
-                            <table role="presentation" class="feature-card" width="100%" height="146" cellpadding="0" cellspacing="0" bgcolor="#fafafb" style="background-color:#fafafb;background-image:linear-gradient(#fafafb,#fafafb);">
-                              <tr>
-                                <td bgcolor="#fafafb" style="padding:20px;vertical-align:top;background-color:#fafafb;background-image:linear-gradient(#fafafb,#fafafb);">
-                                  <span style="display:inline-block;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:#eef2ff;padding:5px 10px;border-radius:100px;margin-bottom:14px;"><font class="c-4165e5" color="#4165e5">Act</font></span>
-                                  <div style="font-size:14px;font-weight:700;margin-bottom:6px;letter-spacing:-0.2px;"><font class="c-010101" color="#010101">Ask Tempo to act</font></div>
-                                  <div style="font-size:12.5px;line-height:1.55;"><font class="c-8a8a8a" color="#8a8a8a">Book focus time and move meetings in one ask.</font></div>
-                                </td>
-                              </tr>
-                            </table>
-                          </div>
-                        </td>
-                      </tr>
-                    </table>
-
-                    <table role="presentation" class="stack-row" width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:32px;">
-                      <tr>
-                        <td class="stack-col stack-col-left" width="50%" valign="top" style="vertical-align:top;padding-right:7px;">
-                          <div style="border-radius:14px;overflow:hidden;border:1px solid #e8e9ef;">
-                            <table role="presentation" class="feature-card" width="100%" height="146" cellpadding="0" cellspacing="0" bgcolor="#fafafb" style="background-color:#fafafb;background-image:linear-gradient(#fafafb,#fafafb);">
-                              <tr>
-                                <td bgcolor="#fafafb" style="padding:20px;vertical-align:top;background-color:#fafafb;background-image:linear-gradient(#fafafb,#fafafb);">
-                                  <span style="display:inline-block;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:#eef2ff;padding:5px 10px;border-radius:100px;margin-bottom:14px;"><font class="c-4165e5" color="#4165e5">Catch up</font></span>
-                                  <div style="font-size:14px;font-weight:700;margin-bottom:6px;letter-spacing:-0.2px;"><font class="c-010101" color="#010101">Start with a briefing</font></div>
-                                  <div style="font-size:12.5px;line-height:1.55;"><font class="c-8a8a8a" color="#8a8a8a">A morning summary, plus drafts in your tone.</font></div>
-                                </td>
-                              </tr>
-                            </table>
-                          </div>
-                        </td>
-                        <td class="stack-col stack-col-right" width="50%" valign="top" style="vertical-align:top;padding-left:7px;">
-                          <div style="border-radius:14px;overflow:hidden;border:1px solid #e8e9ef;">
-                            <table role="presentation" class="feature-card" width="100%" height="146" cellpadding="0" cellspacing="0" bgcolor="#fafafb" style="background-color:#fafafb;background-image:linear-gradient(#fafafb,#fafafb);">
-                              <tr>
-                                <td bgcolor="#fafafb" style="padding:20px;vertical-align:top;background-color:#fafafb;background-image:linear-gradient(#fafafb,#fafafb);">
-                                  <span style="display:inline-block;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:#eef2ff;padding:5px 10px;border-radius:100px;margin-bottom:14px;"><font class="c-4165e5" color="#4165e5">Social</font></span>
-                                  <div style="font-size:14px;font-weight:700;margin-bottom:6px;letter-spacing:-0.2px;"><font class="c-010101" color="#010101">Plan together</font></div>
-                                  <div style="font-size:12.5px;line-height:1.55;"><font class="c-8a8a8a" color="#8a8a8a">See friends' free time and send an invite.</font></div>
-                                </td>
-                              </tr>
-                            </table>
-                          </div>
-                        </td>
-                      </tr>
-                    </table>
-
-                  </td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-
-          <!-- ===== INTEGRATIONS ===== -->
-          <tr>
-            <td bgcolor="#f9f9f9" style="background-color:#f9f9f9;background-image:linear-gradient(#f9f9f9,#f9f9f9);border-top:1px solid #edeef2;border-bottom:1px solid #edeef2;">
-              <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
-                <tr>
-                  <td class="mobile-px-section" bgcolor="#f9f9f9" style="padding:36px 28px;background-color:#f9f9f9;background-image:linear-gradient(#f9f9f9,#f9f9f9);">
-                    <p style="margin:0 0 6px;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;text-align:center;"><font class="c-9a9a9a" color="#9a9a9a">Integrations</font></p>
-                    <h2 style="margin:0 0 24px;font-size:24px;font-weight:800;letter-spacing:-0.8px;line-height:1.15;text-align:center;"><font class="c-010101" color="#010101">Your stack, connected</font></h2>
-                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
-                      <tr>
-                        <td width="25%" align="center" style="vertical-align:top;">
-                          <div style="display:inline-block;border:1px solid #e8e9ef;border-radius:14px;overflow:hidden;width:60px;height:60px;background-color:#ffffff;">
-                            <table role="presentation" width="60" height="60" cellpadding="0" cellspacing="0" align="center">
-                              <tr><td width="60" height="60" align="center" valign="middle" bgcolor="#ffffff" style="background-color:#ffffff;background-image:linear-gradient(#ffffff,#ffffff);">
-                                <img src="https://tempoassistant.com/assets/email-icon-gmail.png" alt="Gmail" width="30" height="30" style="display:block;margin:0 auto;border:0;" />
-                              </td></tr>
-                            </table>
-                          </div>
-                          <div style="font-size:11px;font-weight:600;margin-top:9px;"><font class="c-5c5c5c" color="#5c5c5c">Gmail</font></div>
-                        </td>
-                        <td width="25%" align="center" style="vertical-align:top;">
-                          <div style="display:inline-block;border:1px solid #e8e9ef;border-radius:14px;overflow:hidden;width:60px;height:60px;background-color:#ffffff;">
-                            <table role="presentation" width="60" height="60" cellpadding="0" cellspacing="0" align="center">
-                              <tr><td width="60" height="60" align="center" valign="middle" bgcolor="#ffffff" style="background-color:#ffffff;background-image:linear-gradient(#ffffff,#ffffff);">
-                                <img src="https://tempoassistant.com/assets/email-icon-calendar.png" alt="Google Calendar" width="30" height="30" style="display:block;margin:0 auto;border:0;" />
-                              </td></tr>
-                            </table>
-                          </div>
-                          <div style="font-size:11px;font-weight:600;margin-top:9px;"><font class="c-5c5c5c" color="#5c5c5c">Calendar</font></div>
-                        </td>
-                        <td width="25%" align="center" style="vertical-align:top;">
-                          <div style="display:inline-block;border:1px solid #e8e9ef;border-radius:14px;overflow:hidden;width:60px;height:60px;background-color:#ffffff;">
-                            <table role="presentation" width="60" height="60" cellpadding="0" cellspacing="0" align="center">
-                              <tr><td width="60" height="60" align="center" valign="middle" bgcolor="#ffffff" style="background-color:#ffffff;background-image:linear-gradient(#ffffff,#ffffff);">
-                                <img src="https://tempoassistant.com/assets/email-icon-notion.png" alt="Notion" width="29" height="30" style="display:block;margin:0 auto;border:0;" />
-                              </td></tr>
-                            </table>
-                          </div>
-                          <div style="font-size:11px;font-weight:600;margin-top:9px;"><font class="c-5c5c5c" color="#5c5c5c">Notion</font></div>
-                        </td>
-                        <td width="25%" align="center" style="vertical-align:top;">
-                          <div style="display:inline-block;border:1px solid #e8e9ef;border-radius:14px;overflow:hidden;width:60px;height:60px;background-color:#ffffff;">
-                            <table role="presentation" width="60" height="60" cellpadding="0" cellspacing="0" align="center">
-                              <tr><td width="60" height="60" align="center" valign="middle" bgcolor="#ffffff" style="background-color:#ffffff;background-image:linear-gradient(#ffffff,#ffffff);">
-                                <img src="https://tempoassistant.com/assets/email-icon-outlook.png" alt="Outlook" width="30" height="28" style="display:block;margin:0 auto;border:0;" />
-                              </td></tr>
-                            </table>
-                          </div>
-                          <div style="font-size:11px;font-weight:600;margin-top:9px;"><font class="c-5c5c5c" color="#5c5c5c">Outlook</font></div>
+                        <td valign="top" style="font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;">
+                          <p class="ink" style="margin:0 0 4px;font-size:17px;font-weight:700;color:#1B1B19;">Spread it around</p>
+                          <p class="soft" style="margin:0;font-size:15px;line-height:1.55;color:#3D3D3D;">We only send out limited invites, and Tempo works best when your people are on it too. Send it to your group, your family and your partner.</p>
                         </td>
                       </tr>
                     </table>
                   </td>
                 </tr>
-              </table>
-            </td>
-          </tr>
 
-          <!-- ===== MEMBERSHIP ===== -->
-          <tr>
-            <td bgcolor="#ffffff" style="background-color:#ffffff;background-image:linear-gradient(#ffffff,#ffffff);">
-              <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+                <!-- Step 3 -->
                 <tr>
-                  <td class="mobile-px-section" bgcolor="#ffffff" style="padding:36px 28px 0;background-color:#ffffff;background-image:linear-gradient(#ffffff,#ffffff);">
-                    <p style="margin:0 0 6px;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;"><font class="c-9a9a9a" color="#9a9a9a">Membership</font></p>
-                    <h2 style="margin:0 0 18px;font-size:24px;font-weight:800;letter-spacing:-0.8px;line-height:1.15;"><font class="c-010101" color="#010101">One plan, all of it</font></h2>
-
-                    <div style="border-radius:16px;overflow:hidden;border:1px solid #e8e9ef;margin-bottom:32px;">
-                      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" bgcolor="#fafafb" style="background-color:#fafafb;background-image:linear-gradient(#fafafb,#fafafb);">
-                        <tr>
-                          <td class="mobile-px-card" bgcolor="#fafafb" style="padding:26px;background-color:#fafafb;background-image:linear-gradient(#fafafb,#fafafb);">
-                            <p style="margin:0 0 4px;font-size:38px;font-weight:800;letter-spacing:-1.4px;line-height:1;"><font class="c-010101" color="#010101">$7.99 </font><font class="c-9a9a9a" color="#9a9a9a" style="font-size:14px;font-weight:600;letter-spacing:0;">AUD / month</font></p>
-                            <p style="margin:10px 0 8px;font-size:15px;line-height:1.5;font-weight:600;"><font class="c-1a1a1a" color="#1a1a1a">Everything included. No tiers, no upsells.</font></p>
-                            <p style="margin:0 0 22px;font-size:13px;line-height:1.5;"><font class="c-8a8a8a" color="#8a8a8a">Nothing to pay until you accept your invite.</font></p>
-
-                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
-                              <tr>
-                                <td width="26" style="vertical-align:top;padding-bottom:11px;"><font class="c-4165e5" color="#4165e5" style="font-weight:800;font-size:14px;">&#10003;</font></td>
-                                <td style="font-size:13px;line-height:1.5;padding-bottom:11px;"><font class="c-1a1a1a" color="#1a1a1a">Mail, calendar, tasks and chat in one app</font></td>
-                              </tr>
-                              <tr>
-                                <td width="26" style="vertical-align:top;padding-bottom:11px;"><font class="c-4165e5" color="#4165e5" style="font-weight:800;font-size:14px;">&#10003;</font></td>
-                                <td style="font-size:13px;line-height:1.5;padding-bottom:11px;"><font class="c-1a1a1a" color="#1a1a1a">Every integration included</font></td>
-                              </tr>
-                              <tr>
-                                <td width="26" style="vertical-align:top;padding-bottom:11px;"><font class="c-4165e5" color="#4165e5" style="font-weight:800;font-size:14px;">&#10003;</font></td>
-                                <td style="font-size:13px;line-height:1.5;padding-bottom:11px;"><font class="c-1a1a1a" color="#1a1a1a">Unlimited briefings and drafts</font></td>
-                              </tr>
-                              <tr>
-                                <td width="26" style="vertical-align:top;padding-bottom:11px;"><font class="c-4165e5" color="#4165e5" style="font-weight:800;font-size:14px;">&#10003;</font></td>
-                                <td style="font-size:13px;line-height:1.5;padding-bottom:11px;"><font class="c-1a1a1a" color="#1a1a1a">A direct line to the founders who build Tempo</font></td>
-                              </tr>
-                              <tr>
-                                <td width="26" style="vertical-align:top;"><font class="c-4165e5" color="#4165e5" style="font-weight:800;font-size:14px;">&#10003;</font></td>
-                                <td style="font-size:13px;line-height:1.5;"><font class="c-1a1a1a" color="#1a1a1a">Cancel any time</font></td>
-                              </tr>
-                            </table>
-                          </td>
-                        </tr>
-                      </table>
-                    </div>
-
-                  </td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-
-          <!-- ===== FOOTER ===== -->
-          <tr>
-            <td bgcolor="#ffffff" style="background-color:#ffffff;background-image:linear-gradient(#ffffff,#ffffff);border-top:1px solid #edeef2;">
-              <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
-                <tr>
-                  <td class="mobile-px-section" bgcolor="#ffffff" style="padding:30px 28px;background-color:#ffffff;background-image:linear-gradient(#ffffff,#ffffff);">
-                    <p style="margin:0 0 16px;font-size:15px;font-weight:700;letter-spacing:-0.3px;"><font class="c-010101" color="#010101">Get unbusy. </font><font class="c-4165e5" color="#4165e5">Catch your tempo.</font></p>
-                    <table role="presentation" class="stack-row" width="100%" cellpadding="0" cellspacing="0">
+                  <td class="pad" style="padding:22px 48px 0;">
+                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
                       <tr>
-                        <td style="vertical-align:middle;"><font class="c-010101" color="#010101" style="font-size:14px;font-weight:800;">Tempo</font></td>
-                        <td class="footer-meta" align="right" style="vertical-align:middle;">
-                          <p style="margin:0;font-size:11px;text-align:right;line-height:1.6;"><font class="c-b8b8b8" color="#b8b8b8">Signed up at </font><a href="https://tempoassistant.com" style="color:#4165e5;text-decoration:none;">tempoassistant.com</a><br><font class="c-b8b8b8" color="#b8b8b8">&copy; 2026 Tempo AU</font></p>
+                        <td width="44" valign="top" style="width:44px;padding-top:2px;">
+                          <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>
+                            <td align="center" valign="middle" width="30" height="30" bgcolor="#800020" class="cream" style="width:30px;height:30px;border-radius:15px;background-color:#800020;font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:14px;font-weight:800;color:#F7F4ED;">3</td>
+                          </tr></table>
+                        </td>
+                        <td valign="top" style="font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;">
+                          <p class="ink" style="margin:0 0 4px;font-size:17px;font-weight:700;color:#1B1B19;">Tell us what you think</p>
+                          <p class="soft" style="margin:0;font-size:15px;line-height:1.55;color:#3D3D3D;">We read everything. Email us at <a href="mailto:tempoassistantau@gmail.com" class="burg" style="color:#800020;font-weight:700;text-decoration:underline;">tempoassistantau@gmail.com</a>.</p>
                         </td>
                       </tr>
                     </table>
                   </td>
                 </tr>
+
+                <!-- Burgundy share panel -->
+                <tr>
+                  <td class="pad" style="padding:34px 32px 0;">
+                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#800020" style="background-color:#800020;border-radius:14px;">
+                      <tr>
+                        <td align="center" style="padding:26px 24px 8px;">
+                          <img src="https://tempoassistant.com/assets/email-tempo-happy.png" width="96" alt="" style="width:96px;height:auto;">
+                        </td>
+                      </tr>
+                      <tr>
+                        <td align="center" class="cream" style="padding:4px 24px 0;font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:20px;font-weight:800;color:#F7F4ED;">
+                          Tempo is better with your people.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td align="center" class="cream" style="padding:6px 28px 0;font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:14.5px;line-height:1.5;color:#F7F4ED;">
+                          Invites are limited. Get your group on the list so you&rsquo;re all ready when yours lands.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td align="center" style="padding:20px 24px 28px;">
+                          <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>
+                            <td align="center" bgcolor="#F7F4ED" style="background-color:#F7F4ED;border-radius:10px;">
+                              <a href="mailto:?subject=Get%20on%20Tempo%20with%20me&amp;body=I%20just%20joined%20the%20Tempo%20waitlist.%20It%20makes%20plans%20with%20your%20friends%20so%20nobody%20has%20to%20chase%20anybody.%20Invites%20are%20limited%2C%20get%20on%20it%3A%20https%3A%2F%2Ftempoassistant.com" target="_blank" class="burg" style="display:inline-block;padding:13px 26px;font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:15px;font-weight:800;color:#800020;border-radius:10px;">Share Tempo</a>
+                            </td>
+                          </tr></table>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+
+                <!-- Sign-off -->
+                <tr>
+                  <td align="center" style="padding:36px 40px 0;">
+                    <img src="https://tempoassistant.com/assets/email-founders.png" width="188" alt="Nick and Axel" style="width:188px;height:auto;">
+                  </td>
+                </tr>
+                <tr>
+                  <td align="center" class="pad ink" style="padding:14px 40px 0;font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:16px;font-weight:700;color:#1B1B19;">
+                    Talk soon, Nick and Axel
+                  </td>
+                </tr>
+                <tr>
+                  <td align="center" class="pad soft" style="padding:4px 40px 38px;font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:14px;color:#3D3D3D;">
+                    Co-founders, Tempo
+                  </td>
+                </tr>
+
               </table>
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td align="center" class="pad soft" style="padding:24px 32px 0;font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:12.5px;line-height:1.6;color:#9A9186;">
+              You&rsquo;re getting this because you joined the waitlist at <a href="https://tempoassistant.com" style="color:#9A9186;text-decoration:underline;">tempoassistant.com</a>.<br>
+              Tempo Software Pty Ltd &middot; Made in Brisbane
             </td>
           </tr>
 
         </table>
+
       </td>
     </tr>
   </table>
