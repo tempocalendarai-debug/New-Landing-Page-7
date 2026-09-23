@@ -12,7 +12,7 @@
  */
 
 import { InkCard, InkGlyph } from "@/components/brand/ink";
-import { TempoAgent, TempoMark } from "@/components/brand/tempo-agent";
+import { TempoAgent } from "@/components/brand/tempo-agent";
 import { TempoPeek } from "@/components/brand/tempo-peek";
 import { TempoText } from "@/components/brand/tempo-type";
 import { FAQS, FEATURES } from "./content";
@@ -482,7 +482,7 @@ export function SiteFooter() {
     <footer className="footer">
       <div className="wrap footer__inner">
         <div className="footer__brand">
-          <TempoMark size={28} />
+          <TempoAgent state="idle" crop="head" size={44} />
           <span>Tempo</span>
         </div>
         <nav className="footer__links" aria-label="Footer">

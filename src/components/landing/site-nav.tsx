@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { TempoMark, TempoWordmark } from "@/components/brand/tempo-agent";
+import { TempoAgent, TempoWordmark } from "@/components/brand/tempo-agent";
 import { InkButton } from "./ink-primitives";
 
 /**
@@ -40,9 +40,9 @@ export function SiteNav({ home = false }: { home?: boolean }) {
           onFocus={() => setHover(true)}
           onBlur={() => setHover(false)}
         >
-          {/* Hover turns the hourglass over and sets the wordmark boiling. */}
+          {/* The Tempo guy is the logo. Hover: he lights up and waves, the wordmark boils. */}
           <span className="nav__mark" aria-hidden="true">
-            <TempoMark size={28} />
+            <TempoAgent state={hover ? "foundIt" : "idle"} crop="head" size={46} />
           </span>
           <TempoWordmark height={24} boil={hover} />
         </a>
