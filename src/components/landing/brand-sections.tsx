@@ -10,6 +10,7 @@ import { InkCard } from "@/components/brand/ink";
 import { TempoAgent } from "@/components/brand/tempo-agent";
 import { TempoText } from "@/components/brand/tempo-type";
 import { Glyph, HandHeading } from "./ink-primitives";
+import { FoundingBadge } from "./founding";
 
 /* ------------------------------------------------------------------ */
 /* Supported by                                                        */
@@ -167,10 +168,17 @@ export function Founders() {
             { id: "axel", name: "Axel", src: "/assets/founder-axel.webp" },
           ].map((f) => (
             <figure key={f.id} className="founders__face">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={f.src} alt={`${f.name}, co-founder of Tempo`} width={240} height={240} loading="lazy" />
+              <span className="founders__photo">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={f.src} alt={`${f.name}, co-founder of Tempo`} width={240} height={240} loading="lazy" />
+                <span className="founders__badge">
+                  <FoundingBadge size={40} title={`${f.name} is a founding member`} />
+                </span>
+              </span>
               <figcaption>
-                {f.name}
+                <span className="founders__name">
+                  {f.name} <FoundingBadge size={16} />
+                </span>
                 <span>Co-founder</span>
               </figcaption>
             </figure>

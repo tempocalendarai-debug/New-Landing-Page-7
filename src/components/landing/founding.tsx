@@ -1,16 +1,16 @@
 "use client";
 
 /**
- * Founding 100. The first 100 people on the waitlist get a spiky burgundy
- * badge on the bottom right of their Tempo profile picture. The count of
- * badges left is live (see waitlist-api.ts).
+ * Founding 100. A spiky burgundy badge on the bottom right of a Tempo profile
+ * picture. It goes to our beta testers, picked by hand in App Store Connect,
+ * so the numbers come from FOUNDING_TOTAL / FOUNDING_GIVEN in content.ts.
  */
 
 import React from "react";
 import { TempoAgent } from "@/components/brand/tempo-agent";
 import { TempoText } from "@/components/brand/tempo-type";
 import { HandHeading, InkButton } from "./ink-primitives";
-import { useWaitlistStats } from "./waitlist-api";
+import { FOUNDING_GIVEN, FOUNDING_TOTAL } from "./content";
 
 /** Spiky verification circle: 14 soft points, drawn a touch uneven on purpose. */
 const SPIKES = (() => {
@@ -56,9 +56,8 @@ export function ProfileAvatar({ size = 64, handle, badge = true }: { size?: numb
 
 /** Small line under the hero form: "63 of 100 founding badges left". Hidden until real numbers load. */
 export function FoundingStrip() {
-  const stats = useWaitlistStats();
-  if (!stats) return null;
-  const { foundingLeft, foundingTotal } = stats;
+  const foundingTotal = FOUNDING_TOTAL;
+  const foundingLeft = Math.max(0, FOUNDING_TOTAL - FOUNDING_GIVEN);
   return (
     <a className="founding-strip" href="#founding">
       <ProfileAvatar size={40} />
@@ -79,10 +78,9 @@ export function FoundingStrip() {
 }
 
 export function FoundingSection() {
-  const stats = useWaitlistStats();
-  const total = stats?.foundingTotal ?? 100;
-  const left = stats?.foundingLeft ?? null;
-  const claimed = left === null ? null : total - left;
+  const total = FOUNDING_TOTAL;
+  const claimed = Math.min(FOUNDING_GIVEN, FOUNDING_TOTAL);
+  const left = total - claimed;
   return (
     <section id="founding" className="section" aria-labelledby="founding-title">
       <div className="wrap founding">
@@ -96,13 +94,14 @@ export function FoundingSection() {
         <div className="founding__text">
           <HandHeading id="founding-title" lines={["THE FOUNDING", "100"]} label="The founding 100" />
           <p className="body">
-            The first 100 people on the waitlist get the founding badge on their Tempo profile picture. It stays
-            there for good, and there will only ever be 100.
+            The founding badge goes to our first 100 beta testers, handpicked by us. It sits on your Tempo
+            profile picture for good, and there will only ever be 100.
           </p>
           <p className="body">
-            You also claim your @handle when you join, so grab yours before your mates do.
+            You also claim your <span className="founding__handle">@handle</span> when you join, so grab yours
+            before your mates do.
           </p>
-          {claimed !== null && left !== null && (
+          {(
             <div className="founding__meter" aria-label={`${claimed} of ${total} founding badges claimed`}>
               <div className="founding__bar">
                 <span style={{ width: `${Math.min(100, (claimed / total) * 100)}%` }} />
@@ -113,7 +112,7 @@ export function FoundingSection() {
             </div>
           )}
           <InkButton seed="founding-cta" href="#waitlist">
-            {left === 0 ? "Join the waitlist" : "Get my badge"}
+            Join the waitlist
           </InkButton>
         </div>
       </div>

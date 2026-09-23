@@ -468,7 +468,7 @@ export function FinalCta() {
                 Tempo is in private beta on iPhone. Join the waitlist and we&rsquo;ll email your invite.
               </p>
               <WaitlistForm name="waitlist-cta" honeypot="bot-field-cta" highlight />
-              <p className="small">Free to join. $7.99 AUD a month once Tempo launches.</p>
+              <p className="small">Tempo is free. So is joining.</p>
             </div>
           </InkCard>
         </div>

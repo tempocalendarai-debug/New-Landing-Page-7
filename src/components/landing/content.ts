@@ -22,6 +22,17 @@ export const CONTACT_EMAIL = "tempo.calendar.ai@gmail.com";
 /** Plans made on Tempo so far. Shown in the counter section; update as it grows. */
 export const PLANS_MADE = 239;
 
+/**
+ * Founding badges are given by hand to our beta testers (picked in App Store
+ * Connect), so these two numbers are updated manually. Bump FOUNDING_GIVEN
+ * each time you add testers.
+ */
+export const FOUNDING_TOTAL = 100;
+export const FOUNDING_GIVEN = 0;
+
+/** People on the waitlist before the live counter existed. The live count starts here. */
+export const WAITLIST_START = 153;
+
 export const TITLE = "Tempo. Make plans, Skip the Back-And-Forth";
 export const DESCRIPTION =
   "Tempo makes plans with your friends, family and partner. Your Tempo talks to theirs, finds a time that suits you both and puts it in both calendars.";
@@ -153,7 +164,7 @@ export const FAQS: Faq[] = [
     a: "Tempo is in private beta on iPhone. When it publicly releases, it will also be available on desktop and Android.",
   },
   {
-    q: "How much will Tempo cost?",
-    a: "Joining the waitlist is free. Tempo will be $7.99 AUD a month when it launches, and payment isn't open yet.",
+    q: "How much does Tempo cost?",
+    a: "Nothing. Tempo is free, and so is joining the waitlist.",
   },
 ];

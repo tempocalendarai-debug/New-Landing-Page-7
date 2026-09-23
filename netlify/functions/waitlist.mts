@@ -1,11 +1,11 @@
 /**
- * Live waitlist: counts signups, hands out the 100 founding badges in order,
- * and reserves @handles. Stored in Netlify Blobs, so there is nothing to set
+ * Live waitlist: counts signups and reserves @handles. (Founding badges are
+ * given by hand to beta testers, so they are not handled here.) Stored in Netlify Blobs, so there is nothing to set
  * up: it works as soon as this file is deployed.
  *
- *   GET  /api/waitlist                 -> { count, foundingTotal, foundingLeft }
+ *   GET  /api/waitlist                 -> { count }
  *   GET  /api/waitlist?handle=nick     -> { handle, available, reason? }
- *   POST /api/waitlist { email }       -> { position, founding, handle }
+ *   POST /api/waitlist { email }       -> { position, handle }
  *   POST /api/waitlist { email, handle } claims a handle for that signup
  *
  * Emails are stored only as a SHA-256 hash. The addresses themselves still
@@ -13,13 +13,12 @@
  *
  * Optional env vars (Site settings > Environment variables):
  *   WAITLIST_BASELINE  people who joined before this counter existed, added
- *                      to the public count (they do not use up founding badges)
- *   FOUNDING_TOTAL     number of founding badges, default 100
+ *                      to the public count. Defaults to 153.
  */
 import { getStore } from "@netlify/blobs";
 
 type Store = ReturnType<typeof getStore>;
-type Signup = { position: number; founding: boolean; handle: string | null; at: string };
+type Signup = { position: number; handle: string | null; at: string };
 
 const RESERVED = new Set([
   "tempo", "tempoapp", "tempoassistant", "admin", "support", "help", "team", "official",
@@ -75,8 +74,7 @@ async function signups(store: Store) {
 }
 
 export async function handle(req: Request, store: Store, env: Record<string, string | undefined>) {
-  const foundingTotal = Number(env.FOUNDING_TOTAL ?? 100) || 100;
-  const baseline = Number(env.WAITLIST_BASELINE ?? 0) || 0;
+  const baseline = env.WAITLIST_BASELINE ? Number(env.WAITLIST_BASELINE) || 0 : 153;
   const url = new URL(req.url);
 
   if (req.method === "GET") {
@@ -89,11 +87,7 @@ export async function handle(req: Request, store: Store, env: Record<string, str
       return json({ handle: h, available: !taken, reason: taken ? "Taken. Try another." : undefined });
     }
     const n = await signups(store);
-    return json(
-      { count: n + baseline, foundingTotal, foundingLeft: Math.max(0, foundingTotal - n) },
-      200,
-      "public, max-age=0, s-maxage=5",
-    );
+    return json({ count: n + baseline }, 200, "public, max-age=0, s-maxage=5");
   }
 
   if (req.method !== "POST") return json({ error: "Method not allowed" }, 405);
@@ -117,7 +111,7 @@ export async function handle(req: Request, store: Store, env: Record<string, str
     const claim = await store.setJSON(key, { pending: true }, { onlyIfNew: true });
     if (claim.modified) {
       const position = await nextPosition(store);
-      signup = { position, founding: position <= foundingTotal, handle: null, at: new Date().toISOString() };
+      signup = { position, handle: null, at: new Date().toISOString() };
       await store.setJSON(key, signup);
     } else {
       signup = (await store.get(key, { type: "json" })) as Signup | null;
@@ -136,18 +130,11 @@ export async function handle(req: Request, store: Store, env: Record<string, str
     await store.setJSON(key, signup);
   }
 
-  return json({
-    position: signup.position + baseline,
-    founding: signup.founding,
-    foundingNumber: signup.founding ? signup.position : null,
-    foundingTotal,
-    handle: signup.handle,
-  });
+  return json({ position: signup.position + baseline, handle: signup.handle });
 }
 
 export default async (req: Request) =>
   handle(req, getStore({ name: "waitlist", consistency: "strong" }), {
-    FOUNDING_TOTAL: Netlify.env.get("FOUNDING_TOTAL"),
     WAITLIST_BASELINE: Netlify.env.get("WAITLIST_BASELINE"),
   });
 

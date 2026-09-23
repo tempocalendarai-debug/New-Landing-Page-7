@@ -171,27 +171,11 @@ const GROUPS: Group[] = [
     id: "billing",
     label: "BILLING",
     title: "Billing",
-    summary: "Pricing, subscriptions and cancelling.",
+    summary: "Pricing.",
     items: [
       {
         q: "How much does Tempo cost?",
-        a: (
-          <p>
-            Tempo will be $7.99 AUD per month when we launch. Payment isn&rsquo;t open yet. Joining
-            the waitlist is free and reserves your spot.
-          </p>
-        ),
-      },
-      {
-        q: "How do I cancel my subscription?",
-        a: (
-          <p>
-            You can cancel anytime. All billing is handled securely through Stripe, so there is no App
-            Store subscription to manage. To cancel or change your plan, email{" "}
-            <a href={mail("Tempo billing")}>{CONTACT_EMAIL}</a> and we&rsquo;ll take care of it right
-            away.
-          </p>
-        ),
+        a: <p>Nothing. Tempo is free, and so is joining the waitlist.</p>,
       },
     ],
   },

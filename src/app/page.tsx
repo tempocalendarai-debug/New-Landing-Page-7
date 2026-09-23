@@ -63,8 +63,8 @@ const structuredData = {
       featureList: FEATURES.map((f) => `${f.title}: ${f.body}`),
       offers: {
         "@type": "Offer",
-        name: "Tempo subscription",
-        price: "7.99",
+        name: "Tempo",
+        price: "0",
         priceCurrency: "AUD",
         availability: "https://schema.org/PreOrder",
         url: `${SITE_URL}/#waitlist`,

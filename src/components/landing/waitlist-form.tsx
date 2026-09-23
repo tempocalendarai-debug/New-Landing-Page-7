@@ -9,7 +9,7 @@
 
 import React, { useEffect, useState } from "react";
 import { TempoAgent } from "@/components/brand/tempo-agent";
-import { FoundingBadge, ProfileAvatar } from "./founding";
+import { ProfileAvatar } from "./founding";
 import { InkButton, InkField } from "./ink-primitives";
 import { checkHandle, handleProblem, register, type HandleCheck, type Signup } from "./waitlist-api";
 
@@ -185,16 +185,7 @@ function ClaimHandle({ email, signup, onDone }: { email: string; signup: Signup;
   return (
     <form className="claim" onSubmit={claim} noValidate>
       <p className="claim__status" role="status">
-        {signup.founding ? (
-          <>
-            <FoundingBadge size={20} /> You&rsquo;re founding member <strong>#{signup.foundingNumber}</strong> of{" "}
-            {signup.foundingTotal}.
-          </>
-        ) : (
-          <>
-            You&rsquo;re <strong>#{signup.position}</strong> on the waitlist.
-          </>
-        )}
+        You&rsquo;re <strong>#{signup.position}</strong> on the waitlist.
       </p>
       <p className="claim__title">Now claim your @handle before your mates do.</p>
       <div className="waitlist__row">
@@ -239,16 +230,11 @@ function ClaimHandle({ email, signup, onDone }: { email: string; signup: Signup;
 function Welcome({ signup }: { signup: Signup }) {
   return (
     <div className="waitlist-done welcome" role="status">
-      <ProfileAvatar size={72} handle={signup.handle} badge={signup.founding} />
+      <ProfileAvatar size={72} handle={signup.handle} badge={false} />
       <div>
-        <p className="waitlist-done__title">
-          {signup.handle ? `@${signup.handle}` : "You\u2019re in."}
-          {signup.founding && signup.handle && <FoundingBadge size={18} />}
-        </p>
+        <p className="waitlist-done__title">{signup.handle ? `@${signup.handle}` : "You\u2019re in."}</p>
         <p className="waitlist-done__body">
-          {signup.founding
-            ? `Founding member #${signup.foundingNumber}. The badge is yours for good.`
-            : `You're #${signup.position} on the waitlist. Stay ready to meet Tempo.`}
+          You&rsquo;re #{signup.position} on the waitlist. Stay ready to meet Tempo.
         </p>
       </div>
     </div>

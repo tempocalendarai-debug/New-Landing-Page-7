@@ -24,7 +24,7 @@ Most planning apps only work for one person. Every Tempo can talk to other Tempo
 
 ## Key facts
 - Platform: iPhone, private beta. Desktop and Android planned for public release.
-- Pricing: $7.99 AUD/month at launch. Payment isn't open yet; the waitlist is free.
+- Pricing: Free. The waitlist is free too.
 - Company: Tempo Software Pty Ltd (ABN 85 701 184 358), Brisbane, Australia; backed by UQ Ventures.
 
 ## Pages

@@ -10,15 +10,10 @@
  */
 
 import { useEffect, useState } from "react";
+import { WAITLIST_START } from "./content";
 
-export type Stats = { count: number; foundingTotal: number; foundingLeft: number };
-export type Signup = {
-  position: number;
-  founding: boolean;
-  foundingNumber: number | null;
-  foundingTotal: number;
-  handle: string | null;
-};
+export type Stats = { count: number };
+export type Signup = { position: number; handle: string | null };
 export type HandleCheck = { handle: string; available: boolean; reason?: string };
 
 const API = "/api/waitlist";
@@ -78,8 +73,7 @@ async function call<T>(init: RequestInit & { query?: string }, demoFn: () => T):
 
 export function getStats(): Promise<Stats> {
   return call({ method: "GET" }, () => {
-    const d = demo();
-    return { count: d.n, foundingTotal: 100, foundingLeft: Math.max(0, 100 - d.n) };
+    return { count: WAITLIST_START + demo().n };
   });
 }
 
@@ -112,8 +106,7 @@ export async function register(email: string, handle?: string): Promise<Signup> 
         s.handle = h;
       }
       saveDemo(d);
-      const founding = s.position <= 100;
-      return { position: s.position, founding, foundingNumber: founding ? s.position : null, foundingTotal: 100, handle: s.handle };
+      return { position: WAITLIST_START + s.position, handle: s.handle };
     },
   );
   window.dispatchEvent(new Event(CHANGED));
