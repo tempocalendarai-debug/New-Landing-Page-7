@@ -13,7 +13,6 @@
 
 import { InkCard, InkGlyph } from "@/components/brand/ink";
 import { TempoAgent } from "@/components/brand/tempo-agent";
-import { FoundingStrip } from "./founding";
 import { TempoPeek } from "@/components/brand/tempo-peek";
 import { TempoText } from "@/components/brand/tempo-type";
 import { FAQS, FEATURES } from "./content";
@@ -53,17 +52,10 @@ export function Hero() {
           align="center"
         />
         <p className="lead hero__lead">
-          Life gets busy, and time with your people goes first. Tempo makes the plan for you: your
-          Tempo talks to theirs, finds a time you&rsquo;re both free and puts it in both calendars.
+          Life gets busy. Tempo makes the plan with your people and puts it in everyone&rsquo;s calendar.
         </p>
         <WaitlistForm name="waitlist-hero" honeypot="bot-field" highlight />
-        <FoundingStrip />
-        <p className="small hero__note">
-          Free to join. Private beta on iPhone.{" "}
-          <a className="hero__more" href="#familiar">
-            Sound familiar? &darr;
-          </a>
-        </p>
+        <p className="small hero__note">Free. Private beta on iPhone.</p>
       </div>
     </section>
   );

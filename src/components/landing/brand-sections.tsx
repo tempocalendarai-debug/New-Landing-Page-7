@@ -171,9 +171,6 @@ export function Founders() {
               <span className="founders__photo">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={f.src} alt={`${f.name}, co-founder of Tempo`} width={240} height={240} loading="lazy" />
-                <span className="founders__badge">
-                  <FoundingBadge size={40} title={`${f.name} is a founding member`} />
-                </span>
               </span>
               <figcaption>
                 <span className="founders__name">

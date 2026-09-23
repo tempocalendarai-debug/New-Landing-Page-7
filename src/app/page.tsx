@@ -1,6 +1,6 @@
 import { ALT_NAMES, CONTACT_EMAIL, DESCRIPTION, FAQS, FEATURES, KEYWORDS, SITE_URL } from "@/components/landing/content";
 import { Booked, Faq, Features, FinalCta, Hero, People, SiteFooter, Talk, Taste } from "@/components/landing/sections";
-import { Backers, Founders, LifeOnTempo, PlanTicker, YourWeek } from "@/components/landing/brand-sections";
+import { Backers, Founders, LifeOnTempo, YourWeek } from "@/components/landing/brand-sections";
 import { PlansCounter } from "@/components/landing/plans-counter";
 import { FoundingSection } from "@/components/landing/founding";
 import { SoundFamiliar } from "@/components/landing/sound-familiar";
@@ -95,7 +95,6 @@ export default function Home() {
       <main>
         <Hero />
         <Backers />
-        <PlanTicker />
         <SoundFamiliar />
         <LifeOnTempo />
         <Taste />
