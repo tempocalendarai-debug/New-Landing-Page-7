@@ -48,8 +48,7 @@ export function SubPage({
 }
 
 /**
- * Legal text lives as HTML in src/content/legal, carried over word for word
- * from the previous site. It's read at build time, so the static export has
+ * Legal text lives as HTML in src/content/legal, maintained for the current release. It's read at build time, so the static export has
  * the full document in the page and nothing loads on the client.
  */
 export function LegalDocument({ file, meta }: { file: "privacy" | "terms"; meta: string }) {

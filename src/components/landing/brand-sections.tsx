@@ -123,7 +123,7 @@ const WEEK = [
   { day: "TUE", you: "Assignment due Friday.", tempo: "Your Tempo checks with Sam\u2019s Tempo. Both calendars, both sets of notes." },
   { day: "WED", you: "Tutorial moved to 2.", tempo: "Sam says yes. It\u2019s in both calendars." },
   { day: "THU", you: "Dinner with Sam, 7pm.", tempo: "Nonna\u2019s, Paddington. Nobody had to chase anybody.", hot: true },
-  { day: "FRI", you: "Morning briefing: two plans this week, nothing clashing.", tempo: "You ask for lunch at Mum\u2019s. Her Tempo takes it from there." },
+  { day: "FRI", you: "Two plans this week, both in your calendar.", tempo: "You ask for lunch at Mum\u2019s. Her Tempo takes it from there." },
   { day: "SAT", you: "6am run.", tempo: "Mum says yes. Sunday lunch, locked in." },
   { day: "SUN", you: "Lunch at Mum\u2019s.", tempo: "Then nothing on. Exactly how you wanted it." },
 ];

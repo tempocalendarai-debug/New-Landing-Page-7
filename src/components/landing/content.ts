@@ -1,20 +1,4 @@
-/**
- * Copy that more than one place needs: the FAQ renders it and the page's
- * FAQPage JSON-LD repeats it word for word, so the two can never disagree.
- *
- * Product claims here are checked against Tempo-Nodejs (coordination-service,
- * agent defaults, PROJECT_CONTEXT). Nothing books until the requester says
- * send; the other side accepts by default; opt-in auto-book has a 10 minute undo.
- * Notes: the capture sheet takes typed or dictated notes and tasks and saves them
- * to the Notion databases the user picks (api/notion/capture, api/ai/transcribe).
- * Briefings: api/briefing and the daily-briefing push. Quick add: api/ai/parse-event.
- *
- * Search copy: Tempo is a social plan maker first. Lead with making plans with
- * friends, family and partners, then the assistant features (briefings,
- * calendar, email, notes) as the supporting cast. Plain sentences, no stuffing.
- * Answers are written to stand alone, because AI search results quote a single
- * answer without the page around it.
- */
+/** Shared product copy for visible FAQs and search metadata. Keep release claims aligned with the app. */
 
 export const SITE_URL = "https://tempoassistant.com";
 export const CONTACT_EMAIL = "tempo.calendar.ai@gmail.com";
@@ -58,7 +42,7 @@ export const KEYWORDS = [
   "family planner app",
   "AI scheduling assistant",
   "AI personal assistant",
-  "AI note taking",
+  "calendar planning",
 ];
 
 /** What the app does, one line each. Feeds the features section and MobileApplication.featureList. */
@@ -91,13 +75,13 @@ export const FEATURES = [
     id: "your-day",
     label: "YOUR DAY",
     title: "Keeps your own week on track",
-    body: "A daily briefing and help when your calendar clashes.",
+    body: "See your schedule and keep booked plans in one place.",
   },
   {
     id: "notes",
     label: "NOTES",
-    title: "Takes notes when you talk",
-    body: "Type or say a note or task and Tempo tidies it up and saves it to your Notion.",
+    title: "Chat with your Tempo",
+    body: "Tell Tempo what you want to do and who with. AI planning is your choice.",
   },
 ];
 
@@ -125,7 +109,7 @@ export type Faq = { q: string; a: string };
 export const FAQS: Faq[] = [
   {
     q: "What is Tempo?",
-    a: "Tempo makes plans with the people in your life. Your Tempo talks to your friend's, family member's or partner's Tempo, finds a time that suits you both and puts it in both calendars. It also gives you a daily briefing, helps with your calendar, and takes notes. Tempo is made by Tempo Software Pty Ltd in Brisbane, Australia, and is in private beta on iPhone.",
+    a: "Tempo makes plans with the people in your life. Your Tempo talks to your friend's, family member's or partner's Tempo, finds a time that suits you both and puts it in both calendars. It also keeps your calendar and preferences in one place. Tempo is made by Tempo Software Pty Ltd in Brisbane, Australia, and is in private beta on iPhone.",
   },
   {
     q: "How do I make plans with friends using Tempo?",
@@ -141,7 +125,7 @@ export const FAQS: Faq[] = [
   },
   {
     q: "Will Tempo book things without asking?",
-    a: "Nothing starts until you say send. By default the other person gets a quick yes or no from their Tempo before anything lands in a calendar. If they've told their Tempo it can book for them, it books straight away and they have 10 minutes to undo it.",
+    a: "You start a plan by sending it. Depending on each person’s planning settings, their Tempo can accept and book automatically. Review your settings; you can decline or cancel a plan.",
   },
   {
     q: "Who can see what Tempo knows about me?",
@@ -153,15 +137,15 @@ export const FAQS: Faq[] = [
   },
   {
     q: "What else can Tempo do?",
-    a: "Connect Google Calendar, Outlook or Notion and Tempo gives you a daily briefing on your day and your week. It helps when your calendar clashes and adds events from plain English. Nothing is sent until you say so.",
+    a: "Optionally connect Google Calendar or Apple Calendar, add events and reminders, and chat with your Tempo after allowing AI. You can change your AI choice in Settings.",
   },
   {
     q: "Can Tempo take notes?",
-    a: "Yes. Type or speak a note or task and Tempo tidies it into a proper page and saves it to the Notion database you choose. It also keeps its own notes about what you like, what you'd rather skip and when you're free, so the plans it makes fit you.",
+    a: "You can save preferences and context about what you like, what you would rather skip and when you are free. Choose whether each note is private or shared with friends.",
   },
   {
     q: "Which platforms is Tempo on?",
-    a: "Tempo is in private beta on iPhone. When it publicly releases, it will also be available on desktop and Android.",
+    a: "Tempo works in a web browser, including desktop and Android browsers. The iPhone app is currently available through TestFlight while App Store review is prepared.",
   },
   {
     q: "How much does Tempo cost?",
