@@ -10,7 +10,7 @@ export const metadata = pageMetadata({
 export default function TermsPage() {
   return (
     <SubPage eyebrow="Legal" lines={["TERMS OF USE"]} label="Terms of Use">
-      <LegalDocument file="terms" meta="Effective Date: April 5, 2026 | Last Updated: August 12, 2026" />
+      <LegalDocument file="terms" meta="Effective Date: April 5, 2026 | Last Updated: October 5, 2026" />
     </SubPage>
   );
 }

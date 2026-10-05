@@ -18,7 +18,6 @@ Most planning apps only work for one person. Every Tempo can talk to other Tempo
 ## What else Tempo does
 - Daily briefing on your day, your week and your work.
 - Calendar help when things clash, with Google Calendar and Outlook.
-- Email: shows what needs a reply in Gmail or Outlook and drafts replies you send or save as drafts. Nothing is sent until you approve it.
 - Notes: type or speak a note or task and Tempo saves it to the Notion database you choose.
 - Quick add: events from plain English, typed or spoken.
 

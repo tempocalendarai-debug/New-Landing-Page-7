@@ -8,7 +8,7 @@ import { SubPage } from "@/components/landing/sub-page";
 export const metadata = pageMetadata({
   title: "Support",
   description:
-    "Help with Tempo: getting started, making plans with friends, family and partners, briefings, calendar, email and notes, connecting your tools, the beta, billing and your data.",
+    "Help with Tempo: getting started, making plans with friends, family and partners, briefings, calendar and notes, connecting your tools, the beta, billing and your data.",
   path: "/support",
 });
 
@@ -31,8 +31,8 @@ const GROUPS: Group[] = [
           <p>
             Once you have access, open Tempo and follow the one-time setup. Tell Tempo what you like,
             what you&rsquo;d rather skip and when you&rsquo;re free, then connect the tools you use.
-            From there it starts on your briefings, your calendar and your inbox. Nothing is sent
-            until you say so.
+            From there it starts on your briefings and your calendar. Nothing is sent until you say
+            so.
           </p>
         ),
       },
@@ -60,16 +60,16 @@ const GROUPS: Group[] = [
   {
     id: "your-week",
     label: "YOUR WEEK",
-    title: "Briefings, calendar, email and notes",
-    summary: "Daily briefings, calendar, email and notes.",
+    title: "Briefings, calendar and notes",
+    summary: "Daily briefings, calendar and notes.",
     items: [
       {
         q: "What's in my daily briefing?",
         a: (
           <p>
             Every morning Tempo briefs you on your day, your week and your work: what&rsquo;s coming
-            up, what&rsquo;s changed and what needs you. It works from the calendars and email
-            accounts you&rsquo;ve connected.
+            up, what&rsquo;s changed and what needs you. It works from the calendars you&rsquo;ve
+            connected.
           </p>
         ),
       },
@@ -84,40 +84,14 @@ const GROUPS: Group[] = [
         ),
       },
       { q: "Can Tempo take notes?", a: <p>{faq("Can Tempo take notes?")}</p> },
-      {
-        q: "Does Tempo send emails without asking?",
-        a: (
-          <p>
-            No. Tempo reads what comes in, shows you what needs you and writes replies for you to
-            review. You can change anything, then send it or save it as a draft. Nothing is sent until
-            you approve it.
-          </p>
-        ),
-      },
     ],
   },
   {
     id: "integrations",
     label: "CONNECTIONS",
-    title: "Calendar, email and Notion",
-    summary: "Connect Gmail, Google Calendar, Outlook and Notion.",
+    title: "Calendar and Notion",
+    summary: "Connect Google Calendar, Outlook and Notion.",
     items: [
-      {
-        q: "How do I connect Gmail, Google Calendar, Notion or Outlook?",
-        a: (
-          <>
-            <p>
-              You connect your tools from the <strong>Updates</strong> page in Tempo. Open Updates,
-              choose the service you&rsquo;d like to connect, and sign in securely with that provider
-              to grant Tempo the permissions it needs.
-            </p>
-            <p>
-              Gmail, Google Calendar and Outlook are ready to use as soon as they&rsquo;re connected.
-              Notion takes one extra step, which is covered below.
-            </p>
-          </>
-        ),
-      },
       {
         q: "How do I set up the Notion integration?",
         a: (
@@ -215,7 +189,7 @@ const GROUPS: Group[] = [
     summary: "Sync, sign-in and access problems.",
     items: [
       {
-        q: "My calendar or email isn't syncing. What should I do?",
+        q: "My calendar isn't syncing. What should I do?",
         a: (
           <p>
             First, open the <strong>Updates</strong> page and confirm the integration is still

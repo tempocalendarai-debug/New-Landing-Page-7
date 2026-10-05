@@ -91,7 +91,7 @@ export const FEATURES = [
     id: "your-day",
     label: "YOUR DAY",
     title: "Keeps your own week on track",
-    body: "A daily briefing, help when your calendar clashes, and email replies drafted for you to send.",
+    body: "A daily briefing and help when your calendar clashes.",
   },
   {
     id: "notes",
@@ -125,7 +125,7 @@ export type Faq = { q: string; a: string };
 export const FAQS: Faq[] = [
   {
     q: "What is Tempo?",
-    a: "Tempo makes plans with the people in your life. Your Tempo talks to your friend's, family member's or partner's Tempo, finds a time that suits you both and puts it in both calendars. It also gives you a daily briefing, helps with your calendar and email, and takes notes. Tempo is made by Tempo Software Pty Ltd in Brisbane, Australia, and is in private beta on iPhone.",
+    a: "Tempo makes plans with the people in your life. Your Tempo talks to your friend's, family member's or partner's Tempo, finds a time that suits you both and puts it in both calendars. It also gives you a daily briefing, helps with your calendar, and takes notes. Tempo is made by Tempo Software Pty Ltd in Brisbane, Australia, and is in private beta on iPhone.",
   },
   {
     q: "How do I make plans with friends using Tempo?",
@@ -153,7 +153,7 @@ export const FAQS: Faq[] = [
   },
   {
     q: "What else can Tempo do?",
-    a: "Connect Gmail, Google Calendar, Outlook or Notion and Tempo gives you a daily briefing on your day, your week and your work. It helps when your calendar clashes, shows which emails need you, writes replies you can send or save as drafts, and adds events from plain English. Nothing is sent until you say so.",
+    a: "Connect Google Calendar, Outlook or Notion and Tempo gives you a daily briefing on your day and your week. It helps when your calendar clashes and adds events from plain English. Nothing is sent until you say so.",
   },
   {
     q: "Can Tempo take notes?",
