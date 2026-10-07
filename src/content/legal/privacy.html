@@ -46,6 +46,18 @@
   <h2>6. Google user data</h2>
 <p>Google sign-in provides your authorised name, email and profile photo. Optional Google Calendar access lets Tempo display events, find available times and create or update plans. Tempo does not request Gmail access. If an older grant included email permissions, you can remove it at <a href="https://myaccount.google.com/permissions" target="_blank" rel="noopener noreferrer">Google account permissions</a>.</p>
 <p>Tempo’s use and transfer of information received from Google APIs adheres to the <a href="https://developers.google.com/terms/api-services-user-data-policy" target="_blank" rel="noopener noreferrer">Google API Services User Data Policy</a>, including Limited Use requirements. We use calendar data to provide user-facing calendar and planning functions, not for advertising, sale or training general-purpose AI models. Relevant data is sent to planning providers only with your AI consent as described above. Staff access is limited to authorised support, security, legal needs or appropriately aggregated information.</p>
+  <h3>6.1 Who we share Google user data with</h3>
+<p>We share Google user data (your Google Calendar data, and your name and email address from Google sign-in) only with the following, and only as needed to provide Tempo’s features. We do not share it with anyone else.</p>
+<ul>
+<li><strong>Supabase (database and authentication provider):</strong> stores your Google Calendar data and account details so Tempo can show your schedule and plan around it.</li>
+<li><strong>Render (application hosting provider):</strong> runs Tempo’s servers, so your Google Calendar data passes through its systems when Tempo reads or updates your calendar. Render does not use it for any other purpose.</li>
+<li><strong>Google, via the Gemini API (AI processing):</strong> with your AI consent, the relevant parts of your calendar used for a request, such as event titles, times and locations, are sent to Google’s Gemini API to suggest plan times. Google does not use this data to train its models.</li>
+<li><strong>TypeSafe (AI processing):</strong> with your AI consent, relevant event titles and times may be sent to TypeSafe to classify calendar events and detect routines or trips, so Tempo can plan around them.</li>
+<li><strong>Friends you plan with in Tempo:</strong> they see only the times you are busy or free, never the titles or details of your events. When you both agree to a plan, its details (time, place and the people invited) are shared with the people in that plan.</li>
+<li><strong>As required by law:</strong> where we must disclose data to comply with a law, court order or legal process, or to protect the rights and safety of our users or others.</li>
+<li><strong>Business transfers:</strong> if Tempo Software Pty Ltd is involved in a merger, acquisition or sale of assets, with notice to you before your data becomes subject to a different privacy policy.</li>
+</ul>
+<p>We do not sell Google user data, and we do not share or transfer it to advertising platforms, data brokers or information resellers.</p>
 </div>
 
 <div class="doc-section">
