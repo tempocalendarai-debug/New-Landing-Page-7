@@ -69,6 +69,16 @@ After deployment, check that these URLs are publicly accessible without login, r
 - Wait 24 to 72 hours after sitemap submission.
 - Search Google for: `site:tempoassistant.com`
 - Search Bing for: `site:tempoassistant.com`
-- Test branded query visibility: `Tempo AI calendar assistant`
-- Test category query visibility: `AI calendar app for iPhone`
+- Test branded query visibility: `Tempo plans with friends`
+- Test category query visibility: `social planning app for iPhone`
 - If pages are not indexed after a week, inspect crawl errors in Google Search Console and Bing Webmaster Tools.
+
+## App Store launch checks
+
+- Every download CTA must open Tempo: Plans with Friends, app ID `6779019603`.
+- Inspect the homepage source: `apple-itunes-app` must contain `app-id=6779019603` and the MobileApplication offer must say `InStock`, with the live App Store URL.
+- Verify the QR code on desktop with an iPhone camera. Check the Smart App Banner in Safari on an iPhone; other browsers need not display it.
+- Confirm the homepage, support, contact, FAQ JSON-LD and `/llms.txt` no longer describe access as a private beta or require a waitlist.
+- Submit the updated sitemap and request a homepage recrawl in the existing Search Console property. Search engines choose when to refresh snippets.
+- `llms.txt` is supplemental product context, not a guarantee of search visibility. Keep crawlable page copy, metadata and structured data consistent.
+- Use actual App Store data for installs. This update does not add an analytics vendor or fabricate ratings or reviews.

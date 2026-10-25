@@ -25,7 +25,15 @@ Landing-only code lives in `src/components/landing/`.
 
 ## Other files
 
-- `public/__forms.html` registers the `waitlist-hero` and `waitlist-cta` Netlify forms. The React forms post to it.
+- The homepage links directly to the App Store. The old Netlify forms and waitlist function remain for historical submissions; the landing page no longer mounts them or polls their stats.
 - `/support`, `/contact`, `/privacy` and `/terms` are Next routes in `src/app`. The legal wording lives as HTML in `src/content/legal/` and is read at build time, so edit the text there.
 - The site is light only. There is no dark palette, whatever the visitor's system theme.
 - `legacy/` holds the previous static HTML landing pages for reference. Not deployed.
+
+## App Store downloads
+
+`src/content/app-store.json` is the single source for the app ID, App Store URL and minimum iOS version. It feeds download links, the Safari Smart App Banner, structured data and the QR generator. `npm run build` regenerates the QR SVG before exporting the site. All download links work without JavaScript.
+
+The download badge is Apple's unmodified official artwork from https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg. Keep its clear space and proportions; use the ink buttons for secondary download prompts.
+
+After publishing, follow `INDEXING_CHECKLIST.md` to request a fresh crawl. Search rankings and App Store installs are not measured by this change. Configure campaign links in App Store Connect if attribution is needed; do not treat website clicks as installs.

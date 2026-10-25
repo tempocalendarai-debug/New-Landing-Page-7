@@ -9,13 +9,12 @@ import React, { useEffect, useState } from "react";
 import { TempoAgent } from "@/components/brand/tempo-agent";
 import { TempoText } from "@/components/brand/tempo-type";
 import { PLANS_MADE } from "./content";
-import { InkButton, useDrawn } from "./ink-primitives";
-import { useWaitlistStats } from "./waitlist-api";
+import { useDrawn } from "./ink-primitives";
+import { DownloadButton } from "./download";
 
 export function PlansCounter() {
   const [ref, seen] = useDrawn<HTMLDivElement>(0.4);
   const [n, setN] = useState(0);
-  const stats = useWaitlistStats();
 
   useEffect(() => {
     if (!seen) return;
@@ -56,22 +55,9 @@ export function PlansCounter() {
               <TempoText height={30}>PLANS MADE</TempoText>
             </div>
           </div>
-          {stats && (
-            <div className="plans__stat" aria-live="polite">
-              <div className="plans__number plans__number--live">
-                <span className="plans__pulse" aria-hidden="true" />
-                <TempoText height={120}>{String(stats.count)}</TempoText>
-              </div>
-              <div className="plans__label">
-                <TempoText height={30}>ON THE WAITLIST</TempoText>
-              </div>
-            </div>
-          )}
         </div>
         <p className="plans__next">Make the next one.</p>
-        <InkButton seed="plans-cta" href="#waitlist">
-          Join the waitlist
-        </InkButton>
+        <DownloadButton placement="plans" />
       </div>
     </section>
   );

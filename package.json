@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "node scripts/generate-download-qr.mjs && next build",
     "brand:sync": "node scripts/sync-brand.mjs",
     "brand:check": "node scripts/sync-brand.mjs --check",
     "preview": "node scripts/preview.mjs"
@@ -19,6 +19,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "qrcode": "^1.5.4",
     "typescript": "^5"
   }
 }

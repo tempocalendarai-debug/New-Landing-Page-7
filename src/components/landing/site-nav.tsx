@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { TempoAgent, TempoWordmark } from "@/components/brand/tempo-agent";
-import { InkButton } from "./ink-primitives";
+import { DownloadButton } from "./download";
 
 /**
  * Solid paper, no blur. A hairline appears once the page moves under it.
@@ -52,9 +52,7 @@ export function SiteNav({ home = false }: { home?: boolean }) {
           <a href="/#faq">FAQ</a>
           <a href="/support">Support</a>
         </nav>
-        <InkButton seed="nav-cta" href="/#waitlist" size="sm">
-          Join the waitlist
-        </InkButton>
+        <DownloadButton placement="nav" compact />
       </div>
     </header>
   );

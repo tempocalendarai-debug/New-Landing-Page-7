@@ -15,11 +15,11 @@ import { InkCard, InkGlyph } from "@/components/brand/ink";
 import { TempoAgent } from "@/components/brand/tempo-agent";
 import { TempoPeek } from "@/components/brand/tempo-peek";
 import { TempoText } from "@/components/brand/tempo-type";
-import { FAQS, FEATURES } from "./content";
+import { APP_STORE_URL, FAQS, FEATURES } from "./content";
 import { FaqItem } from "./faq-item";
 import { InboxDemo } from "./inbox-demo";
 import { DrawnWire, Glyph, HandHeading, Highlight } from "./ink-primitives";
-import { WaitlistForm } from "./waitlist-form";
+import { DownloadButton, HeroDownload } from "./download";
 
 function StepHeading({ n, lines, label, id }: { n: string; lines: string[]; label: string; id: string }) {
   return (
@@ -39,7 +39,7 @@ export function Hero() {
     <section id="top" className="hero" aria-labelledby="hero-title">
       <div className="wrap hero__inner">
         <div className="hero__agent">
-          <TempoAgent state="idle" size={132} />
+          <TempoAgent state="idle" size={112} />
         </div>
         <p className="hero__eyebrow">Together, not apart</p>
         <HandHeading
@@ -52,10 +52,9 @@ export function Hero() {
           align="center"
         />
         <p className="lead hero__lead">
-          Life gets busy. Tempo makes the plan with your people and puts it in everyone&rsquo;s calendar.
+          The free iPhone app for making plans with friends. Find a time that works and get it in everyone&rsquo;s calendar.
         </p>
-        <WaitlistForm name="waitlist-hero" honeypot="bot-field" highlight />
-        <p className="small hero__note">Free. Private beta on iPhone.</p>
+        <HeroDownload />
       </div>
     </section>
   );
@@ -474,19 +473,20 @@ export function Faq() {
 
 export function FinalCta() {
   return (
-    <section id="waitlist" className="section section--cta section--burgundy" aria-labelledby="cta-title">
+    <section id="download" className="section section--cta section--burgundy" aria-labelledby="cta-title">
+      <span id="waitlist" />
       <div className="wrap">
         <div className="cta">
           <TempoPeek edge="top" at="76%" size={96} className="cta__peek" />
           <InkCard seed="cta-card" padding="clamp(44px, 7vw, 76px) clamp(20px, 5vw, 64px)" radius={18}>
             <div className="cta__inner">
-              <HandHeading id="cta-title" lines={["GET ON", "THE LIST"]} label="Get on the list" boil align="center" />
+              <HandHeading id="cta-title" lines={["LESS 'WE SHOULD.'", "MORE 'SEE YOU THERE.'"]} label="Less ‘we should.’ More ‘see you there.’" boil align="center" />
               <p className="cta__rally">Together, not apart.</p>
               <p className="body center">
-                Tempo is in private beta on iPhone. Join the waitlist and we&rsquo;ll email your invite.
+                Get Tempo. Add your people. Make the plan you keep talking about.
               </p>
-              <WaitlistForm name="waitlist-cta" honeypot="bot-field-cta" highlight />
-              <p className="small">Tempo is free. So is joining.</p>
+              <DownloadButton placement="footer" />
+              <p className="small">Free on the App Store. Your people are worth making time for.</p>
             </div>
           </InkCard>
         </div>
@@ -506,6 +506,7 @@ export function SiteFooter() {
           <span>Tempo</span>
         </div>
         <nav className="footer__links" aria-label="Footer">
+          <a href={APP_STORE_URL}>Download Tempo</a>
           <a href="/support">Support</a>
           <a href="/privacy">Privacy</a>
           <a href="/terms">Terms</a>

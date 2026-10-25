@@ -11,7 +11,8 @@ import React, { useState } from "react";
 import { InkCard } from "@/components/brand/ink";
 import { TempoAgent } from "@/components/brand/tempo-agent";
 import { TempoText } from "@/components/brand/tempo-type";
-import { Glyph, HandHeading, InkButton } from "./ink-primitives";
+import { Glyph, HandHeading } from "./ink-primitives";
+import { DownloadButton } from "./download";
 
 const LINES = [
   { id: "restaurant", text: "ohh, remember that restaurant we wanted to try?", meta: "Group chat · 6 people" },
@@ -124,9 +125,7 @@ export function SoundFamiliar() {
                 </TempoText>
                 <p className="verdict__body">{v.body}</p>
                 {count > 0 && (
-                  <InkButton seed="familiar-cta" href="#waitlist">
-                    Join the waitlist
-                  </InkButton>
+                  <DownloadButton placement="familiar" />
                 )}
                 <p className="verdict__count">
                   {count} of {LINES.length} ticked
