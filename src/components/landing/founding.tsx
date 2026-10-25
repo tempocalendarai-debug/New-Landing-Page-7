@@ -3,14 +3,12 @@
 /**
  * Founding 100. A spiky burgundy badge on the bottom right of a Tempo profile
  * picture. It goes to our beta testers, picked by hand in App Store Connect,
- * so the numbers come from FOUNDING_TOTAL / FOUNDING_GIVEN in content.ts.
+ * retained on founder profiles after the public App Store launch.
  */
 
 import React from "react";
 import { TempoAgent } from "@/components/brand/tempo-agent";
 import { TempoText } from "@/components/brand/tempo-type";
-import { HandHeading, InkButton } from "./ink-primitives";
-import { FOUNDING_GIVEN, FOUNDING_TOTAL } from "./content";
 
 /** Spiky verification circle: 14 soft points, drawn a touch uneven on purpose. */
 const SPIKES = (() => {
@@ -51,89 +49,5 @@ export function ProfileAvatar({ size = 64, handle, badge = true }: { size?: numb
         </span>
       )}
     </span>
-  );
-}
-
-/** Small line under the hero form: "63 of 100 founding badges left". Hidden until real numbers load. */
-export function FoundingStrip() {
-  const foundingTotal = FOUNDING_TOTAL;
-  const foundingLeft = Math.max(0, FOUNDING_TOTAL - FOUNDING_GIVEN);
-  return (
-    <a className="founding-strip" href="#founding">
-      <ProfileAvatar size={40} />
-      <span>
-        {foundingLeft > 0 ? (
-          <>
-            <strong>
-              {foundingLeft} of {foundingTotal}
-            </strong>{" "}
-            founding badges left
-          </>
-        ) : (
-          <>All {foundingTotal} founding badges are gone</>
-        )}
-      </span>
-    </a>
-  );
-}
-
-export function FoundingSection() {
-  const total = FOUNDING_TOTAL;
-  const claimed = Math.min(FOUNDING_GIVEN, FOUNDING_TOTAL);
-  const left = total - claimed;
-  return (
-    <section id="founding" className="section" aria-labelledby="founding-title">
-      <div className="wrap founding">
-        <div className="founding__preview">
-          <ProfileAvatar size={180} />
-          <p className="founding__name">you</p>
-          <p className="founding__role">Founding member</p>
-        </div>
-        <div className="founding__text">
-          <HandHeading id="founding-title" lines={["THE FOUNDING", "100"]} label="The founding 100" />
-          <p className="body">
-            The founding badge goes to our first 100 beta testers, handpicked by us. It sits on your Tempo
-            profile picture for good, and there will only ever be 100.
-          </p>
-          <p className="body">
-            You also claim your <span className="founding__handle">@handle</span> when you join, so grab yours
-            before your mates do.
-          </p>
-          {(
-            <div className="founding__meter" aria-label={`${claimed} of ${total} founding badges claimed`}>
-              <div className="founding__bar">
-                <span style={{ width: `${Math.min(100, (claimed / total) * 100)}%` }} />
-              </div>
-              <p className="founding__count">
-                <strong>{claimed} claimed</strong> · {left > 0 ? `${left} left` : "all gone"}
-              </p>
-            </div>
-          )}
-          <InkButton seed="founding-cta" href="#waitlist">
-            Join the waitlist
-          </InkButton>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/** Slim bar across the very top of the home page: founding badges handed out so far. */
-export function FoundingBar() {
-  const claimed = Math.min(FOUNDING_GIVEN, FOUNDING_TOTAL);
-  const left = FOUNDING_TOTAL - claimed;
-  return (
-    <a className="fbar" href="#founding" aria-label={`${claimed} of ${FOUNDING_TOTAL} founding badges claimed. ${left} left.`}>
-      <span className="fbar__inner">
-        <FoundingBadge size={16} />
-        <span className="fbar__text">
-          <strong>{claimed}</strong> of {FOUNDING_TOTAL} founding badges claimed
-        </span>
-        <span className="fbar__track" aria-hidden="true">
-          <span style={{ width: `${(claimed / FOUNDING_TOTAL) * 100}%` }} />
-        </span>
-        <span className="fbar__left">{left > 0 ? `${left} left` : "All gone"} &rarr;</span>
-      </span>
-    </a>
   );
 }

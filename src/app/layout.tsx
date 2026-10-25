@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
-import { DESCRIPTION, KEYWORDS, OG_ALT, SITE_URL, TITLE } from "@/components/landing/content";
+import { APP_STORE_ID, DESCRIPTION, KEYWORDS, OG_ALT, SITE_URL, TITLE } from "@/components/landing/content";
 import "./globals.css";
 
 /** Same body face as the app. The hand-lettered display face is SVG, not a font. */
@@ -16,6 +16,7 @@ export const metadata: Metadata = {
   title: { default: TITLE, template: "%s | Tempo" },
   description: DESCRIPTION,
   applicationName: "Tempo",
+  itunes: { appId: APP_STORE_ID },
   keywords: KEYWORDS,
   category: "lifestyle",
   authors: [{ name: "Tempo Software Pty Ltd", url: SITE_URL }],
@@ -59,7 +60,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en-AU" className={jakarta.variable}>
+    <html lang="en-AU" className={jakarta.variable} data-scroll-behavior="smooth">
       <body>{children}</body>
     </html>
   );

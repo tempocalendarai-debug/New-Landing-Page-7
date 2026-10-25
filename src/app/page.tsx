@@ -1,9 +1,9 @@
-import { ALT_NAMES, CONTACT_EMAIL, DESCRIPTION, FAQS, FEATURES, KEYWORDS, SITE_URL } from "@/components/landing/content";
-import { Booked, Faq, Features, FinalCta, Hero, People, SiteFooter, Talk, Taste } from "@/components/landing/sections";
-import { Backers, Founders, LifeOnTempo, YourWeek } from "@/components/landing/brand-sections";
-import { PlansCounter } from "@/components/landing/plans-counter";
-import { FoundingBar, FoundingSection } from "@/components/landing/founding";
-import { SoundFamiliar } from "@/components/landing/sound-familiar";
+import { ALT_NAMES, APP_STORE_URL, CONTACT_EMAIL, DESCRIPTION, HOME_FAQS, FEATURES, KEYWORDS, MINIMUM_IOS, SITE_URL } from "@/components/landing/content";
+import { FinalCta, Hero, SiteFooter } from "@/components/landing/sections";
+import { Backers, Founders, LifeOnTempo } from "@/components/landing/brand-sections";
+import { LaunchBar } from "@/components/landing/download";
+import { PlanStory } from "@/components/landing/plan-story";
+import { DownloadFaq } from "@/components/landing/download-faq";
 import { SiteNav } from "@/components/landing/site-nav";
 
 /*
@@ -51,11 +51,15 @@ const structuredData = {
     {
       "@type": "MobileApplication",
       "@id": APP_ID,
-      name: "Tempo",
+      name: "Tempo: Plans with Friends",
       alternateName: ALT_NAMES,
       applicationCategory: "LifestyleApplication",
       applicationSubCategory: "AI social planner",
-      operatingSystem: "iOS",
+      operatingSystem: `iOS ${MINIMUM_IOS} or later`,
+      downloadUrl: APP_STORE_URL,
+      installUrl: APP_STORE_URL,
+      sameAs: [APP_STORE_URL],
+      isAccessibleForFree: true,
       url: SITE_URL,
       image: `${SITE_URL}/og.png`,
       description: DESCRIPTION,
@@ -66,8 +70,8 @@ const structuredData = {
         name: "Tempo",
         price: "0",
         priceCurrency: "AUD",
-        availability: "https://schema.org/PreOrder",
-        url: `${SITE_URL}/#waitlist`,
+        availability: "https://schema.org/InStock",
+        url: APP_STORE_URL,
       },
       publisher: { "@id": ORG_ID },
     },
@@ -75,7 +79,7 @@ const structuredData = {
       "@type": "FAQPage",
       "@id": `${SITE_URL}/#faq`,
       about: { "@id": APP_ID },
-      mainEntity: FAQS.map((f) => ({
+      mainEntity: HOME_FAQS.map((f) => ({
         "@type": "Question",
         name: f.q,
         acceptedAnswer: { "@type": "Answer", text: f.a },
@@ -91,23 +95,15 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }}
       />
-      <FoundingBar />
+      <LaunchBar />
       <SiteNav home />
       <main>
         <Hero />
         <Backers />
-        <SoundFamiliar />
+        <PlanStory />
         <LifeOnTempo />
-        <Taste />
-        <Talk />
-        <Booked />
-        <People />
-        <YourWeek />
-        <PlansCounter />
-        <Features />
         <Founders />
-        <FoundingSection />
-        <Faq />
+        <DownloadFaq />
         <FinalCta />
       </main>
       <SiteFooter />

@@ -1,4 +1,9 @@
 /** Shared product copy for visible FAQs and search metadata. Keep release claims aligned with the app. */
+import appStore from "@/content/app-store.json";
+
+export const APP_STORE_ID = appStore.id;
+export const APP_STORE_URL = appStore.url;
+export const MINIMUM_IOS = appStore.minimumIOS;
 
 export const SITE_URL = "https://tempoassistant.com";
 export const CONTACT_EMAIL = "tempo.calendar.ai@gmail.com";
@@ -6,22 +11,14 @@ export const CONTACT_EMAIL = "tempo.calendar.ai@gmail.com";
 /** Plans made on Tempo so far. Shown in the counter section; update as it grows. */
 export const PLANS_MADE = 239;
 
-/**
- * Founding badges are given by hand to our beta testers (picked in App Store
- * Connect), so these two numbers are updated manually. Bump FOUNDING_GIVEN
- * each time you add testers.
- */
-export const FOUNDING_TOTAL = 100;
-export const FOUNDING_GIVEN = 46;
-
 /** People on the waitlist before the live counter existed. The live count starts here. */
 export const WAITLIST_START = 153;
 
-export const TITLE = "Tempo. Make plans, Skip the Back-And-Forth";
+export const TITLE = "Tempo: Plans with Friends | Free iPhone Planning App";
 export const DESCRIPTION =
-  "Tempo makes plans with your friends, family and partner. Your Tempo talks to theirs, finds a time that suits you both and puts it in both calendars.";
+  "Make plans with friends, find a time together and fit it into everyone’s schedule. Download Tempo, the free social planning app for iPhone.";
 
-export const OG_ALT = "Tempo, the app that makes plans with your people";
+export const OG_ALT = "Tempo does the planning, with Tempo’s illustrated mascot";
 
 /** Names people search for us by. Used in structured data, not stuffed into copy. */
 export const ALT_NAMES = ["Tempo AI", "Tempo Assistant", "Tempo AI Assistant", "Tempo App"];
@@ -61,8 +58,8 @@ export const FEATURES = [
   },
   {
     id: "calendars",
-    label: "CALENDARS",
-    title: "Lands in both calendars",
+    label: "SCHEDULE",
+    title: "Fits into everyone’s schedule",
     body: "Once you've both said yes, the plan is in both calendars. No group chat back and forth.",
   },
   {
@@ -72,16 +69,16 @@ export const FEATURES = [
     body: "Keep any note to yourself. No other Tempo can read it, and you can preview what they can see.",
   },
   {
-    id: "your-day",
-    label: "YOUR DAY",
-    title: "Keeps your own week on track",
-    body: "See your schedule and keep booked plans in one place.",
+    id: "discover",
+    label: "DISCOVER",
+    title: "Find your next plan",
+    body: "Discover events, activities and things to do with your people, based on what you enjoy and want to try.",
   },
   {
-    id: "notes",
-    label: "NOTES",
-    title: "Chat with your Tempo",
-    body: "Tell Tempo what you want to do and who with. AI planning is your choice.",
+    id: "memories",
+    label: "MEMORIES",
+    title: "Keep the good bits",
+    body: "Save photos and notes in your journal after the plan. Share a note with your crew; your photos and ratings stay private.",
   },
 ];
 
@@ -109,7 +106,7 @@ export type Faq = { q: string; a: string };
 export const FAQS: Faq[] = [
   {
     q: "What is Tempo?",
-    a: "Tempo makes plans with the people in your life. Your Tempo talks to your friend's, family member's or partner's Tempo, finds a time that suits you both and puts it in both calendars. It also keeps your calendar and preferences in one place. Tempo is made by Tempo Software Pty Ltd in Brisbane, Australia, and is in private beta on iPhone.",
+    a: "Tempo is a free social planning app for iPhone. It helps you make plans with friends, family and your partner, find a time together and fit it into everyone’s schedule. Your Tempo works with their Tempos to take care of the back-and-forth. It is available now on the App Store and made by Tempo Software Pty Ltd in Brisbane, Australia.",
   },
   {
     q: "How do I make plans with friends using Tempo?",
@@ -137,7 +134,7 @@ export const FAQS: Faq[] = [
   },
   {
     q: "What else can Tempo do?",
-    a: "Optionally connect Google Calendar or Apple Calendar, add events and reminders, and chat with your Tempo after allowing AI. You can change your AI choice in Settings.",
+    a: "Discover events and things to do with your people, connect Apple Calendar or Google Calendar, and keep memories in your journal. You can also chat with your Tempo after allowing AI. Calendar connections and AI are optional.",
   },
   {
     q: "Can Tempo take notes?",
@@ -145,10 +142,20 @@ export const FAQS: Faq[] = [
   },
   {
     q: "Which platforms is Tempo on?",
-    a: "Tempo works in a web browser, including desktop and Android browsers. The iPhone app is currently available through TestFlight while App Store review is prepared.",
+    a: "Download Tempo from the App Store on an iPhone running iOS 17 or later. Tempo also works in a web browser, including desktop and Android browsers. There is no native Android app yet.",
   },
   {
     q: "How much does Tempo cost?",
-    a: "Nothing. Tempo is free, and so is joining the waitlist.",
+    a: "Tempo is free to download and use. Get it from the App Store and start making plans with your people.",
   },
 ];
+
+/** Concise download questions; detailed support answers above remain available. */
+export const HOME_FAQS = [
+  { id: "free", q: "Is Tempo free?", a: "Yes. Download it, add your people and start making plans. Tempo is free to download and use." },
+  { id: "friends", q: "Do my friends need Tempo too?", a: "Yes. Invite a friend or the whole group. Your Tempos work together to find a time that fits." },
+  { id: "calendar", q: "Can I keep my usual calendar?", a: "Absolutely. Connect Apple Calendar or Google Calendar, or use Tempo on its own. Connecting a calendar is optional." },
+  { id: "privacy", q: "Can friends see my private plans?", a: "They see when you’re free, not your private calendar event titles. You choose which preferences to share." },
+  { id: "control", q: "Will Tempo book without asking?", a: "You send the first request. Each person’s settings control automatic acceptance. You can decline or cancel a plan." },
+  { id: "start", q: "How do I make my first plan?", a: "Download Tempo, add a friend and tell Tempo what you’d like to do. Start with a catch-up you’ve been putting off." },
+] as const;

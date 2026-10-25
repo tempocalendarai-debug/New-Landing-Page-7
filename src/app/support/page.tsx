@@ -1,6 +1,6 @@
 import { InkCard } from "@/components/brand/ink";
 import { TempoText } from "@/components/brand/tempo-type";
-import { CONTACT_EMAIL, FAQS, pageMetadata } from "@/components/landing/content";
+import { APP_STORE_URL, CONTACT_EMAIL, FAQS, pageMetadata } from "@/components/landing/content";
 import { FaqItem } from "@/components/landing/faq-item";
 import { HandHeading, InkButton } from "@/components/landing/ink-primitives";
 import { SubPage } from "@/components/landing/sub-page";
@@ -20,8 +20,9 @@ type Group = { id: string; label: string; title: string; summary: string; items:
 
 const GROUPS: Group[] = [
   { id: "getting-started", label: "GETTING STARTED", title: "Getting started", summary: "Sign in and make your first plan.", items: [
-    { q: "How do I get started?", a: <p>Sign in with Apple, Google or email at beta.tempoassistant.com or in the iPhone app. Confirm you are 16 or older, choose whether to allow AI, and optionally connect a calendar. Add someone in My People, then choose Create a plan on Home.</p> },
+    { q: "How do I get started?", a: <p><a href={APP_STORE_URL}>Download Tempo from the App Store</a>, then sign in with Apple, Google or email. Confirm you are 16 or older, choose whether to allow AI, and optionally connect a calendar. Add someone in My People, then choose Create a plan on Home.</p> },
     { q: "Do I need a calendar connection or AI?", a: <p>No. Calendar connections are optional. Choosing Not now for AI keeps calendar functions and fixed-time invitations available. Change AI consent in Settings under AI planning and chat.</p> },
+    { q: "What if someone doesn’t have an iPhone?", a: <p>They can use Tempo in a <a href="https://beta.tempoassistant.com/">web browser</a>, including on Android. There is no native Android app yet. The iPhone app needs iOS 17 or later.</p> },
   ] },
   { id: "planning", label: "PLANNING", title: "Planning with your people", summary: "Find a time and keep everyone in the loop.", items: [
     { q: "Does the other person need Tempo too?", a: <p>{faq("Does the other person need Tempo too?")}</p> },
@@ -32,7 +33,7 @@ const GROUPS: Group[] = [
     { q: "How do I connect a calendar?", a: <p>Open Settings → Integrations. Connect Google Calendar or, on iPhone, Apple Calendar. You choose whether to grant access. If sync fails, check the connection and calendar permission before contacting support.</p> },
   ] },
   { id: "privacy", label: "PRIVACY & SAFETY", title: "Your data and safety", summary: "Consent, reporting, blocking and deletion.", items: [
-    { q: "What can friends see?", a: <p>Friends see free/busy availability without calendar titles or locations, plus your profile and notes you choose to share. Plan participants see that plan’s details, replies and photos. See our <a href="/privacy">Privacy Policy</a>.</p> },
+    { q: "What can friends see?", a: <p>Friends see free/busy availability without calendar titles or locations, plus your profile and notes you choose to share. Plan participants see that plan’s details and replies. Journal notes can be shared with the crew; your photos and ratings stay private. See our <a href="/privacy">Privacy Policy</a>.</p> },
     { q: "How do I report or block someone?", a: <p>Use Report on the person or content in Tempo, or Block on their profile. Manage your blocks in Settings → Privacy → Blocked people. Axel checks reports daily, including weekends. We review reports within 24 hours and prioritise urgent safety concerns; resolving an investigation may take longer. You can also <a href={mail("Safety report")}>email us</a>.</p> },
     { q: "How do I delete my account?", a: <p>Open Settings → Advanced → Delete account. This is permanent. Apple accounts may need to sign in again to revoke authorisation. If cleanup fails, Tempo shows an error so you can retry. Copies on other people’s calendars may remain. If you cannot sign in, <a href={mail("Delete my account")}>email us</a> from your account address.</p> },
   ] },
@@ -50,8 +51,8 @@ export default function SupportPage() {
       agent="listening"
       intro={
         <p>
-          Answers about setting up Tempo, planning with your people, connecting your tools, the beta,
-          billing and your data. Can&rsquo;t find it? We&rsquo;re one email away.
+          Answers about setting up Tempo, planning with your people, connecting your calendar
+          and your data. Can&rsquo;t find it? We&rsquo;re one email away.
         </p>
       }
     >

@@ -1,30 +1,33 @@
-# Tempo
+# Tempo: Plans with Friends
 
-> Tempo makes plans with the people in your life. Your Tempo talks to your friend's, family member's or partner's Tempo, finds a time that suits you both and puts it in both calendars. Made by Tempo Software Pty Ltd in Brisbane, Australia. Private beta on iPhone.
+> Tempo is a free social planning app for iPhone. Make plans with friends, family and your partner, find a time together and fit it into everyone’s schedule. Available now on the App Store. Made by Tempo Software Pty Ltd in Brisbane, Australia.
 
-Tempo is for anyone who keeps saying "we should catch up" and never locks in a date: friends lining up dinner or trivia, couples planning date nights, and people making time for a parent or sibling. Also known as Tempo AI, Tempo Assistant and Tempo AI Assistant. Website: tempoassistant.com.
+Also known as Tempo Assistant, Tempo AI and Tempo App. Website: https://tempoassistant.com/.
 
-## How making plans with Tempo works
-- Every user has their own Tempo. You tell it what you like, what you'd rather skip and when you're free, and it keeps learning as you go.
-- When you want to see someone, say so ("dinner with Mia next week, somewhere with pasta"). Your Tempo works it out with that person's Tempo, checks both calendars and both sets of preferences, and suggests a time with the reason behind it.
-- Once both people say yes, the plan lands in both calendars. Nobody has to chase anybody through a group chat.
-- Nothing starts until you say send. By default the other person gives a quick yes or no before anything is booked. People who opt in can let their Tempo book for them, with a 10 minute undo window.
-- Planning is currently one-on-one between two Tempo users, for friends, family and partners.
-- Privacy: each thing Tempo knows about you is shared or private. Private notes can't be read by any other account, and you can preview what another Tempo would see.
+## Download
+- App Store: https://apps.apple.com/app/tempo-plans-with-friends/id6779019603
+- Requirements: iPhone running iOS 17.0 or later; ages 16 and over.
+- Pricing: Free to download and use.
+- Browser access: https://beta.tempoassistant.com/. No native Android app is currently available.
 
-## How Tempo is different
-Most planning apps only work for one person. Every Tempo can talk to other Tempos, so plans get made between assistants instead of across forty messages.
+## How making plans works
+- Tell Tempo what you want to do and who you want to see.
+- Your Tempo works with your friends’ Tempos to compare availability and suggest a time. You can plan with one person or a group.
+- Accepted plans land in everyone’s calendar. Planning settings control whether someone’s Tempo can accept automatically.
+- Apple Calendar and Google Calendar connections are optional. AI planning and chat require your consent, which you can change in Settings.
+- Friends see availability, not your private calendar event titles. Preferences can be shared or private.
 
-## What else Tempo does
-- Daily briefing on your day, your week and your work.
-- Calendar help when things clash, with Google Calendar and Outlook.
-- Notes: type or speak a note or task and Tempo saves it to the Notion database you choose.
-- Quick add: events from plain English, typed or spoken.
+## When to use Tempo
+- Making time for a friend, planning dinner with a group, arranging a date night or catching up with family.
+- Both people need a Tempo account so their Tempos can coordinate. Start by inviting someone you want to see.
+- Tempo is for personal plans and time together. The website explains features and links to the app; planning happens in Tempo.
 
-## Key facts
-- Platform: iPhone, private beta. Desktop and Android planned for public release.
-- Pricing: Free. The waitlist is free too.
-- Company: Tempo Software Pty Ltd (ABN 85 701 184 358), Brisbane, Australia; backed by UQ Ventures.
+## Discover and remember
+- Discover events, activities and things to do with your people.
+- Keep photos, notes and ratings in your journal. Notes can be shared with the plan’s crew; photos and ratings stay private.
+
+## Company
+Tempo Software Pty Ltd, Brisbane, Australia. Supported by UQ iLab Accelerator and UQ Ventures.
 
 ## Pages
 - Home: https://tempoassistant.com/

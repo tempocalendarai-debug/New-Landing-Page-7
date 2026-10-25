@@ -10,7 +10,6 @@ Use this after the site is deployed at `https://tempoassistant.com`.
 - Confirm `robots.txt` includes:
   - `User-agent: OAI-SearchBot`
   - `User-agent: ChatGPT-User`
-  - `User-agent: GPTBot`
   - `Sitemap: https://tempoassistant.com/sitemap.xml`
 - Confirm the homepage canonical is `https://tempoassistant.com/`
 - Confirm the sitemap first URL is `https://tempoassistant.com/`
@@ -41,7 +40,7 @@ Use this after the site is deployed at `https://tempoassistant.com`.
    - `https://tempoassistant.com/`
 6. Request indexing if Bing has not crawled it yet.
 
-## 4. ChatGPT Search Readiness
+## 4. Search and AI discovery
 
 OpenAI's ChatGPT Search crawler is `OAI-SearchBot`. The live `robots.txt` should explicitly allow it:
 
@@ -57,6 +56,12 @@ User-agent: ChatGPT-User
 Allow: /
 ```
 
+These roles are different: `OAI-SearchBot` is for ChatGPT search, `ChatGPT-User` fetches pages at a user's request, and `GPTBot` is for model training. Allowing training is not a requirement for ChatGPT search. The existing training preference is unchanged by this iteration. Also check that the hosting/CDN layer does not block legitimate search crawlers; a robots rule alone cannot override a firewall. See [OpenAI's crawler documentation](https://developers.openai.com/api/docs/bots).
+
+Google's AI features use the same SEO foundations as ordinary Search: indexable pages, useful text, accurate structured data and a good page experience. There is no special AI schema or text file required. Keep the App Store listing, website, Support answers and company LinkedIn page consistent about the app's name, price, availability and features. Publish useful product examples and seek genuine customer reviews or independent coverage; do not manufacture endorsements. See [Google's AI features guidance](https://developers.google.com/search/docs/appearance/ai-features).
+
+The provider links are a visitor convenience, not a ranking or recommendation mechanism. Their short question is neutral. `data-nosnippet` on the AI footer excludes its provider labels and question from Google text snippets; the main page remains eligible for snippets. Google still chooses whether to use the meta description. See [Google's snippet guidance](https://developers.google.com/search/docs/appearance/snippet).
+
 After deployment, check that these URLs are publicly accessible without login, redirects to unrelated domains, or blocked assets:
 
 - `https://tempoassistant.com/`
@@ -66,9 +71,21 @@ After deployment, check that these URLs are publicly accessible without login, r
 
 ## 5. Follow-Up Checks
 
-- Wait 24 to 72 hours after sitemap submission.
+- Monitor Search Console and Bing after sitemap submission; there is no guaranteed crawl/indexing timeline.
 - Search Google for: `site:tempoassistant.com`
 - Search Bing for: `site:tempoassistant.com`
-- Test branded query visibility: `Tempo AI calendar assistant`
-- Test category query visibility: `AI calendar app for iPhone`
+- Test branded query visibility: `Tempo plans with friends`
+- Test category query visibility: `social planning app for iPhone`
 - If pages are not indexed after a week, inspect crawl errors in Google Search Console and Bing Webmaster Tools.
+
+## App Store launch checks
+
+- Every download CTA must open Tempo: Plans with Friends, app ID `6779019603`.
+- Inspect the homepage source: `apple-itunes-app` must contain `app-id=6779019603` and the MobileApplication offer must say `InStock`, with the live App Store URL.
+- Verify the QR code on desktop with an iPhone camera. Check the Smart App Banner in Safari on an iPhone; other browsers need not display it.
+- Confirm the homepage, support, contact, FAQ JSON-LD and `/llms.txt` no longer describe access as a private beta or require a waitlist.
+- Submit the updated sitemap and request a homepage recrawl in the existing Search Console property. Search engines choose when to refresh snippets.
+- `llms.txt` is supplemental product context, not a guarantee of search visibility. Keep crawlable page copy, metadata and structured data consistent.
+- Deploy previews intentionally send `X-Robots-Tag: noindex`. Keep previews excluded, and verify the production domain has no accidental `noindex` after release.
+- Check the five visible “Ask about Tempo” links. Each opens a new tab with the short question encoded in its URL. The Gemini mark opens Google's Gemini-powered AI Mode and is labelled accordingly. There is no copy/paste step or intermediate panel, and all links work without JavaScript. Login, prefill and answers remain controlled by each provider.
+- Use actual App Store data for installs. This update does not add an analytics vendor or fabricate ratings or reviews.

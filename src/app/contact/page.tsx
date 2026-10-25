@@ -17,7 +17,7 @@ const REASONS = [
   {
     id: "help",
     label: "HELP",
-    body: "Something not working, a question about the beta or your account.",
+    body: "Something not working, a question about the app or your account.",
     subject: "Tempo Support",
     extra: { href: "/support", text: "Or browse Support first" },
   },
