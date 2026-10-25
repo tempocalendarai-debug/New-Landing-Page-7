@@ -80,36 +80,35 @@ export function SiteFooter() {
           <a href="/contact">Contact</a>
         </nav>
         <div className="footer__connect">
+          <a className="footer__social" href="https://www.linkedin.com/company/tempoassistant/" target="_blank" rel="noopener noreferrer" aria-label="Follow Tempo on LinkedIn (opens in a new tab)">
+            <span className="social-mark" aria-hidden="true">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/assets/ai/linkedin.webp" width={46} height={46} loading="lazy" alt="" />
+            </span>
+            <span>Follow on LinkedIn <span aria-hidden="true">↗</span></span>
+          </a>
           <div className="footer__ai" data-nosnippet>
-            <p id="ask-tempo-title">Ask AI about Tempo</p>
-            <nav className="footer__ai-links" aria-labelledby="ask-tempo-title">
-              {assistants.map(({ name, id, href, image }) => (
-                id === "gemini" ? (
-                  <details key={id} className="ai-gemini" id="ai-question">
-                    <summary className="ai-link ai-link--gemini" title="Gemini" aria-label="Ask Gemini about Tempo">
+            <details className="ai-menu" id="ai-question">
+              <summary><span id="ask-tempo-title">Ask AI about Tempo</span><span className="ai-menu__toggle" aria-hidden="true">+</span></summary>
+              <div className="ai-menu__panel">
+                <p id="ai-question-text">{prompt}</p>
+                <nav className="footer__ai-links" aria-labelledby="ask-tempo-title">
+                  {assistants.map(({ name, id, href, image }) => (
+                    <a key={id} className={`ai-link ai-link--${id}`} href={href} target="_blank" rel="noopener noreferrer"
+                      data-copy-question={id === "gemini" ? true : undefined}
+                      title={id === "gemini" ? "Gemini — copy question and open" : name}
+                      aria-label={id === "gemini" ? "Copy question and open Gemini (paste it into the new chat)" : `Ask ${name} about Tempo (opens in a new tab)`}>
+                      {/* Provider artwork is served locally; see public/assets/ai/SOURCES.md. */}
                       {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={`/assets/ai/${image}`} width={26} height={26} loading="lazy" alt="" />
-                    </summary>
-                    <div className="ai-question">
-                      <p className="ai-question__label">Paste this question into Gemini</p>
-                      <p id="ai-question-text">{prompt}</p>
-                      <a href={href} data-copy-question target="_blank" rel="noopener noreferrer">Copy question &amp; open Gemini ↗</a>
-                      <noscript><p>Copy the question above before opening Gemini.</p></noscript>
-                      <p className="footer__ai-status" id="ai-copy-status" role="status" />
-                    </div>
-                  </details>
-                ) : (
-                <a key={id} className={`ai-link ai-link--${id}`} href={href} target="_blank" rel="noopener noreferrer"
-                  title={name} aria-label={`Ask ${name} about Tempo (opens in a new tab)`}>
-                  {/* Provider artwork is served locally; see public/assets/ai/SOURCES.md. */}
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={`/assets/ai/${image}`} width={id === "chatgpt" ? 40 : 26} height={id === "chatgpt" ? 40 : 26} loading="lazy" alt="" />
-                </a>
-                )
-              ))}
-            </nav>
+                      <img src={`/assets/ai/${image}`} width={id === "chatgpt" ? 40 : 26} height={id === "chatgpt" ? 40 : 26} loading="lazy" alt="" />
+                    </a>
+                  ))}
+                </nav>
+                <p className="footer__ai-status" id="ai-copy-status" role="status">Gemini: paste the copied question.</p>
+                <noscript><p className="footer__ai-status">Copy the question above before opening Gemini.</p></noscript>
+              </div>
+            </details>
           </div>
-          <a className="footer__social" href="https://www.linkedin.com/company/tempoassistant/" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true" width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M5 3a2 2 0 1 0 0 4 2 2 0 0 0 0-4ZM3 9h4v12H3ZM10 9h4v1.6C15 9.4 16 9 17.5 9 21 9 21 11.6 21 15v6h-4v-6c0-1.5 0-3-1.5-3S14 13.5 14 15v6h-4Z" /></svg>Follow on LinkedIn<span aria-hidden="true">↗</span></a>
         </div>
         <p className="footer__legal">&copy; 2026 Tempo Software Pty Ltd. Made in Brisbane.</p>
       </div>
