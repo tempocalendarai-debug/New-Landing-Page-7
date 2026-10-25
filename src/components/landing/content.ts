@@ -149,3 +149,13 @@ export const FAQS: Faq[] = [
     a: "Tempo is free to download and use. Get it from the App Store and start making plans with your people.",
   },
 ];
+
+/** Concise download questions; detailed support answers above remain available. */
+export const HOME_FAQS = [
+  { id: "free", q: "Is Tempo free?", a: "Yes. Download it, add your people and start making plans. Tempo is free to download and use." },
+  { id: "friends", q: "Do my friends need Tempo too?", a: "Yes. Invite a friend or the whole group. Your Tempos work together to find a time that fits." },
+  { id: "calendar", q: "Can I keep my usual calendar?", a: "Absolutely. Connect Apple Calendar or Google Calendar, or use Tempo on its own. Connecting a calendar is optional." },
+  { id: "privacy", q: "Can friends see my private plans?", a: "They see when you’re free, not your private calendar event titles. You choose which preferences to share." },
+  { id: "control", q: "Will Tempo book without asking?", a: "You send the first request. Each person’s settings control automatic acceptance. You can decline or cancel a plan." },
+  { id: "devices", q: "What if someone doesn’t have an iPhone?", a: "They can use Tempo in a web browser, including on Android. The iPhone app needs iOS 17 or later." },
+] as const;

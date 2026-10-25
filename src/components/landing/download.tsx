@@ -1,6 +1,6 @@
 import { TempoAgent } from "@/components/brand/tempo-agent";
 import { APP_STORE_URL } from "./content";
-import { HandHeading, InkButton } from "./ink-primitives";
+import { InkButton } from "./ink-primitives";
 
 /** Plain links work before hydration and let iOS open the App Store naturally. */
 export function DownloadButton({ placement, compact = false }: { placement: string; compact?: boolean }) {
@@ -45,37 +45,5 @@ export function HeroDownload() {
         </div>
       </details>
     </div>
-  );
-}
-
-const STEPS = [
-  { title: "Get your Tempo", body: "Download the app and tell Tempo a little about what you like.", state: "headsUp" as const },
-  { title: "Bring your people", body: "Add a friend, your partner or the whole crew. Their Tempos help find time together.", state: "listening" as const },
-  { title: "Make a little room for life", body: "Pick a plan, find a time and say yes. Then go make a memory.", state: "niceOne" as const },
-];
-
-export function FirstPlan() {
-  return (
-    <section id="first-plan" className="section" aria-labelledby="first-plan-title">
-      {/* Older campaign links to the founding section still reach a useful next step. */}
-      <span id="founding" />
-      <div className="wrap first-plan">
-        <div className="center-head">
-          <HandHeading id="first-plan-title" lines={["YOUR NEXT", "'WE SHOULD'", "STARTS HERE"]} label="Your next ‘we should’ starts here" align="center" />
-          <p className="body center">Start with one person you&rsquo;ve been meaning to see.</p>
-        </div>
-        <ol className="first-plan__steps">
-          {STEPS.map((step, i) => (
-            <li key={step.title}>
-              <div aria-hidden="true"><TempoAgent state={step.state} size={90} /></div>
-              <p className="first-plan__number">0{i + 1}</p>
-              <h3>{step.title}</h3>
-              <p className="body">{step.body}</p>
-            </li>
-          ))}
-        </ol>
-        <DownloadButton placement="first-plan" />
-      </div>
-    </section>
   );
 }

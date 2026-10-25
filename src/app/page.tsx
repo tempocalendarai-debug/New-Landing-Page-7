@@ -1,8 +1,9 @@
-import { ALT_NAMES, APP_STORE_URL, CONTACT_EMAIL, DESCRIPTION, FAQS, FEATURES, KEYWORDS, MINIMUM_IOS, SITE_URL } from "@/components/landing/content";
-import { Booked, Faq, Features, FinalCta, Hero, SiteFooter, Talk, Taste } from "@/components/landing/sections";
+import { ALT_NAMES, APP_STORE_URL, CONTACT_EMAIL, DESCRIPTION, HOME_FAQS, FEATURES, KEYWORDS, MINIMUM_IOS, SITE_URL } from "@/components/landing/content";
+import { FinalCta, Hero, SiteFooter } from "@/components/landing/sections";
 import { Backers, Founders, LifeOnTempo } from "@/components/landing/brand-sections";
-import { FirstPlan, LaunchBar } from "@/components/landing/download";
-import { SoundFamiliar } from "@/components/landing/sound-familiar";
+import { LaunchBar } from "@/components/landing/download";
+import { PlanStory } from "@/components/landing/plan-story";
+import { DownloadFaq } from "@/components/landing/download-faq";
 import { SiteNav } from "@/components/landing/site-nav";
 
 /*
@@ -78,7 +79,7 @@ const structuredData = {
       "@type": "FAQPage",
       "@id": `${SITE_URL}/#faq`,
       about: { "@id": APP_ID },
-      mainEntity: FAQS.map((f) => ({
+      mainEntity: HOME_FAQS.map((f) => ({
         "@type": "Question",
         name: f.q,
         acceptedAnswer: { "@type": "Answer", text: f.a },
@@ -99,15 +100,10 @@ export default function Home() {
       <main>
         <Hero />
         <Backers />
-        <SoundFamiliar />
-        <Taste />
-        <Talk />
-        <Booked />
+        <PlanStory />
         <LifeOnTempo />
-        <Features />
         <Founders />
-        <FirstPlan />
-        <Faq />
+        <DownloadFaq />
         <FinalCta />
       </main>
       <SiteFooter />
