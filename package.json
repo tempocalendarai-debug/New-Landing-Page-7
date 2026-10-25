@@ -8,8 +8,7 @@
     "brand:sync": "node scripts/sync-brand.mjs",
     "brand:check": "node scripts/sync-brand.mjs --check",
     "preview": "node scripts/preview.mjs",
-    "check:export": "node scripts/check-static-home.mjs",
-    "check:ai-copy": "node scripts/check-ai-copy.mjs"
+    "check:export": "node scripts/check-static-home.mjs"
   },
   "dependencies": {
     "@netlify/blobs": "^11.1.0",

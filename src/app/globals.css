@@ -740,20 +740,9 @@ input {
   margin-top: 12px;
   padding-top: 28px;
 }
-.footer__ai { width: min(100%, 322px); }
-.ai-menu > summary {
-  display: flex; align-items: center; justify-content: space-between; gap: 24px;
-  width: fit-content; min-height: 46px; margin-left: auto;
-  color: var(--ink-soft); font-size: 13px; cursor: pointer; list-style: none;
-}
-.ai-menu > summary::-webkit-details-marker { display: none; }
-.ai-menu > summary:hover { color: var(--brand-burgundy); }
-.ai-menu__toggle, .download-qr__toggle { font-size: 19px; line-height: 1; transition: transform .2s ease; }
-.ai-menu[open] .ai-menu__toggle, .download-qr[open] .download-qr__toggle { transform: rotate(45deg); }
-.ai-menu__panel {
-  margin-top: 12px; padding: 14px; background: var(--ink-card);
-  border: 1px solid var(--ink-rule); border-radius: 14px;
-}
+.footer__connect-title { margin-bottom: 14px; font-size: 14px; font-weight: 600; }
+.download-qr__toggle { font-size: 19px; line-height: 1; transition: transform .2s ease; }
+.download-qr[open] .download-qr__toggle { transform: rotate(45deg); }
 .footer__ai-links { display: flex; flex-wrap: wrap; gap: 8px; }
 .ai-link, .social-mark {
   display: inline-flex; align-items: center; justify-content: center;
@@ -768,12 +757,9 @@ input {
 .ai-link--grok { background: #fff; }
 .ai-link:hover, .footer__social:hover .social-mark { transform: translateY(-2px); }
 .ai-link:hover { box-shadow: 0 4px 10px #201b1514; }
-.ai-link:focus-visible, .ai-menu > summary:focus-visible, .footer__social:focus-visible, .download-qr > summary:focus-visible { outline: 2px solid var(--brand-burgundy); outline-offset: 4px; }
-#ai-question-text { margin-bottom: 16px; font-size: 13px; user-select: all; overflow-wrap: anywhere; line-height: 1.6; }
-.footer__ai-status { font-size: 12px; color: var(--ink-soft); max-width: 360px; }
-.footer__ai-status:not(:empty) { margin-top: 14px; }
+.ai-link:focus-visible, .footer__social:focus-visible, .download-qr > summary:focus-visible { outline: 2px solid var(--brand-burgundy); outline-offset: 4px; }
 @media (prefers-reduced-motion: reduce) {
-  .ai-link, .social-mark, .ai-menu__toggle, .download-qr__toggle { transition: none; }
+  .ai-link, .social-mark, .download-qr__toggle { transition: none; }
   .ai-link:hover, .footer__social:hover .social-mark { transform: none; }
 }
 .footer__social { display: inline-flex; align-items: center; gap: 12px; min-height: 46px; font-size: 14px; text-decoration: none; color: var(--ink-line); }
@@ -781,10 +767,8 @@ input {
 .footer__social:hover > span:last-child { text-decoration: underline; }
 @media (max-width: 640px) {
   .footer__connect { gap: 20px; }
-  .ai-menu > summary { margin-left: 0; }
 }
 @media (max-width: 360px) {
-  .ai-menu__panel { padding: 10px; }
   .footer__ai-links { gap: 3px; }
 }
 
@@ -1473,6 +1457,7 @@ input {
 .download-qr {
   display: none;
   width: min(100%, 354px);
+  position: relative;
   margin: 16px auto 0;
   font-size: 13px;
   color: var(--ink-soft);
@@ -1483,11 +1468,15 @@ input {
 .download-qr__toggle { margin-left: 5px; }
 .download-qr__panel {
   display: grid; grid-template-columns: 168px minmax(0, 1fr); align-items: center; gap: 16px;
-  margin-top: 6px; padding: 14px;
+  position: absolute; bottom: calc(100% + 6px); left: 0; z-index: 3; width: 100%;
+  padding: 14px;
   background: var(--ink-card);
   border: 1px solid var(--ink-rule);
   border-radius: 18px;
 }
+.download-qr[open] .download-qr__panel { animation: qr-reveal .16s ease-out; }
+@keyframes qr-reveal { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+@media (prefers-reduced-motion: reduce) { .download-qr[open] .download-qr__panel { animation: none; } }
 .download-qr__panel img { display: block; width: 168px; height: 168px; border-radius: 6px; }
 .download-qr__copy { border-left: 1px dashed var(--ink-rule); padding-left: 16px; }
 .download-qr__copy > svg { display: block; max-width: 100%; }
@@ -1496,6 +1485,9 @@ input {
 .first-plan__number { margin-top: 16px; color: var(--brand-burgundy); font-size: 13px; font-weight: 700; }
 @media (min-width: 760px) {
   .download-qr { display: block; }
+  /* Swap the download method in place: keep its space, remove covered controls from focus. */
+  .hero__copy:has(.download-qr[open]) .hero__lead,
+  .hero__copy:has(.download-qr[open]) .hero-download__actions { visibility: hidden; }
 }
 @media (max-width: 520px) {
   .nav__inner { gap: 12px; }
