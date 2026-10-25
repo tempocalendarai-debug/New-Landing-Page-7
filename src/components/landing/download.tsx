@@ -33,7 +33,6 @@ export function HeroDownload() {
         </a>
         <a className="hero__more" href="#how">See how it works <span aria-hidden="true">↓</span></a>
       </div>
-      <p className="small hero__note">Free on iPhone · iOS 17 or later</p>
       <details className="download-qr">
         <summary>On your computer? Scan to download</summary>
         <div className="download-qr__panel">

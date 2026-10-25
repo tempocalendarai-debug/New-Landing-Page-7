@@ -15,9 +15,12 @@ const all = tag => nodes.filter(n => n.tagName === tag);
 const ids = new Set(nodes.map(n => attr(n, "id")).filter(Boolean));
 
 assert.equal(all("h1").length, 1);
-assert.equal(all("script").length, 1, "Only structured data belongs in the static homepage");
-assert.equal(attr(all("script")[0], "type"), "application/ld+json");
-const graph = JSON.parse(text(all("script")[0]))["@graph"];
+assert.equal(all("script").length, 2, "Only structured data and the clipboard enhancement belong in the homepage");
+const schema = all("script").find(n => attr(n, "type") === "application/ld+json");
+const helper = all("script").find(n => attr(n, "src") === "/assets/ask-ai.js");
+assert.ok(helper?.attrs.some(a => a.name === "defer"));
+await access(path.join(root, "assets/ask-ai.js"));
+const graph = JSON.parse(text(schema))["@graph"];
 const questions = graph.find(n => n["@type"] === "FAQPage").mainEntity;
 assert.equal(questions.length, 6);
 for (const q of questions) {
@@ -27,13 +30,24 @@ for (const q of questions) {
 assert.ok(!html.includes("Web on other devices"));
 assert.ok(!html.includes("beta.tempoassistant.com"));
 assert.ok(all("link").some(n => attr(n, "rel") === "canonical" && attr(n, "href") === "https://tempoassistant.com"));
+assert.ok(!html.includes("Free on iPhone · iOS 17 or later"));
+const aiSection = all("div").find(n => attr(n, "class") === "footer__ai");
+assert.ok(aiSection.attrs.some(a => a.name === "data-nosnippet"), "AI UI must stay out of Google snippets");
+const prompt = text(nodes.find(n => attr(n, "id") === "ai-question-text"));
+assert.ok(prompt.length < 100 && prompt.includes("https://tempoassistant.com"));
+assert.equal([...all("a"), ...all("summary")].filter(n => attr(n, "class")?.startsWith("ai-link ")).length, 5);
 
 for (const a of all("a")) {
   const href = attr(a, "href");
   if (href?.startsWith("#") || href?.startsWith("/#")) assert.ok(ids.has(href.split("#")[1]), href);
   if (attr(a, "aria-label")?.startsWith("Ask ")) {
     const url = new URL(href);
-    assert.ok(url.searchParams.get("q").includes("https://tempoassistant.com/llms.txt"));
+    assert.equal(url.searchParams.get("q"), prompt);
+    assert.equal(attr(a, "target"), "_blank");
+    assert.ok(attr(a, "rel").includes("noopener"));
+  }
+  if (attr(a, "data-copy-question")) {
+    assert.equal(attr(a, "href"), "https://gemini.google.com/app");
     assert.equal(attr(a, "target"), "_blank");
     assert.ok(attr(a, "rel").includes("noopener"));
   }

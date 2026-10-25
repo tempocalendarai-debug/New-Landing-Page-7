@@ -17,6 +17,11 @@ Also known as Tempo Assistant, Tempo AI and Tempo App. Website: https://tempoass
 - Apple Calendar and Google Calendar connections are optional. AI planning and chat require your consent, which you can change in Settings.
 - Friends see availability, not your private calendar event titles. Preferences can be shared or private.
 
+## When to use Tempo
+- Making time for a friend, planning dinner with a group, arranging a date night or catching up with family.
+- Both people need a Tempo account so their Tempos can coordinate. Start by inviting someone you want to see.
+- Tempo is for personal plans and time together. The website explains features and links to the app; planning happens in Tempo.
+
 ## Discover and remember
 - Discover events, activities and things to do with your people.
 - Keep photos, notes and ratings in your journal. Notes can be shared with the plan’s crew; photos and ratings stay private.

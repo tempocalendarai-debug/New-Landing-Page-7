@@ -1,5 +1,6 @@
 /**
  * The homepage is deliberately a document: links, native disclosures, CSS motion.
+ * Its only enhancement is the small, standalone Gemini clipboard helper.
  * Publish its prerendered HTML without the React router/hydration runtime.
  * Other routes retain Next's runtime (e.g. Contact's Copy address button).
  * Run after next build, and review this contract before adding React interactions.
@@ -16,6 +17,7 @@ const attr = (node, name) => node.attrs?.find(a => a.name === name)?.value;
 let removedScripts = 0;
 let stylesheets = 0;
 let schemas = 0;
+let enhancements = 0;
 
 async function optimize(node) {
   const children = [];
@@ -28,6 +30,10 @@ async function optimize(node) {
       if (attr(child, "type") === "application/ld+json") {
         JSON.parse(child.childNodes.map(n => n.value ?? "").join(""));
         schemas++;
+      } else if (attr(child, "src") === "/assets/ask-ai.js" && child.attrs.some(a => a.name === "defer")) {
+        const helper = await readFile(path.join(root, "assets/ask-ai.js"), "utf8");
+        if (Buffer.byteLength(helper) > 2048) throw new Error("Review footer enhancement size before shipping");
+        enhancements++;
       } else {
         const src = attr(child, "src");
         const text = child.childNodes.map(n => n.value ?? "").join("");
@@ -65,8 +71,8 @@ async function optimize(node) {
 }
 
 await optimize(doc);
-if (!removedScripts || stylesheets !== 1 || schemas !== 1) throw new Error("Unexpected Next export structure");
+if (!removedScripts || stylesheets !== 1 || schemas !== 1 || enhancements !== 1) throw new Error("Unexpected Next export structure");
 const result = serialize(doc);
-if (/__next_f|<script[^>]+src=/.test(result)) throw new Error("Runtime remained in the static homepage");
+if (/__next_f|<script[^>]+src="\/_next\//.test(result)) throw new Error("Next runtime remained in the static homepage");
 await writeFile(file, result);
 console.log(`Static homepage: ${removedScripts} runtime scripts removed; ${Buffer.byteLength(source)} → ${Buffer.byteLength(result)} HTML bytes.`);

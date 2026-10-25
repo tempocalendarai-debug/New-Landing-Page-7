@@ -39,7 +39,7 @@ export function PlanStory() {
             <div className="plan-story__caption"><span>03</span><div><h3>Make it happen.</h3><p>Everyone&rsquo;s in. It&rsquo;s in your schedules. Go enjoy your people.</p></div></div>
           </li>
         </ol>
-        <div className="plan-story__download"><DownloadButton placement="story" /><p>Start with one friend you&rsquo;ve been meaning to see.</p></div>
+        <div className="plan-story__download"><DownloadButton placement="story" /></div>
       </div>
     </section>
   );
