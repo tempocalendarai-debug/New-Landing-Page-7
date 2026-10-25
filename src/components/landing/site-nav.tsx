@@ -40,15 +40,15 @@ export function SiteNav({ home = false }: { home?: boolean }) {
           onFocus={() => setHover(true)}
           onBlur={() => setHover(false)}
         >
-          {/* The Tempo guy is the logo. Hover: he lights up and waves, the wordmark boils. */}
+          {/* The Tempo guy is the logo. Hover: he lights up and waves, the wordmark stays still. */}
           <span className="nav__mark" aria-hidden="true">
             <TempoAgent state={hover ? "foundIt" : "idle"} crop="head" size={46} />
           </span>
-          <TempoWordmark height={24} boil={hover} />
+          <TempoWordmark height={24} boil={false} />
         </a>
         <nav className="nav__links" aria-label="Primary">
           <a href="/#how">How it works</a>
-          <a href="/#week">Your week</a>
+          <a href="/#life">Life on Tempo</a>
           <a href="/#faq">FAQ</a>
           <a href="/support">Support</a>
         </nav>

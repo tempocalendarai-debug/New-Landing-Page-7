@@ -8,11 +8,11 @@
  *   - Hand lettering is headings and short labels only. Anything a person
  *     "typed" (chat, notes, plans) is sans, in their own lowercase.
  *   - TempoPeek is used once, on the final card. More than that is Clippy.
- *   - Each TempoAgent is in a different state, so their boil rates never sync.
+ *   - Characters use distinct expressions; landing CSS keeps their ink outlines still.
  */
 
 import { InkCard, InkGlyph } from "@/components/brand/ink";
-import { TempoAgent } from "@/components/brand/tempo-agent";
+import { TempoAgent, TempoWordmark } from "@/components/brand/tempo-agent";
 import { TempoPeek } from "@/components/brand/tempo-peek";
 import { TempoText } from "@/components/brand/tempo-type";
 import { APP_STORE_URL, FAQS, FEATURES } from "./content";
@@ -20,6 +20,7 @@ import { FaqItem } from "./faq-item";
 import { InboxDemo } from "./inbox-demo";
 import { DrawnWire, Glyph, HandHeading, Highlight } from "./ink-primitives";
 import { DownloadButton, HeroDownload } from "./download";
+import { HeroScene } from "./hero-scene";
 
 function StepHeading({ n, lines, label, id }: { n: string; lines: string[]; label: string; id: string }) {
   return (
@@ -36,25 +37,25 @@ function StepHeading({ n, lines, label, id }: { n: string; lines: string[]; labe
 
 export function Hero() {
   return (
-    <section id="top" className="hero" aria-labelledby="hero-title">
+    <section id="top" className="hero hero--together" aria-labelledby="hero-title">
       <div className="wrap hero__inner">
-        <div className="hero__agent">
-          <TempoAgent state="idle" size={112} />
+        <div className="hero__copy">
+          <p className="hero__eyebrow">Together, not apart</p>
+          <HandHeading
+            id="hero-title"
+            as="h1"
+            lines={["TEMPO DOES", "THE PLANNING"]}
+            label="Tempo does the planning"
+            height={57}
+          />
+          <p className="hero__promise">More time for your people.</p>
+          <p className="lead hero__lead">
+            Turn “we should” into “see you there”. The free iPhone app that helps you find something to do,
+            get your friends together and fit it into everyone&rsquo;s schedule.
+          </p>
+          <HeroDownload />
         </div>
-        <p className="hero__eyebrow">Together, not apart</p>
-        <HandHeading
-          id="hero-title"
-          as="h1"
-          lines={["TEMPO DOES", "THE PLANNING"]}
-          label="Tempo does the planning"
-          height={64}
-          boil
-          align="center"
-        />
-        <p className="lead hero__lead">
-          The free iPhone app for making plans with friends. Find a time that works and get it in everyone&rsquo;s calendar.
-        </p>
-        <HeroDownload />
+        <HeroScene />
       </div>
     </section>
   );
@@ -223,10 +224,10 @@ export function Booked() {
     <section className="section" aria-labelledby="booked-title">
       <div className="wrap split">
         <div className="split__text">
-          <StepHeading id="booked-title" n="3" lines={["IN EVERYONE'S", "CALENDAR"]} label="In everyone's calendar" />
+          <StepHeading id="booked-title" n="3" lines={["IN EVERYONE'S", "SCHEDULE"]} label="In everyone's schedule" />
           <p className="body">
             You get the plan and the reason behind it. Jack and Mia each get a quick yes or no from
-            their Tempo. Once they&rsquo;re in, it lands in all three calendars and nobody had to chase anybody.
+            their Tempo. Once they&rsquo;re in, it&rsquo;s part of everyone&rsquo;s week. The details, replies and time are all in one place.
           </p>
           <p className="body">Nothing starts until you say send.</p>
         </div>
@@ -480,7 +481,7 @@ export function FinalCta() {
           <TempoPeek edge="top" at="76%" size={96} className="cta__peek" />
           <InkCard seed="cta-card" padding="clamp(44px, 7vw, 76px) clamp(20px, 5vw, 64px)" radius={18}>
             <div className="cta__inner">
-              <HandHeading id="cta-title" lines={["LESS 'WE SHOULD.'", "MORE 'SEE YOU THERE.'"]} label="Less ‘we should.’ More ‘see you there.’" boil align="center" />
+              <HandHeading id="cta-title" lines={["LESS 'WE SHOULD.'", "MORE 'SEE YOU THERE.'"]} label="Less ‘we should.’ More ‘see you there.’" align="center" />
               <p className="cta__rally">Together, not apart.</p>
               <p className="body center">
                 Get Tempo. Add your people. Make the plan you keep talking about.
@@ -501,10 +502,10 @@ export function SiteFooter() {
   return (
     <footer className="footer">
       <div className="wrap footer__inner">
-        <div className="footer__brand">
-          <TempoAgent state="idle" crop="head" size={44} />
-          <span>Tempo</span>
-        </div>
+        <a className="footer__brand" href="/" aria-label="Tempo home">
+          <span aria-hidden="true"><TempoAgent state="idle" crop="head" size={44} /></span>
+          <TempoWordmark height={24} />
+        </a>
         <nav className="footer__links" aria-label="Footer">
           <a href={APP_STORE_URL}>Download Tempo</a>
           <a href="/support">Support</a>

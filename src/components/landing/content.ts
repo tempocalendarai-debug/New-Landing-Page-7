@@ -16,7 +16,7 @@ export const WAITLIST_START = 153;
 
 export const TITLE = "Tempo: Plans with Friends | Free iPhone Planning App";
 export const DESCRIPTION =
-  "Make plans with friends, find a time together and get it in everyone’s calendar. Download Tempo, the free social planning app for iPhone.";
+  "Make plans with friends, find a time together and fit it into everyone’s schedule. Download Tempo, the free social planning app for iPhone.";
 
 export const OG_ALT = "Tempo does the planning, with Tempo’s illustrated mascot";
 
@@ -58,8 +58,8 @@ export const FEATURES = [
   },
   {
     id: "calendars",
-    label: "CALENDARS",
-    title: "Lands in both calendars",
+    label: "SCHEDULE",
+    title: "Fits into everyone’s schedule",
     body: "Once you've both said yes, the plan is in both calendars. No group chat back and forth.",
   },
   {
@@ -106,7 +106,7 @@ export type Faq = { q: string; a: string };
 export const FAQS: Faq[] = [
   {
     q: "What is Tempo?",
-    a: "Tempo is a free social planning app for iPhone. It helps you make plans with friends, family and your partner, find a time together and get it in everyone’s calendar. Your Tempo works with their Tempos to take care of the back-and-forth. It is available now on the App Store and made by Tempo Software Pty Ltd in Brisbane, Australia.",
+    a: "Tempo is a free social planning app for iPhone. It helps you make plans with friends, family and your partner, find a time together and fit it into everyone’s schedule. Your Tempo works with their Tempos to take care of the back-and-forth. It is available now on the App Store and made by Tempo Software Pty Ltd in Brisbane, Australia.",
   },
   {
     q: "How do I make plans with friends using Tempo?",

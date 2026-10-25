@@ -15,8 +15,8 @@ export function LaunchBar() {
   return (
     <a className="fbar launch-bar" href={APP_STORE_URL}>
       <span className="fbar__inner">
-        <span>Tempo is on the App Store</span>
-        <span className="fbar__left">Get it free <span aria-hidden="true">↗</span></span>
+        <span className="launch-bar__message"><span className="launch-bar__mark" aria-hidden="true"><TempoAgent state="idle" crop="head" size={23} /></span> Your people. Your plans. Your Tempo.</span>
+        <span className="fbar__left">Free on iPhone <span aria-hidden="true">↗</span></span>
       </span>
     </a>
   );
@@ -51,7 +51,7 @@ export function HeroDownload() {
 const STEPS = [
   { title: "Get your Tempo", body: "Download the app and tell Tempo a little about what you like.", state: "headsUp" as const },
   { title: "Bring your people", body: "Add a friend, your partner or the whole crew. Their Tempos help find time together.", state: "listening" as const },
-  { title: "Put something on the calendar", body: "Pick a plan, find a time and say yes. Then go make a memory.", state: "niceOne" as const },
+  { title: "Make a little room for life", body: "Pick a plan, find a time and say yes. Then go make a memory.", state: "niceOne" as const },
 ];
 
 export function FirstPlan() {

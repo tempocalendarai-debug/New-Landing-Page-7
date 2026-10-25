@@ -37,3 +37,11 @@ Landing-only code lives in `src/components/landing/`.
 The download badge is Apple's unmodified official artwork from https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg. Keep its clear space and proportions; use the ink buttons for secondary download prompts.
 
 After publishing, follow `INDEXING_CHECKLIST.md` to request a fresh crawl. Search rankings and App Store installs are not measured by this change. Configure campaign links in App Store Connect if attribution is needed; do not treat website clicks as installs.
+
+## Landing art and motion
+
+The hero is a responsive illustration in `hero-scene.tsx`, assembled from the existing Tempo character and wordmark. It is an example plan, not an app screenshot. Keep the headphone character consistent across navigation, illustrations, footer, icons and social previews; do not substitute the older hourglass mark.
+
+Hand lettering and character outlines stay static on the landing page. This is controlled by landing CSS, leaving the shared brand kit unchanged. Gentle character expressions retain the brand's reduced-motion behaviour. “Sound familiar?” is deliberately readable without interactions. The discovery and journal illustrations describe the current App Store features; journal photos and ratings are private.
+
+The visual refresh takes cues from Polarbear's character storytelling, Partiful's clear path from idea to plan, and Howbout's direct app-download journey. Assets and branding remain Tempo's own.

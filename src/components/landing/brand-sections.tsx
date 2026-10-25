@@ -79,35 +79,50 @@ export function PlanTicker() {
 /* Life on Tempo                                                       */
 /* ------------------------------------------------------------------ */
 
-const LIFE = [
-  { id: "thursday", tag: "THURSDAY", line: "The group chat finally showed up.", src: "/assets/life-thursday.webp", alt: "Three friends laughing on a city street" },
-  { id: "run", tag: "6AM RUN", line: "Everyone was free. Tempo booked it.", src: "/assets/life-run.webp", alt: "Runners mid-stride on a road" },
-  { id: "trip", tag: "THE TRIP", line: "Not \u201cone day\u201d. This weekend.", src: "/assets/life-trip.webp", alt: "Three friends hiking with packs in the mountains" },
-  { id: "date", tag: "DATE NIGHT", line: "Two schedules, one plan.", src: "/assets/life-date.webp", alt: "A couple sitting on the grass at sunset" },
-];
-
 export function LifeOnTempo() {
   return (
-    <section className="section" aria-labelledby="life-title">
+    <section id="life" className="section life-story" aria-labelledby="life-title">
+      <span id="week" />
       <div className="wrap">
-        <div className="center-head">
-          <HandHeading id="life-title" lines={["LIFE ON", "TEMPO"]} label="Life on Tempo" align="center" />
+        <div className="life-story__heading">
+          <p className="eyebrow">A little more life in your routine</p>
+          <HandHeading id="life-title" lines={["MAKE THE PLAN.", "KEEP THE GOOD BITS."]} label="Make the plan. Keep the good bits." height={40} align="center" />
+          <p className="body center">From finding your next thing to remembering the last one.</p>
         </div>
-        <ul className="life">
-          {LIFE.map((l) => (
-            <li key={l.id}>
-              <InkCard seed={`life-${l.id}`} tape tilt padding="10px 10px 18px" radius={10}>
+        <div className="life-story__grid">
+          <article className="life-feature">
+            <div className="life-feature__visual discover-preview" aria-label="Illustration of plan ideas: a morning hike, live music and a new dinner spot">
+              <div className="discover-preview__label"><span aria-hidden="true"><TempoAgent state="headsUp" crop="head" size={34} /></span><span>A few ideas for your crew</span></div>
+              <div className="discover-preview__photo">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img className="life__img" src={l.src} alt={l.alt} loading="lazy" width={800} height={1000} />
-                <span className="life__tag">
-                  <TempoText height={20}>{l.tag}</TempoText>
-                </span>
-                <p className="life__line">{l.line}</p>
-              </InkCard>
-            </li>
-          ))}
-        </ul>
-        <p className="life__kicker">Not a calendar. The plans you&rsquo;d never have gotten round to making.</p>
+                <img src="/assets/life-trip.webp" width={800} height={1000} loading="lazy" alt="Friends heading out on a hike together" />
+                <span>A morning with a view</span>
+              </div>
+              <div className="discover-preview__ideas"><span>♫ &nbsp; Live music</span><span>↗ &nbsp; Somewhere new for dinner</span></div>
+            </div>
+            <div className="life-feature__copy">
+              <p className="eyebrow">Discover</p>
+              <h3>“What should we do?”<br />Glad you asked.</h3>
+              <p className="body">Find events, activities and ideas that fit what you and your friends enjoy. Revisit a favourite or try something completely new.</p>
+            </div>
+          </article>
+          <article className="life-feature">
+            <div className="life-feature__visual journal-preview" aria-label="Illustration of a journal entry after a catch-up with friends">
+              <div className="journal-preview__photo">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/assets/life-thursday.webp" width={800} height={1000} loading="lazy" alt="Friends laughing together after catching up" />
+                <p>Worth making time for.</p>
+              </div>
+              <div className="journal-preview__note"><span>THURSDAY, FINALLY.</span><p>Same people.<br />A new favourite memory.</p></div>
+              <div className="journal-preview__agent" aria-hidden="true"><TempoAgent state="niceOne" size={92} /></div>
+            </div>
+            <div className="life-feature__copy">
+              <p className="eyebrow">Your journal</p>
+              <h3>The plan ends.<br />The memory stays.</h3>
+              <p className="body">Keep photos and notes from the time you spent together. Share a note with your crew; your photos and ratings stay private.</p>
+            </div>
+          </article>
+        </div>
       </div>
     </section>
   );

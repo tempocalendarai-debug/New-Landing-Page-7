@@ -2,7 +2,7 @@
 
 /**
  * "239 plans made. Make the next one." Counts up once when it scrolls into
- * view, then sits still. The number is in the hand face, so it boils.
+ * view, then sits still. The number is in the hand face, and stays still.
  */
 
 import React, { useEffect, useState } from "react";
@@ -47,7 +47,7 @@ export function PlansCounter() {
         <div className="plans__stats">
           <div className="plans__stat">
             <div className="plans__number" aria-hidden="true">
-              <TempoText height={120} boil={n >= PLANS_MADE}>
+              <TempoText height={120} boil={false}>
                 {String(n)}
               </TempoText>
             </div>

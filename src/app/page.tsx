@@ -1,7 +1,6 @@
 import { ALT_NAMES, APP_STORE_URL, CONTACT_EMAIL, DESCRIPTION, FAQS, FEATURES, KEYWORDS, MINIMUM_IOS, SITE_URL } from "@/components/landing/content";
-import { Booked, Faq, Features, FinalCta, Hero, People, SiteFooter, Talk, Taste } from "@/components/landing/sections";
-import { Backers, Founders, LifeOnTempo, YourWeek } from "@/components/landing/brand-sections";
-import { PlansCounter } from "@/components/landing/plans-counter";
+import { Booked, Faq, Features, FinalCta, Hero, SiteFooter, Talk, Taste } from "@/components/landing/sections";
+import { Backers, Founders, LifeOnTempo } from "@/components/landing/brand-sections";
 import { FirstPlan, LaunchBar } from "@/components/landing/download";
 import { SoundFamiliar } from "@/components/landing/sound-familiar";
 import { SiteNav } from "@/components/landing/site-nav";
@@ -101,13 +100,10 @@ export default function Home() {
         <Hero />
         <Backers />
         <SoundFamiliar />
-        <LifeOnTempo />
         <Taste />
         <Talk />
         <Booked />
-        <People />
-        <YourWeek />
-        <PlansCounter />
+        <LifeOnTempo />
         <Features />
         <Founders />
         <FirstPlan />
