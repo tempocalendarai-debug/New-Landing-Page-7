@@ -60,7 +60,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en-AU" className={jakarta.variable}>
+    <html lang="en-AU" className={jakarta.variable} data-scroll-behavior="smooth">
       <body>{children}</body>
     </html>
   );

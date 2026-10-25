@@ -6,6 +6,7 @@
 import { createReadStream, statSync } from "node:fs";
 import { createServer } from "node:http";
 import { extname, join, normalize } from "node:path";
+import { createGzip } from "node:zlib";
 
 const root = join(import.meta.dirname, "..", "out");
 const port = Number(process.env.PORT ?? 3007);
@@ -17,6 +18,8 @@ const TYPES = {
   ".svg": "image/svg+xml",
   ".png": "image/png",
   ".jpg": "image/jpeg",
+  ".webp": "image/webp",
+  ".avif": "image/avif",
   ".woff2": "font/woff2",
   ".txt": "text/plain; charset=utf-8",
   ".xml": "application/xml",
@@ -45,6 +48,11 @@ createServer((req, res) => {
     else res.end("Not found");
     return;
   }
-  res.writeHead(200, { "Content-Type": TYPES[extname(file)] ?? "application/octet-stream" });
-  createReadStream(file).pipe(res);
+  const contentType = TYPES[extname(file)] ?? "application/octet-stream";
+  // Match production's compressed text delivery for realistic local audits.
+  const gzip = /\bgzip\b/.test(req.headers["accept-encoding"] ?? "") && /^(text\/|application\/json|image\/svg)/.test(contentType);
+  res.writeHead(200, { "Content-Type": contentType, Vary: "Accept-Encoding", ...(gzip ? { "Content-Encoding": "gzip" } : {}) });
+  const stream = createReadStream(file);
+  if (gzip) stream.pipe(createGzip()).pipe(res);
+  else stream.pipe(res);
 }).listen(port, () => console.log(`Serving out/ at http://localhost:${port}`));

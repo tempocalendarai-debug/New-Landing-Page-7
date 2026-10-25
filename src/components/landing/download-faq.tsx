@@ -9,7 +9,7 @@ const SYMBOLS = {
   calendar: "M3 5h16v15H3zM3 10h16M7 2v5M15 2v5M7 14h2M13 14h2",
   privacy: "M6 10V7a5 5 0 0 1 10 0v3M4 10h14v10H4zM11 14v3",
   control: "M3 6h16M3 16h16M8 3v6M14 13v6",
-  devices: "M7 2h8c2 0 2 1 2 3v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V5c0-2 0-3 2-3ZM9 17h4",
+  start: "M3 12h17M13 5l7 7-7 7",
 };
 
 function AnswerIllustration({ id }: { id: keyof typeof SYMBOLS }) {
@@ -19,7 +19,7 @@ function AnswerIllustration({ id }: { id: keyof typeof SYMBOLS }) {
     calendar: ["Apple Calendar", "Google Calendar", "Or just Tempo"],
     privacy: ["Availability: shared", "Event titles: private"],
     control: ["Your planning settings", "Decline or cancel"],
-    devices: ["iPhone app", "Web on other devices"],
+    start: ["Add your people", "Make your first plan"],
   };
   return <div className="faq-proof">{labels[id].map(label => <span className="faq-proof__tag" key={label}><Glyph name={id === "privacy" ? "lock" : "check"} size={14} />{label}</span>)}</div>;
 }

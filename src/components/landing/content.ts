@@ -157,5 +157,5 @@ export const HOME_FAQS = [
   { id: "calendar", q: "Can I keep my usual calendar?", a: "Absolutely. Connect Apple Calendar or Google Calendar, or use Tempo on its own. Connecting a calendar is optional." },
   { id: "privacy", q: "Can friends see my private plans?", a: "They see when you’re free, not your private calendar event titles. You choose which preferences to share." },
   { id: "control", q: "Will Tempo book without asking?", a: "You send the first request. Each person’s settings control automatic acceptance. You can decline or cancel a plan." },
-  { id: "devices", q: "What if someone doesn’t have an iPhone?", a: "They can use Tempo in a web browser, including on Android. The iPhone app needs iOS 17 or later." },
+  { id: "start", q: "How do I make my first plan?", a: "Download Tempo, add a friend and tell Tempo what you’d like to do. Start with a catch-up you’ve been putting off." },
 ] as const;

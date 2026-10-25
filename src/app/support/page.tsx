@@ -22,6 +22,7 @@ const GROUPS: Group[] = [
   { id: "getting-started", label: "GETTING STARTED", title: "Getting started", summary: "Sign in and make your first plan.", items: [
     { q: "How do I get started?", a: <p><a href={APP_STORE_URL}>Download Tempo from the App Store</a>, then sign in with Apple, Google or email. Confirm you are 16 or older, choose whether to allow AI, and optionally connect a calendar. Add someone in My People, then choose Create a plan on Home.</p> },
     { q: "Do I need a calendar connection or AI?", a: <p>No. Calendar connections are optional. Choosing Not now for AI keeps calendar functions and fixed-time invitations available. Change AI consent in Settings under AI planning and chat.</p> },
+    { q: "What if someone doesn’t have an iPhone?", a: <p>They can use Tempo in a <a href="https://beta.tempoassistant.com/">web browser</a>, including on Android. There is no native Android app yet. The iPhone app needs iOS 17 or later.</p> },
   ] },
   { id: "planning", label: "PLANNING", title: "Planning with your people", summary: "Find a time and keep everyone in the loop.", items: [
     { q: "Does the other person need Tempo too?", a: <p>{faq("Does the other person need Tempo too?")}</p> },

@@ -57,7 +57,10 @@ export function LifeOnTempo() {
               <div className="discover-preview__label"><span aria-hidden="true"><TempoAgent state="headsUp" crop="head" size={34} /></span><span>A few ideas for your crew</span></div>
               <div className="discover-preview__photo">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/assets/discover-800.webp" srcSet="/assets/discover-400.webp 400w, /assets/discover-800.webp 800w" sizes="(max-width: 759px) 85vw, 450px" width={800} height={450} loading="lazy" alt="Friends heading out on a hike together" />
+                <picture>
+                  <source type="image/avif" srcSet="/assets/discover-400.avif 400w, /assets/discover-600.avif 600w, /assets/discover-800.avif 800w" sizes="(max-width: 759px) calc(100vw - 92px), 450px" />
+                  <img src="/assets/discover-800.webp" srcSet="/assets/discover-400.webp 400w, /assets/discover-600.webp 600w, /assets/discover-800.webp 800w" sizes="(max-width: 759px) calc(100vw - 92px), 450px" width={800} height={450} loading="lazy" decoding="async" alt="Friends heading out on a hike together" />
+                </picture>
                 <span>A morning with a view</span>
               </div>
               <div className="discover-preview__ideas"><span>♫ &nbsp; Live music</span><span>↗ &nbsp; Somewhere new for dinner</span></div>
@@ -72,7 +75,10 @@ export function LifeOnTempo() {
             <div className="life-feature__visual journal-preview" aria-label="Illustration of a journal entry after a catch-up with friends">
               <div className="journal-preview__photo">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/assets/memory-480.webp" srcSet="/assets/memory-240.webp 240w, /assets/memory-480.webp 480w" sizes="(max-width: 759px) 42vw, 220px" width={480} height={600} loading="lazy" alt="Friends laughing together after catching up" />
+                <picture>
+                  <source type="image/avif" srcSet="/assets/memory-240.avif 240w, /assets/memory-360.avif 360w, /assets/memory-480.avif 480w" sizes="(max-width: 759px) 42vw, 220px" />
+                  <img src="/assets/memory-480.webp" srcSet="/assets/memory-240.webp 240w, /assets/memory-360.webp 360w, /assets/memory-480.webp 480w" sizes="(max-width: 759px) 42vw, 220px" width={480} height={600} loading="lazy" decoding="async" alt="Friends laughing together after catching up" />
+                </picture>
                 <p>Worth making time for.</p>
               </div>
               <div className="journal-preview__note"><span>THURSDAY, FINALLY.</span><p>Same people.<br />A new favourite memory.</p></div>

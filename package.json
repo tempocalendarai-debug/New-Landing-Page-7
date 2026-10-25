@@ -4,10 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "node scripts/generate-download-qr.mjs && node scripts/generate-landing-assets.mjs && next build",
+    "build": "node scripts/generate-download-qr.mjs && node scripts/generate-landing-assets.mjs && next build && node scripts/optimize-home-export.mjs && node scripts/check-static-home.mjs",
     "brand:sync": "node scripts/sync-brand.mjs",
     "brand:check": "node scripts/sync-brand.mjs --check",
-    "preview": "node scripts/preview.mjs"
+    "preview": "node scripts/preview.mjs",
+    "check:export": "node scripts/check-static-home.mjs"
   },
   "dependencies": {
     "@netlify/blobs": "^11.1.0",
@@ -19,8 +20,9 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "parse5": "^8.0.1",
     "qrcode": "^1.5.4",
-    "typescript": "^5",
-    "sharp": "0.35.5"
+    "sharp": "0.35.5",
+    "typescript": "^5"
   }
 }

@@ -39,7 +39,7 @@ export function HeroDownload() {
         <div className="download-qr__panel">
           <a href={APP_STORE_URL} aria-label="Open Tempo on the App Store">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/assets/download-qr.svg" width={168} height={168} alt="QR code linking to Tempo on the App Store" />
+            <img src="/assets/download-qr.svg" width={168} height={168} loading="lazy" alt="QR code linking to Tempo on the App Store" />
           </a>
           <p>Open your iPhone camera and point it here.</p>
         </div>

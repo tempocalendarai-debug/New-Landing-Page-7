@@ -19,7 +19,7 @@ export function PlanStory() {
               <span className="plan-scene__reply">I&rsquo;ll find a time.</span>
               <div className="plan-scene__agent"><TempoIllustration state="headsUp" size={92} /></div>
             </div>
-            <div className="plan-story__caption"><span>01</span><div><h3>Say who.</h3><p>A friend. Your partner. The whole crew.</p></div></div>
+            <div className="plan-story__caption"><span>01</span><div><h3>Pick your people.</h3><p>Tell Tempo who you want to see and what you have in mind.</p></div></div>
           </li>
           <li>
             <div className="plan-scene plan-scene--time" aria-hidden="true">
@@ -29,14 +29,14 @@ export function PlanStory() {
               </div>
               <p className="plan-scene__match"><Glyph name="check" size={17} /> A time for all three</p>
             </div>
-            <div className="plan-story__caption"><span>02</span><div><h3>Find your overlap.</h3><p>Your Tempos compare schedules and preferences.</p></div></div>
+            <div className="plan-story__caption"><span>02</span><div><h3>Let Tempo find a time.</h3><p>Your Tempos sort the schedules. You skip the back-and-forth.</p></div></div>
           </li>
           <li>
             <div className="plan-scene plan-scene--go" aria-hidden="true">
               <div className="plan-scene__ticket"><span className="plan-scene__eyebrow">You&rsquo;re all in</span><strong>Dinner with<br />the crew.</strong><p>Friday · 7 pm</p><span className="plan-scene__ticket-check"><Glyph name="check" size={24} /></span></div>
               <div className="plan-scene__happy"><TempoIllustration state="niceOne" size={84} /></div>
             </div>
-            <div className="plan-story__caption"><span>03</span><div><h3>See you there.</h3><p>Once everyone&rsquo;s in, it&rsquo;s in everyone&rsquo;s schedule.</p></div></div>
+            <div className="plan-story__caption"><span>03</span><div><h3>Make it happen.</h3><p>Everyone&rsquo;s in. It&rsquo;s in your schedules. Go enjoy your people.</p></div></div>
           </li>
         </ol>
         <div className="plan-story__download"><DownloadButton placement="story" /><p>Start with one friend you&rsquo;ve been meaning to see.</p></div>

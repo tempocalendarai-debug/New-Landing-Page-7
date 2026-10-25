@@ -31,9 +31,11 @@ for (const state of ["headsUp", "thinking", "niceOne"]) {
   svg = svg.replace("<svg ", '<svg xmlns="http://www.w3.org/2000/svg" style="color:#1b1b19;--tempo-paper:#f7f4ed;--tempo-weight:1" ');
   await writeFile(path.join(assets, `tempo-${state}.svg`), svg + "\n");
 }
-for (const width of [400, 800]) {
+for (const width of [400, 600, 800]) {
   await sharp(path.join(assets, "life-trip.webp")).resize(width, Math.round(width * 9 / 16), { fit: "cover", position: "centre" }).webp({ quality: 78 }).toFile(path.join(assets, `discover-${width}.webp`));
+  await sharp(path.join(assets, "life-trip.webp")).resize(width, Math.round(width * 9 / 16), { fit: "cover", position: "centre" }).avif({ quality: 48 }).toFile(path.join(assets, `discover-${width}.avif`));
 }
-for (const width of [240, 480]) {
-  await sharp(path.join(assets, "life-thursday.webp")).resize({ width }).webp({ quality: 78 }).toFile(path.join(assets, `memory-${width}.webp`));
+for (const width of [240, 360, 480]) {
+  await sharp(path.join(assets, "life-thursday.webp")).resize(width, Math.round(width * 1.25), { fit: "cover" }).webp({ quality: 78 }).toFile(path.join(assets, `memory-${width}.webp`));
+  await sharp(path.join(assets, "life-thursday.webp")).resize(width, Math.round(width * 1.25), { fit: "cover" }).avif({ quality: 48 }).toFile(path.join(assets, `memory-${width}.avif`));
 }
