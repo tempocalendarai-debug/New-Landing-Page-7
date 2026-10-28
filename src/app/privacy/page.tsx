@@ -11,7 +11,7 @@ export const metadata = pageMetadata({
 export default function PrivacyPage() {
   return (
     <SubPage eyebrow="Legal" lines={["PRIVACY", "POLICY"]} label="Privacy Policy">
-      <LegalDocument file="privacy" meta="Last updated: 7 October 2026" />
+      <LegalDocument file="privacy" meta="Last updated: 28 October 2026" />
     </SubPage>
   );
 }
