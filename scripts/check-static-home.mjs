@@ -65,6 +65,19 @@ for (const n of [...all("img"), ...all("source")]) {
   const urls = [attr(n, "src"), ...(attr(n, "srcset") ?? "").split(",").filter(Boolean).map(x => x.trim().split(" ")[0])].filter(Boolean);
   for (const url of urls) if (url.startsWith("/")) await access(path.join(root, url));
 }
+// Native demo controls survive the export without React, with one default per group.
+for (const name of ["example-plan", "planning-step"]) {
+  const radios = all("input").filter(n => attr(n, "name") === name);
+  assert.equal(radios.length, 3, `${name}: three choices`);
+  assert.equal(radios.filter(n => attr(n, "checked") !== undefined).length, 1, `${name}: one default`);
+  for (const radio of radios) {
+    assert.equal(attr(radio, "type"), "radio");
+    assert.equal(radio.parentNode.tagName, "label", "Every choice has a native label");
+    assert.ok(ids.has(attr(radio, "aria-controls")), "Every choice names an existing panel");
+  }
+}
+assert.ok(all("main").some(n => attr(n, "id") === "main" && attr(n, "tabindex") === "-1"));
+assert.ok(all("a").some(n => attr(n, "class") === "skip-link" && attr(n, "href") === "#main"));
 const css = all("style").map(text).join("\n");
 assert.match(css, /scroll-behavior:smooth/);
 assert.match(css, /prefers-reduced-motion:reduce[^}]*scroll-behavior:auto/);
@@ -72,4 +85,4 @@ for (const match of css.matchAll(/url\(["']?(\/_next\/static\/media\/[^"')]+)["'
 const contact = await readFile(path.join(root, "contact.html"), "utf8");
 assert.match(contact, /<script[^>]+src="\/_next\//, "Contact must keep its copy-button runtime");
 assert.ok(contact.includes("Copy address"));
-console.log("Static homepage checks passed: content, FAQ schema, assets, native anchors, AI links and Contact runtime.");
+console.log("Static homepage checks passed: content, FAQ schema, assets, native anchors and demos, AI links and Contact runtime.");

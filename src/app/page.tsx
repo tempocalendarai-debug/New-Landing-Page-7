@@ -97,7 +97,7 @@ export default function Home() {
       />
       <LaunchBar />
       <SiteNav home />
-      <main>
+      <main id="main" tabIndex={-1}>
         <Hero />
         <Backers />
         <PlanStory />

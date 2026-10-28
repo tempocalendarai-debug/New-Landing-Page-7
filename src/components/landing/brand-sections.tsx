@@ -44,7 +44,7 @@ export function Backers() {
 
 export function LifeOnTempo() {
   return (
-    <section id="life" className="section life-story" aria-labelledby="life-title">
+    <section tabIndex={-1} id="life" className="section life-story" aria-labelledby="life-title">
       <span id="week" />
       <div className="wrap">
         <div className="life-story__heading">

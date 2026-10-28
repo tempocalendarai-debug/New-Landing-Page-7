@@ -9,6 +9,7 @@ import { DownloadButton } from "./download";
 export function SiteNav({ home = false }: { home?: boolean }) {
   return (
     <header className="nav">
+      {home && <a className="skip-link" href="#main">Skip to content</a>}
       <div className="wrap nav__inner">
         <a
           href={home ? "#top" : "/"}
@@ -22,9 +23,9 @@ export function SiteNav({ home = false }: { home?: boolean }) {
           <TempoWordmark height={24} boil={false} />
         </a>
         <nav className="nav__links" aria-label="Primary">
-          <a href="/#how">How it works</a>
-          <a href="/#life">Life on Tempo</a>
-          <a href="/#faq">FAQ</a>
+          <a href={home ? "#how" : "/#how"}>How it works</a>
+          <a href={home ? "#life" : "/#life"}>Life on Tempo</a>
+          <a href={home ? "#faq" : "/#faq"}>FAQ</a>
           <a href="/support">Support</a>
         </nav>
         <DownloadButton placement="nav" compact />

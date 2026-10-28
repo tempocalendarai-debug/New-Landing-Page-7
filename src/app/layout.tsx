@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import { APP_STORE_ID, DESCRIPTION, KEYWORDS, OG_ALT, SITE_URL, TITLE } from "@/components/landing/content";
 import "./globals.css";
+import "./experience.css";
 
 /** Same body face as the app. The hand-lettered display face is SVG, not a font. */
 const jakarta = Plus_Jakarta_Sans({

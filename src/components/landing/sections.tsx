@@ -12,16 +12,22 @@ export function Hero() {
       <div className="wrap hero__inner">
         <div className="hero__copy">
           <p className="hero__eyebrow">Together, not apart</p>
-          <HandHeading
-            id="hero-title"
-            as="h1"
-            lines={["SEE YOUR", "FRIENDS MORE."]}
-            label="See your friends more."
-            height={57}
-          />
+          <div className="hero__headline">
+            <HandHeading
+              id="hero-title"
+              as="h1"
+              lines={["SEE YOUR", "FRIENDS MORE."]}
+              label="See your friends more."
+              height={57}
+            />
+            <svg className="hero__underline" viewBox="0 0 500 16" fill="none" aria-hidden="true">
+              <path d="M3 10C128 3 292 3 496 7M74 13C194 9 326 10 421 12" pathLength="1" />
+            </svg>
+          </div>
           <p className="lead hero__lead">
             The free app that turns “we should catch up” into a plan.
           </p>
+          <p className="hero__explanation">Pick your people. Tempo finds a time. <br />You just have to be there.</p>
           <HeroDownload />
         </div>
         <HeroScene />
@@ -33,7 +39,7 @@ export function Hero() {
 
 export function FinalCta() {
   return (
-    <section id="download" className="section section--cta section--burgundy" aria-labelledby="cta-title">
+    <section tabIndex={-1} id="download" className="section section--cta section--burgundy" aria-labelledby="cta-title">
       <span id="waitlist" /><span id="first-plan" /><span id="founding" />
       <div className="wrap">
         <div className="cta">

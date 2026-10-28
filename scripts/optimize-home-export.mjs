@@ -21,7 +21,8 @@ let schemas = 0;
 async function optimize(node) {
   const children = [];
   for (const child of node.childNodes ?? []) {
-    if (["button", "input", "form", "textarea", "select"].includes(child.tagName)) {
+    const nativeRadio = child.tagName === "input" && attr(child, "type") === "radio" && ["example-plan", "planning-step"].includes(attr(child, "name"));
+    if (["button", "input", "form", "textarea", "select"].includes(child.tagName) && !nativeRadio) {
       throw new Error(`Homepage now contains <${child.tagName}>; review its static interaction contract.`);
     }
     if (attr(child, "id")?.startsWith("S:")) throw new Error("Unexpected streamed boundary in static homepage");

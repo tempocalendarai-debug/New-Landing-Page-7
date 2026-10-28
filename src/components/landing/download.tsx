@@ -13,12 +13,14 @@ export function DownloadButton({ placement, compact = false }: { placement: stri
 
 export function LaunchBar() {
   return (
+    <aside aria-label="Tempo for iPhone">
     <a className="fbar launch-bar" href={APP_STORE_URL}>
       <span className="fbar__inner">
         <span className="launch-bar__message"><span className="launch-bar__mark" aria-hidden="true"><TempoAgent state="idle" crop="head" size={23} /></span> Your people. Your plans. Your Tempo.</span>
         <span className="fbar__left">Free on iPhone <span aria-hidden="true">↗</span></span>
       </span>
     </a>
+    </aside>
   );
 }
 

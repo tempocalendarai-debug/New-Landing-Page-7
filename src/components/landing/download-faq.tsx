@@ -26,7 +26,7 @@ function AnswerIllustration({ id }: { id: keyof typeof SYMBOLS }) {
 
 export function DownloadFaq() {
   return (
-    <section id="faq" className="section download-faq" aria-labelledby="faq-title">
+    <section tabIndex={-1} id="faq" className="section download-faq" aria-labelledby="faq-title">
       <div className="wrap faq">
         <div className="download-faq__intro">
           <div className="download-faq__agent" aria-hidden="true"><TempoIllustration state="headsUp" size={100} /></div>
